@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Business — LocalFind</title>
+  <meta name="description" content="Business details on LocalFind">
+  <link rel="canonical" href="/business-detail.html">
+  <meta property="og:image" content="assets/images/og-image.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main class="container">
+    <nav class="breadcrumb">Home › Directory › <span id="biz-category">Category</span> › <span id="biz-name">Business</span></nav>
+    <section id="biz-hero" class="biz-hero">
+      <div class="cover"></div>
+      <div class="biz-meta">
+        <div class="avatar" id="biz-avatar">LF</div>
+        <div class="meta-text"><h1 id="biz-title">Business Name</h1><div id="biz-badges"></div><div id="biz-rating"></div></div>
+      </div>
+    </section>
+
+    <section class="biz-content">
+      <div class="main-col">
+        <article id="biz-desc"></article>
+        <div id="photo-gallery" class="photo-gallery"></div>
+        <section id="reviews">
+          <h3>Reviews</h3>
+          <div id="reviews-list"></div>
+          <button class="btn" id="write-review">Write a Review</button>
+          <form id="review-form" class="hidden">
+            <input name="name" placeholder="Your name">
+            <select name="rating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select>
+            <textarea name="comment" placeholder="Your review"></textarea>
+            <button class="btn btn-cta" type="submit">Submit Review</button>
+          </form>
+        </section>
+      </div>
+      <aside class="sidebar">
+        <div class="contact-card" id="biz-contact"></div>
+        <div id="biz-hours" class="hours-card"></div>
+        <div id="biz-tags" class="tags-card"></div>
+        <div id="biz-map" class="small-map"></div>
+      </aside>
+    </section>
+
+    <section id="related" class="related-section"><h3>Related Listings</h3><div id="related-list" class="card-grid"></div></section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/directory.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id');
+      const biz = window.LISTINGS.find(b=>b.id===id) || window.LISTINGS[0];
+      // render basic
+      document.getElementById('biz-title').textContent = biz.name;
+      document.getElementById('biz-desc').textContent = biz.description;
+      document.getElementById('biz-category').textContent = biz.category;
+      document.getElementById('biz-name').textContent = biz.name;
+      document.getElementById('biz-contact').innerHTML = `<p>${biz.address}</p><p><a href=\"tel:${biz.phone}\">${biz.phone}</a></p><p><a href=\"${biz.mapLink}\">View on map</a></p>`;
+      document.getElementById('related-list').innerHTML = window.LISTINGS.filter(b=>b.categorySlug===biz.categorySlug && b.id!==biz.id).slice(0,3).map(b=>window.renderCard(b)).join('');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>500 - Server Error | LocalFind</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .error-page {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .error-code {
+      font-size: 120px;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent-danger), var(--accent-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+    .error-message {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+    .error-description {
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-page">
+    <h1 class="error-code">500</h1>
+    <h2 class="error-message">Internal Server Error</h2>
+    <p class="error-description">
+      We're experiencing technical difficulties. Our team has been notified and is working to resolve the issue. Please try again later.
+    </p>
+    <div>
+      <a href="index.html" class="btn btn-cta">Go to Homepage</a>
+      <a href="contact.html" class="btn" style="margin-left: 10px;">Contact Support</a>
+    </div>
+  </div>
+</body>
+</html>

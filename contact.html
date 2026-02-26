@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — LocalFind</title>
+  <meta name="description" content="Contact LocalFind">
+  <link rel="canonical" href="/contact.html">
+  <meta property="og:image" content="assets/images/og-image.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main class="container contact-page">
+    <h1>Get In Touch</h1>
+    <div class="contact-grid">
+      <div class="contact-form">
+        <form id="contact-form">
+          <label>Name<input name="name" required></label>
+          <label>Email<input name="email" type="email" required></label>
+          <label>Phone<input name="phone"></label>
+          <label>Subject<select name="subject"><option>General</option><option>Support</option><option>Partnership</option></select></label>
+          <label>Message<textarea name="message" required></textarea></label>
+          <button type="submit" class="btn btn-cta">Send Message</button>
+        </form>
+      </div>
+      <div class="contact-info">
+        <div class="info-card"><h4>Address</h4><p>123 Main Street, Your City</p></div>
+        <div class="info-card"><h4>Phone</h4><p><a href="tel:+910000000000">+91 00000 00000</a></p></div>
+        <div class="info-card"><h4>Email</h4><p><a href="mailto:hello@localfind.com">hello@localfind.com</a></p></div>
+        <div class="info-card"><h4>Hours</h4><p>Mon–Fri 9am–6pm</p></div>
+      </div>
+    </div>
+
+    <section class="map-embed"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=77.1%2C28.5%2C77.3%2C28.8&amp;layer=mapnik" loading="lazy"></iframe></section>
+
+    <section class="faq"><h2>FAQ</h2><div class="accordion"><details><summary>How do I list a business?</summary><p>Use the List Your Business page and complete the form.</p></details><details><summary>How long does review take?</summary><p>Typically 24–72 hours.</p></details><details><summary>Can I edit my listing?</summary><p>Contact support to request edits.</p></details></div></section>
+  </main>
+  <footer id="site-footer"></footer>
+  <script src="js/config.js"></script>
+  <script src="js/form.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

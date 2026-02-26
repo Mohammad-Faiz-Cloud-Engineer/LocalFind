@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Business Directory — LocalFind</title>
+  <meta name="description" content="Browse all businesses in LocalFind directory. Filter by category, rating, and location.">
+  <meta name="keywords" content="business directory, local businesses, search businesses">
+  <link rel="canonical" href="https://yourdomain.com/directory.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/directory.html">
+  <meta property="og:title" content="Business Directory — LocalFind">
+  <meta property="og:description" content="Browse all businesses in LocalFind directory.">
+  <meta property="og:image" content="https://yourdomain.com/assets/images/og-image.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/filters.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main class="container">
+    <nav class="breadcrumb">Home › Directory</nav>
+    <h1>All Businesses</h1>
+
+    <section class="filters" id="filters">
+      <div class="filters-row">
+        <div class="category-tabs" id="category-tabs"> <!-- JS populated --> </div>
+        <div class="search-inline">
+          <input id="filter-search" placeholder="Search within results..." aria-label="Search within results">
+        </div>
+        <div class="sort-controls">
+          <select id="sort-select"><option value="newest">Newest</option><option value="rating">Rating ↓</option><option value="az">A–Z</option><option value="open">Open Now</option></select>
+          <button id="view-grid" title="Grid view" class="view-toggle active"><i class="fa-solid fa-table-cells"></i></button>
+          <button id="view-list" title="List view" class="view-toggle"><i class="fa-solid fa-list"></i></button>
+        </div>
+      </div>
+      <div class="results-count" id="results-count">Showing 0 of 0 businesses</div>
+    </section>
+
+    <section id="listings" class="card-grid"></section>
+    <div class="load-more-wrap"><button id="load-more" class="btn">Load More</button></div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/directory.js"></script>
+</body>
+</html>

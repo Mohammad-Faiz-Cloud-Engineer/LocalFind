@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>List Your Business — LocalFind</title>
+  <meta name="description" content="List your business for free on LocalFind">
+  <link rel="canonical" href="/add-business.html">
+  <meta property="og:image" content="assets/images/og-image.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main class="container">
+    <h1>List Your Business for Free</h1>
+    <p class="benefits"><span>Free</span><span>Instant Visibility</span><span>Direct Calls</span></p>
+
+    <form id="add-business-form" novalidate>
+      <div class="stepper" data-step="1">
+        <div class="step step-1">
+          <h3>Basic Info</h3>
+          <label>Business Name<input name="name" required></label>
+          <label>Category<select name="category" required><option value="">Select</option><option value="grocery">Grocery</option><option value="restaurants">Restaurants</option></select></label>
+          <label>Short Description<textarea name="short" maxlength="200"></textarea><div class="char-count">0/200</div></label>
+          <label>Full Description<textarea name="description"></textarea></label>
+          <div class="step-controls"><button type="button" class="btn" data-action="next">Next</button></div>
+        </div>
+
+        <div class="step step-2 hidden">
+          <h3>Contact & Location</h3>
+          <label>Owner Name<input name="owner"></label>
+          <label>Phone<input name="phone" required></label>
+          <label>Email<input name="email" type="email"></label>
+          <label>Full Address<textarea name="address"></textarea></label>
+          <label>City<input name="city"></label>
+          <div class="step-controls"><button type="button" class="btn" data-action="back">Back</button><button type="button" class="btn" data-action="next">Next</button></div>
+        </div>
+
+        <div class="step step-3 hidden">
+          <h3>Hours & Tags</h3>
+          <label>Tags<input name="tags" placeholder="type and press Enter"></label>
+          <label><input type="checkbox" name="featured"> Featured listing</label>
+          <label><input type="checkbox" name="terms" required> I agree to terms</label>
+          <div class="step-controls"><button type="button" class="btn" data-action="back">Back</button><button type="submit" class="btn btn-cta">Submit</button></div>
+        </div>
+      </div>
+    </form>
+  </main>
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/form.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

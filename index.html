@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>LocalFind — Discover Everything Around You</title>
+  <meta name="description" content="Find local shops, restaurants, services & more in Your City. Browse 500+ verified businesses across 20+ categories.">
+  <meta name="keywords" content="local business, directory, restaurants, shops, services, your city">
+  <meta name="author" content="LocalFind">
+  <link rel="canonical" href="https://yourdomain.com/">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/">
+  <meta property="og:title" content="LocalFind — Discover Everything Around You">
+  <meta property="og:description" content="Find local shops, restaurants, services & more in Your City.">
+  <meta property="og:image" content="https://yourdomain.com/assets/images/og-image.jpg">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://yourdomain.com/">
+  <meta property="twitter:title" content="LocalFind — Discover Everything Around You">
+  <meta property="twitter:description" content="Find local shops, restaurants, services & more in Your City.">
+  <meta property="twitter:image" content="https://yourdomain.com/assets/images/og-image.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/categories.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "LocalFind",
+    "url": "https://yourdomain.com",
+    "description": "Local business directory for Your City",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://yourdomain.com/directory.html?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <div class="hero-text" data-animate>
+          <h1 class="hero-title">Discover Everything Around You</h1>
+          <p class="hero-sub">Find local shops, restaurants, services & more — all in one place</p>
+        </div>
+
+        <form class="search-bar" id="hero-search" action="directory.html" method="get" role="search">
+          <input name="location" placeholder="Your area or pin code" aria-label="Location" value="">
+          <input name="search" placeholder="What are you looking for?" aria-label="Search keywords">
+          <select name="category" aria-label="Category">
+            <option value="">All Categories</option>
+            <option value="restaurants">Restaurants & Food</option>
+            <option value="grocery">Grocery</option>
+            <option value="pharmacy">Pharmacy</option>
+          </select>
+          <button type="submit" class="btn btn-cta">Search</button>
+        </form>
+
+        <div class="hero-stats">
+          <div class="stat" data-animate data-animate-delay="100"><strong class="count" data-target="500">0</strong><span>Listings</span></div>
+          <div class="stat" data-animate data-animate-delay="200"><strong class="count" data-target="20">0</strong><span>Categories</span></div>
+          <div class="stat" data-animate data-animate-delay="300"><strong class="count" data-target="10000">0</strong><span>Visitors</span></div>
+        </div>
+
+        <a href="#categories" class="scroll-down" aria-label="Scroll down">⌄</a>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="categories" class="categories-section">
+      <div class="container">
+        <h2>Browse by Category</h2>
+        <div class="category-grid">
+          <a class="category-card" href="directory.html?category=restaurants" aria-label="Browse Restaurants & Food">
+            <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+            <span>Restaurants & Food</span>
+          </a>
+          <a class="category-card" href="directory.html?category=grocery" aria-label="Browse Grocery & Supermarkets">
+            <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+            <span>Grocery & Supermarkets</span>
+          </a>
+          <a class="category-card" href="directory.html?category=pharmacy" aria-label="Browse Pharmacy & Health">
+            <i class="fa-solid fa-pills" aria-hidden="true"></i>
+            <span>Pharmacy & Health</span>
+          </a>
+          <a class="category-card" href="directory.html?category=banks" aria-label="Browse Banks & Finance">
+            <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+            <span>Banks & Finance</span>
+          </a>
+          <a class="category-card" href="directory.html?category=education" aria-label="Browse Education & Schools">
+            <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+            <span>Education & Schools</span>
+          </a>
+          <a class="category-card" href="directory.html?category=salons" aria-label="Browse Salons & Beauty">
+            <i class="fa-solid fa-scissors" aria-hidden="true"></i>
+            <span>Salons & Beauty</span>
+          </a>
+          <a class="category-card" href="directory.html?category=hardware" aria-label="Browse Hardware & Repairs">
+            <i class="fa-solid fa-wrench" aria-hidden="true"></i>
+            <span>Hardware & Repairs</span>
+          </a>
+          <a class="category-card" href="directory.html?category=hospitals" aria-label="Browse Hospitals & Clinics">
+            <i class="fa-solid fa-hospital" aria-hidden="true"></i>
+            <span>Hospitals & Clinics</span>
+          </a>
+          <a class="category-card" href="directory.html?category=laundry" aria-label="Browse Laundry & Cleaning">
+            <i class="fa-solid fa-shirt" aria-hidden="true"></i>
+            <span>Laundry & Cleaning</span>
+          </a>
+          <a class="category-card" href="directory.html?category=delivery" aria-label="Browse Delivery & Logistics">
+            <i class="fa-solid fa-truck" aria-hidden="true"></i>
+            <span>Delivery & Logistics</span>
+          </a>
+          <a class="category-card" href="directory.html?category=pump" aria-label="Browse Petrol Stations">
+            <i class="fa-solid fa-gas-pump" aria-hidden="true"></i>
+            <span>Petrol Stations</span>
+          </a>
+          <a class="category-card" href="directory.html?category=entertainment" aria-label="Browse Entertainment & Leisure">
+            <i class="fa-solid fa-masks-theater" aria-hidden="true"></i>
+            <span>Entertainment & Leisure</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED -->
+    <section class="featured-section">
+      <div class="container">
+        <h2>Featured Places Near You</h2>
+        <div id="featured-list" class="card-grid"></div>
+        <div class="view-all"><a href="directory.html" class="btn">View All</a></div>
+      </div>
+    </section>
+
+    <!-- MAP PREVIEW -->
+    <section class="map-preview">
+      <div class="container">
+        <h2>Map Preview</h2>
+        <div class="map-wrap">
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=77.1%2C28.5%2C77.3%2C28.8&amp;layer=mapnik" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="map-overlay">
+            <h3>Your City</h3>
+            <p>500+ listings in this area</p>
+            <a class="btn btn-ghost" href="#">Open in Maps</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS COUNTER -->
+    <section class="stats-section">
+      <div class="container stats-grid" id="stats">
+        <div class="stat-card" data-animate><div class="num" data-target="500">0</div><div class="label">Businesses</div></div>
+        <div class="stat-card" data-animate><div class="num" data-target="20">0</div><div class="label">Categories</div></div>
+        <div class="stat-card" data-animate><div class="num" data-target="2000">0</div><div class="label">Reviews</div></div>
+        <div class="stat-card" data-animate><div class="num" data-target="10000">0</div><div class="label">Visitors</div></div>
+      </div>
+    </section>
+
+    <!-- RECENTLY ADDED -->
+    <section class="recently-section">
+      <div class="container">
+        <h2>New to the Directory</h2>
+        <div class="recent-grid" id="recent-list"></div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-banner">
+      <div class="container">
+        <h2>Own a Business? Get Listed for Free!</h2>
+        <a href="add-business.html" class="btn btn-cta">List Your Business</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/counter.js"></script>
+  <script src="js/directory.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // render featured
+      const featured = window.LISTINGS.filter(b=>b.featured).slice(0,6);
+      const container = document.getElementById('featured-list');
+      featured.forEach(b=>{ container.insertAdjacentHTML('beforeend', window.renderCard(b)); });
+      // recent
+      const recent = window.LISTINGS.filter(b=>b.isNew).slice(0,4);
+      const recentWrap = document.getElementById('recent-list');
+      recent.forEach(b=> recentWrap.insertAdjacentHTML('beforeend', window.renderCard(b)));
+    });
+  </script>
+</body>
+</html>
