@@ -47,7 +47,18 @@ window.LISTINGS = [
     featured: true,
     status: "open",
     rating: 5.0,
-    reviewCount: 0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 5.0,
+        date: "2026-02-27",
+        text: "This is the Best Common Service Center in Rasauli, personal experience.",
+        verified: true
+      }
+    ],
     address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Near Rehan Clothing Store, Uttar Pradesh 225203",
     mapLink: "https://maps.google.com/?q=26.923313,81.261053",
     phone: "+91 91405 15707",
