@@ -56,7 +56,6 @@ LocalFind/
 ├── business-detail.html    # Business details
 ├── add-business.html       # Add business form
 ├── about.html             # About page
-├── contact.html           # Contact form
 ├── css/                   # Stylesheets
 ├── js/                    # JavaScript files
 └── assets/                # Images and icons
