@@ -13,18 +13,19 @@
 const CONFIG = {
   // Site Information
   siteName: "LocalFind",
-  areaName: "Your City / Town Name",
+  areaName: "Rasauli, Barabanki, Uttar Pradesh",
   tagline: "Discover Everything Around You",
   
-  // Map Configuration
-  mapLat: 28.6139,
-  mapLng: 77.2090,
+  // Map Configuration (Rasauli near Barabanki, Uttar Pradesh - PIN 225001)
+  // Latitude: 26.9135° N, Longitude: 81.2328° E
+  mapLat: 26.9135,
+  mapLng: 81.2328,
   mapZoom: 14,
   
   // Contact Information
   contactEmail: "hello@localfind.com",
   contactPhone: "+91 00000 00000",
-  contactAddress: "123 Main Street, Your City",
+  contactAddress: "Rasauli, Barabanki, Uttar Pradesh 225001",
   
   // Business Information
   foundedYear: 2024,
