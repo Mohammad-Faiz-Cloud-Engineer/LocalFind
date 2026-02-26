@@ -24,12 +24,31 @@
       return;
     }
     
+    // Extract coordinates from mapLink or use default
+    let lat, lng;
+    
+    // Try to extract from Google Maps link format: ?q=lat,lng
+    const coordMatch = business.mapLink.match(/q=([\d.]+),([\d.]+)/);
+    if (coordMatch) {
+      lat = parseFloat(coordMatch[1]);
+      lng = parseFloat(coordMatch[2]);
+    } else {
+      // Fallback to config coordinates
+      lat = CONFIG.mapLat;
+      lng = CONFIG.mapLng;
+    }
+    
+    // Create bounding box around the point (approximately 0.01 degrees = ~1km)
+    const delta = 0.005;
+    const bbox = `${lng - delta},${lat - delta},${lng + delta},${lat + delta}`;
+    
     const iframe = document.createElement('iframe');
-    iframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(business.mapLink)}`;
+    iframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat},${lng}`;
     iframe.loading = 'lazy';
     iframe.style.width = '100%';
-    iframe.style.height = '250px';
+    iframe.style.height = '100%';
     iframe.setAttribute('title', `Map showing location of ${business.name}`);
+    iframe.setAttribute('frameborder', '0');
     
     mapContainer.appendChild(iframe);
   });

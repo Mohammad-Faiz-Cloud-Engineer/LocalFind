@@ -17,7 +17,7 @@ const CONFIG = {
   tagline: "Discover Everything Around You",
   
   // Map Configuration (Rasauli near Barabanki, Uttar Pradesh - PIN 225001)
-  // Latitude: 26.9135° N, Longitude: 81.2328° E
+  // General Rasauli area coordinates: 26.9135° N, 81.2328° E
   mapLat: 26.9135,
   mapLng: 81.2328,
   mapZoom: 14,

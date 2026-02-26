@@ -10,7 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/business-detail.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/animations.css">
 </head>
@@ -83,7 +85,42 @@
       document.getElementById('biz-desc').textContent = biz.description;
       document.getElementById('biz-category').textContent = biz.category;
       document.getElementById('biz-name').textContent = biz.name;
-      document.getElementById('biz-contact').innerHTML = `<p>${biz.address}</p><p><a href=\"tel:${biz.phone}\">${biz.phone}</a></p><p><a href=\"${biz.mapLink}\">View on map</a></p>`;
+      
+      // Render badges
+      const badgesHtml = [];
+      if (biz.featured) badgesHtml.push('<span style="background:#FF9F43;color:#0A0E17;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-right:8px;">FEATURED</span>');
+      if (biz.isNew) badgesHtml.push('<span style="background:#26DE81;color:#0A0E17;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;">NEW</span>');
+      document.getElementById('biz-badges').innerHTML = badgesHtml.join('');
+      
+      // Render rating
+      document.getElementById('biz-rating').innerHTML = `<div style="color:#FF9F43;font-size:18px;margin-top:8px;">${'★'.repeat(Math.floor(biz.rating))}${'☆'.repeat(5-Math.floor(biz.rating))} <span style="color:var(--text-muted);font-size:14px;">${biz.rating} (${biz.reviewCount} reviews)</span></div>`;
+      
+      // Render contact info
+      const contactHtml = `
+        <h4 style="margin-bottom:1rem;color:var(--text-primary);">Contact Information</h4>
+        <p style="margin-bottom:0.5rem;"><i class="fa-solid fa-location-dot" style="margin-right:8px;color:var(--accent-primary);"></i>${biz.address}</p>
+        <p style="margin-bottom:0.5rem;"><i class="fa-solid fa-phone" style="margin-right:8px;color:var(--accent-primary);"></i><a href="tel:${biz.phone}">${biz.phone}</a></p>
+        ${biz.email ? `<p style="margin-bottom:0.5rem;"><i class="fa-solid fa-envelope" style="margin-right:8px;color:var(--accent-primary);"></i><a href="mailto:${biz.email}">${biz.email}</a></p>` : ''}
+        ${biz.whatsapp ? `<p style="margin-bottom:0.5rem;"><i class="fa-brands fa-whatsapp" style="margin-right:8px;color:var(--accent-primary);"></i><a href="https://wa.me/${biz.whatsapp.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a></p>` : ''}
+        ${biz.website ? `<p style="margin-bottom:0.5rem;"><i class="fa-solid fa-globe" style="margin-right:8px;color:var(--accent-primary);"></i><a href="${biz.website}" target="_blank">Website</a></p>` : ''}
+        <p style="margin-top:1rem;"><a href="${biz.mapLink}" target="_blank" class="btn" style="width:100%;">View on Map</a></p>
+      `;
+      document.getElementById('biz-contact').innerHTML = contactHtml;
+      
+      // Render hours
+      const days = {mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
+      const hoursHtml = '<h4 style="margin-bottom:1rem;color:var(--text-primary);">Opening Hours</h4>' + 
+        Object.keys(days).map(day => {
+          const hours = biz.hours[day];
+          const isClosed = hours.open === '00:00' && hours.close === '00:00';
+          return `<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span>${days[day]}</span><span style="color:${isClosed ? 'var(--accent-danger)' : 'var(--accent-success)'};">${isClosed ? 'Closed' : hours.open + ' - ' + hours.close}</span></div>`;
+        }).join('');
+      document.getElementById('biz-hours').innerHTML = hoursHtml;
+      
+      // Render tags
+      const tagsHtml = '<h4 style="margin-bottom:1rem;color:var(--text-primary);">Services</h4>' +
+        biz.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+      document.getElementById('biz-tags').innerHTML = tagsHtml;
       
       // Render related listings
       const relatedList = document.getElementById('related-list');

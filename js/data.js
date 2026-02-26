@@ -38,7 +38,36 @@
  *   isNew: false                                 // true/false - New listing badge
  * }
  */
-window.LISTINGS = [];
+window.LISTINGS = [
+  {
+    id: "raheem-common-service-center",
+    name: "Raheem Common Service Center",
+    category: "Government Services & CSC",
+    categorySlug: "government-services",
+    featured: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 0,
+    address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Near Rehan Clothing Store, Uttar Pradesh 225203",
+    mapLink: "https://maps.google.com/?q=26.923313,81.261053",
+    phone: "+91 91405 15707",
+    email: "moraheem862@gmail.com",
+    website: "",
+    whatsapp: "+91 91405 15707",
+    hours: {
+      mon: {open: "09:00", close: "19:00"},
+      tue: {open: "09:00", close: "19:00"},
+      wed: {open: "09:00", close: "19:00"},
+      thu: {open: "09:00", close: "19:00"},
+      fri: {open: "00:00", close: "00:00"},
+      sat: {open: "09:00", close: "19:00"},
+      sun: {open: "09:00", close: "19:00"}
+    },
+    description: "Raheem Common Service Center is your one-stop solution for all government and digital services in Rasauli. We provide comprehensive services including Aadhaar card enrollment and updates, PAN card applications, income certificates, caste certificates, domicile certificates, birth and death certificates, and various other government document services. We also offer banking services, bill payments, insurance services, digital payments, and online form submissions. Our experienced team, led by owner Raheem, ensures quick, reliable, and hassle-free service delivery. Visit us for all your documentation and digital service needs.",
+    tags: ["csc", "aadhaar", "pan-card", "certificates", "banking", "government-services", "digital-services", "bill-payment"],
+    isNew: true
+  }
+];
 
 /**
  * Sanitize HTML to prevent XSS attacks
