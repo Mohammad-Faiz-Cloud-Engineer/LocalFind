@@ -1,51 +1,141 @@
-// directory.js — filter, sort, search, render, pagination
-(function(){
-  const perPage = 6;
+/**
+ * Directory Page - Filter, Sort, Search, Pagination
+ * Handles business listing display and user interactions
+ */
+(function() {
+  'use strict';
+  
+  const ITEMS_PER_PAGE = 6;
   let offset = 0;
-  let current = [...window.LISTINGS];
-  let view = 'grid';
+  let currentListings = [...window.LISTINGS];
+  let viewMode = 'grid';
 
-  function applyQueryParams(){
+  /**
+   * Apply URL query parameters to filter listings
+   */
+  function applyQueryParams() {
     const params = new URLSearchParams(location.search);
     const category = params.get('category');
     const search = params.get('search');
-    if(category) current = current.filter(b=>b.categorySlug===category);
-    if(search) current = current.filter(b=>b.name.toLowerCase().includes(search.toLowerCase())||b.description.toLowerCase().includes(search.toLowerCase()));
+    
+    if (category) {
+      currentListings = currentListings.filter(b => b.categorySlug === category);
+    }
+    
+    if (search) {
+      const searchLower = search.toLowerCase();
+      currentListings = currentListings.filter(b => 
+        b.name.toLowerCase().includes(searchLower) || 
+        b.description.toLowerCase().includes(searchLower)
+      );
+    }
   }
 
-  function render(){
-    const wrap = document.getElementById('listings');
-    const slice = current.slice(0, offset+perPage);
-    wrap.innerHTML = slice.map(b=>window.renderCard(b)).join('');
-    document.getElementById('results-count').textContent = `Showing ${Math.min(slice.length,current.length)} of ${current.length} businesses`;
+  /**
+   * Render listings to the page
+   */
+  function render() {
+    const container = document.getElementById('listings');
+    const slice = currentListings.slice(0, offset + ITEMS_PER_PAGE);
+    container.innerHTML = slice.map(b => window.renderCard(b)).join('');
+    
+    const resultsCount = document.getElementById('results-count');
+    resultsCount.textContent = `Showing ${Math.min(slice.length, currentListings.length)} of ${currentListings.length} businesses`;
   }
 
-  function init(){
-    const params = new URLSearchParams(location.search);
-    // populate category tabs
+  /**
+   * Initialize directory page
+   */
+  function init() {
+    // Populate category tabs
     const tabs = document.getElementById('category-tabs');
-    const cats = [...new Set(window.LISTINGS.map(b=>b.category))];
-    cats.forEach(c=>{const slug=c.toLowerCase().split(' ')[0];tabs.insertAdjacentHTML('beforeend',`<a href=\"directory.html?category=${slug}\">${c}</a>`)});
+    const categories = [...new Set(window.LISTINGS.map(b => b.category))];
+    categories.forEach(category => {
+      const slug = category.toLowerCase().split(' ')[0];
+      tabs.insertAdjacentHTML('beforeend', 
+        `<a href="directory.html?category=${slug}">${category}</a>`
+      );
+    });
 
     applyQueryParams();
     offset = 0;
-    document.getElementById('load-more')?.addEventListener('click', ()=>{ offset+=perPage; render(); });
-    document.getElementById('sort-select')?.addEventListener('change', (e)=>{ const v=e.target.value; if(v==='rating') current.sort((a,b)=>b.rating-a.rating); if(v==='az') current.sort((a,b)=>a.name.localeCompare(b.name)); if(v==='newest') current = [...window.LISTINGS]; render(); });
-    const searchInput = document.getElementById('filter-search');
-    if(searchInput){let t;searchInput.addEventListener('input', (e)=>{clearTimeout(t); t=setTimeout(()=>{ const q=e.target.value; current = window.LISTINGS.filter(b=>b.name.toLowerCase().includes(q.toLowerCase())||b.description.toLowerCase().includes(q.toLowerCase())); offset=0; render(); },300)});
+    
+    // Load more button
+    const loadMoreBtn = document.getElementById('load-more');
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', () => {
+        offset += ITEMS_PER_PAGE;
+        render();
+      });
     }
+    
+    // Sort functionality
+    const sortSelect = document.getElementById('sort-select');
+    if (sortSelect) {
+      sortSelect.addEventListener('change', (e) => {
+        const value = e.target.value;
+        
+        if (value === 'rating') {
+          currentListings.sort((a, b) => b.rating - a.rating);
+        } else if (value === 'az') {
+          currentListings.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (value === 'newest') {
+          currentListings = [...window.LISTINGS];
+        }
+        
+        render();
+      });
+    }
+    
+    // Search functionality with debounce
+    const searchInput = document.getElementById('filter-search');
+    if (searchInput) {
+      let timeout;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          const query = e.target.value.toLowerCase();
+          currentListings = window.LISTINGS.filter(b => 
+            b.name.toLowerCase().includes(query) || 
+            b.description.toLowerCase().includes(query)
+          );
+          offset = 0;
+          render();
+        }, 300);
+      });
+    }
+    
     render();
 
-    // view toggles
-    document.getElementById('view-grid')?.addEventListener('click', ()=>{view='grid'; document.body.classList.remove('list-view'); document.getElementById('view-grid').classList.add('active'); document.getElementById('view-list').classList.remove('active');});
-    document.getElementById('view-list')?.addEventListener('click', ()=>{view='list'; document.body.classList.add('list-view'); document.getElementById('view-list').classList.add('active'); document.getElementById('view-grid').classList.remove('active');});
+    // View toggle buttons
+    const gridBtn = document.getElementById('view-grid');
+    const listBtn = document.getElementById('view-list');
+    
+    if (gridBtn) {
+      gridBtn.addEventListener('click', () => {
+        viewMode = 'grid';
+        document.body.classList.remove('list-view');
+        gridBtn.classList.add('active');
+        listBtn.classList.remove('active');
+      });
+    }
+    
+    if (listBtn) {
+      listBtn.addEventListener('click', () => {
+        viewMode = 'list';
+        document.body.classList.add('list-view');
+        listBtn.classList.add('active');
+        gridBtn.classList.remove('active');
+      });
+    }
   }
 
-  document.addEventListener('DOMContentLoaded', ()=>{
+  document.addEventListener('DOMContentLoaded', () => {
     try{
       init();
     }catch(error){
-      console.error('Directory initialization error:', error);
+      // Silently handle initialization errors in production
     }
   });
 })();
+

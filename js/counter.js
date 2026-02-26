@@ -1,10 +1,43 @@
-// counter.js — animated count-up triggered by intersection
-(function(){
-  function animateCount(el){
-    const target = Number(el.dataset.target)||0; let v=0; const dur=1200; const start=performance.now(); function step(t){const p=Math.min(1,(t-start)/dur); el.textContent = Math.floor(p*target); if(p<1) requestAnimationFrame(step); else el.textContent=target; } requestAnimationFrame(step);
+/**
+ * Counter Animation
+ * Animated count-up triggered by intersection observer
+ */
+(function() {
+  'use strict';
+  
+  /**
+   * Animate counter from 0 to target value
+   * @param {HTMLElement} el - Element containing data-target attribute
+   */
+  function animateCount(el) {
+    const target = Number(el.dataset.target) || 0;
+    const duration = 1200;
+    const start = performance.now();
+    
+    function step(timestamp) {
+      const progress = Math.min(1, (timestamp - start) / duration);
+      el.textContent = Math.floor(progress * target);
+      
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target;
+      }
+    }
+    
+    requestAnimationFrame(step);
   }
-  document.addEventListener('DOMContentLoaded', ()=>{
-    const obs = new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animateCount(e.target); obs.unobserve(e.target);}})},{threshold:0.3});
-    document.querySelectorAll('.count, .num').forEach(el=>obs.observe(el));
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    
+    document.querySelectorAll('.count, .num').forEach(el => observer.observe(el));
   });
 })();

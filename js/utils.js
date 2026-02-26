@@ -3,18 +3,6 @@
  */
 
 /**
- * Sanitize HTML to prevent XSS attacks
- * @param {string} str - Input string to sanitize
- * @returns {string} Sanitized HTML string
- */
-export function sanitizeHTML(str) {
-  if (typeof str !== 'string') return '';
-  const temp = document.createElement('div');
-  temp.textContent = str;
-  return temp.innerHTML;
-}
-
-/**
  * Debounce function for performance optimization
  * @param {Function} func - Function to debounce
  * @param {number} wait - Wait time in milliseconds
@@ -53,32 +41,15 @@ export function isValidPhone(phone) {
 }
 
 /**
- * Show loading spinner
- * @param {HTMLElement} element - Element to show spinner in
- */
-export function showLoading(element) {
-  if (!element) return;
-  element.classList.add('loading');
-  element.setAttribute('aria-busy', 'true');
-}
-
-/**
- * Hide loading spinner
- * @param {HTMLElement} element - Element to hide spinner from
- */
-export function hideLoading(element) {
-  if (!element) return;
-  element.classList.remove('loading');
-  element.setAttribute('aria-busy', 'false');
-}
-
-/**
  * Handle API errors gracefully
  * @param {Error} error - Error object
  * @returns {string} User-friendly error message
  */
 export function handleError(error) {
-  console.error('Application error:', error);
+  // Log errors only in development
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    console.error('Application error:', error);
+  }
   
   if (error.message.includes('network')) {
     return 'Network error. Please check your connection and try again.';

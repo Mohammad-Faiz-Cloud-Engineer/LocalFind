@@ -132,7 +132,6 @@ function initNavbar(){
   const mobileMenu = document.getElementById('mobile-menu');
   
   if (!navbar || !mobileMenu) {
-    console.warn('Navigation elements not found');
     return;
   }
   
@@ -197,6 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     initNavbar();
   } catch (error) {
-    console.error('Application initialization error:', error);
+    // Silently handle initialization errors in production
   }
 });
