@@ -86,9 +86,9 @@
         </form>
 
         <div class="hero-stats">
-          <div class="stat" data-animate data-animate-delay="100"><strong class="count" data-target="500">0</strong><span>Listings</span></div>
-          <div class="stat" data-animate data-animate-delay="200"><strong class="count" data-target="20">0</strong><span>Categories</span></div>
-          <div class="stat" data-animate data-animate-delay="300"><strong class="count" data-target="10000">0</strong><span>Visitors</span></div>
+          <div class="stat" data-animate data-animate-delay="100"><strong class="count" data-target="0">0</strong><span>Listings</span></div>
+          <div class="stat" data-animate data-animate-delay="200"><strong class="count" data-target="0">0</strong><span>Categories</span></div>
+          <div class="stat" data-animate data-animate-delay="300"><strong class="count" data-target="0">0</strong><span>Visitors</span></div>
         </div>
 
         <a href="#categories" class="scroll-down" aria-label="Scroll down">⌄</a>
@@ -161,7 +161,6 @@
       </div>
     </section>
 
-    <!-- MAP PREVIEW -->
     <section class="map-preview">
       <div class="container">
         <h2>Map Preview</h2>
@@ -169,7 +168,7 @@
           <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=77.1%2C28.5%2C77.3%2C28.8&amp;layer=mapnik" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           <div class="map-overlay">
             <h3>Your City</h3>
-            <p>500+ listings in this area</p>
+            <p>0 listings in this area</p>
             <a class="btn btn-ghost" href="#">Open in Maps</a>
           </div>
         </div>
@@ -179,10 +178,10 @@
     <!-- STATS COUNTER -->
     <section class="stats-section">
       <div class="container stats-grid" id="stats">
-        <div class="stat-card" data-animate><div class="num" data-target="500">0</div><div class="label">Businesses</div></div>
-        <div class="stat-card" data-animate><div class="num" data-target="20">0</div><div class="label">Categories</div></div>
-        <div class="stat-card" data-animate><div class="num" data-target="2000">0</div><div class="label">Reviews</div></div>
-        <div class="stat-card" data-animate><div class="num" data-target="10000">0</div><div class="label">Visitors</div></div>
+        <div class="stat-card" data-animate><div class="num" data-target="0">0</div><div class="label">Businesses</div></div>
+        <div class="stat-card" data-animate><div class="num" data-target="0">0</div><div class="label">Categories</div></div>
+        <div class="stat-card" data-animate><div class="num" data-target="0">0</div><div class="label">Reviews</div></div>
+        <div class="stat-card" data-animate><div class="num" data-target="0">0</div><div class="label">Visitors</div></div>
       </div>
     </section>
 
@@ -214,14 +213,39 @@
   <script src="js/directory.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', ()=>{
-      // render featured
+      // Check if data exists
+      if (!window.LISTINGS || window.LISTINGS.length === 0) {
+        // Show placeholder message when no data
+        const featuredContainer = document.getElementById('featured-list');
+        const recentContainer = document.getElementById('recent-list');
+        
+        if (featuredContainer) {
+          featuredContainer.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;">No listings available yet. Add your business data to js/data.js</p>';
+        }
+        
+        if (recentContainer) {
+          recentContainer.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;">No recent listings available.</p>';
+        }
+        return;
+      }
+      
+      // Render featured listings
       const featured = window.LISTINGS.filter(b=>b.featured).slice(0,6);
       const container = document.getElementById('featured-list');
-      featured.forEach(b=>{ container.insertAdjacentHTML('beforeend', window.renderCard(b)); });
-      // recent
+      if (featured.length > 0) {
+        featured.forEach(b=>{ container.insertAdjacentHTML('beforeend', window.renderCard(b)); });
+      } else {
+        container.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;">No featured listings available.</p>';
+      }
+      
+      // Render recent listings
       const recent = window.LISTINGS.filter(b=>b.isNew).slice(0,4);
       const recentWrap = document.getElementById('recent-list');
-      recent.forEach(b=> recentWrap.insertAdjacentHTML('beforeend', window.renderCard(b)));
+      if (recent.length > 0) {
+        recent.forEach(b=> recentWrap.insertAdjacentHTML('beforeend', window.renderCard(b)));
+      } else {
+        recentWrap.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;">No new listings available.</p>';
+      }
     });
   </script>
 </body>

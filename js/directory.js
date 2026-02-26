@@ -47,6 +47,21 @@
    * Initialize directory page
    */
   function init() {
+    // Check if data exists
+    if (!window.LISTINGS || window.LISTINGS.length === 0) {
+      const container = document.getElementById('listings');
+      const resultsCount = document.getElementById('results-count');
+      
+      if (container) {
+        container.innerHTML = '<div style="text-align:center;padding:4rem 2rem;"><h3 style="color:var(--text-primary);margin-bottom:1rem;">No Businesses Listed Yet</h3><p style="color:var(--text-muted);">Add your business data to js/data.js or connect to your backend API.</p></div>';
+      }
+      
+      if (resultsCount) {
+        resultsCount.textContent = 'Showing 0 of 0 businesses';
+      }
+      return;
+    }
+    
     // Populate category tabs
     const tabs = document.getElementById('category-tabs');
     const categories = [...new Set(window.LISTINGS.map(b => b.category))];

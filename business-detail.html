@@ -62,16 +62,37 @@
   <script src="js/directory.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', ()=>{
+      // Check if data exists
+      if (!window.LISTINGS || window.LISTINGS.length === 0) {
+        document.querySelector('.biz-content').innerHTML = '<div style="text-align:center;padding:4rem 2rem;"><h3 style="color:var(--text-primary);margin-bottom:1rem;">No Business Data Available</h3><p style="color:var(--text-muted);">Add your business data to js/data.js</p><a href="index.html" class="btn btn-cta" style="margin-top:2rem;">Go to Homepage</a></div>';
+        return;
+      }
+      
       const params = new URLSearchParams(location.search);
       const id = params.get('id');
-      const biz = window.LISTINGS.find(b=>b.id===id) || window.LISTINGS[0];
-      // render basic
+      const biz = window.LISTINGS.find(b=>b.id===id);
+      
+      // If business not found, show error
+      if (!biz) {
+        document.querySelector('.biz-content').innerHTML = '<div style="text-align:center;padding:4rem 2rem;"><h3 style="color:var(--text-primary);margin-bottom:1rem;">Business Not Found</h3><p style="color:var(--text-muted);">The business you are looking for does not exist.</p><a href="directory.html" class="btn btn-cta" style="margin-top:2rem;">Browse Directory</a></div>';
+        return;
+      }
+      
+      // Render basic info
       document.getElementById('biz-title').textContent = biz.name;
       document.getElementById('biz-desc').textContent = biz.description;
       document.getElementById('biz-category').textContent = biz.category;
       document.getElementById('biz-name').textContent = biz.name;
       document.getElementById('biz-contact').innerHTML = `<p>${biz.address}</p><p><a href=\"tel:${biz.phone}\">${biz.phone}</a></p><p><a href=\"${biz.mapLink}\">View on map</a></p>`;
-      document.getElementById('related-list').innerHTML = window.LISTINGS.filter(b=>b.categorySlug===biz.categorySlug && b.id!==biz.id).slice(0,3).map(b=>window.renderCard(b)).join('');
+      
+      // Render related listings
+      const relatedList = document.getElementById('related-list');
+      const related = window.LISTINGS.filter(b=>b.categorySlug===biz.categorySlug && b.id!==biz.id).slice(0,3);
+      if (related.length > 0) {
+        relatedList.innerHTML = related.map(b=>window.renderCard(b)).join('');
+      } else {
+        relatedList.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;">No related listings available.</p>';
+      }
     });
   </script>
 </body>
