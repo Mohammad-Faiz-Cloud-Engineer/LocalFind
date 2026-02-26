@@ -8,7 +8,6 @@
   const ITEMS_PER_PAGE = 6;
   let offset = 0;
   let currentListings = [...window.LISTINGS];
-  let viewMode = 'grid';
 
   /**
    * Apply URL query parameters to filter listings
@@ -128,19 +127,17 @@
     
     if (gridBtn) {
       gridBtn.addEventListener('click', () => {
-        viewMode = 'grid';
         document.body.classList.remove('list-view');
         gridBtn.classList.add('active');
-        listBtn.classList.remove('active');
+        if (listBtn) listBtn.classList.remove('active');
       });
     }
     
     if (listBtn) {
       listBtn.addEventListener('click', () => {
-        viewMode = 'list';
         document.body.classList.add('list-view');
         listBtn.classList.add('active');
-        gridBtn.classList.remove('active');
+        if (gridBtn) gridBtn.classList.remove('active');
       });
     }
   }

@@ -38,7 +38,6 @@ function renderHeader(){
         <a href="categories.html">Categories</a>
         <a href="add-business.html">Add Business</a>
         <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
       </nav>
     </div>
     <div class="nav-right">
@@ -55,7 +54,6 @@ function renderHeader(){
       <a href="categories.html">Categories</a>
       <a href="add-business.html">Add Business</a>
       <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
     </nav>
   </div>
   `;
@@ -176,7 +174,6 @@ function initNavbar(){
   });
   
   // Navbar scroll effect
-  let lastScroll = 0;
   window.addEventListener('scroll', () => {
     const currentScroll = window.scrollY;
     
@@ -185,8 +182,6 @@ function initNavbar(){
     } else {
       navbar.classList.remove('navbar--scrolled');
     }
-    
-    lastScroll = currentScroll;
   }, { passive: true });
   
   // Back to top button
