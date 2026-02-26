@@ -21,8 +21,14 @@ function renderHeader(){
   <div class="navbar" id="navbar" role="navigation">
     <div class="nav-left">
       <div class="logo">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="24" height="24" rx="6" fill="url(#g)"/>
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGradient" x1="0%" y1="50%" x2="100%" y2="50%">
+              <stop offset="0%" stop-color="#f5a623"/>
+              <stop offset="100%" stop-color="#50c4b6"/>
+            </linearGradient>
+          </defs>
+          <circle cx="200" cy="200" r="150" fill="url(#logoGradient)"/>
         </svg>
         <span>${siteName}</span>
       </div>
@@ -71,8 +77,14 @@ function renderFooter(){
     <div class="container footer-grid">
       <div>
         <div class="footer-logo">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect width="24" height="24" rx="6" fill="#F5A623"/>
+          <svg width="40" height="40" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="footerLogoGradient" x1="0%" y1="50%" x2="100%" y2="50%">
+                <stop offset="0%" stop-color="#f5a623"/>
+                <stop offset="100%" stop-color="#50c4b6"/>
+              </linearGradient>
+            </defs>
+            <circle cx="200" cy="200" r="150" fill="url(#footerLogoGradient)"/>
           </svg>
           <div>
             ${siteName}

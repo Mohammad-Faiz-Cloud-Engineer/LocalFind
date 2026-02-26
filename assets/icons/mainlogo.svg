@@ -1,0 +1,11 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient circle -->
+  <defs>
+    <linearGradient id="circleGradient" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#f5a623"/>
+      <stop offset="100%" stop-color="#50c4b6"/>
+    </linearGradient>
+  </defs>
+  
+  <circle cx="200" cy="200" r="150" fill="url(#circleGradient)"/>
+</svg>
