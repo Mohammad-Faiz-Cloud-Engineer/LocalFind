@@ -28,7 +28,7 @@ const CONFIG = {
   contactAddress: "Rasauli, Barabanki, Uttar Pradesh 225001",
   
   // Business Information
-  foundedYear: 2024,
+  foundedYear: 2026,
   
   // Social Media Links
   socialLinks: {
