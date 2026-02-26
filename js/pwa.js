@@ -21,8 +21,8 @@
     }
     
     try {
-      swRegistration = await navigator.serviceWorker.register('/sw.js', {
-        scope: '/'
+      swRegistration = await navigator.serviceWorker.register('/LocalFind/sw.js', {
+        scope: '/LocalFind/'
       });
       
       console.log('[PWA] Service worker registered:', swRegistration.scope);
