@@ -10,39 +10,42 @@ const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
 
+// Base path for GitHub Pages deployment
+const BASE_PATH = '/LocalFind';
+
 // Assets to cache immediately on install
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/directory.html',
-  '/categories.html',
-  '/business-detail.html',
-  '/add-business.html',
-  '/about.html',
-  '/404.html',
-  '/500.html',
-  '/css/style.css',
-  '/css/navbar.css',
-  '/css/hero.css',
-  '/css/cards.css',
-  '/css/categories.css',
-  '/css/filters.css',
-  '/css/forms.css',
-  '/css/footer.css',
-  '/css/animations.css',
-  '/css/business-detail.css',
-  '/js/config.js',
-  '/js/data.js',
-  '/js/main.js',
-  '/js/directory.js',
-  '/js/map.js',
-  '/js/form.js',
-  '/js/utils.js',
-  '/js/animations.js',
-  '/js/counter.js',
-  '/assets/images/mainlogo.svg',
-  '/assets/images/og-image.jpg',
-  '/manifest.json'
+  `${BASE_PATH}/`,
+  `${BASE_PATH}/index.html`,
+  `${BASE_PATH}/directory.html`,
+  `${BASE_PATH}/categories.html`,
+  `${BASE_PATH}/business-detail.html`,
+  `${BASE_PATH}/add-business.html`,
+  `${BASE_PATH}/about.html`,
+  `${BASE_PATH}/404.html`,
+  `${BASE_PATH}/500.html`,
+  `${BASE_PATH}/css/style.css`,
+  `${BASE_PATH}/css/navbar.css`,
+  `${BASE_PATH}/css/hero.css`,
+  `${BASE_PATH}/css/cards.css`,
+  `${BASE_PATH}/css/categories.css`,
+  `${BASE_PATH}/css/filters.css`,
+  `${BASE_PATH}/css/forms.css`,
+  `${BASE_PATH}/css/footer.css`,
+  `${BASE_PATH}/css/animations.css`,
+  `${BASE_PATH}/css/business-detail.css`,
+  `${BASE_PATH}/js/config.js`,
+  `${BASE_PATH}/js/data.js`,
+  `${BASE_PATH}/js/main.js`,
+  `${BASE_PATH}/js/directory.js`,
+  `${BASE_PATH}/js/map.js`,
+  `${BASE_PATH}/js/form.js`,
+  `${BASE_PATH}/js/utils.js`,
+  `${BASE_PATH}/js/animations.js`,
+  `${BASE_PATH}/js/counter.js`,
+  `${BASE_PATH}/assets/images/mainlogo.svg`,
+  `${BASE_PATH}/assets/images/og-image.jpg`,
+  `${BASE_PATH}/manifest.json`
 ];
 
 // Install event - cache static assets
@@ -98,8 +101,8 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
   
-  // Skip cross-origin requests
-  if (url.origin !== location.origin) {
+  // Skip cross-origin requests or requests outside our base path
+  if (url.origin !== location.origin || !url.pathname.startsWith(BASE_PATH)) {
     return;
   }
   
@@ -139,7 +142,7 @@ async function handleGetRequest(request) {
     
     // Return offline page for navigation requests
     if (request.mode === 'navigate') {
-      const offlinePage = await caches.match('/offline.html');
+      const offlinePage = await caches.match(`${BASE_PATH}/offline.html`);
       if (offlinePage) {
         return offlinePage;
       }
@@ -178,7 +181,7 @@ async function handleImageRequest(request) {
     console.error('[SW] Image fetch failed:', error);
     
     // Return placeholder image or cached fallback
-    const fallback = await caches.match('/assets/images/mainlogo.svg');
+    const fallback = await caches.match(`${BASE_PATH}/assets/images/mainlogo.svg`);
     if (fallback) {
       return fallback;
     }
@@ -260,7 +263,7 @@ self.addEventListener('notificationclick', (event) => {
   
   if (event.action === 'open') {
     event.waitUntil(
-      clients.openWindow('/')
+      clients.openWindow(BASE_PATH + '/')
     );
   }
 });
