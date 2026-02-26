@@ -18,6 +18,10 @@ LocalFind helps people discover local businesses in their area. The platform fea
 - Dark theme interface
 - SEO optimized
 - Accessibility compliant
+- **Full PWA Support** (installable, offline-ready)
+- Service worker with intelligent caching
+- Push notifications ready
+- Native app-like experience
 
 ## Technology
 
@@ -45,6 +49,21 @@ const CONFIG = {
 ```
 
 3. Open `index.html` in your browser or deploy to any web server
+
+## PWA Setup
+
+LocalFind is a Progressive Web App! To enable full PWA features:
+
+1. Generate PWA icons:
+```bash
+./generate-icons.sh
+```
+
+2. Serve with HTTPS (required for service workers)
+
+3. Users can install the app on their devices
+
+See [PWA_SETUP_GUIDE.md](PWA_SETUP_GUIDE.md) for detailed instructions.
 
 ## Project Structure
 
