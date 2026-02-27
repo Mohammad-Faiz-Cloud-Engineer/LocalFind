@@ -487,15 +487,37 @@ section h2::after {
   }
   
   .map-wrap {
-    height: 350px;
+    height: 450px;
   }
   
   .map-overlay {
-    left: var(--space-md);
-    right: var(--space-md);
-    bottom: var(--space-md);
-    padding: var(--space-md) var(--space-lg);
+    left: var(--space-sm);
+    right: var(--space-sm);
+    bottom: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
     min-width: auto;
+    max-width: 100%;
+  }
+  
+  .map-overlay h3 {
+    font-size: 18px;
+    margin: 0 0 var(--space-xs);
+  }
+  
+  .map-overlay p {
+    font-size: 13px;
+    margin: 0 0 var(--space-xs);
+  }
+  
+  .map-overlay .map-info {
+    margin-bottom: var(--space-sm);
+  }
+  
+  .map-overlay .btn {
+    padding: var(--space-xs) var(--space-md);
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
   }
 }
 
