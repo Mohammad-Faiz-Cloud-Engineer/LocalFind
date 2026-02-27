@@ -2,10 +2,10 @@
  * LocalFind - Service Worker
  * PWA offline support with caching strategies
  * 
- * @version 2.1.0
+ * @version 3.0.0
  */
 
-const CACHE_VERSION = 'localfind-v2.1.0';
+const CACHE_VERSION = 'localfind-v3.0.0';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
