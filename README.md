@@ -1,3 +1,12 @@
+---
+title: LocalFind
+emoji: 📍
+colorFrom: yellow
+colorTo: blue
+sdk: static
+pinned: false
+---
+
 # LocalFind
 
 A professional business directory platform for local communities. Built with vanilla JavaScript, no frameworks required.
@@ -95,6 +104,7 @@ Works on any static hosting:
 - GitHub Pages
 - Netlify
 - Vercel
+- HuggingFace Spaces
 - Traditional web servers
 
 For GitHub Pages:
