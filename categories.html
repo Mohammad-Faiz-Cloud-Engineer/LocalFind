@@ -25,6 +25,44 @@
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/utilities.css">
+  <style>
+    /* Categories Page Optimizations */
+    main.container {
+      padding: var(--space-2xl) var(--space-lg);
+    }
+    
+    main.container h1 {
+      text-align: center;
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: var(--space-xl);
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    @media (max-width: 768px) {
+      main.container {
+        padding: var(--space-xl) var(--space-md);
+      }
+      
+      main.container h1 {
+        font-size: clamp(1.75rem, 5vw, 2.25rem);
+        margin-bottom: var(--space-lg);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      main.container {
+        padding: var(--space-lg) var(--space-sm);
+      }
+      
+      main.container h1 {
+        font-size: 1.65rem;
+        margin-bottom: var(--space-md);
+      }
+    }
+  </style>
 </head>
 <body>
   <header id="site-header"></header>
