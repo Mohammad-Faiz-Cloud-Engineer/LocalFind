@@ -21,8 +21,12 @@
     
     try {
       swRegistration = await navigator.serviceWorker.register('/LocalFind/sw.js', {
-        scope: '/LocalFind/'
+        scope: '/LocalFind/',
+        updateViaCache: 'none' // Always fetch fresh service worker
       });
+      
+      // Check for updates immediately on registration
+      swRegistration.update();
       
       // Check for updates
       swRegistration.addEventListener('updatefound', () => {
@@ -36,16 +40,15 @@
         });
       });
       
-      // Check for updates every hour
+      // Check for updates more frequently (every 5 minutes)
       setInterval(() => {
         swRegistration.update();
-      }, 60 * 60 * 1000);
+      }, 5 * 60 * 1000);
       
-      // Listen for controller change (new service worker activated)
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        // New service worker has taken control, reload to get fresh content
-        if (!window.location.pathname.includes('offline.html')) {
-          window.location.reload();
+      // Also check on page visibility change
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && swRegistration) {
+          swRegistration.update();
         }
       });
       
@@ -152,26 +155,58 @@
     const updateBtn = document.getElementById('pwa-update-now-btn');
     if (updateBtn) {
       updateBtn.addEventListener('click', async () => {
+        // Disable button to prevent multiple clicks
+        updateBtn.disabled = true;
+        updateBtn.textContent = 'Updating...';
+        
         try {
-          // Clear all caches
+          console.log('[PWA] Starting update process...');
+          
+          // Step 1: Clear all caches first
           if ('caches' in window) {
             const cacheNames = await caches.keys();
+            console.log('[PWA] Clearing caches:', cacheNames);
             await Promise.all(
-              cacheNames.map(cacheName => caches.delete(cacheName))
+              cacheNames.map(cacheName => {
+                console.log('[PWA] Deleting cache:', cacheName);
+                return caches.delete(cacheName);
+              })
             );
+            console.log('[PWA] All caches cleared');
           }
           
-          // Tell the waiting service worker to skip waiting and activate
+          // Step 2: Tell the waiting service worker to skip waiting and activate
           if (swRegistration && swRegistration.waiting) {
+            console.log('[PWA] Activating new service worker...');
+            
+            // Listen for controller change before sending message
+            let controllerChanged = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+              controllerChanged = true;
+              console.log('[PWA] New service worker activated, reloading...');
+              // Force reload with cache bypass
+              window.location.reload(true);
+            });
+            
+            // Send skip waiting message
             swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+            
+            // Fallback: if controller doesn't change in 2 seconds, force reload anyway
+            setTimeout(() => {
+              if (!controllerChanged) {
+                console.log('[PWA] Fallback reload triggered');
+                window.location.reload(true);
+              }
+            }, 2000);
+          } else {
+            // No waiting worker, just reload with cache bypass
+            console.log('[PWA] No waiting worker, forcing reload');
+            window.location.reload(true);
           }
-          
-          // Reload the page to get the new version
-          window.location.reload();
         } catch (error) {
           console.error('[PWA] Failed to clear cache and update:', error);
-          // Fallback to simple reload
-          window.location.reload();
+          // Fallback to force reload with cache bypass
+          window.location.reload(true);
         }
       });
     }
