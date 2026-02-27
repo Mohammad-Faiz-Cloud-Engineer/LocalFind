@@ -252,7 +252,11 @@ self.addEventListener('notificationclick', (event) => {
 // Message handler for communication with main thread
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
+    // Skip waiting and activate immediately
+    self.skipWaiting().then(() => {
+      // Claim all clients immediately after activation
+      return self.clients.claim();
+    });
   }
   
   if (event.data && event.data.type === 'CACHE_URLS') {
