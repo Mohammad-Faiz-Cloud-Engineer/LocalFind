@@ -118,6 +118,46 @@ window.LISTINGS = [
     description: "Rehan Clothing Store is your premier destination for fashionable clothing and apparel in Rasauli. We offer a wide selection of traditional and modern clothing for men, women, and children. From everyday wear to special occasion outfits, our store features quality fabrics and the latest fashion trends. Whether you're looking for ethnic wear, casual clothing, or formal attire, we have something for everyone. Our friendly staff is always ready to help you find the perfect outfit that matches your style and budget. Visit us for a complete shopping experience in the heart of Rasauli Bazar.",
     tags: ["clothing", "fashion", "apparel", "ethnic-wear", "casual-wear", "formal-wear", "men-clothing", "women-clothing", "kids-clothing"],
     isNew: true
+  },
+  {
+    id: "shariq-hashmi-electric-shop",
+    name: "Shariq Hashmi Electric Shop",
+    category: "Electrical Services & Repairs",
+    categorySlug: "electrical-services",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 5.0,
+        date: "2026-02-27",
+        text: "Best Electrician in the Entire Rasauli. Professional service with excellent workmanship. Behaviour is also very good and always ready to help. Highly recommended for all electrical needs!",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Near Hind Pharmacy Shop, Uttar Pradesh 225203",
+    mapLink: "https://maps.google.com/?q=26.924954,81.262051",
+    phone: "+91 72751 13274",
+    email: "",
+    website: "",
+    whatsapp: "+91 72751 13274",
+    hours: {
+      mon: {open: "10:00", close: "18:00"},
+      tue: {open: "10:00", close: "18:00"},
+      wed: {open: "10:00", close: "18:00"},
+      thu: {open: "10:00", close: "18:00"},
+      fri: {open: "10:00", close: "18:00"},
+      sat: {open: "10:00", close: "18:00"},
+      sun: {open: "10:00", close: "18:00"}
+    },
+    description: "Shariq Hashmi Electric Shop is your trusted electrical service provider in Rasauli, offering comprehensive electrical solutions for residential and commercial properties. We specialize in complete house wiring, electrical installations, earthing systems, circuit repairs, and maintenance services. Our expert team handles everything from new electrical setups to troubleshooting and fixing electrical faults. We provide professional services including switchboard installations, lighting fixtures, fan installations, electrical safety inspections, and emergency repair services. With years of experience and a commitment to quality workmanship, we ensure safe and reliable electrical solutions. Our skilled electricians use quality materials and follow all safety standards. Whether you need a complete rewiring project or a simple repair, we deliver efficient and affordable electrical services with excellent customer care.",
+    tags: ["electrician", "electrical-services", "house-wiring", "earthing", "electrical-repair", "circuit-repair", "electrical-installation", "maintenance", "emergency-service"],
+    isNew: true
   }
 ];
 

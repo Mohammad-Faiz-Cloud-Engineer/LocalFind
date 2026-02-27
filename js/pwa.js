@@ -2,7 +2,7 @@
  * LocalFind - PWA Registration & Management
  * Handles service worker registration, install prompts, and updates
  * 
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 (function() {
