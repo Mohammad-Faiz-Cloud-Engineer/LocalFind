@@ -95,6 +95,9 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  /* Disable pull-to-refresh in PWA */
+  overscroll-behavior-y: contain;
 }
 
 body {
@@ -106,6 +109,20 @@ body {
   background: var(--bg-primary);
   color: var(--text-secondary);
   overflow-x: hidden;
+  
+  /* PWA-specific enhancements */
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Allow text selection in specific elements */
+p, span, a, li, td, th, input, textarea, [contenteditable] {
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 /* ============================================
@@ -459,6 +476,56 @@ section h2::after {
 .view-all {
   text-align: center;
   margin-top: var(--space-2xl);
+}
+
+/* ============================================
+   PWA ENHANCEMENTS
+   ============================================ */
+
+/* PWA-specific styles when running in standalone mode */
+.pwa-mode {
+  /* Disable pull-to-refresh */
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Safe area support for notched devices */
+@supports (padding: env(safe-area-inset-top)) {
+  .pwa-mode {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .pwa-mode .navbar {
+    padding-top: calc(var(--space-md) + env(safe-area-inset-top));
+  }
+}
+
+/* Disable text selection for app-like feel (except in inputs) */
+.pwa-mode * {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+.pwa-mode input,
+.pwa-mode textarea,
+.pwa-mode [contenteditable] {
+  -webkit-touch-callout: default;
+}
+
+/* Hide install button when in PWA mode */
+.pwa-mode .pwa-install-button {
+  display: none !important;
+}
+
+/* Smooth scrolling for PWA */
+.pwa-mode {
+  scroll-behavior: smooth;
+}
+
+/* Prevent zoom on double tap */
+.pwa-mode * {
+  touch-action: manipulation;
 }
 
 /* ============================================
