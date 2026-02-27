@@ -440,12 +440,175 @@
     text-align: center;
   }
   
+  /* Compact Review Cards for Mobile */
+  .review-card {
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: var(--radius-lg);
+  }
+  
+  .review-card.official {
+    padding: 14px;
+    border-width: 1.5px;
+  }
+  
+  .review-badge {
+    padding: 4px 12px;
+    font-size: 9px;
+    letter-spacing: 0.3px;
+    border-radius: 0 12px 0 14px;
+  }
+  
   .review-header {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .review-header.official {
+    margin-top: 12px;
+  }
+  
+  .review-author-info {
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  
+  .review-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .review-author-name strong {
+    font-size: 14px;
+  }
+  
+  .review-author-name strong.large {
+    font-size: 15px;
+  }
+  
+  .review-role {
+    font-size: 12px;
   }
   
   .review-date {
     margin-left: 0;
+    font-size: 11px;
+  }
+  
+  .review-text {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  
+  .review-text.large {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  
+  /* Compact Contact Info */
+  .contact-item {
+    margin-bottom: 10px;
+    font-size: 13px;
+    gap: 10px;
+  }
+  
+  .contact-item i {
+    width: 18px;
+    font-size: 14px;
+  }
+  
+  /* Compact Section Headers */
+  .section-header {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  /* Compact Hours Display */
+  .hours-row {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  
+  /* Compact Badges */
+  .badge {
+    padding: 3px 10px;
+    font-size: 10px;
+    letter-spacing: 0.2px;
+  }
+  
+  .badge-verified {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+  
+  /* Compact Rating */
+  .rating {
+    font-size: 16px;
+    margin-top: 6px;
+    gap: 6px;
+  }
+  
+  .rating-small {
+    font-size: 14px;
+  }
+  
+  .rating-count {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra compact for small phones */
+  .review-card {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .review-card.official {
+    padding: 12px;
+  }
+  
+  .review-badge {
+    padding: 3px 10px;
+    font-size: 8px;
+  }
+  
+  .review-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  .review-author-name strong {
+    font-size: 13px;
+  }
+  
+  .review-author-name strong.large {
+    font-size: 14px;
+  }
+  
+  .review-text {
+    font-size: 12px;
+  }
+  
+  .review-text.large {
+    font-size: 13px;
+  }
+  
+  .contact-item {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .section-header {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .hours-row {
+    font-size: 12px;
+    margin-bottom: 6px;
   }
 }
