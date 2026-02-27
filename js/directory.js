@@ -204,20 +204,10 @@
 
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      try {
-        init();
-      } catch (error) {
-        console.error('Directory initialization failed:', error);
-      }
-    });
+    document.addEventListener('DOMContentLoaded', init);
   } else {
     // DOM already loaded
-    try {
-      init();
-    } catch (error) {
-      console.error('Directory initialization failed:', error);
-    }
+    init();
   }
 })();
 
