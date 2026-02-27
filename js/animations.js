@@ -23,9 +23,6 @@
     // Observe all elements with data-animate attribute
     document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
     
-    // Observe counter elements
-    document.querySelectorAll('[data-target]').forEach(el => observer.observe(el));
-    
     // Initialize hero particles
     initParticles();
   });

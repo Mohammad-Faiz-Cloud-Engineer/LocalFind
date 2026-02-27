@@ -11,7 +11,7 @@
     
     // Check if data exists
     if (!window.LISTINGS || window.LISTINGS.length === 0) {
-      mapContainer.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;">Map not available</p>';
+      mapContainer.innerHTML = '<div class="empty-state"><p>Map not available</p></div>';
       return;
     }
     
@@ -20,7 +20,7 @@
     const business = window.LISTINGS.find(b => b.id === businessId);
     
     if (!business) {
-      mapContainer.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;">Map not available</p>';
+      mapContainer.innerHTML = '<div class="empty-state"><p>Map not available</p></div>';
       return;
     }
     

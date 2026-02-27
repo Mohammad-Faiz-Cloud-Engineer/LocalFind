@@ -5,7 +5,7 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 1.0.0
+ * @version 2.0.0
  * 
  * IMPORTANT: Update these values before deploying to production
  */

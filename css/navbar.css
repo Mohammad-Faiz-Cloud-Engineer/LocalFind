@@ -134,11 +134,32 @@
   text-decoration: none;
   transition: all var(--transition-base);
   box-shadow: 0 4px 12px rgba(255, 159, 67, 0.2);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cta-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--accent-primary-hover), var(--accent-primary));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: -1;
 }
 
 .cta-list:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 159, 67, 0.3);
+  color: #0A0E17;
+}
+
+.cta-list:hover::before {
+  opacity: 1;
 }
 
 /* Mobile Menu */

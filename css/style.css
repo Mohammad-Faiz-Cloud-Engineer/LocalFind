@@ -4,7 +4,7 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 1.0.0
+ * @version 2.0.0
  * 
  * Professional design system with comprehensive styling
  */
@@ -229,6 +229,7 @@ a:hover {
   background: linear-gradient(135deg, var(--accent-primary-hover) 0%, var(--accent-primary) 100%);
   opacity: 0;
   transition: opacity var(--transition-base);
+  z-index: 0;
 }
 
 .btn-cta:hover {
@@ -240,7 +241,8 @@ a:hover {
   opacity: 1;
 }
 
-.btn-cta span {
+/* Ensure button content is above the gradient */
+.btn-cta > * {
   position: relative;
   z-index: 1;
 }

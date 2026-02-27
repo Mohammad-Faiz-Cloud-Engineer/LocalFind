@@ -112,7 +112,7 @@
       const resultsCount = document.getElementById('results-count');
 
       if (container) {
-        container.innerHTML = '<div style="text-align:center;padding:4rem 2rem;"><h3 style="color:var(--text-primary);margin-bottom:1rem;">No Businesses Listed Yet</h3><p style="color:var(--text-muted);">Add your business data to js/data.js or connect to your backend API.</p></div>';
+        container.innerHTML = '<div class="empty-state"><h3>No Businesses Listed Yet</h3><p>Add your business data to js/data.js or connect to your backend API.</p></div>';
       }
 
       if (resultsCount) {

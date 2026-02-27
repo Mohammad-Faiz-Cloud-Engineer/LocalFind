@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="css/business-detail.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/utilities.css">
 </head>
 <body>
   <header id="site-header"></header>
@@ -71,107 +72,8 @@
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
   <script src="js/map.js"></script>
-  <script src="js/directory.js"></script>
+  <script src="js/business-detail.js"></script>
   <script src="js/pwa.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', ()=>{
-      // Check if data exists
-      if (!window.LISTINGS || window.LISTINGS.length === 0) {
-        document.querySelector('.biz-content').innerHTML = '<div style="text-align:center;padding:4rem 2rem;"><h3 style="color:var(--text-primary);margin-bottom:1rem;">No Business Data Available</h3><p style="color:var(--text-muted);">Add your business data to js/data.js</p><a href="index.html" class="btn btn-cta" style="margin-top:2rem;">Go to Homepage</a></div>';
-        return;
-      }
-      
-      const params = new URLSearchParams(location.search);
-      const id = params.get('id');
-      const biz = window.LISTINGS.find(b=>b.id===id);
-      
-      // If business not found, show error
-      if (!biz) {
-        document.querySelector('.biz-content').innerHTML = '<div style="text-align:center;padding:4rem 2rem;"><h3 style="color:var(--text-primary);margin-bottom:1rem;">Business Not Found</h3><p style="color:var(--text-muted);">The business you are looking for does not exist.</p><a href="directory.html" class="btn btn-cta" style="margin-top:2rem;">Browse Directory</a></div>';
-        return;
-      }
-      
-      // Render basic info
-      document.getElementById('biz-title').textContent = biz.name;
-      document.getElementById('biz-desc').textContent = biz.description;
-      document.getElementById('biz-category').textContent = biz.category;
-      document.getElementById('biz-name').textContent = biz.name;
-      
-      // Render badges
-      const badgesHtml = [];
-      if (biz.featured) badgesHtml.push('<span style="background:#FF9F43;color:#0A0E17;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-right:8px;">FEATURED</span>');
-      if (biz.isNew) badgesHtml.push('<span style="background:#26DE81;color:#0A0E17;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;">NEW</span>');
-      document.getElementById('biz-badges').innerHTML = badgesHtml.join('');
-      
-      // Render rating
-      document.getElementById('biz-rating').innerHTML = `<div style="color:#FF9F43;font-size:18px;margin-top:8px;">${'★'.repeat(Math.floor(biz.rating))}${'☆'.repeat(5-Math.floor(biz.rating))} <span style="color:var(--text-muted);font-size:14px;">${biz.rating} (${biz.reviewCount} reviews)</span></div>`;
-      
-      // Render reviews
-      const reviewsList = document.getElementById('reviews-list');
-      if (biz.reviews && biz.reviews.length > 0) {
-        reviewsList.innerHTML = biz.reviews.map(review => {
-          const isAdmin = review.role && review.role.includes('LocalFind');
-          return `
-          <div style="background:${isAdmin ? 'linear-gradient(135deg, rgba(255, 159, 67, 0.15), rgba(80, 196, 182, 0.15))' : 'var(--bg-card)'};border:${isAdmin ? '2px solid var(--accent-primary)' : '1px solid var(--border-color)'};border-radius:16px;padding:${isAdmin ? '2rem' : '1.5rem'};margin-bottom:1.5rem;position:relative;overflow:hidden;${isAdmin ? 'box-shadow: 0 8px 32px rgba(255, 159, 67, 0.2);' : ''}">
-            ${isAdmin ? '<div style="position:absolute;top:0;right:0;background:linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));color:#0A0E17;padding:6px 20px;border-radius:0 16px 0 20px;font-size:11px;font-weight:800;letter-spacing:0.5px;">OFFICIAL REVIEW</div>' : ''}
-            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:1rem;${isAdmin ? 'margin-top:1.5rem;' : ''}">
-              <div style="flex:1;">
-                <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;flex-wrap:wrap;">
-                  <div style="display:flex;align-items:center;gap:0.5rem;">
-                    ${isAdmin ? '<div style="width:40px;height:40px;background:linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#0A0E17;font-size:16px;">✓</div>' : ''}
-                    <strong style="color:var(--text-primary);font-size:${isAdmin ? '18px' : '16px'};">${review.author}</strong>
-                  </div>
-                  ${review.verified ? '<span style="background:var(--accent-primary);color:#0A0E17;padding:4px 10px;border-radius:14px;font-size:11px;font-weight:700;letter-spacing:0.3px;">✓ VERIFIED</span>' : ''}
-                  ${review.role ? `<span style="color:${isAdmin ? 'var(--accent-primary)' : 'var(--text-muted)'};font-size:14px;font-weight:${isAdmin ? '700' : '500'};">• ${review.role}</span>` : ''}
-                </div>
-                <div style="color:#FF9F43;font-size:${isAdmin ? '20px' : '16px'};margin-top:0.5rem;">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
-              </div>
-              <span style="color:var(--text-muted);font-size:13px;white-space:nowrap;margin-left:1rem;">${new Date(review.date).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})}</span>
-            </div>
-            <p style="color:var(--text-primary);line-height:1.8;margin:0;font-size:${isAdmin ? '16px' : '15px'};${isAdmin ? 'font-weight:500;' : ''}">${review.text}</p>
-          </div>
-        `;
-        }).join('');
-      } else {
-        reviewsList.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;">No reviews yet. Be the first to review!</p>';
-      }
-      
-      // Render contact info
-      const contactHtml = `
-        <h4 style="margin-bottom:1rem;color:var(--text-primary);">Contact Information</h4>
-        <p style="margin-bottom:0.5rem;"><i class="fa-solid fa-location-dot" style="margin-right:8px;color:var(--accent-primary);"></i>${biz.address}</p>
-        <p style="margin-bottom:0.5rem;"><i class="fa-solid fa-phone" style="margin-right:8px;color:var(--accent-primary);"></i><a href="tel:${biz.phone}">${biz.phone}</a></p>
-        ${biz.email ? `<p style="margin-bottom:0.5rem;"><i class="fa-solid fa-envelope" style="margin-right:8px;color:var(--accent-primary);"></i><a href="mailto:${biz.email}">${biz.email}</a></p>` : ''}
-        ${biz.whatsapp ? `<p style="margin-bottom:0.5rem;"><i class="fa-brands fa-whatsapp" style="margin-right:8px;color:var(--accent-primary);"></i><a href="https://wa.me/${biz.whatsapp.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a></p>` : ''}
-        ${biz.website ? `<p style="margin-bottom:0.5rem;"><i class="fa-solid fa-globe" style="margin-right:8px;color:var(--accent-primary);"></i><a href="${biz.website}" target="_blank">Website</a></p>` : ''}
-        <p style="margin-top:1rem;"><a href="${biz.mapLink}" target="_blank" class="btn" style="width:100%;">View on Map</a></p>
-      `;
-      document.getElementById('biz-contact').innerHTML = contactHtml;
-      
-      // Render hours
-      const days = {mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
-      const hoursHtml = '<h4 style="margin-bottom:1rem;color:var(--text-primary);">Opening Hours</h4>' + 
-        Object.keys(days).map(day => {
-          const hours = biz.hours[day];
-          const isClosed = hours.open === '00:00' && hours.close === '00:00';
-          return `<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span>${days[day]}</span><span style="color:${isClosed ? 'var(--accent-danger)' : 'var(--accent-success)'};">${isClosed ? 'Closed' : hours.open + ' - ' + hours.close}</span></div>`;
-        }).join('');
-      document.getElementById('biz-hours').innerHTML = hoursHtml;
-      
-      // Render tags
-      const tagsHtml = '<h4 style="margin-bottom:1rem;color:var(--text-primary);">Services</h4>' +
-        biz.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-      document.getElementById('biz-tags').innerHTML = tagsHtml;
-      
-      // Render related listings
-      const relatedList = document.getElementById('related-list');
-      const related = window.LISTINGS.filter(b=>b.categorySlug===biz.categorySlug && b.id!==biz.id).slice(0,3);
-      if (related.length > 0) {
-        relatedList.innerHTML = related.map(b=>window.renderCard(b)).join('');
-      } else {
-        relatedList.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;">No related listings available.</p>';
-      }
-    });
-  </script>
 </body>
+
 </html>
