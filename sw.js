@@ -22,6 +22,8 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/business-detail.html`,
   `${BASE_PATH}/add-business.html`,
   `${BASE_PATH}/about.html`,
+  `${BASE_PATH}/contact.html`,
+  `${BASE_PATH}/offline.html`,
   `${BASE_PATH}/404.html`,
   `${BASE_PATH}/500.html`,
   `${BASE_PATH}/css/style.css`,
@@ -34,6 +36,7 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/css/footer.css`,
   `${BASE_PATH}/css/animations.css`,
   `${BASE_PATH}/css/business-detail.css`,
+  `${BASE_PATH}/css/utilities.css`,
   `${BASE_PATH}/js/config.js`,
   `${BASE_PATH}/js/data.js`,
   `${BASE_PATH}/js/main.js`,
@@ -43,7 +46,10 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/js/animations.js`,
   `${BASE_PATH}/js/counter.js`,
   `${BASE_PATH}/js/business-detail.js`,
+  `${BASE_PATH}/js/utils.js`,
+  `${BASE_PATH}/js/pwa.js`,
   `${BASE_PATH}/assets/images/mainlogo.svg`,
+  `${BASE_PATH}/assets/images/logo.svg`,
   `${BASE_PATH}/assets/images/og-image.jpg`,
   `${BASE_PATH}/manifest.json`
 ];
@@ -64,26 +70,30 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate event - clean up old caches
+// Activate event - clean up ALL old caches completely
 self.addEventListener('activate', (event) => {
+  console.log('[SW] Activating new service worker...');
+  
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
+        console.log('[SW] Found caches:', cacheNames);
+        
+        // Delete ALL caches, not just old versions
         return Promise.all(
-          cacheNames
-            .filter((cacheName) => {
-              return cacheName.startsWith('localfind-') && 
-                     cacheName !== STATIC_CACHE && 
-                     cacheName !== DYNAMIC_CACHE &&
-                     cacheName !== IMAGE_CACHE;
-            })
-            .map((cacheName) => {
-              return caches.delete(cacheName);
-            })
+          cacheNames.map((cacheName) => {
+            console.log('[SW] Deleting cache:', cacheName);
+            return caches.delete(cacheName);
+          })
         );
       })
       .then(() => {
+        console.log('[SW] All caches deleted, claiming clients...');
+        // Take control of all pages immediately
         return self.clients.claim();
+      })
+      .then(() => {
+        console.log('[SW] Service worker activated and claimed all clients');
       })
   );
 });
@@ -107,9 +117,46 @@ self.addEventListener('fetch', (event) => {
 });
 
 /**
- * Handle GET requests with cache-first strategy
+ * Handle GET requests with network-first strategy for HTML, cache-first for others
  */
 async function handleGetRequest(request) {
+  const url = new URL(request.url);
+  
+  // Network-first strategy for HTML files to ensure fresh content
+  if (request.mode === 'navigate' || url.pathname.endsWith('.html')) {
+    try {
+      const networkResponse = await fetch(request);
+      
+      // Cache the fresh response
+      if (networkResponse && networkResponse.status === 200) {
+        const cache = await caches.open(DYNAMIC_CACHE);
+        cache.put(request, networkResponse.clone());
+      }
+      
+      return networkResponse;
+    } catch (error) {
+      console.error('[SW] Network fetch failed, trying cache:', error);
+      
+      // Fallback to cache
+      const cachedResponse = await caches.match(request);
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      
+      // Return offline page
+      const offlinePage = await caches.match(`${BASE_PATH}/offline.html`);
+      if (offlinePage) {
+        return offlinePage;
+      }
+      
+      return new Response('Network error', {
+        status: 408,
+        headers: { 'Content-Type': 'text/plain' }
+      });
+    }
+  }
+  
+  // Cache-first strategy for other resources
   try {
     // Try cache first
     const cachedResponse = await caches.match(request);
@@ -130,15 +177,6 @@ async function handleGetRequest(request) {
   } catch (error) {
     console.error('[SW] Fetch failed:', error);
     
-    // Return offline page for navigation requests
-    if (request.mode === 'navigate') {
-      const offlinePage = await caches.match(`${BASE_PATH}/offline.html`);
-      if (offlinePage) {
-        return offlinePage;
-      }
-    }
-    
-    // Return generic error response
     return new Response('Network error', {
       status: 408,
       headers: { 'Content-Type': 'text/plain' }
@@ -252,10 +290,11 @@ self.addEventListener('notificationclick', (event) => {
 // Message handler for communication with main thread
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
+    console.log('[SW] Received SKIP_WAITING message');
+    
     // Skip waiting and activate immediately
     self.skipWaiting().then(() => {
-      // Claim all clients immediately after activation
-      return self.clients.claim();
+      console.log('[SW] Skip waiting completed');
     });
   }
   
@@ -263,6 +302,20 @@ self.addEventListener('message', (event) => {
     event.waitUntil(
       caches.open(DYNAMIC_CACHE)
         .then((cache) => cache.addAll(event.data.urls))
+    );
+  }
+  
+  if (event.data && event.data.type === 'CLEAR_ALL_CACHES') {
+    console.log('[SW] Received CLEAR_ALL_CACHES message');
+    event.waitUntil(
+      caches.keys().then((cacheNames) => {
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            console.log('[SW] Clearing cache:', cacheName);
+            return caches.delete(cacheName);
+          })
+        );
+      })
     );
   }
 });
