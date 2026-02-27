@@ -48,6 +48,38 @@ function renderHeader(){
       <a href="about.html">About</a>
     </nav>
   </div>
+  <div class="search-modal" id="search-modal" role="dialog" aria-label="Search" aria-hidden="true">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <h2>Search LocalFind</h2>
+        <button class="search-close" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="search-modal-form" action="directory.html" method="get">
+        <div class="search-input-wrapper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input 
+            type="text" 
+            name="search" 
+            placeholder="Search for businesses, services, or categories..." 
+            autocomplete="off"
+            aria-label="Search query"
+          >
+        </div>
+        <button type="submit" class="btn btn-cta">Search</button>
+      </form>
+      <div class="search-suggestions">
+        <h3>Popular Searches</h3>
+        <div class="search-tags">
+          <a href="directory.html?search=restaurant" class="search-tag">Restaurants</a>
+          <a href="directory.html?search=csc" class="search-tag">CSC</a>
+          <a href="directory.html?search=pharmacy" class="search-tag">Pharmacy</a>
+          <a href="directory.html?search=grocery" class="search-tag">Grocery</a>
+          <a href="directory.html?search=bank" class="search-tag">Banks</a>
+          <a href="directory.html?search=hospital" class="search-tag">Hospitals</a>
+        </div>
+      </div>
+    </div>
+  </div>
   `;
 }
 
@@ -124,14 +156,19 @@ function initNavbar(){
   
   const navbar = document.getElementById('navbar');
   const mobileMenu = document.getElementById('mobile-menu');
+  const searchModal = document.getElementById('search-modal');
   
-  if (!navbar || !mobileMenu) {
+  if (!navbar || !mobileMenu || !searchModal) {
     return;
   }
   
   const hamburger = navbar.querySelector('.hamburger');
   const closeBtn = mobileMenu.querySelector('.close');
+  const searchIcon = navbar.querySelector('.search-icon');
+  const searchClose = searchModal.querySelector('.search-close');
+  const searchInput = searchModal.querySelector('input[name="search"]');
   
+  // Mobile menu handlers
   if (hamburger) {
     hamburger.addEventListener('click', () => {
       mobileMenu.classList.add('open');
@@ -148,12 +185,49 @@ function initNavbar(){
     });
   }
   
-  // Close mobile menu on escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-      mobileMenu.classList.remove('open');
-      mobileMenu.setAttribute('aria-hidden', 'true');
+  // Search modal handlers
+  if (searchIcon) {
+    searchIcon.addEventListener('click', () => {
+      searchModal.classList.add('open');
+      searchModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      // Focus on search input after modal opens
+      setTimeout(() => {
+        if (searchInput) searchInput.focus();
+      }, 100);
+    });
+  }
+  
+  if (searchClose) {
+    searchClose.addEventListener('click', () => {
+      searchModal.classList.remove('open');
+      searchModal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+    });
+  }
+  
+  // Close search modal on backdrop click
+  searchModal.addEventListener('click', (e) => {
+    if (e.target === searchModal) {
+      searchModal.classList.remove('open');
+      searchModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  });
+  
+  // Close modals on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (mobileMenu.classList.contains('open')) {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      if (searchModal.classList.contains('open')) {
+        searchModal.classList.remove('open');
+        searchModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
     }
   });
   
