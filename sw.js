@@ -216,8 +216,8 @@ async function syncBusinessSubmissions() {
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'New update available',
-    icon: '/assets/images/icon-192x192.png',
-    badge: '/assets/images/icon-72x72.png',
+    icon: `${BASE_PATH}/assets/images/mainlogo.svg`,
+    badge: `${BASE_PATH}/assets/images/mainlogo.svg`,
     vibrate: [200, 100, 200],
     tag: 'localfind-notification',
     requireInteraction: false,

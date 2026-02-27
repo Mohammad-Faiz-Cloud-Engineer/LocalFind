@@ -15,7 +15,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="LocalFind">
-  <link rel="apple-touch-icon" href="assets/images/icon-192x192.png">
+  <link rel="apple-touch-icon" href="assets/images/mainlogo.svg">
   <meta name="theme-color" content="#FF9F43">
   
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -25,6 +25,11 @@
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/animations.css">
   <style>
+    /* Prevent horizontal overflow on mobile */
+    body {
+      overflow-x: hidden;
+    }
+    
     .about-hero {
       padding: 80px 0 60px;
       text-align: center;
@@ -32,20 +37,23 @@
     }
     
     .about-hero h1 {
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 800;
       margin-bottom: 16px;
       background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     
     .about-hero p {
-      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      font-size: clamp(1rem, 2vw, 1.3rem);
       color: var(--text-muted);
       max-width: 700px;
       margin: 0 auto;
+      padding: 0 16px;
     }
     
     .about-section {
@@ -55,13 +63,15 @@
     .about-content {
       max-width: 800px;
       margin: 0 auto;
+      width: 100%;
     }
     
     .about-content h2 {
-      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
       font-weight: 700;
       margin-bottom: 24px;
       color: var(--text-primary);
+      word-wrap: break-word;
     }
     
     .about-content p {
@@ -69,6 +79,7 @@
       line-height: 1.8;
       color: var(--text-secondary);
       margin-bottom: 20px;
+      word-wrap: break-word;
     }
     
     .mission-card {
@@ -78,21 +89,26 @@
       padding: 48px;
       margin: 60px 0;
       text-align: center;
+      width: 100%;
+      box-sizing: border-box;
     }
     
     .mission-card blockquote {
-      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-size: clamp(1.1rem, 2.5vw, 1.75rem);
       font-weight: 600;
       line-height: 1.6;
       color: var(--text-primary);
       font-style: italic;
       margin: 0;
       position: relative;
+      padding-left: 20px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     
     .mission-card blockquote::before {
       content: '"';
-      font-size: 4rem;
+      font-size: clamp(3rem, 8vw, 4rem);
       color: var(--accent-primary);
       opacity: 0.3;
       position: absolute;
@@ -109,11 +125,14 @@
       display: flex;
       gap: 48px;
       align-items: center;
+      width: 100%;
+      box-sizing: border-box;
     }
     
     .founder-avatar {
       width: 160px;
       height: 160px;
+      min-width: 160px;
       border-radius: var(--radius-xl);
       background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
       display: flex;
@@ -126,11 +145,17 @@
       box-shadow: var(--shadow-glow);
     }
     
+    .founder-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
     .founder-info h3 {
-      font-size: 28px;
+      font-size: clamp(1.5rem, 4vw, 1.75rem);
       font-weight: 700;
       margin-bottom: 8px;
       color: var(--text-primary);
+      word-wrap: break-word;
     }
     
     .founder-info .role {
@@ -145,13 +170,15 @@
       line-height: 1.7;
       color: var(--text-secondary);
       margin-bottom: 0;
+      word-wrap: break-word;
     }
     
     .stats-grid-about {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 24px;
       margin: 60px 0;
+      width: 100%;
     }
     
     .stat-card-about {
@@ -161,6 +188,7 @@
       padding: 32px 24px;
       text-align: center;
       transition: all var(--transition-base);
+      min-width: 0;
     }
     
     .stat-card-about:hover {
@@ -170,7 +198,7 @@
     }
     
     .stat-card-about .num {
-      font-size: 48px;
+      font-size: clamp(2.5rem, 6vw, 3rem);
       font-weight: 800;
       background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
       -webkit-background-clip: text;
@@ -178,6 +206,7 @@
       background-clip: text;
       line-height: 1;
       margin-bottom: 12px;
+      word-wrap: break-word;
     }
     
     .stat-card-about .label {
@@ -186,13 +215,15 @@
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 1px;
+      word-wrap: break-word;
     }
     
     .values-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 32px;
       margin: 60px 0;
+      width: 100%;
     }
     
     .value-card {
@@ -201,6 +232,7 @@
       border-radius: var(--radius-xl);
       padding: 32px;
       transition: all var(--transition-base);
+      min-width: 0;
     }
     
     .value-card:hover {
@@ -230,6 +262,7 @@
       font-weight: 700;
       margin-bottom: 12px;
       color: var(--text-primary);
+      word-wrap: break-word;
     }
     
     .value-card p {
@@ -237,6 +270,7 @@
       line-height: 1.6;
       color: var(--text-muted);
       margin: 0;
+      word-wrap: break-word;
     }
     
     .cta-section {
@@ -246,46 +280,121 @@
       padding: 60px 48px;
       text-align: center;
       margin: 60px 0;
+      width: 100%;
+      box-sizing: border-box;
     }
     
     .cta-section h2 {
-      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
       margin-bottom: 16px;
+      word-wrap: break-word;
     }
     
     .cta-section p {
       font-size: 16px;
       color: var(--text-muted);
       margin-bottom: 32px;
+      word-wrap: break-word;
     }
     
+    .cta-section > div {
+      max-width: 100%;
+    }
+    
+    /* Mobile optimizations */
     @media (max-width: 768px) {
+      .about-hero {
+        padding: 60px 0 40px;
+      }
+      
+      .about-section {
+        padding: 40px 0;
+      }
+      
       .founder-section {
         flex-direction: column;
         text-align: center;
-        padding: 32px 24px;
+        padding: 32px 20px;
+        gap: 24px;
       }
       
       .founder-avatar {
         width: 120px;
         height: 120px;
+        min-width: 120px;
         font-size: 48px;
       }
       
       .mission-card {
-        padding: 32px 24px;
+        padding: 32px 20px;
+        margin: 40px 0;
+      }
+      
+      .mission-card blockquote {
+        padding-left: 10px;
+      }
+      
+      .mission-card blockquote::before {
+        left: -5px;
+        top: -15px;
       }
       
       .stats-grid-about {
         grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin: 40px 0;
+      }
+      
+      .stat-card-about {
+        padding: 24px 16px;
       }
       
       .values-grid {
         grid-template-columns: 1fr;
+        gap: 24px;
+        margin: 40px 0;
+      }
+      
+      .value-card {
+        padding: 24px;
       }
       
       .cta-section {
-        padding: 40px 24px;
+        padding: 40px 20px;
+        margin: 40px 0;
+      }
+      
+      .cta-section > div {
+        flex-direction: column;
+        gap: 12px !important;
+      }
+      
+      .cta-section .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+    
+    /* Extra small mobile devices */
+    @media (max-width: 480px) {
+      .about-hero {
+        padding: 40px 0 30px;
+      }
+      
+      .stats-grid-about {
+        grid-template-columns: 1fr;
+      }
+      
+      .mission-card {
+        padding: 24px 16px;
+      }
+      
+      .founder-section {
+        padding: 24px 16px;
+      }
+      
+      .cta-section {
+        padding: 32px 16px;
       }
     }
   </style>

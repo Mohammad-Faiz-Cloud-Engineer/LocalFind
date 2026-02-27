@@ -86,10 +86,14 @@
    */
   function render() {
     const container = document.getElementById('listings');
+    const resultsCount = document.getElementById('results-count');
+    
+    if (!container || !resultsCount) {
+      return;
+    }
+    
     const slice = currentListings.slice(0, offset + ITEMS_PER_PAGE);
     container.innerHTML = slice.map(b => window.renderCard(b)).join('');
-
-    const resultsCount = document.getElementById('results-count');
     resultsCount.textContent = `Showing ${Math.min(slice.length, currentListings.length)} of ${currentListings.length} businesses`;
   }
 
@@ -97,6 +101,11 @@
    * Initialize directory page
    */
   function init() {
+    // Only run on directory page
+    if (!document.getElementById('listings')) {
+      return;
+    }
+
     // Check if data exists
     if (!window.LISTINGS || window.LISTINGS.length === 0) {
       const container = document.getElementById('listings');
@@ -136,8 +145,10 @@
           currentListings.sort((a, b) => a.name.localeCompare(b.name));
         } else if (value === 'newest') {
           currentListings = [...window.LISTINGS];
+          applyQueryParams();
         }
 
+        offset = 0;
         render();
       });
     }
@@ -152,6 +163,7 @@
           const query = e.target.value.trim();
           if (!query) {
             currentListings = [...window.LISTINGS];
+            applyQueryParams();
           } else {
             const searchTerms = expandSearchQuery(query);
             currentListings = window.LISTINGS.filter(b =>
@@ -190,12 +202,22 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        init();
+      } catch (error) {
+        console.error('Directory initialization failed:', error);
+      }
+    });
+  } else {
+    // DOM already loaded
     try {
       init();
     } catch (error) {
       console.error('Directory initialization failed:', error);
     }
-  });
+  }
 })();
 
