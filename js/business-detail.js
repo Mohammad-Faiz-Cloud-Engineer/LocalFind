@@ -46,6 +46,16 @@
     document.getElementById('biz-category').textContent = biz.category;
     document.getElementById('biz-name').textContent = biz.name;
     
+    // Add verified badge to title if business is verified
+    if (biz.verified) {
+      const titleElement = document.getElementById('biz-title');
+      const verifiedBadge = document.createElement('span');
+      verifiedBadge.className = 'verified-badge-large';
+      verifiedBadge.title = 'Verified Business';
+      verifiedBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+      titleElement.appendChild(verifiedBadge);
+    }
+    
     // Generate avatar from business name (first letter of each word, max 2 letters)
     const avatarText = biz.name
       .split(' ')

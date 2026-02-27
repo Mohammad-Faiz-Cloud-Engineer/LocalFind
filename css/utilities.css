@@ -630,3 +630,86 @@
     margin-bottom: 6px;
   }
 }
+
+
+/* ============================================
+   VERIFICATION BADGE UTILITIES
+   ============================================ */
+
+/* Inline verification badge for text */
+.verified-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.verified-inline .verified-icon {
+  color: var(--accent-info);
+  font-size: 1.1em;
+  filter: drop-shadow(0 0 6px rgba(75, 123, 236, 0.4));
+  animation: verifiedGlow 2s ease-in-out infinite;
+}
+
+@keyframes verifiedGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(75, 123, 236, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(75, 123, 236, 0.6));
+  }
+}
+
+/* Verification status badge */
+.status-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, 
+    rgba(75, 123, 236, 0.15) 0%, 
+    rgba(84, 214, 200, 0.1) 100%);
+  border: 1px solid rgba(75, 123, 236, 0.3);
+  border-radius: var(--radius-full);
+  color: var(--accent-info);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-verified i {
+  font-size: 14px;
+}
+
+/* Verification tooltip */
+.verified-tooltip {
+  position: relative;
+  cursor: help;
+}
+
+.verified-tooltip::after {
+  content: 'Verified by LocalFind';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 6px 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-fast);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.verified-tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-4px);
+}

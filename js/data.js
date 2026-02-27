@@ -45,6 +45,7 @@ window.LISTINGS = [
     category: "Government Services & CSC",
     categorySlug: "government-services",
     featured: true,
+    verified: true,
     status: "open",
     rating: 5.0,
     reviewCount: 1,
@@ -98,11 +99,15 @@ window.renderCard = function(b){
   const name = sanitizeHTML(b.name);
   const desc = sanitizeHTML(b.description.slice(0,120));
   const tags = b.tags.slice(0,3).map(t => `<span class="tag">${sanitizeHTML(t)}</span>`).join('');
+  const verifiedBadge = b.verified ? '<span class="verified-badge" title="Verified Business"><i class="fa-solid fa-circle-check"></i></span>' : '';
   
   return `
-  <article class="card ${b.featured ? 'featured' : ''}" role="article">
+  <article class="card ${b.featured ? 'featured' : ''} ${b.verified ? 'verified' : ''}" role="article">
     <div class="meta">
-      <div class="title"><a href="business-detail.html?id=${encodeURIComponent(b.id)}">${name}</a></div>
+      <div class="title">
+        <a href="business-detail.html?id=${encodeURIComponent(b.id)}">${name}</a>
+        ${verifiedBadge}
+      </div>
       <div class="small" aria-label="Rating ${b.rating} out of 5 stars">${b.rating} ★ (${b.reviewCount})</div>
     </div>
     <div class="desc">${desc}...</div>

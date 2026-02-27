@@ -316,3 +316,67 @@
     padding: var(--space-sm) var(--space-md);
   }
 }
+
+
+/* ============================================
+   VERIFICATION BADGE - Business Detail Page
+   ============================================ */
+
+.verified-badge-large {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 12px;
+  color: var(--accent-info);
+  font-size: 32px;
+  vertical-align: middle;
+  animation: verifiedPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(75, 123, 236, 0.5));
+}
+
+@keyframes verifiedPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 12px rgba(75, 123, 236, 0.5));
+  }
+  50% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 18px rgba(75, 123, 236, 0.7));
+  }
+}
+
+.verified-badge-large i {
+  display: block;
+}
+
+/* Business header with verification */
+.biz-header h1 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Verified business styling */
+.biz-content.verified {
+  position: relative;
+}
+
+.biz-content.verified .biz-header {
+  border-bottom-color: rgba(75, 123, 236, 0.2);
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .verified-badge-large {
+    font-size: 26px;
+    margin-left: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .verified-badge-large {
+    font-size: 22px;
+    margin-left: 6px;
+  }
+}
