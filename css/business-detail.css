@@ -174,19 +174,145 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .breadcrumb {
+    padding: var(--space-md) 0;
+    font-size: 12px;
+  }
+  
+  .biz-hero {
+    padding: var(--space-lg) 0;
+    margin-bottom: var(--space-lg);
+  }
+  
+  .biz-hero .cover {
+    height: 120px;
+  }
+  
   .biz-content {
     grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
   }
   
   .biz-meta {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding-top: var(--space-md);
+    gap: var(--space-md);
   }
   
   .biz-meta .avatar {
-    width: 100px;
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+    border: 3px solid var(--bg-primary);
+    border-radius: var(--radius-lg);
+  }
+  
+  .meta-text h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: var(--space-xs);
+  }
+  
+  .main-col {
+    gap: var(--space-md);
+  }
+  
+  .main-col article {
+    padding: var(--space-md);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  
+  .sidebar {
+    gap: var(--space-md);
+  }
+  
+  .contact-card,
+  .hours-card,
+  .tags-card,
+  .small-map {
+    padding: var(--space-md);
+  }
+  
+  .small-map {
+    min-height: 200px;
+  }
+  
+  .small-map iframe {
+    height: 200px;
+  }
+  
+  #reviews {
+    padding: var(--space-md);
+  }
+  
+  #reviews h3 {
+    font-size: 18px;
+    margin-bottom: var(--space-md);
+  }
+  
+  .related-section {
+    margin-top: var(--space-2xl);
+  }
+  
+  .related-section h3 {
+    font-size: 18px;
+    margin-bottom: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumb {
+    font-size: 11px;
+    padding: var(--space-sm) 0;
+  }
+  
+  .biz-hero {
+    padding: var(--space-md) 0;
+    margin-bottom: var(--space-md);
+  }
+  
+  .biz-hero .cover {
     height: 100px;
-    font-size: 40px;
+    border-radius: var(--radius-lg);
+  }
+  
+  .biz-meta {
+    padding-top: var(--space-sm);
+    gap: var(--space-sm);
+  }
+  
+  .biz-meta .avatar {
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+    border-radius: var(--radius-md);
+  }
+  
+  .meta-text h1 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .biz-content {
+    gap: var(--space-md);
+  }
+  
+  .main-col article {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 13px;
+  }
+  
+  .contact-card,
+  .hours-card,
+  .tags-card,
+  .small-map {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  #reviews {
+    padding: var(--space-sm) var(--space-md);
   }
 }
