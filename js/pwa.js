@@ -343,7 +343,66 @@
    */
   function isPWA() {
     return window.matchMedia('(display-mode: standalone)').matches ||
-           window.navigator.standalone === true;
+           window.navigator.standalone === true ||
+           document.referrer.includes('android-app://');
+  }
+  
+  /**
+   * Add PWA-specific enhancements
+   */
+  function setupPWAEnhancements() {
+    if (isPWA()) {
+      // Add PWA class to body for specific styling
+      document.body.classList.add('pwa-mode');
+      
+      // Disable pull-to-refresh completely
+      document.body.style.overscrollBehaviorY = 'contain';
+      
+      // Prevent default touch behaviors
+      let lastTouchY = 0;
+      let preventPullToRefresh = false;
+      
+      document.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) return;
+        lastTouchY = e.touches[0].clientY;
+        preventPullToRefresh = window.pageYOffset === 0;
+      }, { passive: false });
+      
+      document.addEventListener('touchmove', (e) => {
+        const touchY = e.touches[0].clientY;
+        const touchYDelta = touchY - lastTouchY;
+        lastTouchY = touchY;
+        
+        if (preventPullToRefresh) {
+          // Prevent pull-to-refresh if at top and pulling down
+          if (touchYDelta > 0) {
+            e.preventDefault();
+            return;
+          }
+          preventPullToRefresh = false;
+        }
+      }, { passive: false });
+      
+      // Add safe area padding for notched devices
+      if (CSS.supports('padding-top: env(safe-area-inset-top)')) {
+        document.documentElement.style.setProperty('--safe-area-top', 'env(safe-area-inset-top)');
+        document.documentElement.style.setProperty('--safe-area-bottom', 'env(safe-area-inset-bottom)');
+      }
+      
+      // Prevent context menu on long press
+      window.addEventListener('contextmenu', (e) => {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+        }
+      });
+      
+      // Handle back button in PWA
+      window.addEventListener('popstate', (e) => {
+        // Custom back button handling if needed
+      });
+      
+      console.log('[PWA] Running in standalone mode with enhancements');
+    }
   }
   
   /**
@@ -415,6 +474,9 @@
    * Initialize PWA features
    */
   function init() {
+    // Setup PWA enhancements first
+    setupPWAEnhancements();
+    
     // Register service worker
     registerServiceWorker();
     
@@ -423,6 +485,13 @@
     
     // Setup network detection
     setupNetworkDetection();
+    
+    // Log PWA status
+    if (isPWA()) {
+      console.log('[PWA] App is running in standalone mode');
+    } else {
+      console.log('[PWA] App is running in browser mode');
+    }
   }
   
   // Initialize when DOM is ready
