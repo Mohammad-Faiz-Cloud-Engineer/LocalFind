@@ -46,6 +46,15 @@
     document.getElementById('biz-category').textContent = biz.category;
     document.getElementById('biz-name').textContent = biz.name;
     
+    // Generate avatar from business name (first letter of each word, max 2 letters)
+    const avatarText = biz.name
+      .split(' ')
+      .filter(word => word.length > 0)
+      .slice(0, 2)
+      .map(word => word[0].toUpperCase())
+      .join('');
+    document.getElementById('biz-avatar').textContent = avatarText;
+    
     // Render badges
     const badgesHtml = [];
     if (biz.featured) {
