@@ -43,16 +43,19 @@
   font-family: var(--font-display);
   letter-spacing: -0.02em;
   transition: transform var(--transition-fast);
+  text-decoration: none;
 }
 
 .logo:hover {
   transform: scale(1.02);
+  color: var(--text-primary);
 }
 
-.logo svg {
+.logo img {
   width: 40px;
   height: 40px;
   flex-shrink: 0;
+  object-fit: contain;
 }
 
 /* Nav Links */

@@ -172,18 +172,114 @@ select.error:focus {
 /* Responsive */
 @media (max-width: 640px) {
   form {
-    padding: var(--space-lg);
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
   }
   
-  .input-group {
-    flex-direction: column;
+  label {
+    margin-bottom: var(--space-md);
+    font-size: 13px;
+  }
+  
+  input,
+  textarea,
+  select {
+    padding: 12px 14px;
+    font-size: 14px;
+    border-radius: var(--radius-md);
+  }
+  
+  textarea {
+    min-height: 120px;
+  }
+  
+  select {
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+  
+  .step h3 {
+    font-size: 20px;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
   }
   
   .step-controls {
     flex-direction: column-reverse;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
   }
   
   .step-controls .btn {
     width: 100%;
+  }
+  
+  .input-group {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .char-count {
+    font-size: 12px;
+    margin-top: 6px;
+  }
+  
+  .success {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+  }
+  
+  .success h3 {
+    font-size: 20px;
+    margin-bottom: var(--space-sm);
+  }
+  
+  .success p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  form {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  label {
+    margin-bottom: var(--space-sm);
+    font-size: 12px;
+  }
+  
+  input,
+  textarea,
+  select {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+  
+  textarea {
+    min-height: 100px;
+  }
+  
+  .step h3 {
+    font-size: 18px;
+    margin-bottom: var(--space-sm);
+  }
+  
+  .step-controls {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+  }
+  
+  .success {
+    padding: var(--space-md);
+  }
+  
+  .success h3 {
+    font-size: 18px;
+  }
+  
+  .success p {
+    font-size: 13px;
   }
 }
