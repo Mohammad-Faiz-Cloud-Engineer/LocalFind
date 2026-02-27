@@ -61,7 +61,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Near Rehan Clothing Store, Uttar Pradesh 225203",
-    mapLink: "https://maps.google.com/?q=26.923313,81.261053",
+    mapLink: "https://maps.google.com/?q=26.923311,81.261030",
     phone: "+91 91405 15707",
     email: "moraheem862@gmail.com",
     website: "",
@@ -77,6 +77,46 @@ window.LISTINGS = [
     },
     description: "Raheem Common Service Center is your one-stop solution for all government and digital services in Rasauli. We provide comprehensive services including Aadhaar card enrollment and updates, PAN card applications, income certificates, caste certificates, domicile certificates, birth and death certificates, and various other government document services. We also offer banking services, bill payments, insurance services, digital payments, and online form submissions. Our experienced team, led by owner Raheem, ensures quick, reliable, and hassle-free service delivery. Visit us for all your documentation and digital service needs.",
     tags: ["csc", "aadhaar", "pan-card", "certificates", "banking", "government-services", "digital-services", "bill-payment"],
+    isNew: true
+  },
+  {
+    id: "rehan-clothing-store",
+    name: "Rehan Clothing Store",
+    category: "Fashion & Apparel",
+    categorySlug: "fashion",
+    featured: true,
+    verified: false,
+    status: "open",
+    rating: 4.0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 4.0,
+        date: "2026-02-27",
+        text: "You have to Bargain in a good way cause the prices are high compare to the quality we get.",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Near Raheem Common Service Center Shop, Uttar Pradesh 225203",
+    mapLink: "https://maps.google.com/?q=26.923304,81.261074",
+    phone: "+91 78977 34573",
+    email: "",
+    website: "",
+    whatsapp: "+91 78977 34573",
+    hours: {
+      mon: {open: "10:00", close: "19:00"},
+      tue: {open: "10:00", close: "19:00"},
+      wed: {open: "10:00", close: "19:00"},
+      thu: {open: "10:00", close: "19:00"},
+      fri: {open: "10:00", close: "19:00"},
+      sat: {open: "10:00", close: "19:00"},
+      sun: {open: "10:00", close: "19:00"}
+    },
+    description: "Rehan Clothing Store is your premier destination for fashionable clothing and apparel in Rasauli. We offer a wide selection of traditional and modern clothing for men, women, and children. From everyday wear to special occasion outfits, our store features quality fabrics and the latest fashion trends. Whether you're looking for ethnic wear, casual clothing, or formal attire, we have something for everyone. Our friendly staff is always ready to help you find the perfect outfit that matches your style and budget. Visit us for a complete shopping experience in the heart of Rasauli Bazar.",
+    tags: ["clothing", "fashion", "apparel", "ethnic-wear", "casual-wear", "formal-wear", "men-clothing", "women-clothing", "kids-clothing"],
     isNew: true
   }
 ];
