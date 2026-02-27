@@ -167,6 +167,20 @@
       sun: 'Sunday'
     };
     
+    /**
+     * Convert 24-hour time to 12-hour AM/PM format
+     * @param {string} time - Time in HH:MM format
+     * @returns {string} Time in 12-hour format with AM/PM
+     */
+    function convertTo12Hour(time) {
+      const [hours, minutes] = time.split(':').map(Number);
+      if (hours === 0 && minutes === 0) return '12:00 AM';
+      
+      const period = hours >= 12 ? 'PM' : 'AM';
+      const hour12 = hours % 12 || 12;
+      return `${hour12}:${minutes.toString().padStart(2, '0')} ${period}`;
+    }
+    
     const hoursHtml = '<h4 class="section-header">Opening Hours</h4>' + 
       Object.keys(days).map(day => {
         const hours = biz.hours[day];
@@ -175,7 +189,7 @@
           <div class="hours-row">
             <span class="hours-day">${days[day]}</span>
             <span class="hours-time ${isClosed ? 'closed' : 'open'}">
-              ${isClosed ? 'Closed' : hours.open + ' - ' + hours.close}
+              ${isClosed ? 'Closed' : convertTo12Hour(hours.open) + ' - ' + convertTo12Hour(hours.close)}
             </span>
           </div>
         `;
