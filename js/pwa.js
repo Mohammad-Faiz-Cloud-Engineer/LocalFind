@@ -41,6 +41,14 @@
         swRegistration.update();
       }, 60 * 60 * 1000);
       
+      // Listen for controller change (new service worker activated)
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        // New service worker has taken control, reload to get fresh content
+        if (!window.location.pathname.includes('offline.html')) {
+          window.location.reload();
+        }
+      });
+      
     } catch (error) {
       console.error('[PWA] Service worker registration failed:', error);
     }
@@ -54,8 +62,8 @@
     notification.className = 'pwa-update-notification';
     notification.innerHTML = `
       <div class="pwa-update-content">
-        <span>🎉 New version available!</span>
-        <button class="pwa-update-btn" onclick="window.location.reload()">Update Now</button>
+        <span>New version available!</span>
+        <button class="pwa-update-btn" id="pwa-update-now-btn">Update Now</button>
         <button class="pwa-dismiss-btn" onclick="this.parentElement.parentElement.remove()">Later</button>
       </div>
     `;
@@ -139,6 +147,34 @@
     
     document.head.appendChild(style);
     document.body.appendChild(notification);
+    
+    // Add click handler for update button
+    const updateBtn = document.getElementById('pwa-update-now-btn');
+    if (updateBtn) {
+      updateBtn.addEventListener('click', async () => {
+        try {
+          // Clear all caches
+          if ('caches' in window) {
+            const cacheNames = await caches.keys();
+            await Promise.all(
+              cacheNames.map(cacheName => caches.delete(cacheName))
+            );
+          }
+          
+          // Tell the waiting service worker to skip waiting and activate
+          if (swRegistration && swRegistration.waiting) {
+            swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+          }
+          
+          // Reload the page to get the new version
+          window.location.reload();
+        } catch (error) {
+          console.error('[PWA] Failed to clear cache and update:', error);
+          // Fallback to simple reload
+          window.location.reload();
+        }
+      });
+    }
   }
   
   /**
