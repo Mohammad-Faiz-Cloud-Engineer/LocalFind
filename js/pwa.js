@@ -16,7 +16,6 @@
    */
   async function registerServiceWorker() {
     if (!('serviceWorker' in navigator)) {
-      console.log('[PWA] Service workers not supported');
       return;
     }
     
@@ -25,12 +24,9 @@
         scope: '/LocalFind/'
       });
       
-      console.log('[PWA] Service worker registered:', swRegistration.scope);
-      
       // Check for updates
       swRegistration.addEventListener('updatefound', () => {
         const newWorker = swRegistration.installing;
-        console.log('[PWA] New service worker found');
         
         newWorker.addEventListener('statechange', () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
@@ -156,15 +152,12 @@
       // Store event for later use
       deferredPrompt = e;
       
-      console.log('[PWA] Install prompt available');
-      
       // Show custom install button
       showInstallButton();
     });
     
     // Track successful installation
     window.addEventListener('appinstalled', () => {
-      console.log('[PWA] App installed successfully');
       deferredPrompt = null;
       hideInstallButton();
       
@@ -205,7 +198,6 @@
       
       // Wait for user response
       const { outcome } = await deferredPrompt.userChoice;
-      console.log('[PWA] User choice:', outcome);
       
       // Clear deferred prompt
       deferredPrompt = null;
@@ -288,12 +280,10 @@
    */
   function setupNetworkDetection() {
     window.addEventListener('online', () => {
-      console.log('[PWA] Back online');
       showNetworkStatus('online');
     });
     
     window.addEventListener('offline', () => {
-      console.log('[PWA] Gone offline');
       showNetworkStatus('offline');
     });
   }
@@ -354,8 +344,6 @@
    * Initialize PWA features
    */
   function init() {
-    console.log('[PWA] Initializing...');
-    
     // Register service worker
     registerServiceWorker();
     
@@ -364,13 +352,6 @@
     
     // Setup network detection
     setupNetworkDetection();
-    
-    // Log PWA status
-    if (isPWA()) {
-      console.log('[PWA] Running as installed app');
-    } else {
-      console.log('[PWA] Running in browser');
-    }
   }
   
   // Initialize when DOM is ready

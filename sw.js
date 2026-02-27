@@ -50,16 +50,12 @@ const STATIC_ASSETS = [
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing service worker...');
-  
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then((cache) => {
-        console.log('[SW] Caching static assets');
         return cache.addAll(STATIC_ASSETS);
       })
       .then(() => {
-        console.log('[SW] Static assets cached successfully');
         return self.skipWaiting();
       })
       .catch((error) => {
@@ -70,8 +66,6 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating service worker...');
-  
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
@@ -84,13 +78,11 @@ self.addEventListener('activate', (event) => {
                      cacheName !== IMAGE_CACHE;
             })
             .map((cacheName) => {
-              console.log('[SW] Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             })
         );
       })
       .then(() => {
-        console.log('[SW] Service worker activated');
         return self.clients.claim();
       })
   );
@@ -122,12 +114,10 @@ async function handleGetRequest(request) {
     // Try cache first
     const cachedResponse = await caches.match(request);
     if (cachedResponse) {
-      console.log('[SW] Serving from cache:', request.url);
       return cachedResponse;
     }
     
     // If not in cache, fetch from network
-    console.log('[SW] Fetching from network:', request.url);
     const networkResponse = await fetch(request);
     
     // Cache successful responses
@@ -195,8 +185,6 @@ async function handleImageRequest(request) {
 
 // Background sync for offline form submissions
 self.addEventListener('sync', (event) => {
-  console.log('[SW] Background sync triggered:', event.tag);
-  
   if (event.tag === 'sync-business-submissions') {
     event.waitUntil(syncBusinessSubmissions());
   }
@@ -209,7 +197,6 @@ async function syncBusinessSubmissions() {
   try {
     // Get pending submissions from IndexedDB
     // This would be implemented with your backend API
-    console.log('[SW] Syncing business submissions...');
     
     // Example: fetch pending submissions and POST to API
     // const submissions = await getPendingSubmissions();
@@ -219,8 +206,6 @@ async function syncBusinessSubmissions() {
     //     body: JSON.stringify(submission)
     //   });
     // }
-    
-    console.log('[SW] Sync completed');
   } catch (error) {
     console.error('[SW] Sync failed:', error);
     throw error;
@@ -229,8 +214,6 @@ async function syncBusinessSubmissions() {
 
 // Push notification support
 self.addEventListener('push', (event) => {
-  console.log('[SW] Push notification received');
-  
   const options = {
     body: event.data ? event.data.text() : 'New update available',
     icon: '/assets/images/icon-192x192.png',
@@ -257,8 +240,6 @@ self.addEventListener('push', (event) => {
 
 // Notification click handler
 self.addEventListener('notificationclick', (event) => {
-  console.log('[SW] Notification clicked:', event.action);
-  
   event.notification.close();
   
   if (event.action === 'open') {
@@ -270,8 +251,6 @@ self.addEventListener('notificationclick', (event) => {
 
 // Message handler for communication with main thread
 self.addEventListener('message', (event) => {
-  console.log('[SW] Message received:', event.data);
-  
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
@@ -283,5 +262,3 @@ self.addEventListener('message', (event) => {
     );
   }
 });
-
-console.log('[SW] Service worker loaded');

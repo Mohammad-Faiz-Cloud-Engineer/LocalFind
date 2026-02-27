@@ -2,9 +2,9 @@
  * Directory Page - Filter, Sort, Search, Pagination
  * Handles business listing display and user interactions
  */
-(function() {
+(function () {
   'use strict';
-  
+
   const ITEMS_PER_PAGE = 6;
   let offset = 0;
   let currentListings = [...window.LISTINGS];
@@ -13,19 +13,28 @@
    * Apply URL query parameters to filter listings
    */
   function applyQueryParams() {
-    const params = new URLSearchParams(location.search);
+    const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
     const search = params.get('search');
-    
+    const loc = params.get('location');
+
     if (category) {
       currentListings = currentListings.filter(b => b.categorySlug === category);
     }
-    
+
     if (search) {
       const searchLower = search.toLowerCase();
-      currentListings = currentListings.filter(b => 
-        b.name.toLowerCase().includes(searchLower) || 
-        b.description.toLowerCase().includes(searchLower)
+      currentListings = currentListings.filter(b =>
+        b.name.toLowerCase().includes(searchLower) ||
+        b.description.toLowerCase().includes(searchLower) ||
+        (Array.isArray(b.tags) && b.tags.some(t => t.toLowerCase().includes(searchLower)))
+      );
+    }
+
+    if (loc) {
+      const locLower = loc.toLowerCase();
+      currentListings = currentListings.filter(b =>
+        b.address.toLowerCase().includes(locLower)
       );
     }
   }
@@ -37,7 +46,7 @@
     const container = document.getElementById('listings');
     const slice = currentListings.slice(0, offset + ITEMS_PER_PAGE);
     container.innerHTML = slice.map(b => window.renderCard(b)).join('');
-    
+
     const resultsCount = document.getElementById('results-count');
     resultsCount.textContent = `Showing ${Math.min(slice.length, currentListings.length)} of ${currentListings.length} businesses`;
   }
@@ -50,30 +59,20 @@
     if (!window.LISTINGS || window.LISTINGS.length === 0) {
       const container = document.getElementById('listings');
       const resultsCount = document.getElementById('results-count');
-      
+
       if (container) {
         container.innerHTML = '<div style="text-align:center;padding:4rem 2rem;"><h3 style="color:var(--text-primary);margin-bottom:1rem;">No Businesses Listed Yet</h3><p style="color:var(--text-muted);">Add your business data to js/data.js or connect to your backend API.</p></div>';
       }
-      
+
       if (resultsCount) {
         resultsCount.textContent = 'Showing 0 of 0 businesses';
       }
       return;
     }
-    
-    // Populate category tabs
-    const tabs = document.getElementById('category-tabs');
-    const categories = [...new Set(window.LISTINGS.map(b => b.category))];
-    categories.forEach(category => {
-      const slug = category.toLowerCase().split(' ')[0];
-      tabs.insertAdjacentHTML('beforeend', 
-        `<a href="directory.html?category=${slug}">${category}</a>`
-      );
-    });
 
     applyQueryParams();
     offset = 0;
-    
+
     // Load more button
     const loadMoreBtn = document.getElementById('load-more');
     if (loadMoreBtn) {
@@ -82,13 +81,13 @@
         render();
       });
     }
-    
+
     // Sort functionality
     const sortSelect = document.getElementById('sort-select');
     if (sortSelect) {
       sortSelect.addEventListener('change', (e) => {
         const value = e.target.value;
-        
+
         if (value === 'rating') {
           currentListings.sort((a, b) => b.rating - a.rating);
         } else if (value === 'az') {
@@ -96,11 +95,11 @@
         } else if (value === 'newest') {
           currentListings = [...window.LISTINGS];
         }
-        
+
         render();
       });
     }
-    
+
     // Search functionality with debounce
     const searchInput = document.getElementById('filter-search');
     if (searchInput) {
@@ -109,8 +108,8 @@
         clearTimeout(timeout);
         timeout = setTimeout(() => {
           const query = e.target.value.toLowerCase();
-          currentListings = window.LISTINGS.filter(b => 
-            b.name.toLowerCase().includes(query) || 
+          currentListings = window.LISTINGS.filter(b =>
+            b.name.toLowerCase().includes(query) ||
             b.description.toLowerCase().includes(query)
           );
           offset = 0;
@@ -118,13 +117,13 @@
         }, 300);
       });
     }
-    
+
     render();
 
     // View toggle buttons
     const gridBtn = document.getElementById('view-grid');
     const listBtn = document.getElementById('view-list');
-    
+
     if (gridBtn) {
       gridBtn.addEventListener('click', () => {
         document.body.classList.remove('list-view');
@@ -132,7 +131,7 @@
         if (listBtn) listBtn.classList.remove('active');
       });
     }
-    
+
     if (listBtn) {
       listBtn.addEventListener('click', () => {
         document.body.classList.add('list-view');
@@ -143,10 +142,10 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    try{
+    try {
       init();
-    }catch(error){
-      // Silently handle initialization errors in production
+    } catch (error) {
+      console.error('Directory initialization failed:', error);
     }
   });
 })();

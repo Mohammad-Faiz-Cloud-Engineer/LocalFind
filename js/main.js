@@ -203,6 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     initNavbar();
   } catch (error) {
-    // Silently handle initialization errors in production
+    console.error('Navigation initialization failed:', error);
   }
 });

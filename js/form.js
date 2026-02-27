@@ -49,7 +49,12 @@
         
         // Basic validation
         if (!data.name || !data.phone || !data.category) {
-          alert('Please fill in all required fields.');
+          const errorMsg = document.createElement('div');
+          errorMsg.className = 'error-message';
+          errorMsg.style.cssText = 'background: var(--accent-danger); color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 16px; text-align: center;';
+          errorMsg.textContent = 'Please fill in all required fields.';
+          businessForm.insertBefore(errorMsg, businessForm.firstChild);
+          setTimeout(() => errorMsg.remove(), 3000);
           return;
         }
         
@@ -75,7 +80,12 @@
         
         // Validate required fields
         if (!data.name || !data.email || !data.message) {
-          alert('Please fill in all required fields.');
+          const errorMsg = document.createElement('div');
+          errorMsg.className = 'error-message';
+          errorMsg.style.cssText = 'background: var(--accent-danger); color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 16px; text-align: center;';
+          errorMsg.textContent = 'Please fill in all required fields.';
+          contactForm.insertBefore(errorMsg, contactForm.firstChild);
+          setTimeout(() => errorMsg.remove(), 3000);
           return;
         }
         
