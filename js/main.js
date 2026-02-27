@@ -199,10 +199,4 @@ function initNavbar(){
 /**
  * Initialize application on DOM ready
  */
-document.addEventListener('DOMContentLoaded', () => {
-  try {
-    initNavbar();
-  } catch (error) {
-    console.error('Navigation initialization failed:', error);
-  }
-});
+document.addEventListener('DOMContentLoaded', initNavbar);
