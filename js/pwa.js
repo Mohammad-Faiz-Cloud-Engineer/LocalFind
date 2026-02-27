@@ -184,7 +184,7 @@
     installBtn.id = 'pwa-install-btn';
     installBtn.className = 'pwa-install-button';
     installBtn.innerHTML = `
-      <span>📱</span>
+      <span></span>
       <span>Install App</span>
     `;
     
