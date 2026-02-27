@@ -10,6 +10,47 @@
   let currentListings = [...window.LISTINGS];
 
   /**
+   * Expand search query with aliases
+   * @param {string} query - Original search query
+   * @returns {Array} Array of search terms including aliases
+   */
+  function expandSearchQuery(query) {
+    const queryLower = query.toLowerCase().trim();
+    const searchTerms = [queryLower];
+    
+    // Check if CONFIG and searchAliases exist
+    if (window.CONFIG && window.CONFIG.searchAliases) {
+      // Check if query matches any alias key
+      if (window.CONFIG.searchAliases[queryLower]) {
+        searchTerms.push(...window.CONFIG.searchAliases[queryLower]);
+      }
+      
+      // Check if query is part of any alias value (reverse lookup)
+      Object.keys(window.CONFIG.searchAliases).forEach(key => {
+        const aliases = window.CONFIG.searchAliases[key];
+        if (aliases.some(alias => alias.includes(queryLower))) {
+          searchTerms.push(key);
+          searchTerms.push(...aliases);
+        }
+      });
+    }
+    
+    // Remove duplicates
+    return [...new Set(searchTerms)];
+  }
+
+  /**
+   * Check if text matches any of the search terms
+   * @param {string} text - Text to search in
+   * @param {Array} searchTerms - Array of search terms
+   * @returns {boolean} True if any term matches
+   */
+  function matchesSearchTerms(text, searchTerms) {
+    const textLower = text.toLowerCase();
+    return searchTerms.some(term => textLower.includes(term));
+  }
+
+  /**
    * Apply URL query parameters to filter listings
    */
   function applyQueryParams() {
@@ -23,11 +64,12 @@
     }
 
     if (search) {
-      const searchLower = search.toLowerCase();
+      const searchTerms = expandSearchQuery(search);
       currentListings = currentListings.filter(b =>
-        b.name.toLowerCase().includes(searchLower) ||
-        b.description.toLowerCase().includes(searchLower) ||
-        (Array.isArray(b.tags) && b.tags.some(t => t.toLowerCase().includes(searchLower)))
+        matchesSearchTerms(b.name, searchTerms) ||
+        matchesSearchTerms(b.description, searchTerms) ||
+        matchesSearchTerms(b.category, searchTerms) ||
+        (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
       );
     }
 
@@ -100,18 +142,25 @@
       });
     }
 
-    // Search functionality with debounce
+    // Search functionality with debounce and alias support
     const searchInput = document.getElementById('filter-search');
     if (searchInput) {
       let timeout;
       searchInput.addEventListener('input', (e) => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-          const query = e.target.value.toLowerCase();
-          currentListings = window.LISTINGS.filter(b =>
-            b.name.toLowerCase().includes(query) ||
-            b.description.toLowerCase().includes(query)
-          );
+          const query = e.target.value.trim();
+          if (!query) {
+            currentListings = [...window.LISTINGS];
+          } else {
+            const searchTerms = expandSearchQuery(query);
+            currentListings = window.LISTINGS.filter(b =>
+              matchesSearchTerms(b.name, searchTerms) ||
+              matchesSearchTerms(b.description, searchTerms) ||
+              matchesSearchTerms(b.category, searchTerms) ||
+              (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
+            );
+          }
           offset = 0;
           render();
         }, 300);
