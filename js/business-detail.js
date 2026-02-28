@@ -164,6 +164,15 @@
           </div>
         </div>
       ` : ''}
+      ${biz.phoneFourth ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <div>
+            <a href="tel:${biz.phoneFourth}">${biz.phoneFourth}</a>
+            ${biz.phoneFourthName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.phoneFourthName})</span>` : ''}
+          </div>
+        </div>
+      ` : ''}
       ${biz.email ? `
         <div class="contact-item">
           <i class="fa-solid fa-envelope"></i>
@@ -194,6 +203,15 @@
           <div>
             <a href="https://wa.me/${biz.whatsappThird.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
             ${biz.whatsappThirdName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.whatsappThirdName})</span>` : ''}
+          </div>
+        </div>
+      ` : ''}
+      ${biz.whatsappFourth ? `
+        <div class="contact-item">
+          <i class="fa-brands fa-whatsapp"></i>
+          <div>
+            <a href="https://wa.me/${biz.whatsappFourth.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
+            ${biz.whatsappFourthName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.whatsappFourthName})</span>` : ''}
           </div>
         </div>
       ` : ''}
