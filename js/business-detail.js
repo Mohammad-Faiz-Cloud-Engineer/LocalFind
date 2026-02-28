@@ -130,8 +130,20 @@
       </div>
       <div class="contact-item">
         <i class="fa-solid fa-phone"></i>
-        <a href="tel:${biz.phone}">${biz.phone}</a>
+        <div>
+          <a href="tel:${biz.phone}">${biz.phone}</a>
+          ${biz.phoneName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.phoneName})</span>` : ''}
+        </div>
       </div>
+      ${biz.phoneSecondary ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <div>
+            <a href="tel:${biz.phoneSecondary}">${biz.phoneSecondary}</a>
+            ${biz.phoneSecondaryName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.phoneSecondaryName})</span>` : ''}
+          </div>
+        </div>
+      ` : ''}
       ${biz.email ? `
         <div class="contact-item">
           <i class="fa-solid fa-envelope"></i>

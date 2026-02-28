@@ -121,6 +121,49 @@ window.LISTINGS = [
     isNew: true
   },
   {
+    id: "affan-garments",
+    name: "Affan Garments",
+    category: "Fashion & Apparel",
+    categorySlug: "fashion",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 4.0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 4.0,
+        date: "2026-02-28",
+        text: "Quality is good but you have to bargain a bit. Good collection of garments with reasonable prices after negotiation. Friendly staff and decent variety available.",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli, District Barabanki, Near Rasauli Bazar, Uttar Pradesh 225203",
+    mapLink: "https://maps.google.com/?q=26.922952,81.261117",
+    phone: "+91 84234 19973",
+    phoneName: "Affan",
+    phoneSecondary: "+91 63062 03254",
+    phoneSecondaryName: "Noman",
+    email: "",
+    website: "",
+    whatsapp: "+91 63062 03254",
+    hours: {
+      mon: {open: "10:00", close: "21:00"},
+      tue: {open: "10:00", close: "21:00"},
+      wed: {open: "10:00", close: "21:00"},
+      thu: {open: "10:00", close: "21:00"},
+      fri: {open: "10:00", close: "21:00"},
+      sat: {open: "10:00", close: "21:00"},
+      sun: {open: "10:00", close: "21:00"}
+    },
+    description: "Affan Garments is your trusted destination for quality clothing and fashion apparel in Rasauli. Managed by Affan and Noman, we specialize in providing a diverse range of garments for men, women, and children. Our store features traditional ethnic wear, trendy casual outfits, and elegant formal attire to suit every occasion. We pride ourselves on offering quality fabrics and stylish designs at competitive prices. Whether you're shopping for daily wear, festive occasions, or special events, our extensive collection has something for everyone. Our knowledgeable staff is dedicated to helping you find the perfect outfit that matches your style and budget. Visit Affan Garments for a personalized shopping experience in the heart of Rasauli Bazar.",
+    tags: ["clothing", "fashion", "garments", "ethnic-wear", "casual-wear", "formal-wear", "men-fashion", "women-fashion", "kids-clothing", "traditional-wear"],
+    isNew: true
+  },
+  {
     id: "shariq-hashmi-electric-shop",
     name: "Shariq Hashmi Electric Shop",
     category: "Electrical Services & Repairs",
