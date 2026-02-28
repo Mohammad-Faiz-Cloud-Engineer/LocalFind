@@ -106,6 +106,7 @@ window.LISTINGS = [
     email: "amanyadav92471@gmail.com",
     website: "",
     whatsapp: "+91 63068 84047",
+    instagram: "https://www.instagram.com/aman_garments_rasauli",
     hours: {
       mon: {open: "08:00", close: "23:00"},
       tue: {open: "08:00", close: "23:00"},
