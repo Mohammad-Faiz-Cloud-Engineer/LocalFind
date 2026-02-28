@@ -229,5 +229,52 @@
     } else {
       relatedList.innerHTML = '<div class="empty-state"><p>No related listings available.</p></div>';
     }
+    
+    // Share functionality
+    const shareBtn = document.getElementById('share-btn');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', async () => {
+        const shareData = {
+          title: biz.name,
+          text: `Check out ${biz.name} on LocalFind - ${biz.description.slice(0, 100)}...`,
+          url: window.location.href
+        };
+        
+        try {
+          // Check if Web Share API is supported
+          if (navigator.share) {
+            await navigator.share(shareData);
+          } else {
+            // Fallback: Copy to clipboard
+            await navigator.clipboard.writeText(window.location.href);
+            
+            // Show success message
+            const originalHTML = shareBtn.innerHTML;
+            shareBtn.innerHTML = '<i class="fa-solid fa-check"></i><span>Link Copied!</span>';
+            shareBtn.style.background = 'var(--accent-success)';
+            
+            setTimeout(() => {
+              shareBtn.innerHTML = originalHTML;
+              shareBtn.style.background = '';
+            }, 2000);
+          }
+        } catch (error) {
+          // If share fails, try clipboard as fallback
+          try {
+            await navigator.clipboard.writeText(window.location.href);
+            const originalHTML = shareBtn.innerHTML;
+            shareBtn.innerHTML = '<i class="fa-solid fa-check"></i><span>Link Copied!</span>';
+            shareBtn.style.background = 'var(--accent-success)';
+            
+            setTimeout(() => {
+              shareBtn.innerHTML = originalHTML;
+              shareBtn.style.background = '';
+            }, 2000);
+          } catch (clipboardError) {
+            console.error('Share failed:', error);
+          }
+        }
+      });
+    }
   });
 })();

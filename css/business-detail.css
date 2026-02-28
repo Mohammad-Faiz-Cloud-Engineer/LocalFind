@@ -607,3 +607,63 @@
   font-size: 9px;
   padding: 3px 8px;
 }
+
+
+/* Share Button Styling */
+.btn-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
+  color: #0A0E17;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(255, 159, 67, 0.3);
+  font-family: var(--font-sans);
+}
+
+.btn-share:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 159, 67, 0.4);
+}
+
+.btn-share:active {
+  transform: translateY(0);
+}
+
+.btn-share i {
+  font-size: 16px;
+}
+
+/* Mobile optimization for share button */
+@media (max-width: 768px) {
+  .btn-share {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  
+  .btn-share i {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-share {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+  
+  .btn-share span {
+    display: none;
+  }
+  
+  .btn-share i {
+    font-size: 16px;
+    margin: 0;
+  }
+}
