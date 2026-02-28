@@ -424,6 +424,48 @@ window.LISTINGS = [
     description: "Om Dhaba is your authentic roadside dining destination in Rasauli, serving delicious home-style food 24 hours a day, 7 days a week. We specialize in traditional North Indian cuisine with that genuine 'ghar jaisa swaad' (home-like taste) that travelers and locals crave. Our menu features a wide variety of fresh rotis, parathas, dal, sabzi, rice dishes, and popular dhaba favorites. Whether you're looking for a hearty breakfast, satisfying lunch, late-night dinner, or just a quick snack, we're always open to serve you. Our dhaba is known for generous portions, affordable prices, and the authentic flavors that remind you of home-cooked meals. We maintain high standards of hygiene and food quality, using fresh ingredients and traditional cooking methods. Perfect for truck drivers, travelers, and anyone seeking authentic Indian dhaba food at any time of day or night. Stop by Om Dhaba for a filling meal that tastes just like home, available round the clock for your convenience.",
     tags: ["dhaba", "restaurant", "food", "north-indian", "24x7", "roadside-food", "home-style", "traditional-food", "roti", "paratha", "dal", "sabzi"],
     isNew: true
+  },
+  {
+    id: "hala-motors",
+    name: "Hala Motors",
+    category: "Vehicle Repair & Service",
+    categorySlug: "vehicle-repair",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 5.0,
+        date: "2026-02-28",
+        text: "Hala Motors is hands down the best vehicle repairing shop in the entire Rasauli area. What sets them apart is their exceptional professionalism - both in their work quality and customer service. The mechanics are highly skilled and experienced, capable of handling everything from routine maintenance to complex repairs. They diagnose issues accurately and fix them right the first time, saving you time and money. The staff maintains professional behavior throughout, explaining the problems clearly and providing transparent pricing with no hidden charges. Whether it's a two-wheeler or four-wheeler, they handle all types of vehicles with expertise. The workshop is well-equipped with modern tools and genuine spare parts. They complete work within the promised timeframe and stand behind their repairs. If you value quality workmanship, honest service, and professional treatment, Hala Motors is your go-to choice in Rasauli. Highly recommended for all your vehicle repair and maintenance needs!",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli District Barabanki, W7F4+39 Rasauli, Uttar Pradesh 225001",
+    mapLink: "https://www.google.com/maps?q=26.9226786,81.2559463",
+    phone: "+91 99186 56350",
+    phoneName: "Anas Quraishi",
+    email: "",
+    website: "https://jsdl.in/DT-99NR3WOMHC7",
+    whatsapp: "+91 99186 56350",
+    instagram: "https://www.instagram.com/anas_farooqui_0/",
+    hours: {
+      mon: {open: "09:00", close: "17:00"},
+      tue: {open: "09:00", close: "17:00"},
+      wed: {open: "09:00", close: "17:00"},
+      thu: {open: "09:00", close: "17:00"},
+      fri: {open: "09:00", close: "17:00"},
+      sat: {open: "09:00", close: "17:00"},
+      sun: {open: "00:00", close: "00:00"}
+    },
+    description: "Hala Motors is Rasauli's premier vehicle repair and service center, offering professional automotive solutions for all types of vehicles. With years of experience and a team of skilled mechanics, we specialize in comprehensive vehicle repairs, routine maintenance, engine diagnostics, brake services, suspension repairs, electrical work, and general servicing for both two-wheelers and four-wheelers. Our workshop is equipped with modern diagnostic tools and equipment to accurately identify and fix any vehicle issue. We use only genuine spare parts and follow manufacturer-recommended service procedures to ensure your vehicle runs smoothly and safely. Our services include oil changes, tire services, battery replacement, AC repair, denting and painting, and complete vehicle overhauls. We pride ourselves on transparent pricing, honest assessments, and timely completion of work. Whether you need a quick fix or major repairs, our professional team is committed to delivering quality workmanship and excellent customer service. Trust Hala Motors for reliable, professional, and affordable vehicle repair services in Rasauli. Open Monday to Saturday, 9 AM to 5 PM.",
+    tags: ["vehicle-repair", "car-service", "bike-service", "mechanic", "auto-repair", "garage", "maintenance", "two-wheeler", "four-wheeler", "engine-repair", "brake-service"],
+    isNew: true
   }
 ];
 
