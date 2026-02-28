@@ -80,21 +80,25 @@ const CONFIG = {
   
   // Search Aliases - Map shorthand terms to full terms
   searchAliases: {
-    'csc': ['common service center', 'common service centre', 'csc center'],
+    'csc': ['common service center', 'common service centre', 'csc center', 'raheem csc', 'golden csc'],
     'atm': ['automated teller machine', 'cash machine'],
     'govt': ['government', 'gov'],
     'govt services': ['government services', 'government service'],
     'pan': ['permanent account number', 'pan card'],
     'aadhaar': ['aadhar', 'adhaar', 'adhar', 'uidai'],
     'pds': ['public distribution system', 'ration shop', 'ration card'],
-    'hospital': ['clinic', 'medical center', 'health center', 'dispensary'],
-    'pharmacy': ['medical store', 'chemist', 'drug store', 'medicine shop'],
+    'hospital': ['clinic', 'medical center', 'health center', 'dispensary', 'abdul hospital'],
+    'pharmacy': ['medical store', 'chemist', 'drug store', 'medicine shop', 'hind pharmacy'],
     'restaurant': ['hotel', 'dhaba', 'eatery', 'food'],
+    'sweets': ['sweet shop', 'mithai', 'desserts', 'pankaj sweets', 'rajju sweets', 'ice cream', 'cake', 'namkeen'],
     'grocery': ['kirana', 'general store', 'supermarket', 'provision store'],
     'bank': ['banking', 'atm'],
     'school': ['education', 'college', 'institute', 'academy'],
     'salon': ['parlour', 'parlor', 'beauty salon', 'barber'],
     'repair': ['service center', 'workshop', 'mechanic'],
+    'electrician': ['electric', 'electrical', 'wiring', 'shariq hashmi'],
+    'garments': ['clothes', 'clothing', 'fashion', 'apparel', 'aman garments', 'affan garments'],
+    'gym': ['fitness', 'workout', 'exercise', 'friends fitness', 'bodybuilding'],
     'laundry': ['dry clean', 'washing', 'ironing'],
     'petrol': ['fuel', 'gas station', 'pump'],
     'delivery': ['courier', 'logistics', 'transport']
