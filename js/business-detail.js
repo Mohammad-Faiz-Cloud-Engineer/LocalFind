@@ -150,6 +150,12 @@
           <a href="${biz.website}" target="_blank">Website</a>
         </div>
       ` : ''}
+      ${biz.instagram ? `
+        <div class="contact-item">
+          <i class="fa-brands fa-instagram"></i>
+          <a href="${biz.instagram}" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      ` : ''}
       <div class="mt-lg">
         <a href="${biz.mapLink}" target="_blank" class="btn" style="width:100%;">View on Map</a>
       </div>
