@@ -393,6 +393,36 @@ window.LISTINGS = [
     description: "Golden CSC (Common Service Center) provides government and digital services in Rasauli. We offer a range of services including Aadhaar card services, PAN card applications, various government certificates (income, caste, domicile), birth and death certificates, and other documentation services. We also handle bill payments, digital transactions, and online form submissions. Our center assists with banking services, insurance applications, and various e-governance services. While we strive to serve the community, we handle both routine and complex cases that may require additional coordination. Visit us for your government documentation needs, though for time-sensitive or critical work, we recommend comparing services with other CSC centers in the area to find the best fit for your specific requirements.",
     tags: ["csc", "common-service-center", "aadhaar", "pan-card", "government-services", "certificates", "digital-services", "e-governance", "documentation", "bill-payment"],
     isNew: true
+  },
+  {
+    id: "om-dhaba",
+    name: "Om Dhaba",
+    category: "Restaurants & Food",
+    categorySlug: "restaurants",
+    featured: false,
+    verified: false,
+    status: "open",
+    rating: 0,
+    reviewCount: 0,
+    reviews: [],
+    address: "Barabanki, W7F3+F9P, Uttar Pradesh 225001",
+    mapLink: "https://www.google.com/maps?q=26.9237004,81.2534575",
+    phone: "+91 94534 97384",
+    email: "",
+    website: "",
+    whatsapp: "+91 94534 97384",
+    hours: {
+      mon: {open: "00:00", close: "23:59"},
+      tue: {open: "00:00", close: "23:59"},
+      wed: {open: "00:00", close: "23:59"},
+      thu: {open: "00:00", close: "23:59"},
+      fri: {open: "00:00", close: "23:59"},
+      sat: {open: "00:00", close: "23:59"},
+      sun: {open: "00:00", close: "23:59"}
+    },
+    description: "Om Dhaba is your authentic roadside dining destination in Rasauli, serving delicious home-style food 24 hours a day, 7 days a week. We specialize in traditional North Indian cuisine with that genuine 'ghar jaisa swaad' (home-like taste) that travelers and locals crave. Our menu features a wide variety of fresh rotis, parathas, dal, sabzi, rice dishes, and popular dhaba favorites. Whether you're looking for a hearty breakfast, satisfying lunch, late-night dinner, or just a quick snack, we're always open to serve you. Our dhaba is known for generous portions, affordable prices, and the authentic flavors that remind you of home-cooked meals. We maintain high standards of hygiene and food quality, using fresh ingredients and traditional cooking methods. Perfect for truck drivers, travelers, and anyone seeking authentic Indian dhaba food at any time of day or night. Stop by Om Dhaba for a filling meal that tastes just like home, available round the clock for your convenience.",
+    tags: ["dhaba", "restaurant", "food", "north-indian", "24x7", "roadside-food", "home-style", "traditional-food", "roti", "paratha", "dal", "sabzi"],
+    isNew: true
   }
 ];
 
