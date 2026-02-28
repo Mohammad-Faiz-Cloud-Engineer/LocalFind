@@ -315,7 +315,7 @@ window.LISTINGS = [
   },
   {
     id: "friend-fitness-gym",
-    name: "Friend Fitness GYM",
+    name: "Friends Fitness GYM",
     category: "Fitness & Wellness",
     categorySlug: "fitness-wellness",
     featured: true,
@@ -330,7 +330,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 4.0,
         date: "2026-02-28",
-        text: "Friend Fitness GYM is the best and only gym in Rasauli, making it an essential fitness destination for the community. The gym is well-equipped with quality equipment for strength training, cardio, and functional fitness. Dileep Rawat, the owner, is dedicated and knowledgeable, providing good guidance to members. For the best experience, I highly recommend visiting during the early morning sessions (4 AM to 7 AM) when it's less crowded and you can focus on your workout with minimal distractions. If you prefer evening workouts, try to come after 8 PM for a more peaceful environment. The gym can get busy during peak hours (early evening 6-8 PM), so plan accordingly. The facilities are clean and well-maintained, and the membership rates are reasonable. Whether you're a beginner or an experienced fitness enthusiast, this gym offers everything you need to achieve your fitness goals. A solid choice for anyone serious about fitness in Rasauli!",
+        text: "Friends Fitness GYM is the best and only gym in Rasauli, making it an essential fitness destination for the community. The gym is well-equipped with quality equipment for strength training, cardio, and functional fitness. Dileep Rawat, the owner, is dedicated and knowledgeable, providing good guidance to members. For the best experience, I highly recommend visiting during the early morning sessions (4 AM to 7 AM) when it's less crowded and you can focus on your workout with minimal distractions. If you prefer evening workouts, try to come after 8 PM for a more peaceful environment. The gym can get busy during peak hours (early evening 6-8 PM), so plan accordingly. The facilities are clean and well-maintained, and the membership rates are reasonable. Whether you're a beginner or an experienced fitness enthusiast, this gym offers everything you need to achieve your fitness goals. A solid choice for anyone serious about fitness in Rasauli!",
         verified: true
       }
     ],
@@ -350,7 +350,7 @@ window.LISTINGS = [
       sat: {open: "04:00", close: "07:00", open2: "18:00", close2: "22:00"},
       sun: {open: "00:00", close: "00:00"}
     },
-    description: "Friend Fitness GYM is Rasauli's premier fitness center, dedicated to helping you achieve your health and fitness goals. Managed by experienced fitness professional Dileep Rawat, we offer a complete range of gym facilities and services for all fitness levels. Our gym features modern strength training equipment including free weights, dumbbells, barbells, and weight machines, cardio equipment such as treadmills, exercise bikes, and cross trainers, functional training areas, and dedicated spaces for stretching and warm-up exercises. We provide personalized workout plans, professional fitness guidance, weight loss programs, muscle building training, and general fitness coaching. Whether you're looking to lose weight, build muscle, improve stamina, or maintain overall fitness, our supportive environment and quality equipment will help you succeed. We operate in two convenient shifts - early morning (4 AM to 7 AM) for early risers and evening (6 PM to 10 PM) for those who prefer after-work sessions. Join Friend Fitness GYM and start your transformation journey today with expert guidance and a motivating atmosphere.",
+    description: "Friends Fitness GYM is Rasauli's premier fitness center, dedicated to helping you achieve your health and fitness goals. Managed by experienced fitness professional Dileep Rawat, we offer a complete range of gym facilities and services for all fitness levels. Our gym features modern strength training equipment including free weights, dumbbells, barbells, and weight machines, cardio equipment such as treadmills, exercise bikes, and cross trainers, functional training areas, and dedicated spaces for stretching and warm-up exercises. We provide personalized workout plans, professional fitness guidance, weight loss programs, muscle building training, and general fitness coaching. Whether you're looking to lose weight, build muscle, improve stamina, or maintain overall fitness, our supportive environment and quality equipment will help you succeed. We operate in two convenient shifts - early morning (4 AM to 7 AM) for early risers and evening (6 PM to 10 PM) for those who prefer after-work sessions. Closed on Sundays. Join Friends Fitness GYM and start your transformation journey today with expert guidance and a motivating atmosphere.",
     tags: ["gym", "fitness", "workout", "weight-training", "cardio", "health", "bodybuilding", "exercise", "fitness-center", "personal-training"],
     isNew: true
   },
