@@ -602,6 +602,19 @@
   line-height: 1.8;
 }
 
+/* Links in review text */
+.review-text a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.review-text a:hover {
+  color: var(--accent-primary-hover);
+  text-decoration: underline;
+}
+
 .rating {
   color: var(--accent-primary);
   font-size: 16px;

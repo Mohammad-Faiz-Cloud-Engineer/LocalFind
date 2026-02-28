@@ -353,6 +353,46 @@ window.LISTINGS = [
     description: "Friend Fitness GYM is Rasauli's premier fitness center, dedicated to helping you achieve your health and fitness goals. Managed by experienced fitness professional Dileep Rawat, we offer a complete range of gym facilities and services for all fitness levels. Our gym features modern strength training equipment including free weights, dumbbells, barbells, and weight machines, cardio equipment such as treadmills, exercise bikes, and cross trainers, functional training areas, and dedicated spaces for stretching and warm-up exercises. We provide personalized workout plans, professional fitness guidance, weight loss programs, muscle building training, and general fitness coaching. Whether you're looking to lose weight, build muscle, improve stamina, or maintain overall fitness, our supportive environment and quality equipment will help you succeed. We operate in two convenient shifts - early morning (4 AM to 7 AM) for early risers and evening (6 PM to 10 PM) for those who prefer after-work sessions. Join Friend Fitness GYM and start your transformation journey today with expert guidance and a motivating atmosphere.",
     tags: ["gym", "fitness", "workout", "weight-training", "cardio", "health", "bodybuilding", "exercise", "fitness-center", "personal-training"],
     isNew: true
+  },
+  {
+    id: "golden-csc",
+    name: "Golden CSC",
+    category: "Government Services & CSC",
+    categorySlug: "government-services",
+    featured: false,
+    verified: false,
+    status: "open",
+    rating: 3.0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 3.0,
+        date: "2026-02-28",
+        text: "Golden CSC is the most unprofessional CSC in Rasauli. While they can handle basic government services, the service quality and professionalism leave much to be desired. For straightforward, simple tasks, they might get the job done, but expect delays and inconsistent service. I strongly recommend visiting <a href='https://mohammad-faiz-cloud-engineer.github.io/LocalFind/business-detail.html?id=raheem-common-service-center' target='_blank' rel='noopener noreferrer'>Raheem CSC</a> instead for reliable and professional service. However, if your work is particularly tricky, complicated, or requires some connections and you're willing to compromise on professionalism, Golden CSC might be able to help through their network. But for most people, especially for important documents and time-sensitive work, Raheem CSC is the better choice. Use Golden CSC only as a last resort or for very specific situations where their connections might be beneficial.",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Uttar Pradesh 225001",
+    mapLink: "https://www.google.com/maps/place/Rohit+Verma/@26.9234149,81.2610063,21z/data=!4m6!3m5!1s0x399963006b076adf:0x3b5cf7f4a62cca65!8m2!3d26.9234047!4d81.2610556!16s%2Fg%2F11xvrw9djk?entry=ttu&g_ep=EgoyMDI2MDIyNS4wIKXMDSoASAFQAw%3D%3D",
+    phone: "+91 82991 33983",
+    email: "",
+    website: "",
+    whatsapp: "+91 82991 33983",
+    hours: {
+      mon: {open: "10:00", close: "19:00"},
+      tue: {open: "10:00", close: "19:00"},
+      wed: {open: "10:00", close: "19:00"},
+      thu: {open: "10:00", close: "19:00"},
+      fri: {open: "10:00", close: "19:00"},
+      sat: {open: "10:00", close: "19:00"},
+      sun: {open: "10:00", close: "19:00"}
+    },
+    description: "Golden CSC (Common Service Center) provides government and digital services in Rasauli. We offer a range of services including Aadhaar card services, PAN card applications, various government certificates (income, caste, domicile), birth and death certificates, and other documentation services. We also handle bill payments, digital transactions, and online form submissions. Our center assists with banking services, insurance applications, and various e-governance services. While we strive to serve the community, we handle both routine and complex cases that may require additional coordination. Visit us for your government documentation needs, though for time-sensitive or critical work, we recommend comparing services with other CSC centers in the area to find the best fit for your specific requirements.",
+    tags: ["csc", "common-service-center", "aadhaar", "pan-card", "government-services", "certificates", "digital-services", "e-governance", "documentation", "bill-payment"],
+    isNew: true
   }
 ];
 

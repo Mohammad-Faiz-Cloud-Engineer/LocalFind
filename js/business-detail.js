@@ -96,6 +96,17 @@
           day: 'numeric'
         });
         
+        // Process review text: keep existing HTML links and convert plain URLs to links
+        let reviewTextWithLinks = review.text;
+        
+        // If text doesn't contain HTML links, convert plain URLs
+        if (!reviewTextWithLinks.includes('<a href')) {
+          reviewTextWithLinks = reviewTextWithLinks.replace(
+            /(https?:\/\/[^\s]+)/g,
+            '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline; word-break: break-all;">$1</a>'
+          );
+        }
+        
         return `
           <div class="review-card ${isAdmin ? 'official' : ''}">
             ${isAdmin ? '<div class="review-badge">OFFICIAL REVIEW</div>' : ''}
@@ -113,7 +124,7 @@
               </div>
               <span class="review-date">${reviewDate}</span>
             </div>
-            <p class="review-text ${isAdmin ? 'large' : ''}">${review.text}</p>
+            <p class="review-text ${isAdmin ? 'large' : ''}">${reviewTextWithLinks}</p>
           </div>
         `;
       }).join('');
