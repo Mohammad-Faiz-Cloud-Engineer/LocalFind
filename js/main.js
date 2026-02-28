@@ -232,15 +232,29 @@ function initNavbar(){
     }
   });
   
-  // Navbar scroll effect
+  // Navbar scroll effect - optimized with throttle
+  let scrollTimeout;
+  let lastScrollY = window.scrollY;
+  
   window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
+    // Throttle scroll events for better performance
+    if (scrollTimeout) return;
     
-    if (currentScroll > 40) {
-      navbar.classList.add('navbar--scrolled');
-    } else {
-      navbar.classList.remove('navbar--scrolled');
-    }
+    scrollTimeout = setTimeout(() => {
+      const currentScroll = window.scrollY;
+      
+      // Only update if scroll position changed significantly
+      if (Math.abs(currentScroll - lastScrollY) > 5) {
+        if (currentScroll > 40) {
+          navbar.classList.add('navbar--scrolled');
+        } else {
+          navbar.classList.remove('navbar--scrolled');
+        }
+        lastScrollY = currentScroll;
+      }
+      
+      scrollTimeout = null;
+    }, 10); // 10ms throttle
   }, { passive: true });
   
   // Back to top button

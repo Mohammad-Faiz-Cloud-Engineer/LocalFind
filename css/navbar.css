@@ -17,6 +17,16 @@
   backdrop-filter: blur(0px);
   transition: all var(--transition-base);
   border-bottom: 1px solid transparent;
+  
+  /* Hardware acceleration for smooth scrolling */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform, background-color;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  
+  /* Optimize rendering */
+  contain: layout style;
 }
 
 .navbar--scrolled {

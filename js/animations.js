@@ -1,9 +1,28 @@
 /**
  * Animations and Intersection Observer
  * Handles scroll-triggered animations and hero canvas particles
+ * Optimized for hardware acceleration and smooth performance
  */
 (function() {
   'use strict';
+  
+  // Performance optimization: Use passive event listeners
+  const passiveSupported = (() => {
+    let passive = false;
+    try {
+      const options = {
+        get passive() {
+          passive = true;
+          return false;
+        }
+      };
+      window.addEventListener('test', null, options);
+      window.removeEventListener('test', null, options);
+    } catch (err) {
+      passive = false;
+    }
+    return passive;
+  })();
   
   // Intersection Observer for scroll animations
   function onVisible(entries) {
@@ -29,17 +48,25 @@
 
   /**
    * Initialize particle animation on hero canvas
+   * Optimized for hardware acceleration
    */
   function initParticles() {
     const canvas = document.getElementById('hero-canvas');
     if (!canvas) return;
     
-    const ctx = canvas.getContext('2d');
+    // Use 2d context with alpha for better performance
+    const ctx = canvas.getContext('2d', { 
+      alpha: true,
+      desynchronized: true, // Reduce latency
+      willReadFrequently: false
+    });
+    
     let width, height;
     const dots = [];
+    let animationId;
     
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resize, passiveSupported ? { passive: true } : false);
     
     function resize() {
       width = canvas.width = canvas.offsetWidth;
@@ -61,7 +88,14 @@
     }
     
     function loop() {
+      // Use requestAnimationFrame for smooth 60fps animation
+      animationId = requestAnimationFrame(loop);
+      
+      // Clear canvas efficiently
       ctx.clearRect(0, 0, width, height);
+      
+      // Batch operations for better performance
+      ctx.save();
       
       // Draw and update dots
       for (let i = 0; i < dots.length; i++) {
@@ -99,10 +133,25 @@
         }
       }
       
-      requestAnimationFrame(loop);
+      ctx.restore();
     }
     
+    // Start animation
     loop();
+    
+    // Pause animation when page is hidden to save battery
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+      } else {
+        if (!animationId) {
+          loop();
+        }
+      }
+    }, passiveSupported ? { passive: true } : false);
   }
 })();
 

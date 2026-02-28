@@ -19,6 +19,16 @@
   transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
+  
+  /* Hardware acceleration for smooth hover */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  
+  /* Optimize rendering */
+  contain: layout style paint;
 }
 
 .card::before {

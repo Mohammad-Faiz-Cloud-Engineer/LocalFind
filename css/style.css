@@ -99,6 +99,14 @@ html {
   
   /* Disable pull-to-refresh in PWA */
   overscroll-behavior-y: contain;
+  
+  /* Enable hardware acceleration */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
 }
 
 body {
@@ -118,6 +126,18 @@ body {
   -webkit-touch-callout: none;
   user-select: none;
   -webkit-user-select: none;
+  
+  /* Hardware acceleration for smooth rendering */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: scroll-position;
+  
+  /* GPU compositing */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  
+  /* Optimize rendering */
+  contain: layout style paint;
 }
 
 /* Allow text selection in specific elements */
@@ -213,6 +233,13 @@ a:hover {
   white-space: nowrap;
   text-decoration: none;
   font-family: var(--font-sans);
+  
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .btn:hover {
