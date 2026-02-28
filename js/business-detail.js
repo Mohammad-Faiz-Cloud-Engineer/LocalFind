@@ -155,6 +155,15 @@
           </div>
         </div>
       ` : ''}
+      ${biz.phoneThird ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <div>
+            <a href="tel:${biz.phoneThird}">${biz.phoneThird}</a>
+            ${biz.phoneThirdName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.phoneThirdName})</span>` : ''}
+          </div>
+        </div>
+      ` : ''}
       ${biz.email ? `
         <div class="contact-item">
           <i class="fa-solid fa-envelope"></i>
@@ -164,7 +173,28 @@
       ${biz.whatsapp ? `
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
-          <a href="https://wa.me/${biz.whatsapp.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
+          <div>
+            <a href="https://wa.me/${biz.whatsapp.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
+            ${biz.whatsappName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.whatsappName})</span>` : ''}
+          </div>
+        </div>
+      ` : ''}
+      ${biz.whatsappSecondary ? `
+        <div class="contact-item">
+          <i class="fa-brands fa-whatsapp"></i>
+          <div>
+            <a href="https://wa.me/${biz.whatsappSecondary.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
+            ${biz.whatsappSecondaryName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.whatsappSecondaryName})</span>` : ''}
+          </div>
+        </div>
+      ` : ''}
+      ${biz.whatsappThird ? `
+        <div class="contact-item">
+          <i class="fa-brands fa-whatsapp"></i>
+          <div>
+            <a href="https://wa.me/${biz.whatsappThird.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
+            ${biz.whatsappThirdName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.whatsappThirdName})</span>` : ''}
+          </div>
         </div>
       ` : ''}
       ${biz.website ? `

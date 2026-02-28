@@ -393,8 +393,6 @@
       window.addEventListener('popstate', (e) => {
         // Custom back button handling if needed
       });
-      
-      console.log('[PWA] Running in standalone mode with enhancements');
     }
   }
   

@@ -466,6 +466,56 @@ window.LISTINGS = [
     description: "Hala Motors is Rasauli's premier vehicle repair and service center, offering professional automotive solutions for all types of vehicles. With years of experience and a team of skilled mechanics, we specialize in comprehensive vehicle repairs, routine maintenance, engine diagnostics, brake services, suspension repairs, electrical work, and general servicing for both two-wheelers and four-wheelers. Our workshop is equipped with modern diagnostic tools and equipment to accurately identify and fix any vehicle issue. We use only genuine spare parts and follow manufacturer-recommended service procedures to ensure your vehicle runs smoothly and safely. Our services include oil changes, tire services, battery replacement, AC repair, denting and painting, and complete vehicle overhauls. We pride ourselves on transparent pricing, honest assessments, and timely completion of work. Whether you need a quick fix or major repairs, our professional team is committed to delivering quality workmanship and excellent customer service. Trust Hala Motors for reliable, professional, and affordable vehicle repair services in Rasauli. Open Monday to Saturday, 9 AM to 5 PM.",
     tags: ["vehicle-repair", "car-service", "bike-service", "mechanic", "auto-repair", "garage", "maintenance", "two-wheeler", "four-wheeler", "engine-repair", "brake-service"],
     isNew: true
+  },
+  {
+    id: "chandra-shekhar-azad-inter-college",
+    name: "Chandra Shekhar Azad Inter College",
+    category: "Education & Schools",
+    categorySlug: "education",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 3.0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 3.0,
+        date: "2026-02-28",
+        text: "Chandra Shekhar Azad Inter College is the best UP Board school for both Hindi Medium and English Medium education in the entire Rasauli area. However, the management and overall administration are quite unprofessional, which affects the school's operations and student experience. Most teachers also lack professionalism, but there are some exceptional educators who truly stand out. Vikash Jaiswal sir is an absolute genius in Mathematics - he's a God of Mathematics who can solve even JEE Advanced level questions with ease. His teaching methodology is outstanding, and he is my guru. Abhey Verma sir teaches both Maths and Physics; while his Math teaching is good (though slightly below Vikash sir's level), his Physics teaching is excellent and he brings years of valuable experience. He is also my guru. Abhishek sir is a multi-subject teacher handling Chemistry, Social Science, and other subjects, though his approach can be somewhat unprofessional at times. Despite this, he is my guru too. The school offers education from Nursery to 10th with UP Board recognition in both Hindi and English mediums. For classes 11th and 12th, they are associated with Jay Hind Inter College Barabanki. If you can overlook the management issues and focus on learning from the good teachers, this school can provide quality education.",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli District Barabanki, W7C6+595, Barabanki, Uttar Pradesh 225203",
+    mapLink: "https://www.google.com/maps?q=26.9203899,81.2609952",
+    phone: "+91 99357 67561",
+    phoneName: "Madhhu Bala (Principal - Below Class 9th)",
+    phoneSecondary: "+91 94529 29640",
+    phoneSecondaryName: "Anjali Verma (Principal - Above Class 9th)",
+    phoneThird: "+91 90442 97030",
+    phoneThirdName: "Lalit Kumar Verma (Manager)",
+    email: "",
+    website: "",
+    whatsapp: "+91 99357 67561",
+    whatsappName: "Madhhu Bala",
+    whatsappSecondary: "+91 94529 29640",
+    whatsappSecondaryName: "Anjali Verma",
+    whatsappThird: "+91 90442 97030",
+    whatsappThirdName: "Lalit Kumar Verma",
+    hours: {
+      mon: {open: "09:00", close: "17:00"},
+      tue: {open: "09:00", close: "17:00"},
+      wed: {open: "09:00", close: "17:00"},
+      thu: {open: "09:00", close: "17:00"},
+      fri: {open: "09:00", close: "17:00"},
+      sat: {open: "09:00", close: "17:00"},
+      sun: {open: "00:00", close: "00:00"}
+    },
+    description: "Chandra Shekhar Azad Inter College is a recognized UP Board educational institution in Rasauli, offering quality education in both Hindi Medium and English Medium. We provide comprehensive education from Nursery to Class 10th with full UP Board recognition, ensuring students receive proper academic foundation and board certification. For higher secondary education (Classes 11th and 12th), we are associated with Jay Hind Inter College Barabanki, providing students with seamless continuation of their studies. Our curriculum follows the UP Board syllabus and includes all core subjects - Mathematics, Science, Social Studies, Hindi, English, and optional subjects. We have dedicated faculty members with expertise in their respective subjects. The school focuses on both academic excellence and overall personality development of students. We offer a structured learning environment with regular classes, examinations, and parent-teacher meetings. Our facilities include classrooms, library, and basic infrastructure for quality education. Whether you prefer Hindi Medium or English Medium instruction, we cater to both preferences to ensure every student can learn in their comfortable language. Admissions are open for all classes from Nursery to 10th. Contact our principals or manager for admission inquiries and school information. Open Monday to Saturday, 9 AM to 5 PM.",
+    tags: ["school", "education", "up-board", "hindi-medium", "english-medium", "nursery", "primary-school", "high-school", "inter-college", "coaching", "classes"],
+    isNew: true
   }
 ];
 
