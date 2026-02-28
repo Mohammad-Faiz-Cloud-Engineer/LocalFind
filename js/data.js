@@ -335,7 +335,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, near Family Dhaba, Uttar Pradesh 225001",
-    mapLink: "https://maps.app.goo.gl/FAC44pbwiLiRNzQB8",
+    mapLink: "https://www.google.com/maps?q=26.923562,81.254255",
     phone: "+91 88407 04318",
     phoneName: "Dileep Rawat",
     email: "rawatdilip516@gmail.com",
