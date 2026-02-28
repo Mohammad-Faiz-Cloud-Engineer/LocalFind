@@ -2,11 +2,15 @@
  * LocalFind - PWA Registration & Management
  * Handles service worker registration, install prompts, and updates
  * 
- * @version 3.0.0
+ * @version 4.0.0
+ * @updated 2026-02-28
  */
 
 (function() {
   'use strict';
+  
+  // PWA Version
+  const PWA_VERSION = '4.0.0';
   
   let deferredPrompt;
   let swRegistration;
@@ -486,11 +490,11 @@
     // Setup network detection
     setupNetworkDetection();
     
-    // Log PWA status
+    // Log PWA status with version
     if (isPWA()) {
-      console.log('[PWA] App is running in standalone mode');
+      console.log(`[PWA] App v${PWA_VERSION} is running in standalone mode`);
     } else {
-      console.log('[PWA] App is running in browser mode');
+      console.log(`[PWA] App v${PWA_VERSION} is running in browser mode`);
     }
   }
   
@@ -503,6 +507,7 @@
   
   // Export for external use
   window.PWA = {
+    version: PWA_VERSION,
     isPWA,
     showInstallButton,
     hideInstallButton
