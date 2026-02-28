@@ -170,7 +170,7 @@
       ${biz.website ? `
         <div class="contact-item">
           <i class="fa-solid fa-globe"></i>
-          <a href="${biz.website}" target="_blank">Website</a>
+          <a href="${biz.website}" target="_blank">${biz.website.includes('jsdl.in') || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
         </div>
       ` : ''}
       ${biz.instagram ? `
