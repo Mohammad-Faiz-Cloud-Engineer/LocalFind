@@ -84,7 +84,7 @@ window.LISTINGS = [
     name: "Rehan Clothing Store",
     category: "Fashion & Apparel",
     categorySlug: "fashion",
-    featured: true,
+    featured: false,
     verified: false,
     status: "open",
     rating: 4.0,
@@ -141,7 +141,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Near Hind Pharmacy Shop, Uttar Pradesh 225203",
-    mapLink: "https://maps.google.com/?q=26.924954,81.262051",
+    mapLink: "https://maps.google.com/?q=26.924957,81.262061",
     phone: "+91 72751 13274",
     email: "",
     website: "",
