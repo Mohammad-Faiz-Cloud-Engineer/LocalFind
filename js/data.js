@@ -295,7 +295,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, near Rasauli bazar, W7F6+MH Rasauli, Uttar Pradesh 225203",
-    mapLink: "https://www.google.com/maps/place/pankaj+sweets/@26.9247497,81.2603771,17.87z/data=!4m6!3m5!1s0x39996218473a57d5:0xa3aaace34f32af13!8m2!3d26.924135!4d81.2614237!16s%2Fg%2F11c71d06n8?entry=ttu&g_ep=EgoyMDI2MDIyNS4wIKXMDSoASAFQAw%3D%3D",
+    mapLink: "https://www.google.com/maps?q=26.924135,81.2614237",
     phone: "+91 99356 86532",
     email: "",
     website: "",
@@ -376,7 +376,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Uttar Pradesh 225001",
-    mapLink: "https://www.google.com/maps/place/Rohit+Verma/@26.9234149,81.2610063,21z/data=!4m6!3m5!1s0x399963006b076adf:0x3b5cf7f4a62cca65!8m2!3d26.9234047!4d81.2610556!16s%2Fg%2F11xvrw9djk?entry=ttu&g_ep=EgoyMDI2MDIyNS4wIKXMDSoASAFQAw%3D%3D",
+    mapLink: "https://www.google.com/maps?q=26.9234047,81.2610556",
     phone: "+91 82991 33983",
     email: "",
     website: "",
