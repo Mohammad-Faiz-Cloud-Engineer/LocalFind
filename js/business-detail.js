@@ -219,9 +219,19 @@
       Object.keys(days).map(day => {
         const hours = biz.hours[day];
         const isClosed = hours.open === '00:00' && hours.close === '00:00';
-        const timeDisplay = is24x7 
-          ? '12:00 AM - 11:59 PM (24/7)'
-          : (isClosed ? 'Closed' : convertTo12Hour(hours.open) + ' - ' + convertTo12Hour(hours.close));
+        
+        let timeDisplay;
+        if (is24x7) {
+          timeDisplay = '12:00 AM - 11:59 PM (24/7)';
+        } else if (isClosed) {
+          timeDisplay = 'Closed';
+        } else if (hours.open2 && hours.close2) {
+          // Split shift - show both time slots
+          timeDisplay = convertTo12Hour(hours.open) + ' - ' + convertTo12Hour(hours.close) + 
+                       ' & ' + convertTo12Hour(hours.open2) + ' - ' + convertTo12Hour(hours.close2);
+        } else {
+          timeDisplay = convertTo12Hour(hours.open) + ' - ' + convertTo12Hour(hours.close);
+        }
         
         return `
           <div class="hours-row">

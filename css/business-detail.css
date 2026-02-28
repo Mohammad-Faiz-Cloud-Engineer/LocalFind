@@ -413,10 +413,11 @@
 .hours-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 10px 0;
   border-bottom: 1px solid var(--border-color);
   font-size: 14px;
+  gap: 12px;
 }
 
 .hours-row:last-child {
@@ -426,11 +427,17 @@
 .hours-day {
   font-weight: 600;
   color: var(--text-primary);
+  flex-shrink: 0;
+  min-width: 90px;
 }
 
 .hours-time {
   color: var(--text-secondary);
   font-weight: 500;
+  text-align: right;
+  line-height: 1.5;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .hours-time.open {
@@ -439,6 +446,40 @@
 
 .hours-time.closed {
   color: var(--accent-danger);
+}
+
+/* Mobile optimization for hours */
+@media (max-width: 768px) {
+  .hours-row {
+    font-size: 13px;
+    padding: 8px 0;
+  }
+  
+  .hours-day {
+    min-width: 80px;
+  }
+  
+  .hours-time {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hours-row {
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 0;
+  }
+  
+  .hours-day {
+    min-width: auto;
+  }
+  
+  .hours-time {
+    text-align: left;
+    font-size: 12px;
+    white-space: normal;
+  }
 }
 
 /* Section Headers */
