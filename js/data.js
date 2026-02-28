@@ -158,6 +158,36 @@ window.LISTINGS = [
     description: "Shariq Hashmi Electric Shop is your trusted electrical service provider in Rasauli, offering comprehensive electrical solutions for residential and commercial properties. We specialize in complete house wiring, electrical installations, earthing systems, circuit repairs, and maintenance services. Our expert team handles everything from new electrical setups to troubleshooting and fixing electrical faults. We provide professional services including switchboard installations, lighting fixtures, fan installations, electrical safety inspections, and emergency repair services. With years of experience and a commitment to quality workmanship, we ensure safe and reliable electrical solutions. Our skilled electricians use quality materials and follow all safety standards. Whether you need a complete rewiring project or a simple repair, we deliver efficient and affordable electrical services with excellent customer care.",
     tags: ["electrician", "electrical-services", "house-wiring", "earthing", "electrical-repair", "circuit-repair", "electrical-installation", "maintenance", "emergency-service"],
     isNew: true
+  },
+  {
+    id: "hind-pharmacy",
+    name: "Hind Pharmacy",
+    category: "Healthcare & Pharmacy",
+    categorySlug: "healthcare",
+    featured: false,
+    verified: false,
+    status: "open",
+    rating: 0,
+    reviewCount: 0,
+    reviews: [],
+    address: "Village & Post Rasauli, District Barabanki, Near Galla Bazar, Uttar Pradesh 225203",
+    mapLink: "https://maps.google.com/?q=26.9248848,81.2620547",
+    phone: "+91 80815 88195",
+    email: "",
+    website: "",
+    whatsapp: "+91 80815 88195",
+    hours: {
+      mon: {open: "10:00", close: "19:00"},
+      tue: {open: "10:00", close: "19:00"},
+      wed: {open: "10:00", close: "19:00"},
+      thu: {open: "10:00", close: "19:00"},
+      fri: {open: "10:00", close: "19:00"},
+      sat: {open: "10:00", close: "19:00"},
+      sun: {open: "10:00", close: "19:00"}
+    },
+    description: "Hind Pharmacy is your trusted healthcare partner in Rasauli, providing comprehensive pharmaceutical services and healthcare products. We stock a wide range of prescription medications, over-the-counter medicines, health supplements, vitamins, and wellness products. Our experienced pharmacists are available to provide expert consultation on medication usage, dosage instructions, and potential drug interactions. We offer services including prescription filling, medicine home delivery, health check-up packages, and medical equipment sales. Our pharmacy maintains strict quality standards and ensures all medicines are sourced from authorized distributors. We also provide first-aid supplies, baby care products, personal care items, and diabetic care products. With a commitment to your health and well-being, we ensure accurate dispensing, competitive pricing, and friendly customer service. Visit us for all your healthcare and pharmaceutical needs in Rasauli.",
+    tags: ["pharmacy", "medicines", "healthcare", "prescription", "medical-store", "health-supplements", "wellness", "first-aid", "medical-equipment"],
+    isNew: true
   }
 ];
 
