@@ -9,8 +9,6 @@
   "background_color": "#0A0E17",
   "theme_color": "#FF9F43",
   "orientation": "any",
-  "prefer_related_applications": false,
-  "scope": "/LocalFind/",
   "scope": "/LocalFind/",
   "lang": "en-US",
   "dir": "ltr",
