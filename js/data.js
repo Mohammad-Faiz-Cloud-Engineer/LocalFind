@@ -496,6 +496,8 @@ window.LISTINGS = [
     phoneSecondaryName: "Anjali Verma (Principal - Above Class 9th)",
     phoneThird: "+91 90442 97030",
     phoneThirdName: "Lalit Kumar Verma (Manager)",
+    phoneFourth: "+91 97932 92246",
+    phoneFourthName: "Ravindra Kumar Babu Ji (Document Work)",
     email: "",
     website: "",
     whatsapp: "+91 99357 67561",
@@ -504,6 +506,8 @@ window.LISTINGS = [
     whatsappSecondaryName: "Anjali Verma",
     whatsappThird: "+91 90442 97030",
     whatsappThirdName: "Lalit Kumar Verma",
+    whatsappFourth: "+91 97932 92246",
+    whatsappFourthName: "Ravindra Kumar Babu Ji",
     hours: {
       mon: {open: "09:00", close: "17:00"},
       tue: {open: "09:00", close: "17:00"},
