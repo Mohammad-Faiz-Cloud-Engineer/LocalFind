@@ -57,7 +57,7 @@
       });
       
     } catch (error) {
-      console.error('[PWA] Service worker registration failed:', error);
+      // Service worker registration failed - silent fail
     }
   }
   
@@ -164,30 +164,22 @@
         updateBtn.textContent = 'Updating...';
         
         try {
-          console.log('[PWA] Starting update process...');
-          
           // Step 1: Clear all caches first
           if ('caches' in window) {
             const cacheNames = await caches.keys();
-            console.log('[PWA] Clearing caches:', cacheNames);
             await Promise.all(
               cacheNames.map(cacheName => {
-                console.log('[PWA] Deleting cache:', cacheName);
                 return caches.delete(cacheName);
               })
             );
-            console.log('[PWA] All caches cleared');
           }
           
           // Step 2: Tell the waiting service worker to skip waiting and activate
           if (swRegistration && swRegistration.waiting) {
-            console.log('[PWA] Activating new service worker...');
-            
             // Listen for controller change before sending message
             let controllerChanged = false;
             navigator.serviceWorker.addEventListener('controllerchange', () => {
               controllerChanged = true;
-              console.log('[PWA] New service worker activated, reloading...');
               // Force reload with cache bypass
               window.location.reload(true);
             });
@@ -198,17 +190,14 @@
             // Fallback: if controller doesn't change in 2 seconds, force reload anyway
             setTimeout(() => {
               if (!controllerChanged) {
-                console.log('[PWA] Fallback reload triggered');
                 window.location.reload(true);
               }
             }, 2000);
           } else {
             // No waiting worker, just reload with cache bypass
-            console.log('[PWA] No waiting worker, forcing reload');
             window.location.reload(true);
           }
         } catch (error) {
-          console.error('[PWA] Failed to clear cache and update:', error);
           // Fallback to force reload with cache bypass
           window.location.reload(true);
         }
@@ -490,12 +479,7 @@
     // Setup network detection
     setupNetworkDetection();
     
-    // Log PWA status with version
-    if (isPWA()) {
-      console.log(`[PWA] App v${PWA_VERSION} is running in standalone mode`);
-    } else {
-      console.log(`[PWA] App v${PWA_VERSION} is running in browser mode`);
-    }
+    // PWA initialized successfully
   }
   
   // Initialize when DOM is ready

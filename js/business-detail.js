@@ -289,7 +289,7 @@
               shareBtn.style.background = '';
             }, 2000);
           } catch (clipboardError) {
-            console.error('Share failed:', error);
+            // Silent fail - user will see no feedback
           }
         }
       });

@@ -66,36 +66,24 @@ self.addEventListener('install', (event) => {
       .then(() => {
         return self.skipWaiting();
       })
-      .catch((error) => {
-        console.error('[SW] Failed to cache static assets:', error);
-      })
   );
 });
 
 // Activate event - clean up ALL old caches completely
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating new service worker...');
-  
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
-        console.log('[SW] Found caches:', cacheNames);
-        
         // Delete ALL caches, not just old versions
         return Promise.all(
           cacheNames.map((cacheName) => {
-            console.log('[SW] Deleting cache:', cacheName);
             return caches.delete(cacheName);
           })
         );
       })
       .then(() => {
-        console.log('[SW] All caches deleted, claiming clients...');
         // Take control of all pages immediately
         return self.clients.claim();
-      })
-      .then(() => {
-        console.log('[SW] Service worker activated and claimed all clients');
       })
   );
 });
@@ -137,8 +125,6 @@ async function handleGetRequest(request) {
       
       return networkResponse;
     } catch (error) {
-      console.error('[SW] Network fetch failed, trying cache:', error);
-      
       // Fallback to cache
       const cachedResponse = await caches.match(request);
       if (cachedResponse) {
@@ -177,8 +163,6 @@ async function handleGetRequest(request) {
     
     return networkResponse;
   } catch (error) {
-    console.error('[SW] Fetch failed:', error);
-    
     return new Response('Network error', {
       status: 408,
       headers: { 'Content-Type': 'text/plain' }
@@ -208,8 +192,6 @@ async function handleImageRequest(request) {
     
     return networkResponse;
   } catch (error) {
-    console.error('[SW] Image fetch failed:', error);
-    
     // Return placeholder image or cached fallback
     const fallback = await caches.match(`${BASE_PATH}/assets/images/mainlogo.svg`);
     if (fallback) {
@@ -247,7 +229,6 @@ async function syncBusinessSubmissions() {
     //   });
     // }
   } catch (error) {
-    console.error('[SW] Sync failed:', error);
     throw error;
   }
 }
@@ -292,12 +273,8 @@ self.addEventListener('notificationclick', (event) => {
 // Message handler for communication with main thread
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
-    console.log('[SW] Received SKIP_WAITING message');
-    
     // Skip waiting and activate immediately
-    self.skipWaiting().then(() => {
-      console.log('[SW] Skip waiting completed');
-    });
+    self.skipWaiting();
   }
   
   if (event.data && event.data.type === 'CACHE_URLS') {
@@ -308,12 +285,10 @@ self.addEventListener('message', (event) => {
   }
   
   if (event.data && event.data.type === 'CLEAR_ALL_CACHES') {
-    console.log('[SW] Received CLEAR_ALL_CACHES message');
     event.waitUntil(
       caches.keys().then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            console.log('[SW] Clearing cache:', cacheName);
             return caches.delete(cacheName);
           })
         );
