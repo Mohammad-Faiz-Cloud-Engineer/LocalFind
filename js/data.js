@@ -188,6 +188,46 @@ window.LISTINGS = [
     description: "Hind Pharmacy is your trusted healthcare partner in Rasauli, providing comprehensive pharmaceutical services and healthcare products. Managed by Anas, we stock a wide range of prescription medications, over-the-counter medicines, health supplements, vitamins, and wellness products. Our experienced pharmacists are available to provide expert consultation on medication usage, dosage instructions, and potential drug interactions. We offer services including prescription filling, medicine home delivery, health check-up packages, and medical equipment sales. Our pharmacy maintains strict quality standards and ensures all medicines are sourced from authorized distributors. We also provide first-aid supplies, baby care products, personal care items, and diabetic care products. With a commitment to your health and well-being, we ensure accurate dispensing, competitive pricing, and friendly customer service. Contact Anas for all your healthcare and pharmaceutical needs in Rasauli.",
     tags: ["pharmacy", "medicines", "healthcare", "prescription", "medical-store", "health-supplements", "wellness", "first-aid", "medical-equipment"],
     isNew: true
+  },
+  {
+    id: "abdul-hospital",
+    name: "Abdul Hospital",
+    category: "Healthcare & Medical Services",
+    categorySlug: "healthcare",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 5.0,
+        date: "2026-02-28",
+        text: "Abdul Hospital provides excellent medical care for common health issues and emergencies. The staff is professional and caring. However, for very serious or critical conditions, or rare medical cases that require specialized treatment, we recommend consulting larger multi-specialty hospitals with advanced facilities. For routine healthcare, minor emergencies, and general medical needs, this hospital is a reliable choice in Rasauli.",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli, District Barabanki, W7F6+RQX, Rasauli Bazar, Near Hind Pharmacy, Uttar Pradesh 225203",
+    mapLink: "https://maps.google.com/?q=26.9246097,81.2619726",
+    phone: "+91 96215 27752",
+    email: "abdulhospital786@gmail.com",
+    website: "https://abdulhospitalwebsite.blogspot.com/",
+    whatsapp: "+91 96215 27752",
+    hours: {
+      mon: {open: "00:00", close: "23:59"},
+      tue: {open: "00:00", close: "23:59"},
+      wed: {open: "00:00", close: "23:59"},
+      thu: {open: "00:00", close: "23:59"},
+      fri: {open: "00:00", close: "23:59"},
+      sat: {open: "00:00", close: "23:59"},
+      sun: {open: "00:00", close: "23:59"}
+    },
+    description: "Abdul Hospital is a trusted healthcare facility serving the Rasauli community with comprehensive medical services around the clock. Operating 24/7, we provide emergency care, general medicine consultations, diagnostic services, and treatment for a wide range of health conditions. Our experienced medical team includes qualified doctors, nurses, and support staff dedicated to patient care and well-being. We offer services including emergency treatment, outpatient consultations, minor surgical procedures, laboratory tests, X-ray facilities, pharmacy services, and patient admission facilities. Our hospital is equipped with modern medical equipment and maintains high standards of hygiene and patient safety. We specialize in treating common illnesses, injuries, fever, infections, and providing maternal and child healthcare. With affordable healthcare services and compassionate care, Abdul Hospital is committed to serving the medical needs of Rasauli and surrounding areas. Available 24 hours a day, 7 days a week for all your healthcare emergencies and medical consultations.",
+    tags: ["hospital", "emergency-care", "24x7", "medical-services", "healthcare", "doctor", "clinic", "diagnostic", "laboratory", "patient-care"],
+    isNew: true
   }
 ];
 

@@ -181,15 +181,35 @@
       return `${hour12}:${minutes.toString().padStart(2, '0')} ${period}`;
     }
     
-    const hoursHtml = '<h4 class="section-header">Opening Hours</h4>' + 
+    /**
+     * Check if business is open 24/7
+     * @returns {boolean} True if open 24/7
+     */
+    function isOpen24x7() {
+      return Object.keys(days).every(day => {
+        const hours = biz.hours[day];
+        return (hours.open === '00:00' && hours.close === '23:59');
+      });
+    }
+    
+    const is24x7 = isOpen24x7();
+    const hoursHeader = is24x7 
+      ? '<h4 class="section-header">Opening Hours (24/7)</h4>' 
+      : '<h4 class="section-header">Opening Hours</h4>';
+    
+    const hoursHtml = hoursHeader + 
       Object.keys(days).map(day => {
         const hours = biz.hours[day];
         const isClosed = hours.open === '00:00' && hours.close === '00:00';
+        const timeDisplay = is24x7 
+          ? '12:00 AM - 11:59 PM (24/7)'
+          : (isClosed ? 'Closed' : convertTo12Hour(hours.open) + ' - ' + convertTo12Hour(hours.close));
+        
         return `
           <div class="hours-row">
             <span class="hours-day">${days[day]}</span>
             <span class="hours-time ${isClosed ? 'closed' : 'open'}">
-              ${isClosed ? 'Closed' : convertTo12Hour(hours.open) + ' - ' + convertTo12Hour(hours.close)}
+              ${timeDisplay}
             </span>
           </div>
         `;
