@@ -115,27 +115,24 @@
           width: 100px;
           height: 100px;
           margin: 0 auto 20px;
-          background: linear-gradient(135deg, #FF9F43, #54D6C8);
-          border-radius: 25px;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 20px 60px rgba(255, 159, 67, 0.4);
           animation: logoPulse 2s ease-in-out infinite;
         }
         @keyframes logoPulse {
           0%, 100% {
             transform: scale(1);
-            box-shadow: 0 20px 60px rgba(255, 159, 67, 0.4);
+            filter: drop-shadow(0 20px 40px rgba(255, 159, 67, 0.4));
           }
           50% {
             transform: scale(1.05);
-            box-shadow: 0 20px 80px rgba(255, 159, 67, 0.6);
+            filter: drop-shadow(0 20px 60px rgba(255, 159, 67, 0.6));
           }
         }
         .splash-logo img {
-          width: 60px;
-          height: 60px;
+          width: 100px;
+          height: 100px;
         }
         .splash-title {
           font-size: 32px;
@@ -173,11 +170,10 @@
           .splash-logo {
             width: 80px;
             height: 80px;
-            border-radius: 20px;
           }
           .splash-logo img {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
           }
           .splash-title {
             font-size: 28px;
