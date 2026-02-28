@@ -250,14 +250,6 @@
       </div>
     </section>
 
-    <!-- RECENTLY ADDED -->
-    <section class="recently-section">
-      <div class="container">
-        <h2>New to the Directory</h2>
-        <div class="recent-grid" id="recent-list"></div>
-      </div>
-    </section>
-
     <!-- CTA -->
     <section class="cta-banner">
       <div class="container">
@@ -283,14 +275,9 @@
       if (!window.LISTINGS || window.LISTINGS.length === 0) {
         // Show placeholder message when no data
         const featuredContainer = document.getElementById('featured-list');
-        const recentContainer = document.getElementById('recent-list');
 
         if (featuredContainer) {
           featuredContainer.innerHTML = '<div class="empty-state"><p>No listings available yet. Add your business data to js/data.js</p></div>';
-        }
-
-        if (recentContainer) {
-          recentContainer.innerHTML = '<div class="empty-state"><p>No recent listings available.</p></div>';
         }
         return;
       }
@@ -302,15 +289,6 @@
         featured.forEach(b => { container.insertAdjacentHTML('beforeend', window.renderCard(b)); });
       } else {
         container.innerHTML = '<div class="empty-state"><p>No featured listings available.</p></div>';
-      }
-
-      // Render recent listings
-      const recent = window.LISTINGS.filter(b => b.isNew).slice(0, 4);
-      const recentWrap = document.getElementById('recent-list');
-      if (recent.length > 0) {
-        recent.forEach(b => recentWrap.insertAdjacentHTML('beforeend', window.renderCard(b)));
-      } else {
-        recentWrap.innerHTML = '<div class="empty-state"><p>No new listings available.</p></div>';
       }
     });
   </script>
