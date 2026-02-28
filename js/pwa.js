@@ -403,12 +403,12 @@
    * Handle install prompt
    */
   function setupInstallPrompt() {
-    window.addEventListener('beforeinstallprompt', (e) => {
+    window.addEventListener('beforeinstallprompt', (event) => {
       // Prevent default mini-infobar
-      e.preventDefault();
+      event.preventDefault();
       
       // Store event for later use
-      deferredPrompt = e;
+      deferredPrompt = event;
       
       // Show custom install button
       showInstallButton();
@@ -584,8 +584,8 @@
       });
       
       // Handle back button in PWA
-      window.addEventListener('popstate', (e) => {
-        // Custom back button handling if needed
+      window.addEventListener('popstate', () => {
+        // Custom back button handling can be added here if needed
       });
       
       console.log('[PWA] Running in standalone mode with enhancements');

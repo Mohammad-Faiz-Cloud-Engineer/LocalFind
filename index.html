@@ -41,6 +41,8 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/images/mainlogo.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/images/icon-512.png">
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
@@ -48,8 +50,19 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="LocalFind">
-  <link rel="apple-touch-icon" href="assets/images/mainlogo.svg">
-  <meta name="theme-color" content="#FF9F43">
+  
+  <!-- Apple Touch Icons (prevents default iOS splash) -->
+  <link rel="apple-touch-icon" href="assets/images/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icon-192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/images/icon-192.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/images/icon-192.png">
+  
+  <!-- Apple Splash Screens (prevents default iOS splash) -->
+  <link rel="apple-touch-startup-image" href="assets/images/icon-512.png">
+  
+  <meta name="theme-color" content="#0A0E17">
+  <meta name="msapplication-navbutton-color" content="#0A0E17">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
