@@ -142,7 +142,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, Near Rasauli Bazar, Uttar Pradesh 225203",
-    mapLink: "https://maps.google.com/?q=26.922952,81.261117",
+    mapLink: "https://www.google.com/maps?q=26.9248848,81.2620547",
     phone: "+91 84234 19973",
     phoneName: "Affan",
     phoneSecondary: "+91 63062 03254",
