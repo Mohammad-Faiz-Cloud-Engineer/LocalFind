@@ -2,7 +2,7 @@
  * LocalFind - PWA Registration & Management
  * Handles service worker registration, install prompts, and updates
  * 
- * @version 4.0.0
+ * @version 3.0.0
  */
 
 (function() {
@@ -10,193 +10,6 @@
   
   let deferredPrompt;
   let swRegistration;
-  
-  /**
-   * Show splash screen on first load
-   */
-  function showSplashScreen() {
-    const hasSeenSplash = sessionStorage.getItem('splashShown');
-    
-    if (!hasSeenSplash) {
-      // Create splash screen overlay
-      const splash = document.createElement('div');
-      splash.id = 'pwa-splash';
-      splash.innerHTML = `
-        <div class="splash-particles">
-          <div class="particle"></div>
-          <div class="particle"></div>
-          <div class="particle"></div>
-          <div class="particle"></div>
-          <div class="particle"></div>
-        </div>
-        <div class="splash-content">
-          <div class="splash-logo">
-            <img src="assets/images/mainlogo.svg" alt="LocalFind">
-          </div>
-          <h1 class="splash-title">LocalFind</h1>
-          <p class="splash-tagline">Discover Everything Around You</p>
-          <div class="splash-loader">
-            <div class="loader-ring"></div>
-          </div>
-        </div>
-      `;
-      
-      // Add splash styles
-      const style = document.createElement('style');
-      style.textContent = `
-        #pwa-splash {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(135deg, #0A0E17 0%, #1A2332 100%);
-          z-index: 99999;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          animation: splashFadeIn 0.3s ease-out;
-        }
-        @keyframes splashFadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes splashFadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-        .splash-particles {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-        }
-        .splash-particles .particle {
-          position: absolute;
-          width: 4px;
-          height: 4px;
-          background: rgba(255, 159, 67, 0.3);
-          border-radius: 50%;
-          animation: particleFloat 6s infinite ease-in-out;
-        }
-        .splash-particles .particle:nth-child(1) { left: 20%; animation-delay: 0s; }
-        .splash-particles .particle:nth-child(2) { left: 40%; animation-delay: 1s; }
-        .splash-particles .particle:nth-child(3) { left: 60%; animation-delay: 2s; }
-        .splash-particles .particle:nth-child(4) { left: 80%; animation-delay: 0.5s; }
-        .splash-particles .particle:nth-child(5) { left: 50%; animation-delay: 1.5s; }
-        @keyframes particleFloat {
-          0%, 100% {
-            transform: translateY(100vh) scale(0);
-            opacity: 0;
-          }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% {
-            transform: translateY(-100px) scale(1);
-            opacity: 0;
-          }
-        }
-        .splash-content {
-          text-align: center;
-          z-index: 10;
-          animation: contentSlideUp 0.6s ease-out;
-        }
-        @keyframes contentSlideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .splash-logo {
-          width: 100px;
-          height: 100px;
-          margin: 0 auto 20px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          animation: logoPulse 2s ease-in-out infinite;
-        }
-        @keyframes logoPulse {
-          0%, 100% {
-            transform: scale(1);
-            filter: drop-shadow(0 20px 40px rgba(255, 159, 67, 0.4));
-          }
-          50% {
-            transform: scale(1.05);
-            filter: drop-shadow(0 20px 60px rgba(255, 159, 67, 0.6));
-          }
-        }
-        .splash-logo img {
-          width: 100px;
-          height: 100px;
-        }
-        .splash-title {
-          font-size: 32px;
-          font-weight: 800;
-          background: linear-gradient(135deg, #FF9F43, #54D6C8);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          margin-bottom: 8px;
-          letter-spacing: -1px;
-          font-family: 'Syne', sans-serif;
-        }
-        .splash-tagline {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.6);
-          margin-bottom: 30px;
-        }
-        .splash-loader {
-          width: 40px;
-          height: 40px;
-          margin: 0 auto;
-        }
-        .loader-ring {
-          width: 40px;
-          height: 40px;
-          border: 3px solid rgba(255, 159, 67, 0.1);
-          border-top-color: #FF9F43;
-          border-radius: 50%;
-          animation: loaderSpin 1s linear infinite;
-        }
-        @keyframes loaderSpin {
-          to { transform: rotate(360deg); }
-        }
-        @media (max-width: 480px) {
-          .splash-logo {
-            width: 80px;
-            height: 80px;
-          }
-          .splash-logo img {
-            width: 80px;
-            height: 80px;
-          }
-          .splash-title {
-            font-size: 28px;
-          }
-          .splash-tagline {
-            font-size: 13px;
-          }
-        }
-      `;
-      
-      document.head.appendChild(style);
-      document.body.appendChild(splash);
-      
-      // Remove splash after 2 seconds
-      setTimeout(() => {
-        splash.style.animation = 'splashFadeOut 0.5s ease-out';
-        setTimeout(() => {
-          splash.remove();
-          sessionStorage.setItem('splashShown', 'true');
-        }, 500);
-      }, 2000);
-    }
-  }
   
   /**
    * Register service worker
@@ -403,12 +216,12 @@
    * Handle install prompt
    */
   function setupInstallPrompt() {
-    window.addEventListener('beforeinstallprompt', (event) => {
+    window.addEventListener('beforeinstallprompt', (e) => {
       // Prevent default mini-infobar
-      event.preventDefault();
+      e.preventDefault();
       
       // Store event for later use
-      deferredPrompt = event;
+      deferredPrompt = e;
       
       // Show custom install button
       showInstallButton();
@@ -584,8 +397,8 @@
       });
       
       // Handle back button in PWA
-      window.addEventListener('popstate', () => {
-        // Custom back button handling can be added here if needed
+      window.addEventListener('popstate', (e) => {
+        // Custom back button handling if needed
       });
       
       console.log('[PWA] Running in standalone mode with enhancements');
@@ -661,9 +474,6 @@
    * Initialize PWA features
    */
   function init() {
-    // Show splash screen on first load
-    showSplashScreen();
-    
     // Setup PWA enhancements first
     setupPWAEnhancements();
     
