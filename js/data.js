@@ -272,6 +272,46 @@ window.LISTINGS = [
     description: "Abdul Hospital is a trusted healthcare facility serving the Rasauli community with comprehensive medical services around the clock. Operating 24/7, we provide emergency care, general medicine consultations, diagnostic services, and treatment for a wide range of health conditions. Our experienced medical team includes qualified doctors, nurses, and support staff dedicated to patient care and well-being. We offer services including emergency treatment, outpatient consultations, minor surgical procedures, laboratory tests, X-ray facilities, pharmacy services, and patient admission facilities. Our hospital is equipped with modern medical equipment and maintains high standards of hygiene and patient safety. We specialize in treating common illnesses, injuries, fever, infections, and providing maternal and child healthcare. With affordable healthcare services and compassionate care, Abdul Hospital is committed to serving the medical needs of Rasauli and surrounding areas. Available 24 hours a day, 7 days a week for all your healthcare emergencies and medical consultations.",
     tags: ["hospital", "emergency-care", "24x7", "medical-services", "healthcare", "doctor", "clinic", "diagnostic", "laboratory", "patient-care"],
     isNew: true
+  },
+  {
+    id: "rajju-pankaj-sweets",
+    name: "Rajju/Pankaj Sweets",
+    category: "Food & Beverages",
+    categorySlug: "food-beverages",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 5.0,
+        date: "2026-02-28",
+        text: "Rajju/Pankaj Sweets is hands down the best sweet shop in the entire Rasauli region! The taste of their sweets is absolutely delicious and authentic - you can tell they use premium quality ingredients and traditional recipes. Their ice cream selection is fantastic with rich, creamy flavors that are perfect for any season. The namkeen varieties are fresh and crispy, making them ideal for snacking or gifting. Their custom cakes are beautifully crafted and taste amazing for celebrations. The shop maintains excellent hygiene standards and the staff is always friendly and helpful. Whether you're buying sweets for festivals, celebrations, or just treating yourself, this is the place to go. The prices are reasonable for the quality you get, and everything is made fresh daily. From classic Indian sweets like gulab jamun and barfi to modern fusion desserts, they have it all. Highly recommended for anyone in Rasauli looking for authentic, delicious sweets and confectionery. A must-visit destination for sweet lovers!",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli, District Barabanki, near Rasauli bazar, W7F6+MH Rasauli, Uttar Pradesh 225203",
+    mapLink: "https://www.google.com/maps/place/pankaj+sweets/@26.9247497,81.2603771,17.87z/data=!4m6!3m5!1s0x39996218473a57d5:0xa3aaace34f32af13!8m2!3d26.924135!4d81.2614237!16s%2Fg%2F11c71d06n8?entry=ttu&g_ep=EgoyMDI2MDIyNS4wIKXMDSoASAFQAw%3D%3D",
+    phone: "+91 99356 86532",
+    email: "",
+    website: "",
+    whatsapp: "+91 99356 86532",
+    hours: {
+      mon: {open: "08:00", close: "21:00"},
+      tue: {open: "08:00", close: "21:00"},
+      wed: {open: "08:00", close: "21:00"},
+      thu: {open: "08:00", close: "21:00"},
+      fri: {open: "08:00", close: "21:00"},
+      sat: {open: "08:00", close: "21:00"},
+      sun: {open: "08:00", close: "21:00"}
+    },
+    description: "Rajju/Pankaj Sweets is the premier destination for authentic Indian sweets and confectionery in Rasauli. We specialize in traditional sweets made with the finest ingredients and time-honored recipes that deliver exceptional taste and quality. Our extensive menu includes a delightful variety of fresh sweets, premium ice creams in multiple flavors, savory namkeen snacks, custom celebration cakes for all occasions, refreshing cold drinks and beverages, and seasonal specialties. Each sweet is crafted with care to ensure authentic flavors and freshness. Whether you're celebrating a special occasion, looking for the perfect gift, or simply craving something sweet, we have something for everyone. Our shop is known throughout Rasauli for the delicious taste of our sweets and the quality of our products. We also offer custom cake orders for birthdays, anniversaries, and celebrations. Visit us to experience the best sweets, ice cream, namkeen, and cakes in Rasauli, where tradition meets taste.",
+    tags: ["sweets", "ice-cream", "namkeen", "cakes", "desserts", "beverages", "indian-sweets", "confectionery", "snacks", "celebration-cakes"],
+    isNew: true
   }
 ];
 
