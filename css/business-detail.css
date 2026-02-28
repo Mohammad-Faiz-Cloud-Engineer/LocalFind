@@ -610,7 +610,14 @@
 
 
 /* Share Button Styling */
+.biz-hero {
+  position: relative;
+}
+
 .btn-share {
+  position: absolute;
+  top: var(--space-xl);
+  right: 0;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -625,6 +632,7 @@
   transition: all var(--transition-fast);
   box-shadow: 0 2px 8px rgba(255, 159, 67, 0.3);
   font-family: var(--font-sans);
+  z-index: 10;
 }
 
 .btn-share:hover {
@@ -643,6 +651,8 @@
 /* Mobile optimization for share button */
 @media (max-width: 768px) {
   .btn-share {
+    top: var(--space-md);
+    right: 0;
     padding: 8px 14px;
     font-size: 13px;
   }
@@ -654,16 +664,18 @@
 
 @media (max-width: 480px) {
   .btn-share {
-    padding: 7px 12px;
+    top: 12px;
+    right: 0;
+    padding: 8px 12px;
     font-size: 12px;
+    border-radius: var(--radius-md);
   }
   
   .btn-share span {
-    display: none;
+    display: inline;
   }
   
   .btn-share i {
-    font-size: 16px;
-    margin: 0;
+    font-size: 14px;
   }
 }
