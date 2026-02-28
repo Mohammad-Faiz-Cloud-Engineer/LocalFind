@@ -136,7 +136,6 @@
         .splash-logo img {
           width: 60px;
           height: 60px;
-          filter: brightness(0);
         }
         .splash-title {
           font-size: 32px;
