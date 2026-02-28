@@ -348,7 +348,7 @@ window.LISTINGS = [
       thu: {open: "04:00", close: "07:00", open2: "18:00", close2: "22:00"},
       fri: {open: "04:00", close: "07:00", open2: "18:00", close2: "22:00"},
       sat: {open: "04:00", close: "07:00", open2: "18:00", close2: "22:00"},
-      sun: {open: "04:00", close: "07:00", open2: "18:00", close2: "22:00"}
+      sun: {open: "00:00", close: "00:00"}
     },
     description: "Friend Fitness GYM is Rasauli's premier fitness center, dedicated to helping you achieve your health and fitness goals. Managed by experienced fitness professional Dileep Rawat, we offer a complete range of gym facilities and services for all fitness levels. Our gym features modern strength training equipment including free weights, dumbbells, barbells, and weight machines, cardio equipment such as treadmills, exercise bikes, and cross trainers, functional training areas, and dedicated spaces for stretching and warm-up exercises. We provide personalized workout plans, professional fitness guidance, weight loss programs, muscle building training, and general fitness coaching. Whether you're looking to lose weight, build muscle, improve stamina, or maintain overall fitness, our supportive environment and quality equipment will help you succeed. We operate in two convenient shifts - early morning (4 AM to 7 AM) for early risers and evening (6 PM to 10 PM) for those who prefer after-work sessions. Join Friend Fitness GYM and start your transformation journey today with expert guidance and a motivating atmosphere.",
     tags: ["gym", "fitness", "workout", "weight-training", "cardio", "health", "bodybuilding", "exercise", "fitness-center", "personal-training"],
