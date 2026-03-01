@@ -184,7 +184,7 @@
           <i class="fa-brands fa-whatsapp"></i>
           <div>
             <a href="https://wa.me/${biz.whatsapp.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
-            ${biz.whatsappName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.whatsappName})</span>` : ''}
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${biz.whatsapp}${biz.whatsappName ? ` (${biz.whatsappName})` : ''}</span>
           </div>
         </div>
       ` : ''}
@@ -193,7 +193,7 @@
           <i class="fa-brands fa-whatsapp"></i>
           <div>
             <a href="https://wa.me/${biz.whatsappSecondary.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
-            ${biz.whatsappSecondaryName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.whatsappSecondaryName})</span>` : ''}
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${biz.whatsappSecondary}${biz.whatsappSecondaryName ? ` (${biz.whatsappSecondaryName})` : ''}</span>
           </div>
         </div>
       ` : ''}
@@ -202,7 +202,7 @@
           <i class="fa-brands fa-whatsapp"></i>
           <div>
             <a href="https://wa.me/${biz.whatsappThird.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
-            ${biz.whatsappThirdName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.whatsappThirdName})</span>` : ''}
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${biz.whatsappThird}${biz.whatsappThirdName ? ` (${biz.whatsappThirdName})` : ''}</span>
           </div>
         </div>
       ` : ''}
