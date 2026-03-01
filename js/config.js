@@ -99,6 +99,8 @@ const CONFIG = {
     'electrician': ['electric', 'electrical', 'wiring', 'shariq hashmi'],
     'garments': ['clothes', 'clothing', 'fashion', 'apparel', 'aman garments', 'affan garments'],
     'footwear': ['shoes', 'sandals', 'slippers', 'chappals', 'footware', 'satyam footwear'],
+    'furniture': ['sofa', 'bed', 'table', 'chair', 'wardrobe', 'dressing-table', 'khidmat enterprises', 'custom-furniture', 'woodwork', 'carpentry'],
+    'hardware': ['building-materials', 'construction', 'tools', 'plywood', 'wooden-doors', 'paints', 'cement', 'rasauli hardware'],
     'gym': ['fitness', 'workout', 'exercise', 'friends fitness', 'bodybuilding'],
     'laundry': ['dry clean', 'washing', 'ironing'],
     'petrol': ['fuel', 'gas station', 'pump'],

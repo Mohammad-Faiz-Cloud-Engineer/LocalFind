@@ -211,7 +211,7 @@
           <i class="fa-brands fa-whatsapp"></i>
           <div>
             <a href="https://wa.me/${biz.whatsappFourth.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
-            ${biz.whatsappFourthName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.whatsappFourthName})</span>` : ''}
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${biz.whatsappFourth}${biz.whatsappFourthName ? ` (${biz.whatsappFourthName})` : ''}</span>
           </div>
         </div>
       ` : ''}

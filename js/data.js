@@ -584,6 +584,102 @@ window.LISTINGS = [
     description: "Satyam Footwear is your one-stop destination for quality footwear in Rasauli, conveniently located near Pankaj Sweets in Rasauli Bazar. Managed by Satyam Prajapati, we specialize in providing a wide variety of footwear for men, women, and children to suit every occasion and budget. Our extensive collection includes formal shoes, casual footwear, sports shoes, sandals, slippers, traditional footwear, school shoes, and seasonal collections. We stock products from trusted brands as well as affordable local options, ensuring there's something for everyone. Whether you're looking for comfortable daily wear, stylish party shoes, durable work boots, or trendy sneakers, we have it all under one roof. Our store maintains high standards of quality and offers competitive pricing. We pride ourselves on providing excellent customer service and helping you find the perfect fit for your needs. Visit Satyam Footwear for all your footwear requirements - from traditional chappals to modern sports shoes. Open daily from 9 AM to 8 PM, we're here to serve you with a smile and ensure you walk away satisfied with your purchase.",
     tags: ["footwear", "shoes", "sandals", "slippers", "sports-shoes", "formal-shoes", "casual-footwear", "fashion", "men-shoes", "women-shoes", "kids-shoes"],
     isNew: true
+  },
+  {
+    id: "khidmat-enterprises",
+    name: "Khidmat Enterprises",
+    category: "Furniture & Home Decor",
+    categorySlug: "furniture",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 5.0,
+        date: "2026-03-02",
+        text: "Khidmat Enterprises is hands down the best furniture brand in the entire Rasauli region! The quality of their furniture is absolutely top-notch - genuine A1 grade craftsmanship that stands the test of time. What truly sets them apart is their exceptional behavior and professionalism. The team, including Faizal, Asjad, and Akhlad, are wonderful people who genuinely care about customer satisfaction. They listen carefully to your requirements and provide expert guidance throughout the process. Their custom furniture projects are particularly impressive - they can bring any design vision to life with precision and attention to detail. Whether you need a bed, sofa, dressing table, wardrobe, or any custom piece, they deliver excellence every time. The pricing is very reasonable and fair for the premium quality you receive. They use high-quality materials and their finishing work is impeccable. The entire experience from consultation to delivery is smooth and professional. If you're looking for furniture in Rasauli, look no further than Khidmat Enterprises. Highly recommended for anyone who values quality craftsmanship, honest pricing, and excellent customer service!",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli District, Near Starting of the Over-Bridge, Uttar Pradesh 225001",
+    mapLink: "https://maps.app.goo.gl/1ARtbuJGEiKLcnQq5",
+    phone: "+91 82997 24104",
+    phoneName: "Faizal",
+    phoneSecondary: "+91 87075 15099",
+    phoneSecondaryName: "Asjad",
+    phoneThird: "+91 83760 50734",
+    phoneThirdName: "Faizal (2nd number)",
+    phoneFourth: "+91 93350 70055",
+    phoneFourthName: "Akhlad",
+    email: "",
+    website: "",
+    whatsapp: "+91 82997 24104",
+    whatsappName: "Faizal",
+    whatsappSecondary: "+91 87075 15099",
+    whatsappSecondaryName: "Asjad",
+    whatsappThird: "+91 83760 50734",
+    whatsappThirdName: "Faizal (2nd number)",
+    whatsappFourth: "+91 93350 70055",
+    whatsappFourthName: "Akhlad",
+    hours: {
+      mon: {open: "09:00", close: "18:00"},
+      tue: {open: "09:00", close: "18:00"},
+      wed: {open: "09:00", close: "18:00"},
+      thu: {open: "09:00", close: "18:00"},
+      fri: {open: "09:00", close: "18:00"},
+      sat: {open: "09:00", close: "18:00"},
+      sun: {open: "09:00", close: "18:00"}
+    },
+    description: "Khidmat Enterprises is Rasauli's premier custom furniture manufacturer and design studio, specializing in creating high-quality, handcrafted furniture pieces tailored to your exact specifications. Led by experienced craftsmen Faizal, Asjad, and Akhlad, we bring decades of combined expertise in furniture design and manufacturing. We create a complete range of furniture including beds, sofas, dressing tables, wardrobes, dining tables, chairs, TV units, study tables, kitchen cabinets, and much more. What makes us unique is our ability to handle custom projects - we don't just sell furniture, we create it from scratch based on your vision, space requirements, and budget. Our manufacturing process uses premium quality wood, hardware, and finishing materials to ensure durability and aesthetic appeal. We offer comprehensive services from initial design consultation, 3D visualization, material selection, custom manufacturing, finishing, polishing, to final installation at your location. Whether you need modern contemporary designs, traditional classic styles, or minimalist furniture, our skilled team can craft it with precision. We work with various materials including solid wood, plywood, MDF, and engineered wood, always recommending the best option for your specific needs. Our workshop is equipped with modern tools and machinery, allowing us to execute complex designs with accuracy. We pride ourselves on timely delivery, transparent pricing, and exceptional after-sales service. Visit Khidmat Enterprises for furniture that's built to last and designed to impress. Open daily from 9 AM to 6 PM.",
+    tags: ["furniture", "custom-furniture", "beds", "sofas", "dressing-tables", "wardrobes", "home-decor", "interior-design", "woodwork", "carpentry", "custom-design"],
+    isNew: true
+  },
+  {
+    id: "rasauli-hardware",
+    name: "Rasauli Hardware",
+    category: "Hardware & Building Materials",
+    categorySlug: "hardware",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 5.0,
+        date: "2026-03-02",
+        text: "Rasauli Hardware is undoubtedly the best hardware shop in the entire Rasauli area! What sets them apart is their unwavering commitment to quality - they stock only high-quality products and A1 grade materials that you can trust for your construction and renovation projects. Noor Alam, the owner, provides exceptional service with a very nice and professional behavior that makes every customer feel valued. The store offers an extensive range of hardware products including premium wooden doors in various designs and finishes, high-quality plywood from reputed brands, building materials, tools, fittings, locks, hinges, handles, paints, adhesives, and all essential hardware items you might need. Their product knowledge is excellent, and they provide honest recommendations based on your specific requirements and budget. The quality of materials is consistently top-notch - no compromise on standards. Whether you're a contractor working on a large project or a homeowner doing DIY repairs, you'll find everything you need here. The pricing is fair and competitive for the premium quality offered. They maintain good stock levels, so you rarely face unavailability issues. The shop is conveniently located near the Over-Bridge, making it easily accessible. If you value quality materials, expert guidance, and excellent customer service, Rasauli Hardware is your go-to destination. Highly recommended for all your hardware and building material needs!",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli District, Near Starting of the Over-Bridge, Uttar Pradesh 225001",
+    mapLink: "https://maps.app.goo.gl/5egeeT3KtujfWEnNA",
+    phone: "+91 83037 39404",
+    phoneName: "Noor Alam",
+    email: "",
+    website: "",
+    whatsapp: "+91 83037 39404",
+    whatsappName: "Noor Alam",
+    hours: {
+      mon: {open: "09:30", close: "18:00"},
+      tue: {open: "09:30", close: "18:00"},
+      wed: {open: "09:30", close: "18:00"},
+      thu: {open: "09:30", close: "18:00"},
+      fri: {open: "09:30", close: "18:00"},
+      sat: {open: "09:30", close: "18:00"},
+      sun: {open: "09:30", close: "18:00"}
+    },
+    description: "Rasauli Hardware is your trusted one-stop shop for all hardware and building material needs in Rasauli, conveniently located near the Over-Bridge. Managed by Noor Alam, we specialize in providing premium quality hardware products and building materials for residential, commercial, and industrial projects. Our extensive inventory includes high-quality wooden doors in various styles - panel doors, flush doors, decorative doors, and custom designs to match your interior aesthetics. We stock premium plywood from leading brands in different grades and thicknesses suitable for furniture, interiors, and construction. Our comprehensive range covers building hardware including cement, sand, bricks, steel, TMT bars, roofing materials, tiles, sanitary fittings, bathroom fixtures, kitchen fittings, electrical items, wiring accessories, switches, MCBs, pipes and plumbing materials, paints and coatings, adhesives and sealants, tools and equipment, locks and security hardware, door and window fittings, hinges, handles, tower bolts, and much more. We pride ourselves on stocking only A1 grade materials from reputed manufacturers, ensuring durability and reliability for your projects. Our team provides expert consultation to help you choose the right products based on your specific requirements, budget, and project scope. Whether you're building a new home, renovating, or doing repairs, we have everything you need under one roof. We offer competitive pricing, bulk order discounts, and reliable delivery services. Visit Rasauli Hardware for quality materials, honest advice, and excellent service. Open daily from 9:30 AM to 6 PM.",
+    tags: ["hardware", "building-materials", "wooden-doors", "plywood", "construction", "tools", "paints", "plumbing", "electrical", "home-improvement", "renovation"],
+    isNew: true
   }
 ];
 
