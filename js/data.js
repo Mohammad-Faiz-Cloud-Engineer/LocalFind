@@ -61,7 +61,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Near Rehan Clothing Store, Uttar Pradesh 225203",
-    mapLink: "https://maps.google.com/?q=26.923311,81.261030",
+    mapLink: "https://maps.app.goo.gl/sHcSAkevGAPCKDhSA",
     phone: "+91 91405 15707",
     email: "moraheem862@gmail.com",
     website: "",
@@ -101,7 +101,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Near Raheem Common Service Center Shop, Uttar Pradesh 225203",
-    mapLink: "https://maps.google.com/?q=26.922952,81.261117",
+    mapLink: "https://maps.app.goo.gl/9LD5tPFQh7qdWbu17",
     phone: "+91 63068 84047",
     email: "amanyadav92471@gmail.com",
     website: "",
@@ -142,7 +142,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, Near Rasauli Bazar, Uttar Pradesh 225203",
-    mapLink: "https://www.google.com/maps?q=26.9248848,81.2620547",
+    mapLink: "https://maps.app.goo.gl/gQxABHCE634v2JXS9",
     phone: "+91 84234 19973",
     phoneName: "Affan",
     phoneSecondary: "+91 63062 03254",
@@ -185,7 +185,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Near Hind Pharmacy Shop, Uttar Pradesh 225203",
-    mapLink: "https://maps.google.com/?q=26.924957,81.262061",
+    mapLink: "https://maps.app.goo.gl/RzzAqLBvtXKWQY419",
     phone: "+91 72751 13274",
     email: "",
     website: "",
@@ -255,7 +255,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, W7F6+RQX, Rasauli Bazar, Near Hind Pharmacy, Uttar Pradesh 225203",
-    mapLink: "https://maps.google.com/?q=26.9246097,81.2619726",
+    mapLink: "https://maps.app.goo.gl/Ga6CQSChfh1UZK1w8",
     phone: "+91 96215 27752",
     email: "abdulhospital786@gmail.com",
     website: "https://abdulhospitalwebsite.blogspot.com/",
@@ -295,7 +295,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, near Rasauli bazar, W7F6+MH Rasauli, Uttar Pradesh 225203",
-    mapLink: "https://www.google.com/maps?q=26.924135,81.2614237",
+    mapLink: "https://maps.app.goo.gl/MqywkZjACsXtBGdT9",
     phone: "+91 99356 86532",
     email: "",
     website: "",
@@ -335,7 +335,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, near Family Dhaba, Uttar Pradesh 225001",
-    mapLink: "https://www.google.com/maps?q=26.923562,81.254255",
+    mapLink: "https://maps.app.goo.gl/wXSodKKKQQCrDuaY7",
     phone: "+91 88407 04318",
     phoneName: "Dileep Rawat",
     email: "rawatdilip516@gmail.com",
@@ -376,7 +376,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Uttar Pradesh 225001",
-    mapLink: "https://www.google.com/maps?q=26.9234047,81.2610556",
+    mapLink: "https://maps.app.goo.gl/Q85NLAatyrDAdiLs8",
     phone: "+91 82991 33983",
     email: "",
     website: "",
@@ -406,7 +406,7 @@ window.LISTINGS = [
     reviewCount: 0,
     reviews: [],
     address: "Barabanki, W7F3+F9P, Uttar Pradesh 225001",
-    mapLink: "https://www.google.com/maps?q=26.9237004,81.2534575",
+    mapLink: "https://maps.app.goo.gl/1irTf5avokw1RjUW7",
     phone: "+91 94534 97384",
     phoneName: "Ram Kishor",
     email: "",
@@ -447,7 +447,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli District Barabanki, W7F4+39 Rasauli, Uttar Pradesh 225001",
-    mapLink: "https://www.google.com/maps?q=26.9226786,81.2559463",
+    mapLink: "https://maps.app.goo.gl/dbciZvSQfX2kakkY7",
     phone: "+91 99186 56350",
     phoneName: "Anas Quraishi",
     email: "",
@@ -489,7 +489,7 @@ window.LISTINGS = [
       }
     ],
     address: "Village & Post Rasauli District Barabanki, W7C6+595, Barabanki, Uttar Pradesh 225203",
-    mapLink: "https://www.google.com/maps?q=26.9203899,81.2609952",
+    mapLink: "https://maps.app.goo.gl/wEbhax3hJeygYXTq5",
     phone: "+91 99357 67561",
     phoneName: "Madhhu Bala (Principal - Below Class 9th)",
     phoneSecondary: "+91 94529 29640",
