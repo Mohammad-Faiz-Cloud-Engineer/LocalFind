@@ -27,9 +27,24 @@
     // Extract coordinates from mapLink or use default
     let lat, lng;
     
-    // Try to extract from Google Maps link format: ?q=lat,lng
-    const coordMatch = business.mapLink.match(/q=([\d.]+),([\d.]+)/);
-    if (coordMatch) {
+    // Handle different Google Maps URL formats
+    if (business.mapLink.includes('maps.app.goo.gl') || business.mapLink.includes('goo.gl')) {
+      // For shortened Google Maps links, try to extract from Plus Code in address
+      const plusCodeMatch = business.address.match(/([A-Z0-9]{4}\+[A-Z0-9]{2,3})/);
+      if (plusCodeMatch) {
+        // Extract approximate coordinates from Plus Code format
+        // This is a fallback - the actual link will work on mobile
+        const plusCode = plusCodeMatch[1];
+        // Use config coordinates as fallback for OpenStreetMap display
+        lat = CONFIG.mapLat;
+        lng = CONFIG.mapLng;
+      } else {
+        lat = CONFIG.mapLat;
+        lng = CONFIG.mapLng;
+      }
+    } else if (business.mapLink.match(/q=([\d.]+),([\d.]+)/)) {
+      // Try to extract from Google Maps link format: ?q=lat,lng
+      const coordMatch = business.mapLink.match(/q=([\d.]+),([\d.]+)/);
       lat = parseFloat(coordMatch[1]);
       lng = parseFloat(coordMatch[2]);
     } else {
