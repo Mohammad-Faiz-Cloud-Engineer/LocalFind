@@ -40,6 +40,73 @@
   }
 
   /**
+   * Calculate relevance score for a business based on search terms
+   * Higher score = more relevant
+   * @param {Object} business - Business object
+   * @param {Array} searchTerms - Array of search terms
+   * @param {string} originalQuery - Original search query
+   * @returns {number} Relevance score
+   */
+  function calculateRelevance(business, searchTerms, originalQuery) {
+    let score = 0;
+    const queryLower = originalQuery.toLowerCase();
+    const nameLower = business.name.toLowerCase();
+    const categoryLower = business.category.toLowerCase();
+    const descLower = business.description.toLowerCase();
+    
+    // Exact name match (highest priority)
+    if (nameLower === queryLower) {
+      score += 1000;
+    }
+    
+    // Name starts with query
+    if (nameLower.startsWith(queryLower)) {
+      score += 500;
+    }
+    
+    // Name contains query
+    if (nameLower.includes(queryLower)) {
+      score += 300;
+    }
+    
+    // Category exact match
+    if (categoryLower === queryLower) {
+      score += 200;
+    }
+    
+    // Category contains query
+    if (categoryLower.includes(queryLower)) {
+      score += 150;
+    }
+    
+    // Tags exact match
+    if (Array.isArray(business.tags)) {
+      business.tags.forEach(tag => {
+        const tagLower = tag.toLowerCase();
+        if (tagLower === queryLower) {
+          score += 100;
+        } else if (tagLower.includes(queryLower)) {
+          score += 50;
+        }
+      });
+    }
+    
+    // Description contains query (lower priority)
+    if (descLower.includes(queryLower)) {
+      score += 10;
+    }
+    
+    // Boost for featured/verified businesses
+    if (business.featured) score += 5;
+    if (business.verified) score += 5;
+    
+    // Boost for higher ratings
+    score += business.rating * 2;
+    
+    return score;
+  }
+
+  /**
    * Check if text matches any of the search terms
    * @param {string} text - Text to search in
    * @param {Array} searchTerms - Array of search terms
@@ -71,6 +138,13 @@
         matchesSearchTerms(b.category, searchTerms) ||
         (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
       );
+      
+      // Sort by relevance (most relevant first)
+      currentListings.sort((a, b) => {
+        const scoreA = calculateRelevance(a, searchTerms, search);
+        const scoreB = calculateRelevance(b, searchTerms, search);
+        return scoreB - scoreA;
+      });
     }
 
     if (loc) {
@@ -172,6 +246,13 @@
               matchesSearchTerms(b.category, searchTerms) ||
               (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
             );
+            
+            // Sort by relevance (most relevant first)
+            currentListings.sort((a, b) => {
+              const scoreA = calculateRelevance(a, searchTerms, query);
+              const scoreB = calculateRelevance(b, searchTerms, query);
+              return scoreB - scoreA;
+            });
           }
           offset = 0;
           render();

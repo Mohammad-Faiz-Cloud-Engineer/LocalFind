@@ -139,13 +139,15 @@
         <i class="fa-solid fa-location-dot"></i>
         <span>${biz.address}</span>
       </div>
-      <div class="contact-item">
-        <i class="fa-solid fa-phone"></i>
-        <div>
-          <a href="tel:${biz.phone}">${biz.phone}</a>
-          ${biz.phoneName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.phoneName})</span>` : ''}
+      ${biz.phone ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <div>
+            <a href="tel:${biz.phone}">${biz.phone}</a>
+            ${biz.phoneName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.phoneName})</span>` : ''}
+          </div>
         </div>
-      </div>
+      ` : ''}
       ${biz.phoneSecondary ? `
         <div class="contact-item">
           <i class="fa-solid fa-phone"></i>
@@ -219,6 +221,12 @@
         <div class="contact-item">
           <i class="fa-solid fa-globe"></i>
           <a href="${biz.website}" target="_blank">${biz.website.includes('jsdl.in') || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
+        </div>
+      ` : ''}
+      ${biz.onlineOrder ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-shopping-bag"></i>
+          <a href="${biz.onlineOrder}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-color); font-weight: 600;">Order Online</a>
         </div>
       ` : ''}
       ${biz.instagram ? `
