@@ -101,7 +101,7 @@ Admin Review (if applicable):
 - [ ] Link to: `directory.html?category=category-slug`
 
 ### 7️⃣ **VERSION & CACHE** (FORCE UPDATE)
-- [ ] Increment version in `js/config.js` (e.g., 4.1.1 → 4.1.2)
+- [ ] Increment version in `js/config.js` (e.g., 4.2.0 → 4.2.1)
 - [ ] Update version in `js/main.js` (@version tag)
 - [ ] Update version in `js/pwa.js` (@version tag and PWA_VERSION constant)
 - [ ] Update version in `manifest.json` (version and version_name)
