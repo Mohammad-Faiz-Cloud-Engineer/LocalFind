@@ -92,6 +92,8 @@
     .search-container {
       flex: 1;
       position: relative;
+      /* Prevent touch events from propagating to map */
+      touch-action: manipulation;
     }
 
     .search-input {
@@ -172,6 +174,13 @@
       display: none;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
+      /* Prevent touch events from propagating to map */
+      touch-action: pan-y;
+      overscroll-behavior: contain;
+      /* Ensure smooth scrolling on all devices */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: scroll-position;
     }
 
     /* Custom scrollbar for search results */
@@ -1049,6 +1058,24 @@
       const clearBtn = document.getElementById('clear-search');
       const searchResults = document.getElementById('search-results');
       let allMarkers = [...businessMarkers];
+
+      // Prevent touch events on search results from affecting the map
+      searchResults.addEventListener('touchstart', (e) => {
+        e.stopPropagation();
+      }, { passive: true });
+
+      searchResults.addEventListener('touchmove', (e) => {
+        e.stopPropagation();
+      }, { passive: true });
+
+      searchResults.addEventListener('touchend', (e) => {
+        e.stopPropagation();
+      }, { passive: true });
+
+      // Prevent mouse wheel events from affecting map
+      searchResults.addEventListener('wheel', (e) => {
+        e.stopPropagation();
+      }, { passive: true });
 
       searchInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase().trim();
