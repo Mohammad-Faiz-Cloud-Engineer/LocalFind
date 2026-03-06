@@ -5,8 +5,8 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 4.0.0
- * @updated 2026-02-28
+ * @version 4.1.0
+ * @updated 2026-03-05
  * 
  * Configuration is loaded from config.js
  */
@@ -143,7 +143,7 @@ function renderFooter(){
       </div>
     </div>
     <div class="container footer-bottom">
-      &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.0.0'}</span>
+      &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.1.0'}</span>
       <button id="back-to-top" class="btn" aria-label="Scroll back to top">Back to top</button>
     </div>
   </footer>
