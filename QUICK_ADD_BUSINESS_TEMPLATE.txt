@@ -1,0 +1,58 @@
+═══════════════════════════════════════════════════════════════
+🚀 QUICK ADD BUSINESS - COPY THIS TEMPLATE
+═══════════════════════════════════════════════════════════════
+
+Add new business with complete integration. Update ALL files below.
+
+BUSINESS DATA:
+──────────────────────────────────────────────────────────────
+Name: [Business Name]
+Location: [Area], [City], [State] [PIN]
+Category: [Category Name]
+Category Slug: [category-slug]
+
+Phone: [+91 XXXXX XXXXX]
+Phone Name: [Optional]
+WhatsApp: [+91 XXXXX XXXXX]
+WhatsApp Name: [Optional]
+Email: [email or N/A]
+Website: [URL or N/A]
+
+Google Maps: [https://maps.app.goo.gl/...]
+Latitude: [XX.XXXXXXX]
+Longitude: [XX.XXXXXXX]
+
+Hours: [e.g., 10 AM - 8 PM daily, or specify each day]
+
+Description: [Full description of services/products]
+Tags: [tag1, tag2, tag3, ...]
+
+Featured: [Yes/No]
+Verified: [Yes/No]
+Rating: [X.X/5]
+
+Admin Review: [Optional - Your review text]
+
+FILES TO UPDATE (CHECK ALL):
+──────────────────────────────────────────────────────────────
+☐ js/data.js - Add business entry with coordinates field
+☐ js/business-detail.js - Add to getBusinessCoordinates()
+☐ map.html - Add to extractCoordinates()
+☐ js/config.js - Add search aliases + bump version
+☐ index.html - Update stats (listings/categories)
+☐ categories.html - Update category count or add new
+☐ js/main.js - Update @version
+☐ js/pwa.js - Update @version and PWA_VERSION
+☐ manifest.json - Update version fields
+☐ sw.js - Update version, CACHE_VERSION, BUILD_NUMBER
+
+VERIFY:
+──────────────────────────────────────────────────────────────
+☐ Business count matches in all files
+☐ Coordinates in 3 places (data.js, business-detail.js, map.html)
+☐ Search works with business name
+☐ Map shows marker
+☐ Business detail page loads
+☐ Version numbers consistent
+
+═══════════════════════════════════════════════════════════════
