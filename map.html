@@ -3,8 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes,viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   
   <title>Map View - LocalFind</title>
   <meta name="description" content="Interactive map showing all businesses in Rasauli, Barabanki, Uttar Pradesh">
@@ -371,6 +373,39 @@
       border: none;
     }
 
+    /* Optimize map for smooth touch interactions */
+    #map {
+      touch-action: pan-x pan-y;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Hardware acceleration for smooth animations */
+    .leaflet-tile-container,
+    .leaflet-zoom-animated {
+      will-change: transform;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
+    /* Smooth tile loading */
+    .leaflet-tile {
+      will-change: opacity;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    /* Optimize marker rendering */
+    .leaflet-marker-icon,
+    .leaflet-marker-shadow {
+      will-change: transform;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
     .marker-pin {
       width: 30px;
       height: 30px;
@@ -383,6 +418,7 @@
       margin: -15px 0 0 -15px;
       border: 2px solid #fff;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      will-change: transform;
     }
 
     .marker-pin.featured {
@@ -661,9 +697,22 @@
       // Default center (Rasauli)
       const defaultCenter = [26.9135, 81.2328];
 
-      // Initialize map with OpenStreetMap (disable default zoom controls)
+      // Initialize map with optimized touch settings for smooth pinch-to-zoom
       map = L.map('map', {
-        zoomControl: false  // Disable default zoom controls
+        zoomControl: false,           // Disable default zoom controls
+        tap: true,                    // Enable tap for mobile
+        tapTolerance: 15,             // Tap tolerance in pixels
+        touchZoom: true,              // Enable pinch-to-zoom
+        bounceAtZoomLimits: false,    // Disable bounce for smoother zoom
+        zoomAnimation: true,          // Enable smooth zoom animation
+        zoomAnimationThreshold: 4,    // Threshold for zoom animation
+        fadeAnimation: true,          // Enable fade animation
+        markerZoomAnimation: true,    // Animate markers on zoom
+        inertia: true,                // Enable inertia for smooth panning
+        inertiaDeceleration: 3000,    // Deceleration rate
+        inertiaMaxSpeed: 1500,        // Max speed for inertia
+        worldCopyJump: false,         // Disable world copy jump
+        maxBoundsViscosity: 0.0       // No resistance at bounds
       }).setView(defaultCenter, 14);
 
       // Add OpenStreetMap tiles
