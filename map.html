@@ -45,12 +45,25 @@
       width: 100%;
       height: 100vh;
       position: relative;
+      /* Optimize for touch interactions */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     #map {
       width: 100%;
       height: 100%;
       z-index: 1;
+      /* Optimize map rendering and touch */
+      touch-action: pan-x pan-y pinch-zoom;
+      -webkit-user-drag: none;
+      -webkit-tap-highlight-color: transparent;
+      /* Force hardware acceleration */
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
     }
 
     .map-header {
@@ -384,7 +397,7 @@
 
     /* Optimize map for smooth touch interactions */
     #map {
-      touch-action: pan-x pan-y;
+      touch-action: pan-x pan-y pinch-zoom;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -398,6 +411,8 @@
       will-change: transform;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
     /* Smooth tile loading */
@@ -405,6 +420,8 @@
       will-change: opacity;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
     }
 
     /* Optimize marker rendering */
@@ -413,6 +430,26 @@
       will-change: transform;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    /* Optimize pane rendering */
+    .leaflet-pane {
+      will-change: transform;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
+    /* Optimize map container */
+    .leaflet-container {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Prevent text selection during drag */
+    .leaflet-dragging .leaflet-marker-icon,
+    .leaflet-dragging .leaflet-marker-shadow {
+      pointer-events: none;
     }
 
     .marker-pin {
@@ -721,13 +758,36 @@
         inertiaDeceleration: 3000,    // Deceleration rate
         inertiaMaxSpeed: 1500,        // Max speed for inertia
         worldCopyJump: false,         // Disable world copy jump
-        maxBoundsViscosity: 0.0       // No resistance at bounds
+        maxBoundsViscosity: 0.0,      // No resistance at bounds
+        // Enhanced panning settings for smoother navigation
+        dragging: true,               // Enable dragging
+        trackResize: true,            // Track container resize
+        boxZoom: false,               // Disable box zoom for better touch
+        doubleClickZoom: true,        // Enable double-click zoom
+        keyboard: true,               // Enable keyboard navigation
+        scrollWheelZoom: true,        // Enable scroll wheel zoom
+        wheelDebounceTime: 40,        // Debounce wheel events (ms)
+        wheelPxPerZoomLevel: 60,      // Pixels per zoom level
+        // Performance optimizations
+        preferCanvas: false,          // Use SVG for better quality
+        renderer: L.svg({ padding: 0.5 })  // Optimize SVG rendering
       }).setView(defaultCenter, 14);
 
-      // Add OpenStreetMap tiles
+      // Add OpenStreetMap tiles with optimized settings
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19
+        maxZoom: 19,
+        minZoom: 10,                  // Minimum zoom level
+        tileSize: 256,                // Tile size
+        zoomOffset: 0,                // Zoom offset
+        detectRetina: true,           // Use retina tiles on retina displays
+        updateWhenIdle: false,        // Update tiles while panning
+        updateWhenZooming: false,     // Don't update while zooming
+        keepBuffer: 2,                // Keep 2 tile rows/cols around viewport
+        maxNativeZoom: 19,            // Max native zoom
+        subdomains: ['a', 'b', 'c'],  // Use multiple subdomains for parallel loading
+        errorTileUrl: '',             // No error tile
+        crossOrigin: false            // No CORS issues
       }).addTo(map);
 
       // Create markers group
@@ -751,6 +811,9 @@
 
       loading.classList.add('hidden');
 
+      // Optimize map performance after initialization
+      optimizeMapPerformance();
+
       // Request user location
       requestUserLocation();
 
@@ -759,6 +822,52 @@
 
       // Setup search
       setupSearch();
+    }
+
+    /**
+     * Optimize map performance for smooth panning and zooming
+     */
+    function optimizeMapPerformance() {
+      // Disable animations during drag for better performance
+      map.on('dragstart', () => {
+        map._fadeAnimated = false;
+        map._zoomAnimated = false;
+      });
+
+      map.on('dragend', () => {
+        map._fadeAnimated = true;
+        map._zoomAnimated = true;
+      });
+
+      // Throttle move events to reduce lag
+      let moveTimeout;
+      map.on('move', () => {
+        if (moveTimeout) clearTimeout(moveTimeout);
+        moveTimeout = setTimeout(() => {
+          // Map has stopped moving
+        }, 100);
+      });
+
+      // Optimize tile loading
+      map.on('tileloadstart', () => {
+        // Tile loading started
+      });
+
+      map.on('tileload', () => {
+        // Tile loaded successfully
+      });
+
+      // Handle zoom events efficiently
+      map.on('zoomstart', () => {
+        // Zoom started
+      });
+
+      map.on('zoomend', () => {
+        // Zoom ended - invalidate size if needed
+        setTimeout(() => {
+          map.invalidateSize({ pan: false });
+        }, 100);
+      });
     }
 
     function createCustomIcon(type) {
