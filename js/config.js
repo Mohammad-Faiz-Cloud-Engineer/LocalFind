@@ -5,15 +5,15 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 4.0.0
- * @updated 2026-02-28
+ * @version 4.1.0
+ * @updated 2026-03-05
  * 
  * IMPORTANT: Update these values before deploying to production
  */
 
 const CONFIG = {
   // Application Version
-  version: "4.0.0",
+  version: "4.1.0",
   
   // Site Information
   siteName: "LocalFind",
