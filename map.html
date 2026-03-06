@@ -312,10 +312,13 @@
 
     /* Zoom controls container */
     .zoom-controls {
+      position: absolute;
+      bottom: 160px;
+      left: 20px;
       display: flex;
       flex-direction: row;
       gap: 8px;
-      margin-top: 4px;
+      z-index: 1000;
     }
 
     /* Zoom buttons - compact square buttons */
@@ -324,6 +327,10 @@
       width: 44px;
       height: 44px;
       flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .zoom-btn i {
@@ -621,14 +628,14 @@
         justify-content: center;
       }
 
-      /* Move zoom controls to bottom-left on mobile */
+      /* Move zoom controls above map view box on mobile */
       .zoom-controls {
         position: fixed;
         bottom: 150px;
         left: 10px;
         right: auto;
         gap: 8px;
-        z-index: 400;
+        z-index: 1000;
       }
 
       .zoom-btn {
