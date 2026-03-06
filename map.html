@@ -811,6 +811,12 @@
             map.removeLayer(userCircle);
           }
 
+          // Remove any existing location prompt (permission granted successfully)
+          const existingPrompt = document.getElementById('location-prompt');
+          if (existingPrompt) {
+            existingPrompt.remove();
+          }
+
           // Add user location marker
           const userIcon = createCustomIcon('user');
           userMarker = L.marker(userLocation, { 
@@ -877,54 +883,57 @@
       prompt.id = 'location-prompt';
       prompt.style.cssText = `
         margin-top: 12px;
-        padding: 12px;
-        background: #fff3cd;
-        border: 1px solid #ffc107;
+        padding: 14px;
+        background: #2c3e50;
+        border: 2px solid #FF6B35;
         border-radius: 8px;
         font-size: 14px;
         line-height: 1.5;
+        color: #ffffff;
       `;
 
       if (type === 'permission') {
         prompt.innerHTML = `
-          <div style="margin-bottom: 8px;">
-            <i class="fa-solid fa-location-dot" style="color: #f39c12;"></i>
-            <strong>Enable Location Access</strong>
+          <div style="margin-bottom: 10px; color: #ffffff;">
+            <i class="fa-solid fa-location-dot" style="color: #FF6B35;"></i>
+            <strong style="color: #ffffff; font-size: 15px;">Enable Location Access</strong>
           </div>
-          <p style="margin: 0 0 10px 0; font-size: 13px;">
+          <p style="margin: 0 0 12px 0; font-size: 13px; color: #e0e0e0; line-height: 1.6;">
             To see businesses near you, please allow location access when prompted by your browser.
           </p>
           <button onclick="requestUserLocation()" style="
             background: #FF6B35;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 10px 18px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
           ">
             <i class="fa-solid fa-location-crosshairs"></i> Try Again
           </button>
         `;
       } else if (type === 'gps') {
         prompt.innerHTML = `
-          <div style="margin-bottom: 8px;">
-            <i class="fa-solid fa-satellite-dish" style="color: #f39c12;"></i>
-            <strong>GPS Disabled</strong>
+          <div style="margin-bottom: 10px; color: #ffffff;">
+            <i class="fa-solid fa-satellite-dish" style="color: #FF6B35;"></i>
+            <strong style="color: #ffffff; font-size: 15px;">GPS Disabled</strong>
           </div>
-          <p style="margin: 0 0 10px 0; font-size: 13px;">
+          <p style="margin: 0 0 12px 0; font-size: 13px; color: #e0e0e0; line-height: 1.6;">
             Please enable GPS/Location Services in your device settings, then try again.
           </p>
           <button onclick="requestUserLocation()" style="
             background: #FF6B35;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 10px 18px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
           ">
             <i class="fa-solid fa-rotate"></i> Retry
           </button>

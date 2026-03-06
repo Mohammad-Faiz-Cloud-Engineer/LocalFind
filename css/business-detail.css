@@ -122,14 +122,14 @@
 }
 
 .small-map {
-  min-height: 250px;
+  min-height: 280px;
   padding: 0;
   overflow: hidden;
 }
 
 .small-map iframe {
   width: 100%;
-  height: 250px;
+  height: 280px;
   border: none;
 }
 
@@ -713,6 +713,136 @@
   
   .btn-share i {
     font-size: 14px;
+  }
+}
+
+/* ============================================
+   MAP MARKER STYLES (Leaflet)
+   ============================================ */
+
+.small-map .leaflet-container {
+  width: 100%;
+  height: 280px;
+  border-radius: var(--radius-xl);
+}
+
+.custom-marker {
+  background: transparent;
+  border: none;
+}
+
+.marker-pin {
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--accent-info);
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -15px 0 0 -15px;
+  animation: bounce 1s ease-in-out infinite;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.marker-pin.featured {
+  background: var(--accent-primary);
+  box-shadow: 0 2px 12px rgba(255, 159, 67, 0.5);
+}
+
+.marker-pin.regular {
+  background: var(--accent-info);
+  box-shadow: 0 2px 8px rgba(78, 205, 196, 0.5);
+}
+
+.marker-pin::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  margin: 9px 0 0 9px;
+  background: #fff;
+  position: absolute;
+  border-radius: 50%;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: rotate(-45deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-45deg) translateY(-10px);
+  }
+}
+
+/* Leaflet popup styling */
+.leaflet-popup-content-wrapper {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 0;
+}
+
+.leaflet-popup-content {
+  margin: 12px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.leaflet-popup-tip {
+  background: var(--bg-card);
+}
+
+/* Business detail popup - always visible */
+.business-detail-popup .leaflet-popup-content-wrapper {
+  background: var(--bg-card);
+  border: 2px solid var(--accent-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.business-detail-popup .leaflet-popup-tip {
+  background: var(--bg-card);
+  border-right: 2px solid var(--accent-primary);
+  border-bottom: 2px solid var(--accent-primary);
+}
+
+/* Mobile map adjustments */
+@media (max-width: 768px) {
+  .small-map {
+    min-height: 240px;
+  }
+  
+  .small-map .leaflet-container {
+    height: 240px;
+  }
+  
+  .business-detail-popup .leaflet-popup-content-wrapper {
+    max-width: 240px;
+  }
+  
+  .business-detail-popup .leaflet-popup-content {
+    margin: 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .small-map {
+    min-height: 260px;
+  }
+  
+  .small-map .leaflet-container {
+    height: 260px;
+  }
+  
+  .business-detail-popup .leaflet-popup-content-wrapper {
+    max-width: 220px;
+  }
+  
+  .business-detail-popup .leaflet-popup-content {
+    margin: 8px;
+    font-size: 12px;
   }
 }
 

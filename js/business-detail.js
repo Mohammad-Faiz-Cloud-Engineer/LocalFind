@@ -371,5 +371,123 @@
         }
       });
     }
+    
+    // Initialize map
+    initBusinessMap(biz);
   });
+  
+  /**
+   * Initialize OpenStreetMap for business location
+   * @param {Object} business - Business object with id and name
+   */
+  function initBusinessMap(business) {
+    const mapContainer = document.getElementById('biz-map');
+    if (!mapContainer) return;
+    
+    // Get coordinates for this business
+    const coords = getBusinessCoordinates(business.id);
+    if (!coords) {
+      mapContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-muted);">Map location not available</div>';
+      return;
+    }
+    
+    // Initialize map
+    const map = L.map('biz-map', {
+      zoomControl: false,
+      scrollWheelZoom: false,
+      dragging: true,
+      touchZoom: true,
+      doubleClickZoom: true
+    }).setView(coords, 16);
+    
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19
+    }).addTo(map);
+    
+    // Create custom marker icon
+    const markerIcon = L.divIcon({
+      className: 'custom-marker',
+      html: `<div class="marker-pin ${business.featured ? 'featured' : 'regular'}"></div>`,
+      iconSize: [30, 30],
+      iconAnchor: [15, 30],
+      popupAnchor: [0, -30]
+    });
+    
+    // Create popup content with business details
+    const popupContent = `
+      <div style="min-width: 200px; max-width: 280px;">
+        <div style="font-weight: 700; font-size: 16px; color: var(--text-primary); margin-bottom: 8px;">
+          ${business.name}
+        </div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+          ${business.address}
+        </div>
+      </div>
+    `;
+    
+    // Add marker with popup
+    const marker = L.marker(coords, { icon: markerIcon }).addTo(map);
+    marker.bindPopup(popupContent, {
+      closeButton: false,
+      autoClose: false,
+      closeOnClick: false,
+      className: 'business-detail-popup'
+    }).openPopup();
+    
+    // Adjust map view to show both marker and popup on mobile
+    setTimeout(() => {
+      map.invalidateSize();
+      // Pan slightly up to ensure popup is visible
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        map.panBy([0, -30]);
+      }
+    }, 100);
+
+    
+    // Add click handler to open full map
+    mapContainer.style.cursor = 'pointer';
+    mapContainer.addEventListener('click', () => {
+      window.open(business.mapLink, '_blank');
+    });
+  }
+  
+  /**
+   * Get coordinates for a business by ID
+   * @param {string} businessId - Business ID
+   * @returns {Array|null} [latitude, longitude] or null if not found
+   */
+  function getBusinessCoordinates(businessId) {
+    const coordinates = {
+      'raheem-common-service-center': [26.9238021, 81.2612707],
+      'aman-garments': [26.9248848, 81.2620547],
+      'affan-garments': [26.9249000, 81.2621000],
+      'shariq-hashmi-electric-shop': [26.9249200, 81.2621500],
+      'hind-pharmacy': [26.9248500, 81.2620000],
+      'abdul-hospital': [26.9226786, 81.2559463],
+      'rajju-pankaj-sweets': [26.9238500, 81.2613000],
+      'friend-fitness-gym': [26.9261896, 81.2611953],
+      'golden-csc': [26.9238300, 81.2612500],
+      'om-dhaba': [26.9227000, 81.2559800],
+      'hala-motors': [26.9226500, 81.2559100],
+      'chandra-shekhar-azad-inter-college': [26.9203899, 81.2609952],
+      'shri-shyam-medicals': [26.9253005, 81.2622223],
+      'satyam-footwear': [26.9244569, 81.2614599],
+      'khidmat-enterprises': [26.9231717, 81.2608811],
+      'rasauli-hardware': [26.9232000, 81.2609100],
+      'kartik-medical-store': [26.9231400, 81.2608500],
+      'suraj-kumar-clothing-store': [26.9244800, 81.2614900],
+      'janta-clinic': [26.9253300, 81.2622500],
+      'sk-tent-light-house': [26.9262100, 81.2612200],
+      'balemora-wellness-retreats': [26.9220302, 81.2606909],
+      'kfc-barabanki': [26.9250001, 81.2497201],
+      'box-park-international': [26.9246388, 81.249308],
+      'pps-college-of-nursing': [26.9252489, 81.2486689],
+      'maxwell-hospital': [26.9253413, 81.2414972]
+    };
+    
+    return coordinates[businessId] || null;
+  }
 })();
