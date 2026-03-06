@@ -29,6 +29,7 @@ function renderHeader(){
         <a href="index.html">Home</a>
         <a href="directory.html">Directory</a>
         <a href="categories.html">Categories</a>
+        <a href="map.html">Map</a>
         <a href="add-business.html">Add Business</a>
         <a href="about.html">About</a>
         <a href="#" id="roxai-link" class="roxai-nav-link">RoxAI</a>
@@ -46,6 +47,7 @@ function renderHeader(){
       <a href="index.html">Home</a>
       <a href="directory.html">Directory</a>
       <a href="categories.html">Categories</a>
+      <a href="map.html">Map</a>
       <a href="add-business.html">Add Business</a>
       <a href="about.html">About</a>
       <a href="#" id="roxai-link-mobile" class="roxai-nav-link">RoxAI</a>

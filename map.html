@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Map View - LocalFind</title>
+  <meta name="description" content="Interactive map showing all businesses in Rasauli, Barabanki, Uttar Pradesh">
+  <link rel="canonical" href="https://mohammad-faiz-cloud-engineer.github.io/LocalFind/map.html">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/mainlogo.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/utilities.css">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #map-container {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .map-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .home-btn {
+      background: var(--accent-primary);
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .home-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .search-container {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 16px 10px 44px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.7;
+      font-weight: 400;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.1);
+    }
+
+    .search-input:focus::placeholder {
+      opacity: 0.5;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      font-size: 16px;
+    }
+
+    .clear-search {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      display: none;
+    }
+
+    .clear-search:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .clear-search.visible {
+      display: block;
+    }
+
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-top: none;
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      max-height: 300px;
+      overflow-y: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1001;
+      display: none;
+    }
+
+    .search-results.visible {
+      display: block;
+    }
+
+    .search-result-item {
+      padding: 12px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-color);
+      transition: background 0.2s;
+    }
+
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+
+    .search-result-item:hover {
+      background: var(--bg-hover);
+    }
+
+    .search-result-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .search-result-category {
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .search-result-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 6px;
+      background: var(--accent-primary);
+      color: white;
+      border-radius: var(--radius-sm);
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .no-results {
+      padding: 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .map-controls {
+      position: absolute;
+      top: 80px;
+      right: 20px;
+      z-index: 400;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .map-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      min-width: 40px;
+      justify-content: center;
+      font-weight: 500;
+    }
+
+    .map-btn:hover {
+      background: var(--bg-hover);
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .map-btn i {
+      color: var(--accent-primary);
+    }
+
+    /* Zoom controls container */
+    .zoom-controls {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    /* Zoom buttons - compact square buttons */
+    .zoom-btn {
+      padding: 10px;
+      width: 44px;
+      height: 44px;
+      flex: 1;
+    }
+
+    .zoom-btn i {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .map-info-box {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      max-width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+
+    .map-info-box h3 {
+      margin: 0 0 8px 0;
+      font-size: 16px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .map-info-box p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--bg-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .loading-overlay.hidden {
+      display: none;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--border-color);
+      border-top-color: var(--accent-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Custom marker styles */
+    .custom-marker {
+      background: transparent;
+      border: none;
+    }
+
+    .marker-pin {
+      width: 30px;
+      height: 30px;
+      border-radius: 50% 50% 50% 0;
+      background: #FF9F43;
+      position: absolute;
+      transform: rotate(-45deg);
+      left: 50%;
+      top: 50%;
+      margin: -15px 0 0 -15px;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .marker-pin.featured {
+      background: #FF9F43;
+    }
+
+    .marker-pin.regular {
+      background: #4ECDC4;
+    }
+
+    .marker-pin.user {
+      background: #4285F4;
+      border-radius: 50%;
+      transform: none;
+    }
+
+    .marker-pin::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      margin: 10px 0 0 10px;
+      background: #fff;
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .marker-pin.user::after {
+      margin: 10px 0 0 10px;
+    }
+
+    /* Popup styles */
+    .leaflet-popup-content-wrapper {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .leaflet-popup-content {
+      margin: 12px;
+      font-family: var(--font-body);
+    }
+
+    .leaflet-popup-tip {
+      background: var(--bg-card);
+    }
+
+    .popup-title {
+      margin: 0 0 8px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .popup-category {
+      margin: 0 0 6px 0;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .popup-rating {
+      margin: 0 0 8px 0;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .popup-address {
+      margin: 0 0 12px 0;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .popup-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--accent-primary);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .popup-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    @media (max-width: 768px) {
+      .map-header {
+        padding: 10px;
+        gap: 8px;
+      }
+
+      .home-btn span {
+        display: none;
+      }
+
+      .home-btn {
+        padding: 10px;
+        width: 40px;
+        justify-content: center;
+      }
+
+      .search-input {
+        font-size: 14px;
+        padding: 8px 12px 8px 40px;
+      }
+
+      .search-input::placeholder {
+        font-size: 13px;
+      }
+
+      .search-icon {
+        left: 12px;
+        font-size: 15px;
+      }
+
+      .search-results {
+        max-height: 250px;
+        font-size: 13px;
+      }
+
+      .search-result-item {
+        padding: 10px 12px;
+      }
+
+      .search-result-name {
+        font-size: 13px;
+      }
+
+      .search-result-category {
+        font-size: 11px;
+      }
+
+      .map-controls {
+        top: 70px;
+        right: 10px;
+        z-index: 400;
+      }
+
+      .map-btn span {
+        display: none;
+      }
+
+      .map-btn {
+        padding: 10px;
+        width: 44px;
+        height: 44px;
+        justify-content: center;
+      }
+
+      /* Move zoom controls to bottom-left on mobile */
+      .zoom-controls {
+        position: fixed;
+        bottom: 90px;
+        left: 10px;
+        right: auto;
+        gap: 8px;
+        z-index: 400;
+      }
+
+      .zoom-btn {
+        width: 48px;
+        height: 48px;
+        flex: 1;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      }
+
+      .map-info-box {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        max-width: none;
+        padding: 12px;
+      }
+
+      .map-info-box h3 {
+        font-size: 14px;
+      }
+
+      .map-info-box p {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div id="map-container">
+      <div class="loading-overlay" id="loading">
+        <div class="spinner"></div>
+      </div>
+
+      <div class="map-header">
+        <a href="index.html" class="home-btn" title="Go to Homepage">
+          <i class="fa-solid fa-home"></i>
+          <span>Home</span>
+        </a>
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input 
+            type="text" 
+            id="map-search" 
+            class="search-input" 
+            placeholder="Search businesses..."
+            autocomplete="off"
+          >
+          <button class="clear-search" id="clear-search" title="Clear search">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="search-results" id="search-results"></div>
+        </div>
+      </div>
+
+      <div class="map-controls">
+        <button class="map-btn" id="locate-me" title="Show my location">
+          <i class="fa-solid fa-location-crosshairs"></i>
+          <span>My Location</span>
+        </button>
+        <button class="map-btn" id="show-all" title="Show all businesses">
+          <i class="fa-solid fa-map-marked-alt"></i>
+          <span>Show All</span>
+        </button>
+        <div class="zoom-controls">
+          <button class="map-btn zoom-btn" id="zoom-in" title="Zoom in">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button class="map-btn zoom-btn" id="zoom-out" title="Zoom out">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="map-info-box">
+        <h3><i class="fa-solid fa-map-pin"></i> Map View</h3>
+        <p id="map-status">Loading map...</p>
+      </div>
+
+      <div id="map"></div>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/pwa.js"></script>
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+  
+  <script>
+    // Security: HTML sanitization function
+    function sanitizeHTML(str) {
+      const temp = document.createElement('div');
+      temp.textContent = str;
+      return temp.innerHTML;
+    }
+
+    let map;
+    let userMarker;
+    let userCircle;
+    let businessMarkers = [];
+    let markersGroup;
+
+    function initMap() {
+      const loading = document.getElementById('loading');
+      const mapStatus = document.getElementById('map-status');
+      
+      // Default center (Rasauli)
+      const defaultCenter = [26.9135, 81.2328];
+
+      // Initialize map with OpenStreetMap (disable default zoom controls)
+      map = L.map('map', {
+        zoomControl: false  // Disable default zoom controls
+      }).setView(defaultCenter, 14);
+
+      // Add OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+      }).addTo(map);
+
+      // Create markers group
+      markersGroup = L.layerGroup().addTo(map);
+
+      // Add business markers
+      if (window.LISTINGS && window.LISTINGS.length > 0) {
+        console.log(`Total businesses in data: ${window.LISTINGS.length}`);
+        let markersAdded = 0;
+        
+        window.LISTINGS.forEach(business => {
+          const added = addBusinessMarker(business);
+          if (added) markersAdded++;
+        });
+        
+        console.log(`Markers successfully added to map: ${markersAdded}`);
+        mapStatus.textContent = `Showing ${markersAdded} businesses`;
+      } else {
+        mapStatus.textContent = 'No businesses to display';
+      }
+
+      loading.classList.add('hidden');
+
+      // Request user location
+      requestUserLocation();
+
+      // Setup controls
+      setupControls();
+
+      // Setup search
+      setupSearch();
+    }
+
+    function createCustomIcon(type) {
+      const className = type === 'user' ? 'user' : (type === 'featured' ? 'featured' : 'regular');
+      return L.divIcon({
+        className: 'custom-marker',
+        html: `<div class="marker-pin ${className}"></div>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30]
+      });
+    }
+
+    function addBusinessMarker(business) {
+      // Extract coordinates from the business data
+      const coords = extractCoordinates(business);
+      if (!coords) {
+        console.warn(`No coordinates found for business: ${business.name} (${business.id})`);
+        return false;
+      }
+
+      const icon = createCustomIcon(business.featured ? 'featured' : 'regular');
+      
+      const marker = L.marker(coords, { icon: icon });
+
+      const popupContent = `
+        <div style="min-width: 200px;">
+          <div class="popup-title">
+            ${sanitizeHTML(business.name)}
+            ${business.verified ? '<i class="fa-solid fa-circle-check" style="color: #4ECDC4;"></i>' : ''}
+          </div>
+          <div class="popup-category">
+            <i class="fa-solid fa-tag"></i> ${sanitizeHTML(business.category)}
+          </div>
+          ${business.rating > 0 ? `
+            <div class="popup-rating">
+              <i class="fa-solid fa-star" style="color: #FFD700;"></i> ${business.rating} / 5
+            </div>
+          ` : ''}
+          <div class="popup-address">
+            ${sanitizeHTML(business.address.substring(0, 80))}${business.address.length > 80 ? '...' : ''}
+          </div>
+          <a href="business-detail.html?id=${encodeURIComponent(business.id)}" class="popup-btn">
+            View Details
+          </a>
+        </div>
+      `;
+
+      marker.bindPopup(popupContent);
+      marker.addTo(markersGroup);
+      businessMarkers.push(marker);
+      
+      return true;
+    }
+
+    function extractCoordinates(business) {
+      // Coordinate mapping for all 25 businesses
+      const coordinates = {
+        'raheem-common-service-center': [26.9238021, 81.2612707],
+        'aman-garments': [26.9248848, 81.2620547],
+        'affan-garments': [26.9249000, 81.2621000],  // Slightly offset
+        'shariq-hashmi-electric-shop': [26.9249200, 81.2621500],  // Slightly offset
+        'hind-pharmacy': [26.9248500, 81.2620000],  // Slightly offset
+        'abdul-hospital': [26.9226786, 81.2559463],
+        'rajju-pankaj-sweets': [26.9238500, 81.2613000],  // Slightly offset
+        'friend-fitness-gym': [26.9261896, 81.2611953],
+        'golden-csc': [26.9238300, 81.2612500],  // Slightly offset
+        'om-dhaba': [26.9227000, 81.2559800],  // Slightly offset
+        'hala-motors': [26.9226500, 81.2559100],  // Slightly offset
+        'chandra-shekhar-azad-inter-college': [26.9203899, 81.2609952],
+        'shri-shyam-medicals': [26.9253005, 81.2622223],
+        'satyam-footwear': [26.9244569, 81.2614599],
+        'khidmat-enterprises': [26.9231717, 81.2608811],
+        'rasauli-hardware': [26.9232000, 81.2609100],  // Slightly offset
+        'kartik-medical-store': [26.9231400, 81.2608500],  // Slightly offset
+        'suraj-kumar-clothing-store': [26.9244800, 81.2614900],  // Slightly offset
+        'janta-clinic': [26.9253300, 81.2622500],  // Slightly offset
+        'sk-tent-light-house': [26.9262100, 81.2612200],  // Slightly offset
+        'balemora-wellness-retreats': [26.9220302, 81.2606909],
+        'kfc-barabanki': [26.9250001, 81.2497201],
+        'box-park-international': [26.9246388, 81.249308],
+        'pps-college-of-nursing': [26.9252489, 81.2486689],
+        'maxwell-hospital': [26.9253413, 81.2414972]
+      };
+
+      return coordinates[business.id] || null;
+    }
+
+    function requestUserLocation() {
+      const mapStatus = document.getElementById('map-status');
+      
+      if (!navigator.geolocation) {
+        mapStatus.textContent = 'Geolocation not supported';
+        return;
+      }
+
+      mapStatus.textContent = 'Requesting location permission...';
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const userLocation = [position.coords.latitude, position.coords.longitude];
+
+          // Add user location marker
+          const userIcon = createCustomIcon('user');
+          userMarker = L.marker(userLocation, { 
+            icon: userIcon,
+            title: 'Your Location'
+          }).addTo(map);
+
+          userMarker.bindPopup('<b>Your Location</b>').openPopup();
+
+          // Add circle around user location
+          userCircle = L.circle(userLocation, {
+            color: '#4285F4',
+            fillColor: '#4285F4',
+            fillOpacity: 0.1,
+            radius: 100
+          }).addTo(map);
+
+          // Center map on user location
+          map.setView(userLocation, 15);
+
+          mapStatus.textContent = `Your location found • ${window.LISTINGS.length} businesses nearby`;
+        },
+        (error) => {
+          let errorMsg = 'Location access denied';
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorMsg = 'Location permission denied';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMsg = 'Location unavailable';
+              break;
+            case error.TIMEOUT:
+              errorMsg = 'Location request timeout';
+              break;
+          }
+          mapStatus.textContent = errorMsg + ` • Showing ${window.LISTINGS.length} businesses`;
+        }
+      );
+    }
+
+    function setupControls() {
+      const zoomInBtn = document.getElementById('zoom-in');
+      const zoomOutBtn = document.getElementById('zoom-out');
+      const locateBtn = document.getElementById('locate-me');
+      const showAllBtn = document.getElementById('show-all');
+
+      // Zoom in button
+      if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', () => {
+          map.zoomIn();
+        });
+      }
+
+      // Zoom out button
+      if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', () => {
+          map.zoomOut();
+        });
+      }
+
+      // Locate me button
+      if (locateBtn) {
+        locateBtn.addEventListener('click', () => {
+          if (userMarker) {
+            map.setView(userMarker.getLatLng(), 15);
+            userMarker.openPopup();
+          } else {
+            requestUserLocation();
+          }
+        });
+      }
+
+      // Show all button
+      if (showAllBtn) {
+        showAllBtn.addEventListener('click', () => {
+          const bounds = L.latLngBounds();
+          
+          businessMarkers.forEach(marker => {
+            bounds.extend(marker.getLatLng());
+          });
+          
+          if (userMarker) {
+            bounds.extend(userMarker.getLatLng());
+          }
+          
+          if (bounds.isValid()) {
+            map.fitBounds(bounds, { padding: [50, 50] });
+          }
+        });
+      }
+    }
+
+    function setupSearch() {
+      const searchInput = document.getElementById('map-search');
+      const clearBtn = document.getElementById('clear-search');
+      const searchResults = document.getElementById('search-results');
+      let allMarkers = [...businessMarkers];
+
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        
+        // Show/hide clear button
+        if (query) {
+          clearBtn.classList.add('visible');
+        } else {
+          clearBtn.classList.remove('visible');
+          searchResults.classList.remove('visible');
+        }
+
+        // Filter markers
+        if (!query) {
+          // Show all markers
+          allMarkers.forEach(marker => {
+            if (!map.hasLayer(marker)) {
+              marker.addTo(map);
+            }
+          });
+          return;
+        }
+
+        // Find matching businesses
+        const matchingBusinesses = [];
+        window.LISTINGS.forEach((business, index) => {
+          const matches = 
+            business.name.toLowerCase().includes(query) ||
+            business.category.toLowerCase().includes(query) ||
+            business.description.toLowerCase().includes(query) ||
+            (business.tags && business.tags.some(tag => tag.toLowerCase().includes(query)));
+
+          if (matches) {
+            matchingBusinesses.push({ business, index });
+          }
+        });
+
+        // Show search results dropdown
+        if (matchingBusinesses.length > 0) {
+          searchResults.innerHTML = matchingBusinesses.map(({ business }) => `
+            <div class="search-result-item" data-business-id="${sanitizeHTML(business.id)}">
+              <div class="search-result-name">
+                ${sanitizeHTML(business.name)}
+                ${business.featured ? '<span class="search-result-badge"><i class="fa-solid fa-star"></i> Featured</span>' : ''}
+                ${business.verified ? '<i class="fa-solid fa-circle-check" style="color: #4ECDC4;"></i>' : ''}
+              </div>
+              <div class="search-result-category">
+                <i class="fa-solid fa-tag"></i>
+                ${sanitizeHTML(business.category)}
+              </div>
+            </div>
+          `).join('');
+          searchResults.classList.add('visible');
+
+          // Add click handlers to results
+          searchResults.querySelectorAll('.search-result-item').forEach(item => {
+            item.addEventListener('click', () => {
+              const businessId = item.getAttribute('data-business-id');
+              navigateToBusinessOnMap(businessId);
+              searchResults.classList.remove('visible');
+            });
+          });
+        } else {
+          searchResults.innerHTML = '<div class="no-results">No businesses found</div>';
+          searchResults.classList.add('visible');
+        }
+
+        // Hide all markers first
+        allMarkers.forEach(marker => {
+          map.removeLayer(marker);
+        });
+
+        // Show matching markers
+        const matchingMarkers = [];
+        matchingBusinesses.forEach(({ index }) => {
+          if (allMarkers[index]) {
+            allMarkers[index].addTo(map);
+            matchingMarkers.push(allMarkers[index]);
+          }
+        });
+
+        // Fit bounds to matching markers
+        if (matchingMarkers.length > 0) {
+          const bounds = L.latLngBounds();
+          matchingMarkers.forEach(marker => {
+            bounds.extend(marker.getLatLng());
+          });
+          map.fitBounds(bounds, { padding: [50, 50] });
+        }
+      });
+
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearBtn.classList.remove('visible');
+        searchResults.classList.remove('visible');
+        
+        // Show all markers
+        allMarkers.forEach(marker => {
+          if (!map.hasLayer(marker)) {
+            marker.addTo(map);
+          }
+        });
+      });
+
+      // Close search results when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+          searchResults.classList.remove('visible');
+        }
+      });
+    }
+
+    function navigateToBusinessOnMap(businessId) {
+      const business = window.LISTINGS.find(b => b.id === businessId);
+      if (!business) return;
+
+      const coords = extractCoordinates(business);
+      if (!coords) return;
+
+      // Find the marker for this business
+      const markerIndex = window.LISTINGS.findIndex(b => b.id === businessId);
+      const marker = businessMarkers[markerIndex];
+
+      if (marker) {
+        // Zoom to marker location
+        map.setView(coords, 17);
+        
+        // Open popup after a short delay
+        setTimeout(() => {
+          marker.openPopup();
+        }, 300);
+      }
+    }
+
+    // Initialize map when page loads
+    document.addEventListener('DOMContentLoaded', initMap);
+  </script>
+</body>
+
+</html>
