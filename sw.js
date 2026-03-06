@@ -7,7 +7,6 @@
  */
 
 const CACHE_VERSION = 'localfind-v4.1.0';
-const APP_VERSION = '4.1.0';
 const BUILD_NUMBER = '20260305'; // YYYYMMDD format
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;

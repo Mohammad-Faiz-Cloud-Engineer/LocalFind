@@ -32,7 +32,6 @@ function renderHeader(){
         <a href="map.html">Map</a>
         <a href="add-business.html">Add Business</a>
         <a href="about.html">About</a>
-        <a href="#" id="roxai-link" class="roxai-nav-link">RoxAI</a>
       </nav>
     </div>
     <div class="nav-right">
@@ -50,7 +49,6 @@ function renderHeader(){
       <a href="map.html">Map</a>
       <a href="add-business.html">Add Business</a>
       <a href="about.html">About</a>
-      <a href="#" id="roxai-link-mobile" class="roxai-nav-link">RoxAI</a>
     </nav>
   </div>
   <div class="search-modal" id="search-modal" role="dialog" aria-label="Search" aria-hidden="true">
@@ -256,43 +254,6 @@ function initNavbar(){
         behavior: 'smooth'
       });
     });
-  }
-  
-  // RoxAI link handler - opens in-app for PWA, new tab for browser
-  const roxaiLink = document.getElementById('roxai-link');
-  const roxaiLinkMobile = document.getElementById('roxai-link-mobile');
-  const roxaiUrl = 'https://rox-turbo-llm.hf.space';
-  
-  function handleRoxAIClick(e) {
-    e.preventDefault();
-    
-    // Check if running as PWA
-    const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
-                  window.navigator.standalone === true ||
-                  document.referrer.includes('android-app://');
-    
-    if (isPWA) {
-      // Open in-app for PWA
-      window.location.href = roxaiUrl;
-    } else {
-      // Open in new tab for browser
-      window.open(roxaiUrl, '_blank', 'noopener,noreferrer');
-    }
-    
-    // Close mobile menu if open
-    if (mobileMenu && mobileMenu.classList.contains('open')) {
-      mobileMenu.classList.remove('open');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-  }
-  
-  if (roxaiLink) {
-    roxaiLink.addEventListener('click', handleRoxAIClick);
-  }
-  
-  if (roxaiLinkMobile) {
-    roxaiLinkMobile.addEventListener('click', handleRoxAIClick);
   }
 }
 
