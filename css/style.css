@@ -116,14 +116,29 @@ body {
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
+  
+  /* Disable text selection globally */
   user-select: none;
   -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
-/* Allow text selection in specific elements */
-p, span, a, li, td, th, input, textarea, [contenteditable] {
+/* Disable text selection for all elements */
+* {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Only allow text selection in input fields */
+input, textarea, [contenteditable="true"] {
   user-select: text;
   -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
 }
 
 /* ============================================
