@@ -162,11 +162,33 @@
       border: 1px solid var(--border-color);
       border-top: none;
       border-radius: 0 0 var(--radius-md) var(--radius-md);
-      max-height: 300px;
+      max-height: 400px;
       overflow-y: auto;
+      overflow-x: hidden;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       z-index: 1001;
       display: none;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar for search results */
+    .search-results::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .search-results::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+      border-radius: 0 0 var(--radius-md) 0;
+    }
+
+    .search-results::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: var(--radius-sm);
+    }
+
+    .search-results::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
     }
 
     .search-results.visible {
@@ -483,8 +505,9 @@
       }
 
       .search-results {
-        max-height: 250px;
+        max-height: 300px;
         font-size: 13px;
+        -webkit-overflow-scrolling: touch;
       }
 
       .search-result-item {
