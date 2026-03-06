@@ -1004,6 +1004,42 @@ window.LISTINGS = [
     description: "Saraswati Studio is your premier destination for professional photography and videography services in Rasauli, located in Makole. We specialize in capturing life's most precious moments with creativity, technical expertise, and artistic vision. Our comprehensive services include wedding photography and videography, covering every aspect of your special day from pre-wedding shoots to the main ceremony and reception. We excel in event photography for birthdays, anniversaries, corporate events, and social gatherings. Our studio offers professional photo shoot sessions for individuals, families, couples, and commercial purposes including portfolio shoots, product photography, and promotional content. We provide high-quality video production services including wedding films, event coverage, promotional videos, and documentary-style recordings. What sets us apart is our attention to detail, creative approach, and commitment to delivering stunning visual content that tells your story. In addition to photography and videography, we also offer cup printing services, allowing you to personalize mugs with your favorite photos and designs - perfect for gifts, events, or promotional merchandise. Our studio is equipped with modern cameras, lighting equipment, and editing software to ensure professional-grade output. We understand that every client has unique requirements, and we work closely with you to understand your vision and deliver results that exceed expectations. Our team maintains professional behavior, punctuality, and clear communication throughout the project. We offer flexible packages to suit different budgets and requirements. Whether you're planning a grand wedding, organizing a corporate event, need professional portraits, or want to create personalized printed merchandise, Saraswati Studio has the expertise and equipment to bring your vision to life. Visit us in Makole, Rasauli, or contact us to discuss your photography, videography, and printing needs. Open daily from 10 AM to 8 PM.",
     tags: ["photography", "videography", "studio", "wedding-photography", "photo-shoot", "video-production", "event-photography", "cup-printing", "printing", "portraits", "commercial-photography"],
     isNew: true
+  },
+  {
+    id: "jamwant-mobile-shop",
+    name: "Jamwant Mobile Shop",
+    category: "Mobile & Electronics",
+    categorySlug: "mobile-electronics",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 3.8,
+    reviewCount: 0,
+    reviews: [],
+    address: "Village & Post Rasauli District Barabanki, Rasauli Bazar Road, Uttar Pradesh 225203",
+    mapLink: "https://maps.app.goo.gl/cG5dYAkjyFKb6qTz8",
+    coordinates: {
+      lat: 26.922656,
+      lng: 81.260429
+    },
+    phone: "+91 80906 28512",
+    phoneName: "Jamwant Singh",
+    email: "",
+    website: "",
+    whatsapp: "+91 80906 28512",
+    whatsappName: "Jamwant Singh",
+    hours: {
+      mon: {open: "10:00", close: "20:00"},
+      tue: {open: "10:00", close: "20:00"},
+      wed: {open: "10:00", close: "20:00"},
+      thu: {open: "10:00", close: "20:00"},
+      fri: {open: "10:00", close: "20:00"},
+      sat: {open: "10:00", close: "20:00"},
+      sun: {open: "10:00", close: "20:00"}
+    },
+    description: "Jamwant Mobile Shop is your trusted destination for all mobile phone needs in Rasauli, conveniently located on Rasauli Bazar Road. Managed by Jamwant Singh, we specialize in providing comprehensive mobile services and a wide range of mobile accessories. Our shop offers professional mobile phone repair services for all brands including screen replacement, battery replacement, charging port repair, software issues, water damage repair, and general troubleshooting. We sell a variety of mobile phones from budget-friendly options to premium smartphones, ensuring you find the perfect device that fits your needs and budget. Our extensive collection of mobile accessories includes phone cases and covers in various designs, tempered glass and screen protectors, charging cables and adapters, power banks, earphones and headphones, TWS (True Wireless Stereo) earbuds, neckband headphones, Bluetooth speakers, mobile holders and stands, memory cards and pen drives, and much more. We stock products from trusted brands and ensure quality at competitive prices. Whether you need a quick phone repair, want to upgrade to a new smartphone, or looking for the latest audio accessories like TWS earbuds or neckband headphones, we have you covered. Our knowledgeable staff provides expert advice on product selection and helps you make informed decisions. We also offer warranty support on repairs and products sold. At Jamwant Mobile Shop, customer satisfaction is our priority, and we strive to provide prompt service, genuine products, and fair pricing. Visit us for all your mobile phone, repair, and accessory needs in Rasauli. Open daily from 10 AM to 8 PM.",
+    tags: ["mobile-shop", "phone-repair", "mobile-accessories", "smartphones", "earphones", "tws", "neckband", "headphones", "phone-cases", "screen-protector", "chargers", "electronics"],
+    isNew: true
   }
 ];
 

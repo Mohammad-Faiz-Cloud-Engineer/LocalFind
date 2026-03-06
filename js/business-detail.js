@@ -486,7 +486,8 @@
       'box-park-international': [26.9246388, 81.249308],
       'pps-college-of-nursing': [26.9252489, 81.2486689],
       'maxwell-hospital': [26.9253413, 81.2414972],
-      'saraswati-studio-makole': [26.9228271, 81.2605057]
+      'saraswati-studio-makole': [26.9228271, 81.2605057],
+      'jamwant-mobile-shop': [26.922656, 81.260429]
     };
     
     return coordinates[businessId] || null;

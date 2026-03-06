@@ -111,6 +111,9 @@ const CONFIG = {
     'photography': ['photo', 'photographer', 'videography', 'video', 'studio', 'photo-shoot', 'photoshoot', 'wedding-photography', 'event-photography', 'saraswati-studio', 'camera', 'video-production'],
     'studio': ['photography', 'photo-studio', 'video-studio', 'saraswati-studio', 'photo-shoot', 'wedding-video', 'event-video'],
     'printing': ['cup-printing', 'photo-printing', 'mug-printing', 'custom-printing', 'print-shop'],
+    'mobile': ['mobile-shop', 'phone', 'smartphone', 'mobile-repair', 'phone-repair', 'mobile-accessories', 'jamwant-mobile', 'cell-phone'],
+    'electronics': ['mobile', 'phone', 'smartphone', 'earphones', 'headphones', 'tws', 'neckband', 'accessories', 'charger', 'power-bank'],
+    'repair': ['mobile-repair', 'phone-repair', 'screen-replacement', 'battery-replacement', 'fix', 'service'],
     'laundry': ['dry clean', 'washing', 'ironing'],
     'petrol': ['fuel', 'gas station', 'pump'],
     'delivery': ['courier', 'logistics', 'transport']
