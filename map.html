@@ -793,15 +793,23 @@
       const mapStatus = document.getElementById('map-status');
       
       if (!navigator.geolocation) {
-        mapStatus.textContent = 'Geolocation not supported';
+        mapStatus.innerHTML = '<i class="fa-solid fa-circle-xmark" style="color: #e74c3c;"></i> Geolocation not supported by your browser';
         return;
       }
 
-      mapStatus.textContent = 'Requesting location permission...';
+      mapStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Requesting location permission...';
 
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const userLocation = [position.coords.latitude, position.coords.longitude];
+
+          // Remove any existing user markers
+          if (userMarker) {
+            map.removeLayer(userMarker);
+          }
+          if (userCircle) {
+            map.removeLayer(userCircle);
+          }
 
           // Add user location marker
           const userIcon = createCustomIcon('user');
@@ -823,24 +831,107 @@
           // Center map on user location
           map.setView(userLocation, 15);
 
-          mapStatus.textContent = `Your location found • ${window.LISTINGS.length} businesses nearby`;
+          mapStatus.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #4ECDC4;"></i> Your location found • ${window.LISTINGS.length} businesses nearby`;
         },
         (error) => {
-          let errorMsg = 'Location access denied';
+          let errorMsg = '';
+          let errorIcon = '<i class="fa-solid fa-circle-exclamation" style="color: #f39c12;"></i>';
+          
           switch(error.code) {
             case error.PERMISSION_DENIED:
-              errorMsg = 'Location permission denied';
+              errorMsg = 'Location permission denied. Please enable location access in your browser settings.';
+              errorIcon = '<i class="fa-solid fa-circle-xmark" style="color: #e74c3c;"></i>';
+              showLocationPrompt('permission');
               break;
             case error.POSITION_UNAVAILABLE:
-              errorMsg = 'Location unavailable';
+              errorMsg = 'GPS signal unavailable. Please enable GPS/Location Services on your device.';
+              showLocationPrompt('gps');
               break;
             case error.TIMEOUT:
-              errorMsg = 'Location request timeout';
+              errorMsg = 'Location request timed out. Please try again.';
               break;
+            default:
+              errorMsg = 'Unable to retrieve your location.';
           }
-          mapStatus.textContent = errorMsg + ` • Showing ${window.LISTINGS.length} businesses`;
+          
+          mapStatus.innerHTML = `${errorIcon} ${errorMsg} • Showing ${window.LISTINGS.length} businesses`;
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
         }
       );
+    }
+
+    function showLocationPrompt(type) {
+      const mapInfoBox = document.querySelector('.map-info-box');
+      
+      // Remove any existing prompt
+      const existingPrompt = document.getElementById('location-prompt');
+      if (existingPrompt) {
+        existingPrompt.remove();
+      }
+
+      const prompt = document.createElement('div');
+      prompt.id = 'location-prompt';
+      prompt.style.cssText = `
+        margin-top: 12px;
+        padding: 12px;
+        background: #fff3cd;
+        border: 1px solid #ffc107;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.5;
+      `;
+
+      if (type === 'permission') {
+        prompt.innerHTML = `
+          <div style="margin-bottom: 8px;">
+            <i class="fa-solid fa-location-dot" style="color: #f39c12;"></i>
+            <strong>Enable Location Access</strong>
+          </div>
+          <p style="margin: 0 0 10px 0; font-size: 13px;">
+            To see businesses near you, please allow location access when prompted by your browser.
+          </p>
+          <button onclick="requestUserLocation()" style="
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+          ">
+            <i class="fa-solid fa-location-crosshairs"></i> Try Again
+          </button>
+        `;
+      } else if (type === 'gps') {
+        prompt.innerHTML = `
+          <div style="margin-bottom: 8px;">
+            <i class="fa-solid fa-satellite-dish" style="color: #f39c12;"></i>
+            <strong>GPS Disabled</strong>
+          </div>
+          <p style="margin: 0 0 10px 0; font-size: 13px;">
+            Please enable GPS/Location Services in your device settings, then try again.
+          </p>
+          <button onclick="requestUserLocation()" style="
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+          ">
+            <i class="fa-solid fa-rotate"></i> Retry
+          </button>
+        `;
+      }
+
+      mapInfoBox.appendChild(prompt);
     }
 
     function setupControls() {
