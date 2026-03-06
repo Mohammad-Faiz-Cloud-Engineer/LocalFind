@@ -2,12 +2,12 @@
  * LocalFind - Service Worker
  * PWA offline support with caching strategies
  * 
- * @version 4.1.0
- * @updated 2026-03-05
+ * @version 4.1.1
+ * @updated 2026-03-06
  */
 
-const CACHE_VERSION = 'localfind-v4.1.0';
-const BUILD_NUMBER = '20260305'; // YYYYMMDD format
+const CACHE_VERSION = 'localfind-v4.1.1';
+const BUILD_NUMBER = '20260306'; // YYYYMMDD format
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;

@@ -921,7 +921,7 @@
     }
 
     function extractCoordinates(business) {
-      // Coordinate mapping for all 25 businesses
+      // Coordinate mapping for all 26 businesses
       const coordinates = {
         'raheem-common-service-center': [26.9238021, 81.2612707],
         'aman-garments': [26.9248848, 81.2620547],
@@ -947,7 +947,8 @@
         'kfc-barabanki': [26.9250001, 81.2497201],
         'box-park-international': [26.9246388, 81.249308],
         'pps-college-of-nursing': [26.9252489, 81.2486689],
-        'maxwell-hospital': [26.9253413, 81.2414972]
+        'maxwell-hospital': [26.9253413, 81.2414972],
+        'saraswati-studio-makole': [26.9228271, 81.2605057]
       };
 
       return coordinates[business.id] || null;
@@ -1065,7 +1066,7 @@
           <p style="margin: 0 0 12px 0; font-size: 13px; color: #e0e0e0; line-height: 1.6;">
             To see businesses near you, please allow location access when prompted by your browser.
           </p>
-          <button onclick="requestUserLocation()" style="
+          <button class="retry-location-btn" style="
             background: #FF6B35;
             color: white;
             border: none;
@@ -1088,7 +1089,7 @@
           <p style="margin: 0 0 12px 0; font-size: 13px; color: #e0e0e0; line-height: 1.6;">
             Please enable GPS/Location Services in your device settings, then try again.
           </p>
-          <button onclick="requestUserLocation()" style="
+          <button class="retry-location-btn" style="
             background: #FF6B35;
             color: white;
             border: none;
@@ -1105,6 +1106,12 @@
       }
 
       mapInfoBox.appendChild(prompt);
+      
+      // Add event listener to retry button
+      const retryBtn = prompt.querySelector('.retry-location-btn');
+      if (retryBtn) {
+        retryBtn.addEventListener('click', requestUserLocation);
+      }
     }
 
     function setupControls() {

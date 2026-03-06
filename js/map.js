@@ -27,8 +27,13 @@
     // Extract coordinates from mapLink or use default
     let lat, lng;
     
+    // Check if business has explicit coordinates
+    if (business.coordinates && business.coordinates.lat && business.coordinates.lng) {
+      lat = business.coordinates.lat;
+      lng = business.coordinates.lng;
+    }
     // Handle different Google Maps URL formats
-    if (business.mapLink.includes('maps.app.goo.gl') || business.mapLink.includes('goo.gl')) {
+    else if (business.mapLink.includes('maps.app.goo.gl') || business.mapLink.includes('goo.gl')) {
       // For shortened Google Maps links, try to extract from Plus Code in address
       const plusCodeMatch = business.address.match(/([A-Z0-9]{4}\+[A-Z0-9]{2,3})/);
       if (plusCodeMatch) {

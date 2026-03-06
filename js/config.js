@@ -13,7 +13,7 @@
 
 const CONFIG = {
   // Application Version
-  version: "4.1.0",
+  version: "4.1.1",
   
   // Site Information
   siteName: "LocalFind",
@@ -108,6 +108,9 @@ const CONFIG = {
     'mall': ['shopping-mall', 'shopping-center', 'box-park', 'boxpark', 'container-mall', 'food-court', 'entertainment', 'lifestyle', 'retail'],
     'nursing': ['nursing-college', 'medical-education', 'healthcare-education', 'nursing-course', 'gnm', 'anm', 'bsc-nursing', 'pps-college'],
     'maxwell': ['maxwell-hospital', 'private-hospital', 'emergency', '24x7-hospital'],
+    'photography': ['photo', 'photographer', 'videography', 'video', 'studio', 'photo-shoot', 'photoshoot', 'wedding-photography', 'event-photography', 'saraswati-studio', 'camera', 'video-production'],
+    'studio': ['photography', 'photo-studio', 'video-studio', 'saraswati-studio', 'photo-shoot', 'wedding-video', 'event-video'],
+    'printing': ['cup-printing', 'photo-printing', 'mug-printing', 'custom-printing', 'print-shop'],
     'laundry': ['dry clean', 'washing', 'ironing'],
     'petrol': ['fuel', 'gas station', 'pump'],
     'delivery': ['courier', 'logistics', 'transport']

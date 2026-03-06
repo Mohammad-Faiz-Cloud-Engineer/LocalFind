@@ -485,7 +485,8 @@
       'kfc-barabanki': [26.9250001, 81.2497201],
       'box-park-international': [26.9246388, 81.249308],
       'pps-college-of-nursing': [26.9252489, 81.2486689],
-      'maxwell-hospital': [26.9253413, 81.2414972]
+      'maxwell-hospital': [26.9253413, 81.2414972],
+      'saraswati-studio-makole': [26.9228271, 81.2605057]
     };
     
     return coordinates[businessId] || null;

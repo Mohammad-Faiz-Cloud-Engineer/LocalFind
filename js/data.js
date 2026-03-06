@@ -958,6 +958,52 @@ window.LISTINGS = [
     description: "Maxwell Hospital is a trusted private healthcare facility providing comprehensive medical services to the community in Sursanda, Barabanki. Operating 24/7, we are committed to delivering quality healthcare with compassion and professionalism. Our hospital offers a wide range of medical services including emergency care, general medicine consultations, surgical procedures, diagnostic services, laboratory tests, X-ray and imaging facilities, pharmacy services, and patient admission facilities. We have a team of experienced doctors, skilled nurses, and dedicated healthcare staff who work round the clock to ensure the best possible care for our patients. Our emergency department is always ready to handle medical emergencies, accidents, and urgent health conditions with prompt and efficient treatment. We specialize in treating common illnesses, chronic diseases, injuries, infections, and providing maternal and child healthcare services. The hospital is equipped with modern medical equipment and maintains high standards of hygiene and patient safety. We offer outpatient consultations where patients can meet with our doctors for diagnosis, treatment plans, and follow-up care. For patients requiring hospitalization, we provide comfortable patient rooms with necessary medical monitoring and nursing care. Our diagnostic center offers a complete range of laboratory tests including blood tests, urine tests, pathology services, and medical imaging to help in accurate diagnosis. The in-house pharmacy ensures that patients have immediate access to prescribed medications. Maxwell Hospital believes in providing affordable and accessible healthcare to all sections of society. We accept various payment methods and offer transparent pricing for all medical services. Our patient-centric approach focuses on not just treating illnesses but also on preventive healthcare, health education, and wellness guidance. Whether you need emergency medical attention, routine health check-ups, treatment for ongoing conditions, or specialist consultations, Maxwell Hospital is here to serve you 24 hours a day, 7 days a week. Contact Amit Singh for appointments, emergency services, or general inquiries. Your health and well-being are our top priorities.",
     tags: ["hospital", "healthcare", "emergency-care", "24x7", "medical-services", "doctor", "clinic", "diagnostic", "laboratory", "patient-care", "surgery"],
     isNew: true
+  },
+  {
+    id: "saraswati-studio-makole",
+    name: "Saraswati Studio",
+    category: "Photography & Video Services",
+    categorySlug: "photography",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 4.7,
+    reviewCount: 1,
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 4.7,
+        date: "2026-03-06",
+        text: "Best Studio in the entire Rasauli area! Saraswati Studio offers exceptional photography and videography services with professional quality work. Their wedding video coverage is outstanding, capturing every precious moment beautifully. The photo shoot sessions are creative and well-executed, whether it's for weddings, events, or personal portfolios. They also provide cup printing services which is a unique offering. The staff maintains good behavior and professionalism throughout the process. Their work quality is impressive and they deliver on time. Highly recommended for all your photography, videography, and printing needs in Rasauli!",
+        verified: true
+      }
+    ],
+    address: "W7F6+46J, Rasauli, Uttar Pradesh 225203",
+    mapLink: "https://maps.app.goo.gl/2SMVb3x4BBwGb5yY7",
+    coordinates: {
+      lat: 26.9228271,
+      lng: 81.2605057
+    },
+    phone: "+91 91989 12002",
+    phoneName: "Makole",
+    email: "",
+    website: "",
+    whatsapp: "+91 91989 12002",
+    whatsappName: "Makole",
+    hours: {
+      mon: {open: "10:00", close: "20:00"},
+      tue: {open: "10:00", close: "20:00"},
+      wed: {open: "10:00", close: "20:00"},
+      thu: {open: "10:00", close: "20:00"},
+      fri: {open: "10:00", close: "20:00"},
+      sat: {open: "10:00", close: "20:00"},
+      sun: {open: "10:00", close: "20:00"}
+    },
+    description: "Saraswati Studio is your premier destination for professional photography and videography services in Rasauli, located in Makole. We specialize in capturing life's most precious moments with creativity, technical expertise, and artistic vision. Our comprehensive services include wedding photography and videography, covering every aspect of your special day from pre-wedding shoots to the main ceremony and reception. We excel in event photography for birthdays, anniversaries, corporate events, and social gatherings. Our studio offers professional photo shoot sessions for individuals, families, couples, and commercial purposes including portfolio shoots, product photography, and promotional content. We provide high-quality video production services including wedding films, event coverage, promotional videos, and documentary-style recordings. What sets us apart is our attention to detail, creative approach, and commitment to delivering stunning visual content that tells your story. In addition to photography and videography, we also offer cup printing services, allowing you to personalize mugs with your favorite photos and designs - perfect for gifts, events, or promotional merchandise. Our studio is equipped with modern cameras, lighting equipment, and editing software to ensure professional-grade output. We understand that every client has unique requirements, and we work closely with you to understand your vision and deliver results that exceed expectations. Our team maintains professional behavior, punctuality, and clear communication throughout the project. We offer flexible packages to suit different budgets and requirements. Whether you're planning a grand wedding, organizing a corporate event, need professional portraits, or want to create personalized printed merchandise, Saraswati Studio has the expertise and equipment to bring your vision to life. Visit us in Makole, Rasauli, or contact us to discuss your photography, videography, and printing needs. Open daily from 10 AM to 8 PM.",
+    tags: ["photography", "videography", "studio", "wedding-photography", "photo-shoot", "video-production", "event-photography", "cup-printing", "printing", "portraits", "commercial-photography"],
+    isNew: true
   }
 ];
 
