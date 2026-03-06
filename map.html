@@ -795,7 +795,6 @@
 
       // Add business markers
       if (window.LISTINGS && window.LISTINGS.length > 0) {
-        console.log(`Total businesses in data: ${window.LISTINGS.length}`);
         let markersAdded = 0;
         
         window.LISTINGS.forEach(business => {
@@ -803,7 +802,6 @@
           if (added) markersAdded++;
         });
         
-        console.log(`Markers successfully added to map: ${markersAdded}`);
         mapStatus.textContent = `Showing ${markersAdded} businesses`;
       } else {
         mapStatus.textContent = 'No businesses to display';
@@ -885,7 +883,6 @@
       // Extract coordinates from the business data
       const coords = extractCoordinates(business);
       if (!coords) {
-        console.warn(`No coordinates found for business: ${business.name} (${business.id})`);
         return false;
       }
 
