@@ -1,9 +1,37 @@
 /**
  * Business Detail Page - Rendering Logic
- * Handles business detail page display with proper styling
+ * Handles business detail page display with proper styling and security
  */
 (function() {
   'use strict';
+  
+  /**
+   * Security: HTML sanitization function to prevent XSS attacks
+   * @param {string} str - String to sanitize
+   * @returns {string} Sanitized string
+   */
+  function sanitizeHTML(str) {
+    if (!str) return '';
+    const temp = document.createElement('div');
+    temp.textContent = str;
+    return temp.innerHTML;
+  }
+  
+  /**
+   * Convert URLs in text to clickable links (safely)
+   * @param {string} text - Text containing URLs
+   * @returns {string} Text with URLs converted to links
+   */
+  function linkifyText(text) {
+    // First sanitize the text
+    const sanitized = sanitizeHTML(text);
+    
+    // Then convert URLs to links
+    return sanitized.replace(
+      /(https?:\/\/[^\s<]+)/g,
+      '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline; word-break: break-all;">$1</a>'
+    );
+  }
   
   document.addEventListener('DOMContentLoaded', () => {
     // Check if data exists
@@ -96,16 +124,8 @@
           day: 'numeric'
         });
         
-        // Process review text: keep existing HTML links and convert plain URLs to links
-        let reviewTextWithLinks = review.text;
-        
-        // If text doesn't contain HTML links, convert plain URLs
-        if (!reviewTextWithLinks.includes('<a href')) {
-          reviewTextWithLinks = reviewTextWithLinks.replace(
-            /(https?:\/\/[^\s]+)/g,
-            '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline; word-break: break-all;">$1</a>'
-          );
-        }
+        // Sanitize and linkify review text
+        const reviewTextSafe = linkifyText(review.text);
         
         return `
           <div class="review-card ${isAdmin ? 'official' : ''}">
@@ -115,16 +135,16 @@
                 <div class="review-author-info">
                   <div class="review-author-name">
                     ${isAdmin ? '<div class="review-avatar">✓</div>' : ''}
-                    <strong class="${isAdmin ? 'large' : ''}">${review.author}</strong>
+                    <strong class="${isAdmin ? 'large' : ''}">${sanitizeHTML(review.author)}</strong>
                   </div>
                   ${review.verified ? '<span class="badge badge-verified">✓ VERIFIED</span>' : ''}
-                  ${review.role ? `<span class="review-role ${isAdmin ? 'official' : ''}">• ${review.role}</span>` : ''}
+                  ${review.role ? `<span class="review-role ${isAdmin ? 'official' : ''}">${sanitizeHTML(review.role)}</span>` : ''}
                 </div>
                 <div class="rating ${isAdmin ? '' : 'rating-small'}">${reviewStars}</div>
               </div>
               <span class="review-date">${reviewDate}</span>
             </div>
-            <p class="review-text ${isAdmin ? 'large' : ''}">${reviewTextWithLinks}</p>
+            <p class="review-text ${isAdmin ? 'large' : ''}">${reviewTextSafe}</p>
           </div>
         `;
       }).join('');
@@ -137,14 +157,14 @@
       <h4 class="section-header">Contact Information</h4>
       <div class="contact-item">
         <i class="fa-solid fa-location-dot"></i>
-        <span>${biz.address}</span>
+        <span>${sanitizeHTML(biz.address)}</span>
       </div>
       ${biz.phone ? `
         <div class="contact-item">
           <i class="fa-solid fa-phone"></i>
           <div>
-            <a href="tel:${biz.phone}">${biz.phone}</a>
-            ${biz.phoneName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.phoneName})</span>` : ''}
+            <a href="tel:${sanitizeHTML(biz.phone)}">${sanitizeHTML(biz.phone)}</a>
+            ${biz.phoneName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${sanitizeHTML(biz.phoneName)})</span>` : ''}
           </div>
         </div>
       ` : ''}
@@ -152,8 +172,8 @@
         <div class="contact-item">
           <i class="fa-solid fa-phone"></i>
           <div>
-            <a href="tel:${biz.phoneSecondary}">${biz.phoneSecondary}</a>
-            ${biz.phoneSecondaryName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.phoneSecondaryName})</span>` : ''}
+            <a href="tel:${sanitizeHTML(biz.phoneSecondary)}">${sanitizeHTML(biz.phoneSecondary)}</a>
+            ${biz.phoneSecondaryName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${sanitizeHTML(biz.phoneSecondaryName)})</span>` : ''}
           </div>
         </div>
       ` : ''}
@@ -161,8 +181,8 @@
         <div class="contact-item">
           <i class="fa-solid fa-phone"></i>
           <div>
-            <a href="tel:${biz.phoneThird}">${biz.phoneThird}</a>
-            ${biz.phoneThirdName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.phoneThirdName})</span>` : ''}
+            <a href="tel:${sanitizeHTML(biz.phoneThird)}">${sanitizeHTML(biz.phoneThird)}</a>
+            ${biz.phoneThirdName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${sanitizeHTML(biz.phoneThirdName)})</span>` : ''}
           </div>
         </div>
       ` : ''}
@@ -170,23 +190,23 @@
         <div class="contact-item">
           <i class="fa-solid fa-phone"></i>
           <div>
-            <a href="tel:${biz.phoneFourth}">${biz.phoneFourth}</a>
-            ${biz.phoneFourthName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${biz.phoneFourthName})</span>` : ''}
+            <a href="tel:${sanitizeHTML(biz.phoneFourth)}">${sanitizeHTML(biz.phoneFourth)}</a>
+            ${biz.phoneFourthName ? `<span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">(${sanitizeHTML(biz.phoneFourthName)})</span>` : ''}
           </div>
         </div>
       ` : ''}
       ${biz.email ? `
         <div class="contact-item">
           <i class="fa-solid fa-envelope"></i>
-          <a href="mailto:${biz.email}">${biz.email}</a>
+          <a href="mailto:${sanitizeHTML(biz.email)}">${sanitizeHTML(biz.email)}</a>
         </div>
       ` : ''}
       ${biz.whatsapp ? `
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsapp.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
-            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${biz.whatsapp}${biz.whatsappName ? ` (${biz.whatsappName})` : ''}</span>
+            <a href="https://wa.me/${biz.whatsapp.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsapp)}${biz.whatsappName ? ` (${sanitizeHTML(biz.whatsappName)})` : ''}</span>
           </div>
         </div>
       ` : ''}
@@ -194,8 +214,8 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsappSecondary.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
-            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${biz.whatsappSecondary}${biz.whatsappSecondaryName ? ` (${biz.whatsappSecondaryName})` : ''}</span>
+            <a href="https://wa.me/${biz.whatsappSecondary.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsappSecondary)}${biz.whatsappSecondaryName ? ` (${sanitizeHTML(biz.whatsappSecondaryName)})` : ''}</span>
           </div>
         </div>
       ` : ''}
@@ -203,8 +223,8 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsappThird.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
-            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${biz.whatsappThird}${biz.whatsappThirdName ? ` (${biz.whatsappThirdName})` : ''}</span>
+            <a href="https://wa.me/${biz.whatsappThird.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsappThird)}${biz.whatsappThirdName ? ` (${sanitizeHTML(biz.whatsappThirdName)})` : ''}</span>
           </div>
         </div>
       ` : ''}
@@ -212,31 +232,31 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsappFourth.replace(/[^0-9]/g,'')}" target="_blank">WhatsApp</a>
-            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${biz.whatsappFourth}${biz.whatsappFourthName ? ` (${biz.whatsappFourthName})` : ''}</span>
+            <a href="https://wa.me/${biz.whatsappFourth.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsappFourth)}${biz.whatsappFourthName ? ` (${sanitizeHTML(biz.whatsappFourthName)})` : ''}</span>
           </div>
         </div>
       ` : ''}
       ${biz.website ? `
         <div class="contact-item">
           <i class="fa-solid fa-globe"></i>
-          <a href="${biz.website}" target="_blank">${biz.website.includes('jsdl.in') || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
+          <a href="${sanitizeHTML(biz.website)}" target="_blank" rel="noopener noreferrer">${biz.website.includes('jsdl.in') || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
         </div>
       ` : ''}
       ${biz.onlineOrder ? `
         <div class="contact-item">
           <i class="fa-solid fa-shopping-bag"></i>
-          <a href="${biz.onlineOrder}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-color); font-weight: 600;">Order Online</a>
+          <a href="${sanitizeHTML(biz.onlineOrder)}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-color); font-weight: 600;">Order Online</a>
         </div>
       ` : ''}
       ${biz.instagram ? `
         <div class="contact-item">
           <i class="fa-brands fa-instagram"></i>
-          <a href="${biz.instagram}" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="${sanitizeHTML(biz.instagram)}" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
       ` : ''}
       <div class="mt-lg">
-        <a href="${biz.mapLink}" target="_blank" class="btn" style="width:100%;">View on Map</a>
+        <a href="${sanitizeHTML(biz.mapLink)}" target="_blank" rel="noopener noreferrer" class="btn" style="width:100%;">View on Map</a>
       </div>
     `;
     document.getElementById('biz-contact').innerHTML = contactHtml;
@@ -313,7 +333,7 @@
     
     // Render tags
     const tagsHtml = '<h4 class="section-header">Services</h4>' +
-      biz.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+      biz.tags.map(tag => `<span class="tag">${sanitizeHTML(tag)}</span>`).join('');
     document.getElementById('biz-tags').innerHTML = tagsHtml;
     
     // Render related listings
