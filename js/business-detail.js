@@ -310,14 +310,9 @@
       // Do not URL-encode the '@' in UPI ID
       const cleanUpiId = business.upiId.trim();
 
-      // Standard URI for QR Code and non-Android platforms
-      let upiDeepLink = `upi://pay?pa=${cleanUpiId}&pn=${encodeURIComponent(cleanUpiName)}&cu=INR`;
-
-      // Use intent:// scheme on Android to force the system app chooser
-      const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
-      if (isAndroid) {
-        upiDeepLink = `intent://pay?pa=${cleanUpiId}&pn=${encodeURIComponent(cleanUpiName)}&cu=INR#Intent;scheme=upi;end`;
-      }
+      // Build UPI URI - using standard upi://pay scheme for maximum compatibility
+      // The key fix: Use upi://pay without intent:// wrapper to ensure all UPI apps appear in chooser
+      const upiUri = `upi://pay?pa=${encodeURIComponent(cleanUpiId)}&pn=${encodeURIComponent(cleanUpiName)}&cu=INR`;
 
       // Build the overlay + bottom sheet
       const overlay = document.createElement('div');
@@ -350,7 +345,7 @@
               <i class="fa-regular fa-copy"></i>
             </button>
           </div>
-          <a href="${upiDeepLink}" class="upi-pay-app-btn" id="upi-app-btn" rel="noopener">
+          <a href="${upiUri}" class="upi-pay-app-btn" id="upi-app-btn" rel="noopener">
             <i class="fa-solid fa-mobile-screen-button"></i>
             Pay using UPI App
           </a>
@@ -373,7 +368,7 @@
           document.body.appendChild(offscreen);
 
           new QRCode(offscreen, {
-            text: upiDeepLink,
+            text: upiUri,
             width: 256,
             height: 256,
             colorDark: '#000000',
@@ -434,6 +429,27 @@
         if (e.key === 'Escape') closeUPISheet();
       }
       document.addEventListener('keydown', handleEscape);
+
+      // Handle UPI App button click - ensures proper intent triggering
+      const upiAppBtn = document.getElementById('upi-app-btn');
+      if (upiAppBtn) {
+        upiAppBtn.addEventListener('click', (e) => {
+          // For Android Chrome, we need to ensure the intent is properly triggered
+          // Using window.location assignment ensures the system handles the upi:// scheme
+          e.preventDefault();
+          
+          const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
+          
+          if (isAndroid) {
+            // Use window.location for Android to force system chooser
+            // This bypasses Chrome's navigation blocking and ensures all apps appear
+            window.location.href = upiUri;
+          } else {
+            // For iOS and other platforms, use standard link behavior
+            window.open(upiUri, '_blank');
+          }
+        });
+      }
 
       // Copy UPI ID
       const copyBtn = document.getElementById('upi-copy-btn');
