@@ -200,114 +200,114 @@
   function extractCoordinates(business) {
     const coordinates = {
       "raheem-common-service-center": [
-            26.9230278,
-            81.2608333
+        26.9230278,
+        81.2608333
       ],
       "aman-garments": [
-            26.9230278,
-            81.2609167
+        26.9230278,
+        81.2609167
       ],
       "affan-garments": [
-            26.9239722,
-            81.2612222
+        26.9239722,
+        81.2612222
       ],
       "shariq-hashmi-electric-shop": [
-            26.9249722,
-            81.2620556
+        26.9249722,
+        81.2620556
       ],
       "hind-pharmacy": [
-            26.9248889,
-            81.2620556
+        26.9248889,
+        81.2620556
       ],
       "abdul-hospital": [
-            26.9246097,
-            81.2619726
+        26.9246097,
+        81.2619726
       ],
       "rajju-pankaj-sweets": [
-            26.924135,
-            81.2614237
+        26.924135,
+        81.2614237
       ],
       "friend-fitness-gym": [
-            26.9236389,
-            81.2541389
+        26.9236389,
+        81.2541389
       ],
       "golden-csc": [
-            26.9234167,
-            81.2610556
+        26.9234167,
+        81.2610556
       ],
       "om-dhaba": [
-            26.9219589,
-            81.2613632
+        26.9219589,
+        81.2613632
       ],
       "hala-motors": [
-            26.9226786,
-            81.2559463
+        26.9226786,
+        81.2559463
       ],
       "chandra-shekhar-azad-inter-college": [
-            26.9203899,
-            81.2609952
+        26.9203899,
+        81.2609952
       ],
       "shri-shyam-medicals": [
-            26.9242222,
-            81.2614444
+        26.9242222,
+        81.2614444
       ],
       "satyam-footwear": [
-            26.9241667,
-            81.2613333
+        26.9241667,
+        81.2613333
       ],
       "khidmat-enterprises": [
-            26.9231944,
-            81.2561667
+        26.9231944,
+        81.2561667
       ],
       "rasauli-hardware": [
-            26.9230833,
-            81.2564167
+        26.9230833,
+        81.2564167
       ],
       "kartik-medical-store": [
-            26.9231907,
-            81.2608735
+        26.9231907,
+        81.2608735
       ],
       "suraj-kumar-clothing-store": [
-            26.9246194,
-            81.2612665
+        26.9246194,
+        81.2612665
       ],
       "janta-clinic": [
-            26.9252745,
-            81.2622634
+        26.9252745,
+        81.2622634
       ],
       "sk-tent-light-house": [
-            26.9257475,
-            81.2612005
+        26.9257475,
+        81.2612005
       ],
       "balemora-wellness-retreats": [
-            26.9220302,
-            81.258116
+        26.9220302,
+        81.258116
       ],
       "kfc-barabanki": [
-            26.9237173,
-            81.2504984
+        26.9237173,
+        81.2504984
       ],
       "box-park-international": [
-            26.9247718,
-            81.24984
+        26.9247718,
+        81.24984
       ],
       "pps-college-of-nursing": [
-            26.9257332,
-            81.2481373
+        26.9257332,
+        81.2481373
       ],
       "maxwell-hospital": [
-            26.9254186,
-            81.2414883
+        26.9254186,
+        81.2414883
       ],
       "saraswati-studio-makole": [
-            26.9228271,
-            81.2605057
+        26.9228271,
+        81.2605057
       ],
       "jamwant-mobile-shop": [
-            26.9226667,
-            81.2604167
+        26.9226667,
+        81.2604167
       ]
-};
+    };
 
 
 
@@ -594,30 +594,77 @@
   }
 
   /**
+   * Expand search query with aliases
+   * @param {string} query - Original search query
+   * @returns {Array} Array of search terms including aliases
+   */
+  function expandSearchQuery(query) {
+    const queryLower = query.toLowerCase().trim();
+    const searchTerms = [queryLower];
+
+    if (window.CONFIG && window.CONFIG.searchAliases) {
+      if (window.CONFIG.searchAliases[queryLower]) {
+        searchTerms.push(...window.CONFIG.searchAliases[queryLower]);
+      }
+
+      Object.keys(window.CONFIG.searchAliases).forEach(key => {
+        const aliases = window.CONFIG.searchAliases[key];
+        if (aliases.some(alias => alias.includes(queryLower))) {
+          searchTerms.push(key);
+          searchTerms.push(...aliases);
+        }
+      });
+    }
+    return [...new Set(searchTerms)];
+  }
+
+  /**
+   * Check if text matches any of the search terms
+   * @param {string} text - Text to search in
+   * @param {Array} searchTerms - Array of search terms
+   * @returns {boolean} True if any term matches
+   */
+  function matchesSearchTerms(text, searchTerms) {
+    if (!text) return false;
+    const textLower = text.toLowerCase();
+    return searchTerms.some(term => textLower.includes(term));
+  }
+
+  /**
    * Calculate relevance score for a business based on search terms
    * @param {Object} business - Business object
-   * @param {string} query - Search query
+   * @param {Array} searchTerms - Array of search terms
+   * @param {string} originalQuery - Search query
    * @returns {number} Relevance score (higher is better)
    */
-  function calculateRelevance(business, query) {
-    if (!query) return 0;
+  function calculateRelevance(business, searchTerms, originalQuery) {
     let score = 0;
-    const queryLower = query.toLowerCase();
+    const queryLower = originalQuery.toLowerCase();
     const nameLower = business.name.toLowerCase();
     const categoryLower = business.category.toLowerCase();
     const descLower = business.description.toLowerCase();
 
     if (nameLower === queryLower) score += 1000;
-    else if (nameLower.startsWith(queryLower)) score += 500;
-    else if (nameLower.includes(queryLower)) score += 300;
+    if (nameLower.startsWith(queryLower)) score += 500;
+    if (nameLower.includes(queryLower)) score += 300;
 
     if (categoryLower === queryLower) score += 200;
-    else if (categoryLower.includes(queryLower)) score += 150;
+    if (categoryLower.includes(queryLower)) score += 150;
 
-    if (business.tags && business.tags.some(tag => tag.toLowerCase() === queryLower)) score += 100;
-    else if (business.tags && business.tags.some(tag => tag.toLowerCase().includes(queryLower))) score += 50;
+    if (Array.isArray(business.tags)) {
+      business.tags.forEach(tag => {
+        const tagLower = tag.toLowerCase();
+        if (tagLower === queryLower) score += 100;
+        else if (tagLower.includes(queryLower)) score += 50;
+      });
+    }
 
     if (descLower.includes(queryLower)) score += 10;
+
+    if (business.featured) score += 5;
+    if (business.verified) score += 5;
+    score += business.rating * 2;
+
     return score;
   }
 
@@ -657,7 +704,7 @@
     }, { passive: true });
 
     searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase().trim();
+      const query = e.target.value.trim();
 
       if (query) {
         clearBtn.classList.add('visible');
@@ -677,11 +724,15 @@
 
       // Check if user location is available
       const userLatLng = userMarker ? userMarker.getLatLng() : null;
+      const searchTerms = expandSearchQuery(query);
 
       const matchingBusinesses = [];
       window.LISTINGS.forEach((business, index) => {
         // Expand search logic to match relevance
-        const matches = calculateRelevance(business, query) > 0;
+        const matches = matchesSearchTerms(business.name, searchTerms) ||
+          matchesSearchTerms(business.description, searchTerms) ||
+          matchesSearchTerms(business.category, searchTerms) ||
+          (Array.isArray(business.tags) && business.tags.some(t => matchesSearchTerms(t, searchTerms)));
 
         if (matches) {
           // Calculate distance if user location is known
@@ -698,7 +749,7 @@
           matchingBusinesses.push({
             business,
             index,
-            score: calculateRelevance(business, query),
+            score: calculateRelevance(business, searchTerms, query),
             distance,
             distanceFormatted
           });
