@@ -268,7 +268,9 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'CACHE_URLS') {
     event.waitUntil(
       caches.open(DYNAMIC_CACHE)
-        .then((cache) => cache.addAll(event.data.urls))
+        .then((cache) => {
+          return cache.addAll(event.data.urls);
+        })
     );
   }
 

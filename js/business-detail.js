@@ -69,19 +69,26 @@
     }
 
     // Render basic info
-    document.getElementById('biz-title').textContent = biz.name;
-    document.getElementById('biz-desc').textContent = biz.description;
-    document.getElementById('biz-category').textContent = biz.category;
-    document.getElementById('biz-name').textContent = biz.name;
+    const titleEl = document.getElementById('biz-title');
+    const descEl = document.getElementById('biz-desc');
+    const categoryEl = document.getElementById('biz-category');
+    const nameEl = document.getElementById('biz-name');
+    
+    if (titleEl) titleEl.textContent = biz.name;
+    if (descEl) descEl.textContent = biz.description;
+    if (categoryEl) categoryEl.textContent = biz.category;
+    if (nameEl) nameEl.textContent = biz.name;
 
     // Add verified badge to title if business is verified
     if (biz.verified) {
       const titleElement = document.getElementById('biz-title');
-      const verifiedBadge = document.createElement('span');
-      verifiedBadge.className = 'verified-badge-large';
-      verifiedBadge.title = 'Verified Business';
-      verifiedBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-      titleElement.appendChild(verifiedBadge);
+      if (titleElement) {
+        const verifiedBadge = document.createElement('span');
+        verifiedBadge.className = 'verified-badge-large';
+        verifiedBadge.title = 'Verified Business';
+        verifiedBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+        titleElement.appendChild(verifiedBadge);
+      }
     }
 
     // Generate avatar from business name (first letter of each word, max 2 letters)
@@ -91,7 +98,8 @@
       .slice(0, 2)
       .map(word => word[0].toUpperCase())
       .join('');
-    document.getElementById('biz-avatar').textContent = avatarText;
+    const avatarEl = document.getElementById('biz-avatar');
+    if (avatarEl) avatarEl.textContent = avatarText;
 
     // Render badges
     const badgesHtml = [];
@@ -101,16 +109,20 @@
     if (biz.isNew) {
       badgesHtml.push('<span class="badge badge-new">NEW</span>');
     }
-    document.getElementById('biz-badges').innerHTML = badgesHtml.join('');
+    const badgesEl = document.getElementById('biz-badges');
+    if (badgesEl) badgesEl.innerHTML = badgesHtml.join('');
 
     // Render rating
     const stars = '★'.repeat(Math.floor(biz.rating)) + '☆'.repeat(5 - Math.floor(biz.rating));
-    document.getElementById('biz-rating').innerHTML = `
-      <div class="rating">
-        ${stars}
-        <span class="rating-count">${biz.rating} (${biz.reviewCount} reviews)</span>
-      </div>
-    `;
+    const ratingEl = document.getElementById('biz-rating');
+    if (ratingEl) {
+      ratingEl.innerHTML = `
+        <div class="rating">
+          ${stars}
+          <span class="rating-count">${biz.rating} (${biz.reviewCount} reviews)</span>
+        </div>
+      `;
+    }
 
     // Render reviews
     const reviewsList = document.getElementById('reviews-list');
@@ -255,11 +267,204 @@
           <a href="${sanitizeHTML(biz.instagram)}" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
       ` : ''}
+      ${biz.upiId ? `
+        <div class="contact-item upi-payment-trigger" id="upi-pay-btn" role="button" tabindex="0" aria-label="Pay online via UPI">
+          <i class="fa-solid fa-indian-rupee-sign"></i>
+          <span>Pay Online (UPI)</span>
+        </div>
+      ` : ''}
       <div class="mt-lg">
         <a href="${sanitizeHTML(biz.mapLink)}" target="_blank" rel="noopener noreferrer" class="btn" style="width:100%;">View on Map</a>
       </div>
     `;
     document.getElementById('biz-contact').innerHTML = contactHtml;
+
+    // UPI Payment Bottom Sheet
+    if (biz.upiId) {
+      const upiPayBtn = document.getElementById('upi-pay-btn');
+      if (upiPayBtn) {
+        upiPayBtn.addEventListener('click', () => openUPISheet(biz));
+        upiPayBtn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openUPISheet(biz);
+          }
+        });
+      }
+    }
+
+    /**
+     * Open UPI payment bottom sheet
+     * @param {Object} business - Business data with upiId and upiName
+     */
+    function openUPISheet(business) {
+      // Prevent duplicate modals
+      if (document.getElementById('upi-payment-sheet')) return;
+
+      const safeUpiId = sanitizeHTML(business.upiId);
+      const safeUpiName = sanitizeHTML(business.upiName || business.name);
+      const upiDeepLink = `upi://pay?pa=${encodeURIComponent(business.upiId)}&pn=${encodeURIComponent(business.upiName || business.name)}&cu=INR`;
+
+      // Build the overlay + bottom sheet
+      const overlay = document.createElement('div');
+      overlay.id = 'upi-payment-overlay';
+      overlay.className = 'upi-overlay';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', 'UPI Payment');
+
+      overlay.innerHTML = `
+        <div class="upi-sheet" id="upi-payment-sheet">
+          <div class="upi-sheet-handle" aria-hidden="true"></div>
+          <button class="upi-sheet-close" id="upi-close-btn" aria-label="Close payment sheet">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="upi-sheet-header">
+            <div class="upi-sheet-icon">
+              <i class="fa-solid fa-indian-rupee-sign"></i>
+            </div>
+            <h3>Pay ${safeUpiName}</h3>
+            <p>Scan QR code or tap button to pay</p>
+          </div>
+          <div class="upi-qr-container">
+            <div class="upi-qr-frame" id="upi-qr-target"></div>
+          </div>
+          <div class="upi-id-row" id="upi-id-row">
+            <span class="upi-id-label">UPI ID:</span>
+            <span class="upi-id-value" id="upi-id-text">${safeUpiId}</span>
+            <button class="upi-copy-btn" id="upi-copy-btn" aria-label="Copy UPI ID">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+          </div>
+          <a href="${upiDeepLink}" class="upi-pay-app-btn" id="upi-app-btn" rel="noopener">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            Pay using UPI App
+          </a>
+          <p class="upi-disclaimer">
+            <i class="fa-solid fa-shield-halved"></i>
+            Secure payment via your UPI app
+          </p>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+
+      // Generate real scannable QR code (off-screen render → clean img)
+      const qrTarget = document.getElementById('upi-qr-target');
+      if (qrTarget) {
+        if (typeof QRCode !== 'undefined') {
+          // Render QR into a hidden off-screen container
+          const offscreen = document.createElement('div');
+          offscreen.style.cssText = 'position:absolute;left:-9999px;top:-9999px;';
+          document.body.appendChild(offscreen);
+
+          new QRCode(offscreen, {
+            text: upiDeepLink,
+            width: 256,
+            height: 256,
+            colorDark: '#000000',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+          });
+
+          // Extract data URL from the generated canvas and inject clean img
+          setTimeout(() => {
+            const canvas = offscreen.querySelector('canvas');
+            if (canvas) {
+              const dataUrl = canvas.toDataURL('image/png');
+              qrTarget.innerHTML = `<img src="${dataUrl}" alt="UPI QR Code" class="upi-qr-img" />`;
+            } else {
+              // Library might have used img fallback
+              const img = offscreen.querySelector('img');
+              if (img && img.src) {
+                qrTarget.innerHTML = `<img src="${img.src}" alt="UPI QR Code" class="upi-qr-img" />`;
+              } else {
+                qrTarget.innerHTML = '<div class="upi-qr-fallback"><i class="fa-solid fa-qrcode"></i><p>QR code unavailable</p></div>';
+              }
+            }
+            offscreen.remove();
+          }, 50);
+        } else {
+          // QRCode library not loaded - show fallback message
+          qrTarget.innerHTML = `
+            <div class="upi-qr-fallback" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center;">
+              <i class="fa-solid fa-qrcode" style="font-size: 48px; color: var(--text-muted); margin-bottom: 16px;"></i>
+              <p style="color: var(--text-muted); font-size: 14px; margin: 0;">QR code generator unavailable</p>
+              <p style="color: var(--text-muted); font-size: 12px; margin-top: 8px;">Use the "Pay using UPI App" button below</p>
+            </div>
+          `;
+        }
+      }
+
+      // Prevent body scroll while sheet is open
+      document.body.style.overflow = 'hidden';
+
+      // Trigger entrance animation on next frame
+      requestAnimationFrame(() => {
+        overlay.classList.add('active');
+      });
+
+      // --- Event Handlers ---
+
+      // Close button
+      const closeBtn = document.getElementById('upi-close-btn');
+      closeBtn.addEventListener('click', closeUPISheet);
+
+      // Backdrop click
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeUPISheet();
+      });
+
+      // Escape key
+      function handleEscape(e) {
+        if (e.key === 'Escape') closeUPISheet();
+      }
+      document.addEventListener('keydown', handleEscape);
+
+      // Copy UPI ID
+      const copyBtn = document.getElementById('upi-copy-btn');
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(business.upiId);
+          copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+          copyBtn.style.color = 'var(--accent-success)';
+          setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+            copyBtn.style.color = '';
+          }, 2000);
+        } catch (err) {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = business.upiId;
+          textArea.style.cssText = 'position:fixed;left:-9999px;';
+          document.body.appendChild(textArea);
+          textArea.select();
+          try { document.execCommand('copy'); } catch (e) { /* silent */ }
+          document.body.removeChild(textArea);
+          copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+          copyBtn.style.color = 'var(--accent-success)';
+          setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+            copyBtn.style.color = '';
+          }, 2000);
+        }
+      });
+
+      /**
+       * Close and destroy the UPI sheet with exit animation
+       */
+      function closeUPISheet() {
+        const currentOverlay = document.getElementById('upi-payment-overlay');
+        if (!currentOverlay) return;
+        currentOverlay.classList.remove('active');
+        currentOverlay.classList.add('closing');
+        document.removeEventListener('keydown', handleEscape);
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          currentOverlay.remove();
+        }, 350);
+      }
+    }
 
     // Render hours
     const days = {
@@ -334,7 +539,7 @@
 
     // Render tags
     const tagsHtml = '<h4 class="section-header">Services</h4>' +
-      biz.tags.map(tag => `<span class="tag">${sanitizeHTML(tag)}</span>`).join('');
+      (Array.isArray(biz.tags) ? biz.tags.map(tag => `<span class="tag">${sanitizeHTML(tag)}</span>`).join('') : '<p class="empty-state">No services listed.</p>');
     document.getElementById('biz-tags').innerHTML = tagsHtml;
 
     // Render related listings
@@ -440,10 +645,10 @@
     const popupContent = `
       <div style="min-width: 200px; max-width: 280px;">
         <div style="font-weight: 700; font-size: 16px; color: var(--text-primary); margin-bottom: 8px;">
-          ${business.name}
+          ${sanitizeHTML(business.name)}
         </div>
         <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
-          ${business.address}
+          ${sanitizeHTML(business.address)}
         </div>
       </div>
     `;
