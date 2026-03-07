@@ -1,13 +1,13 @@
 /**
  * LocalFind - Service Worker
- * PWA offline support with caching strategies
+ * PWA offline support with network-first caching
  * 
- * @version 4.2.0
+ * @version 4.3.0
  * @updated 2026-03-07
  */
 
-const CACHE_VERSION = 'localfind-v4.2.0';
-const BUILD_NUMBER = '20260307'; // YYYYMMDD format
+const CACHE_VERSION = 'localfind-v4.3.0';
+const BUILD_NUMBER = '20260307b'; // YYYYMMDD format
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
@@ -15,7 +15,7 @@ const IMAGE_CACHE = `${CACHE_VERSION}-images`;
 // Base path for GitHub Pages deployment
 const BASE_PATH = '/LocalFind';
 
-// Assets to cache immediately on install
+// Assets to pre-cache on install (offline fallback)
 const STATIC_ASSETS = [
   `${BASE_PATH}/`,
   `${BASE_PATH}/index.html`,
@@ -53,7 +53,7 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/manifest.json`
 ];
 
-// Install event - cache static assets
+// Install event - pre-cache static assets for offline fallback
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(STATIC_CACHE)
@@ -66,16 +66,16 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate event - clean up ALL old caches completely
+// Activate event - clean up only OLD version caches
 self.addEventListener('activate', (event) => {
+  const currentCaches = [STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE];
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
-        // Delete ALL caches, not just old versions
         return Promise.all(
-          cacheNames.map((cacheName) => {
-            return caches.delete(cacheName);
-          })
+          cacheNames
+            .filter((cacheName) => !currentCaches.includes(cacheName))
+            .map((cacheName) => caches.delete(cacheName))
         );
       })
       .then(() => {
@@ -85,81 +85,66 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - serve from cache with network fallback
+// Fetch event - NETWORK FIRST for all same-origin requests
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
-  
-  // Skip cross-origin requests or requests outside our base path
-  if (url.origin !== location.origin || !url.pathname.startsWith(BASE_PATH)) {
+
+  // Skip cross-origin requests (CDN fonts, icons, etc.)
+  if (url.origin !== location.origin) {
     return;
   }
-  
-  // Handle different types of requests
+
+  // Skip requests outside our base path
+  if (!url.pathname.startsWith(BASE_PATH)) {
+    return;
+  }
+
+  // Images: stale-while-revalidate (fast load + background update)
   if (request.destination === 'image') {
     event.respondWith(handleImageRequest(request));
-  } else if (request.method === 'GET') {
-    event.respondWith(handleGetRequest(request));
+    return;
+  }
+
+  // Everything else: NETWORK FIRST, cache fallback for offline
+  if (request.method === 'GET') {
+    event.respondWith(handleNetworkFirst(request));
   }
 });
 
 /**
- * Handle GET requests with network-first strategy for HTML, cache-first for others
+ * Network-First strategy for all GET requests (HTML, CSS, JS, etc.)
+ * Online → always fetch latest from network, update cache
+ * Offline → serve from cache
  */
-async function handleGetRequest(request) {
+async function handleNetworkFirst(request) {
   const url = new URL(request.url);
-  
-  // Network-first strategy for HTML files to ensure fresh content
-  if (request.mode === 'navigate' || url.pathname.endsWith('.html')) {
-    try {
-      const networkResponse = await fetch(request);
-      
-      // Cache the fresh response
-      if (networkResponse && networkResponse.status === 200) {
-        const cache = await caches.open(DYNAMIC_CACHE);
-        cache.put(request, networkResponse.clone());
-      }
-      
-      return networkResponse;
-    } catch (error) {
-      // Fallback to cache
-      const cachedResponse = await caches.match(request);
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      
-      // Return offline page
-      const offlinePage = await caches.match(`${BASE_PATH}/offline.html`);
-      if (offlinePage) {
-        return offlinePage;
-      }
-      
-      return new Response('Network error', {
-        status: 408,
-        headers: { 'Content-Type': 'text/plain' }
-      });
-    }
-  }
-  
-  // Cache-first strategy for other resources
+
   try {
-    // Try cache first
-    const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-      return cachedResponse;
-    }
-    
-    // If not in cache, fetch from network
     const networkResponse = await fetch(request);
-    
-    // Cache successful responses
+
+    // Cache the fresh response for offline use
     if (networkResponse && networkResponse.status === 200) {
       const cache = await caches.open(DYNAMIC_CACHE);
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
+    // Offline: try dynamic cache first, then static cache
+    const dynamicCached = await caches.match(request);
+    if (dynamicCached) {
+      return dynamicCached;
+    }
+
+    // For HTML navigation requests, show offline page
+    if (request.mode === 'navigate' || url.pathname.endsWith('.html')) {
+      const offlinePage = await caches.match(`${BASE_PATH}/offline.html`);
+      if (offlinePage) {
+        return offlinePage;
+      }
+    }
+
     return new Response('Network error', {
       status: 408,
       headers: { 'Content-Type': 'text/plain' }
@@ -168,38 +153,44 @@ async function handleGetRequest(request) {
 }
 
 /**
- * Handle image requests with cache-first strategy
+ * Stale-While-Revalidate for images
+ * Serve cached image immediately, then update cache in background
  */
 async function handleImageRequest(request) {
-  try {
-    // Try cache first
-    const cachedImage = await caches.match(request);
-    if (cachedImage) {
-      return cachedImage;
-    }
-    
-    // Fetch from network
-    const networkResponse = await fetch(request);
-    
-    // Cache the image
-    if (networkResponse && networkResponse.status === 200) {
-      const cache = await caches.open(IMAGE_CACHE);
-      cache.put(request, networkResponse.clone());
-    }
-    
-    return networkResponse;
-  } catch (error) {
-    // Return placeholder image or cached fallback
-    const fallback = await caches.match(`${BASE_PATH}/assets/images/mainlogo.svg`);
-    if (fallback) {
-      return fallback;
-    }
-    
-    return new Response('Image not available', {
-      status: 404,
-      headers: { 'Content-Type': 'text/plain' }
-    });
+  const cachedImage = await caches.match(request);
+
+  // Fetch in background to update the cache
+  const fetchPromise = fetch(request)
+    .then((networkResponse) => {
+      if (networkResponse && networkResponse.status === 200) {
+        const cache = caches.open(IMAGE_CACHE).then((c) => {
+          c.put(request, networkResponse.clone());
+        });
+      }
+      return networkResponse;
+    })
+    .catch(() => null);
+
+  // Return cached image immediately if available, otherwise wait for network
+  if (cachedImage) {
+    return cachedImage;
   }
+
+  const networkResponse = await fetchPromise;
+  if (networkResponse) {
+    return networkResponse;
+  }
+
+  // Fallback to logo
+  const fallback = await caches.match(`${BASE_PATH}/assets/images/mainlogo.svg`);
+  if (fallback) {
+    return fallback;
+  }
+
+  return new Response('Image not available', {
+    status: 404,
+    headers: { 'Content-Type': 'text/plain' }
+  });
 }
 
 // Background sync for offline form submissions
@@ -216,7 +207,7 @@ async function syncBusinessSubmissions() {
   try {
     // Get pending submissions from IndexedDB
     // This would be implemented with your backend API
-    
+
     // Example: fetch pending submissions and POST to API
     // const submissions = await getPendingSubmissions();
     // for (const submission of submissions) {
@@ -250,7 +241,7 @@ self.addEventListener('push', (event) => {
       }
     ]
   };
-  
+
   event.waitUntil(
     self.registration.showNotification('LocalFind', options)
   );
@@ -259,7 +250,7 @@ self.addEventListener('push', (event) => {
 // Notification click handler
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  
+
   if (event.action === 'open') {
     event.waitUntil(
       clients.openWindow(BASE_PATH + '/')
@@ -273,14 +264,14 @@ self.addEventListener('message', (event) => {
     // Skip waiting and activate immediately
     self.skipWaiting();
   }
-  
+
   if (event.data && event.data.type === 'CACHE_URLS') {
     event.waitUntil(
       caches.open(DYNAMIC_CACHE)
         .then((cache) => cache.addAll(event.data.urls))
     );
   }
-  
+
   if (event.data && event.data.type === 'CLEAR_ALL_CACHES') {
     event.waitUntil(
       caches.keys().then((cacheNames) => {

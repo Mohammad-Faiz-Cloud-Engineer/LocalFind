@@ -17,14 +17,14 @@
   function expandSearchQuery(query) {
     const queryLower = query.toLowerCase().trim();
     const searchTerms = [queryLower];
-    
+
     // Check if CONFIG and searchAliases exist
     if (window.CONFIG && window.CONFIG.searchAliases) {
       // Check if query matches any alias key
       if (window.CONFIG.searchAliases[queryLower]) {
         searchTerms.push(...window.CONFIG.searchAliases[queryLower]);
       }
-      
+
       // Check if query is part of any alias value (reverse lookup)
       Object.keys(window.CONFIG.searchAliases).forEach(key => {
         const aliases = window.CONFIG.searchAliases[key];
@@ -34,7 +34,7 @@
         }
       });
     }
-    
+
     // Remove duplicates
     return [...new Set(searchTerms)];
   }
@@ -53,32 +53,32 @@
     const nameLower = business.name.toLowerCase();
     const categoryLower = business.category.toLowerCase();
     const descLower = business.description.toLowerCase();
-    
+
     // Exact name match (highest priority)
     if (nameLower === queryLower) {
       score += 1000;
     }
-    
+
     // Name starts with query
     if (nameLower.startsWith(queryLower)) {
       score += 500;
     }
-    
+
     // Name contains query
     if (nameLower.includes(queryLower)) {
       score += 300;
     }
-    
+
     // Category exact match
     if (categoryLower === queryLower) {
       score += 200;
     }
-    
+
     // Category contains query
     if (categoryLower.includes(queryLower)) {
       score += 150;
     }
-    
+
     // Tags exact match
     if (Array.isArray(business.tags)) {
       business.tags.forEach(tag => {
@@ -90,19 +90,19 @@
         }
       });
     }
-    
+
     // Description contains query (lower priority)
     if (descLower.includes(queryLower)) {
       score += 10;
     }
-    
+
     // Boost for featured/verified businesses
     if (business.featured) score += 5;
     if (business.verified) score += 5;
-    
+
     // Boost for higher ratings
     score += business.rating * 2;
-    
+
     return score;
   }
 
@@ -113,6 +113,7 @@
    * @returns {boolean} True if any term matches
    */
   function matchesSearchTerms(text, searchTerms) {
+    if (!text) return false;
     const textLower = text.toLowerCase();
     return searchTerms.some(term => textLower.includes(term));
   }
@@ -138,7 +139,7 @@
         matchesSearchTerms(b.category, searchTerms) ||
         (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
       );
-      
+
       // Sort by relevance (most relevant first)
       currentListings.sort((a, b) => {
         const scoreA = calculateRelevance(a, searchTerms, search);
@@ -150,7 +151,7 @@
     if (loc) {
       const locLower = loc.toLowerCase();
       currentListings = currentListings.filter(b =>
-        b.address.toLowerCase().includes(locLower)
+        b.address && b.address.toLowerCase().includes(locLower)
       );
     }
   }
@@ -161,11 +162,11 @@
   function render() {
     const container = document.getElementById('listings');
     const resultsCount = document.getElementById('results-count');
-    
+
     if (!container || !resultsCount) {
       return;
     }
-    
+
     const slice = currentListings.slice(0, offset + ITEMS_PER_PAGE);
     container.innerHTML = slice.map(b => window.renderCard(b)).join('');
     resultsCount.textContent = `Showing ${Math.min(slice.length, currentListings.length)} of ${currentListings.length} businesses`;
@@ -246,7 +247,7 @@
               matchesSearchTerms(b.category, searchTerms) ||
               (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
             );
-            
+
             // Sort by relevance (most relevant first)
             currentListings.sort((a, b) => {
               const scoreA = calculateRelevance(a, searchTerms, query);

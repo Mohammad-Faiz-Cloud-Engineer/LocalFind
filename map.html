@@ -3,11 +3,12 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  
+
   <title>Map View - LocalFind</title>
   <meta name="description" content="Interactive map showing all businesses in Rasauli, Barabanki, Uttar Pradesh">
   <link rel="canonical" href="https://mohammad-faiz-cloud-engineer.github.io/LocalFind/map.html">
@@ -18,7 +19,8 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
+    rel="stylesheet">
 
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"
@@ -28,11 +30,10 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/utilities.css">
-  
+
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
   <style>
     body {
@@ -76,7 +77,7 @@
       display: flex;
       gap: 14px;
       align-items: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     }
 
     .home-btn {
@@ -185,7 +186,7 @@
       max-height: 420px;
       overflow-y: auto;
       overflow-x: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       z-index: 1001;
       display: none;
       -webkit-overflow-scrolling: touch;
@@ -222,6 +223,7 @@
         opacity: 0;
         transform: translateY(-10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -304,7 +306,7 @@
       align-items: center;
       gap: 10px;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
       min-width: 48px;
       justify-content: center;
       font-weight: 600;
@@ -314,7 +316,7 @@
       background: rgba(30, 39, 54, 1);
       border-color: var(--accent-primary);
       transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
     }
 
     .map-btn i {
@@ -340,7 +342,7 @@
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-lg);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -364,7 +366,7 @@
       padding: 20px 24px;
       border-radius: var(--radius-xl);
       max-width: 380px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       z-index: 1000;
     }
 
@@ -424,7 +426,9 @@
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .custom-marker {
@@ -493,14 +497,14 @@
       top: 50%;
       margin: -17px 0 0 -17px;
       border: 3px solid #fff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
       will-change: transform;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .marker-pin:hover {
       transform: rotate(-45deg) scale(1.15);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
     }
 
     .marker-pin.featured {
@@ -520,9 +524,12 @@
     }
 
     @keyframes pulse {
-      0%, 100% {
+
+      0%,
+      100% {
         box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4), 0 0 0 0 rgba(66, 133, 244, 0.7);
       }
+
       50% {
         box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4), 0 0 0 10px rgba(66, 133, 244, 0);
       }
@@ -547,7 +554,7 @@
       backdrop-filter: blur(20px);
       color: var(--text-primary);
       border-radius: var(--radius-xl);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
@@ -750,14 +757,8 @@
         </a>
         <div class="search-container">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input 
-            type="text" 
-            id="map-search" 
-            class="search-input" 
-            placeholder="Search businesses..."
-            autocomplete="off"
-            aria-label="Search businesses"
-          >
+          <input type="text" id="map-search" class="search-input" placeholder="Search businesses..." autocomplete="off"
+            aria-label="Search businesses">
           <button class="clear-search" id="clear-search" title="Clear search" aria-label="Clear search">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -794,16 +795,15 @@
     </div>
   </main>
 
-  <script src="js/config.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/pwa.js"></script>
-  
+  <script defer src="js/config.js"></script>
+  <script defer src="js/data.js"></script>
+  <script defer src="js/pwa.js"></script>
+
   <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
-  
-  <script src="js/map-main.js"></script>
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script defer src="js/map-main.js"></script>
 </body>
 
 </html>

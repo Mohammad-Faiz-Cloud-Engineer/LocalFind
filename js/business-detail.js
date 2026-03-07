@@ -2,9 +2,9 @@
  * Business Detail Page - Rendering Logic
  * Handles business detail page display with proper styling and security
  */
-(function() {
+(function () {
   'use strict';
-  
+
   /**
    * Security: HTML sanitization function to prevent XSS attacks
    * @param {string} str - String to sanitize
@@ -16,7 +16,7 @@
     temp.textContent = str;
     return temp.innerHTML;
   }
-  
+
   /**
    * Convert URLs in text to clickable links (safely)
    * @param {string} text - Text containing URLs
@@ -25,14 +25,14 @@
   function linkifyText(text) {
     // First sanitize the text
     const sanitized = sanitizeHTML(text);
-    
+
     // Then convert URLs to links
     return sanitized.replace(
       /(https?:\/\/[^\s<]+)/g,
       '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline; word-break: break-all;">$1</a>'
     );
   }
-  
+
   document.addEventListener('DOMContentLoaded', () => {
     // Check if data exists
     if (!window.LISTINGS || window.LISTINGS.length === 0) {
@@ -48,11 +48,11 @@
       }
       return;
     }
-    
+
     const params = new URLSearchParams(location.search);
     const id = params.get('id');
     const biz = window.LISTINGS.find(b => b.id === id);
-    
+
     // If business not found, show error
     if (!biz) {
       const content = document.querySelector('.biz-content');
@@ -67,13 +67,13 @@
       }
       return;
     }
-    
+
     // Render basic info
     document.getElementById('biz-title').textContent = biz.name;
     document.getElementById('biz-desc').textContent = biz.description;
     document.getElementById('biz-category').textContent = biz.category;
     document.getElementById('biz-name').textContent = biz.name;
-    
+
     // Add verified badge to title if business is verified
     if (biz.verified) {
       const titleElement = document.getElementById('biz-title');
@@ -83,7 +83,7 @@
       verifiedBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
       titleElement.appendChild(verifiedBadge);
     }
-    
+
     // Generate avatar from business name (first letter of each word, max 2 letters)
     const avatarText = biz.name
       .split(' ')
@@ -92,7 +92,7 @@
       .map(word => word[0].toUpperCase())
       .join('');
     document.getElementById('biz-avatar').textContent = avatarText;
-    
+
     // Render badges
     const badgesHtml = [];
     if (biz.featured) {
@@ -102,7 +102,7 @@
       badgesHtml.push('<span class="badge badge-new">NEW</span>');
     }
     document.getElementById('biz-badges').innerHTML = badgesHtml.join('');
-    
+
     // Render rating
     const stars = '★'.repeat(Math.floor(biz.rating)) + '☆'.repeat(5 - Math.floor(biz.rating));
     document.getElementById('biz-rating').innerHTML = `
@@ -111,7 +111,7 @@
         <span class="rating-count">${biz.rating} (${biz.reviewCount} reviews)</span>
       </div>
     `;
-    
+
     // Render reviews
     const reviewsList = document.getElementById('reviews-list');
     if (biz.reviews && biz.reviews.length > 0) {
@@ -123,10 +123,10 @@
           month: 'short',
           day: 'numeric'
         });
-        
+
         // Sanitize and linkify review text
         const reviewTextSafe = linkifyText(review.text);
-        
+
         return `
           <div class="review-card ${isAdmin ? 'official' : ''}">
             ${isAdmin ? '<div class="review-badge">OFFICIAL REVIEW</div>' : ''}
@@ -151,7 +151,7 @@
     } else {
       reviewsList.innerHTML = '<div class="empty-state"><p>No reviews yet. Be the first to review!</p></div>';
     }
-    
+
     // Render contact info
     const contactHtml = `
       <h4 class="section-header">Contact Information</h4>
@@ -205,7 +205,7 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsapp.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://wa.me/${biz.whatsapp.replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsapp)}${biz.whatsappName ? ` (${sanitizeHTML(biz.whatsappName)})` : ''}</span>
           </div>
         </div>
@@ -214,7 +214,7 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsappSecondary.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://wa.me/${biz.whatsappSecondary.replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsappSecondary)}${biz.whatsappSecondaryName ? ` (${sanitizeHTML(biz.whatsappSecondaryName)})` : ''}</span>
           </div>
         </div>
@@ -223,7 +223,7 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsappThird.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://wa.me/${biz.whatsappThird.replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsappThird)}${biz.whatsappThirdName ? ` (${sanitizeHTML(biz.whatsappThirdName)})` : ''}</span>
           </div>
         </div>
@@ -232,7 +232,7 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsappFourth.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://wa.me/${biz.whatsappFourth.replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsappFourth)}${biz.whatsappFourthName ? ` (${sanitizeHTML(biz.whatsappFourthName)})` : ''}</span>
           </div>
         </div>
@@ -260,7 +260,7 @@
       </div>
     `;
     document.getElementById('biz-contact').innerHTML = contactHtml;
-    
+
     // Render hours
     const days = {
       mon: 'Monday',
@@ -271,7 +271,7 @@
       sat: 'Saturday',
       sun: 'Sunday'
     };
-    
+
     /**
      * Convert 24-hour time to 12-hour AM/PM format
      * @param {string} time - Time in HH:MM format
@@ -280,33 +280,34 @@
     function convertTo12Hour(time) {
       const [hours, minutes] = time.split(':').map(Number);
       if (hours === 0 && minutes === 0) return '12:00 AM';
-      
+
       const period = hours >= 12 ? 'PM' : 'AM';
       const hour12 = hours % 12 || 12;
       return `${hour12}:${minutes.toString().padStart(2, '0')} ${period}`;
     }
-    
+
     /**
      * Check if business is open 24/7
      * @returns {boolean} True if open 24/7
      */
     function isOpen24x7() {
+      if (!biz.hours) return false;
       return Object.keys(days).every(day => {
         const hours = biz.hours[day];
-        return (hours.open === '00:00' && hours.close === '23:59');
+        return (hours && hours.open === '00:00' && hours.close === '23:59');
       });
     }
-    
+
     const is24x7 = isOpen24x7();
-    const hoursHeader = is24x7 
-      ? '<h4 class="section-header">Opening Hours (24/7)</h4>' 
+    const hoursHeader = is24x7
+      ? '<h4 class="section-header">Opening Hours (24/7)</h4>'
       : '<h4 class="section-header">Opening Hours</h4>';
-    
-    const hoursHtml = hoursHeader + 
+
+    const hoursHtml = hoursHeader +
       Object.keys(days).map(day => {
-        const hours = biz.hours[day];
+        const hours = (biz.hours && biz.hours[day]) ? biz.hours[day] : { open: '00:00', close: '00:00' };
         const isClosed = hours.open === '00:00' && hours.close === '00:00';
-        
+
         let timeDisplay;
         if (is24x7) {
           timeDisplay = '12:00 AM - 11:59 PM (24/7)';
@@ -314,12 +315,12 @@
           timeDisplay = 'Closed';
         } else if (hours.open2 && hours.close2) {
           // Split shift - show both time slots
-          timeDisplay = convertTo12Hour(hours.open) + ' - ' + convertTo12Hour(hours.close) + 
-                       ' & ' + convertTo12Hour(hours.open2) + ' - ' + convertTo12Hour(hours.close2);
+          timeDisplay = convertTo12Hour(hours.open) + ' - ' + convertTo12Hour(hours.close) +
+            ' & ' + convertTo12Hour(hours.open2) + ' - ' + convertTo12Hour(hours.close2);
         } else {
           timeDisplay = convertTo12Hour(hours.open) + ' - ' + convertTo12Hour(hours.close);
         }
-        
+
         return `
           <div class="hours-row">
             <span class="hours-day">${days[day]}</span>
@@ -330,12 +331,12 @@
         `;
       }).join('');
     document.getElementById('biz-hours').innerHTML = hoursHtml;
-    
+
     // Render tags
     const tagsHtml = '<h4 class="section-header">Services</h4>' +
       biz.tags.map(tag => `<span class="tag">${sanitizeHTML(tag)}</span>`).join('');
     document.getElementById('biz-tags').innerHTML = tagsHtml;
-    
+
     // Render related listings
     const relatedList = document.getElementById('related-list');
     const related = window.LISTINGS.filter(b => b.categorySlug === biz.categorySlug && b.id !== biz.id).slice(0, 3);
@@ -344,7 +345,7 @@
     } else {
       relatedList.innerHTML = '<div class="empty-state"><p>No related listings available.</p></div>';
     }
-    
+
     // Share functionality
     const shareBtn = document.getElementById('share-btn');
     if (shareBtn) {
@@ -354,7 +355,7 @@
           text: `Check out ${biz.name} on LocalFind - ${biz.description.slice(0, 100)}...`,
           url: window.location.href
         };
-        
+
         try {
           // Check if Web Share API is supported
           if (navigator.share) {
@@ -362,12 +363,12 @@
           } else {
             // Fallback: Copy to clipboard
             await navigator.clipboard.writeText(window.location.href);
-            
+
             // Show success message
             const originalHTML = shareBtn.innerHTML;
             shareBtn.innerHTML = '<i class="fa-solid fa-check"></i><span>Link Copied!</span>';
             shareBtn.style.background = 'var(--accent-success)';
-            
+
             setTimeout(() => {
               shareBtn.innerHTML = originalHTML;
               shareBtn.style.background = '';
@@ -380,7 +381,7 @@
             const originalHTML = shareBtn.innerHTML;
             shareBtn.innerHTML = '<i class="fa-solid fa-check"></i><span>Link Copied!</span>';
             shareBtn.style.background = 'var(--accent-success)';
-            
+
             setTimeout(() => {
               shareBtn.innerHTML = originalHTML;
               shareBtn.style.background = '';
@@ -391,11 +392,11 @@
         }
       });
     }
-    
+
     // Initialize map
     initBusinessMap(biz);
   });
-  
+
   /**
    * Initialize OpenStreetMap for business location
    * @param {Object} business - Business object with id and name
@@ -403,14 +404,14 @@
   function initBusinessMap(business) {
     const mapContainer = document.getElementById('biz-map');
     if (!mapContainer) return;
-    
+
     // Get coordinates for this business
     const coords = getBusinessCoordinates(business.id);
     if (!coords) {
       mapContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-muted);">Map location not available</div>';
       return;
     }
-    
+
     // Initialize map
     const map = L.map('biz-map', {
       zoomControl: false,
@@ -419,13 +420,13 @@
       touchZoom: true,
       doubleClickZoom: true
     }).setView(coords, 16);
-    
+
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19
     }).addTo(map);
-    
+
     // Create custom marker icon
     const markerIcon = L.divIcon({
       className: 'custom-marker',
@@ -434,7 +435,7 @@
       iconAnchor: [15, 30],
       popupAnchor: [0, -30]
     });
-    
+
     // Create popup content with business details
     const popupContent = `
       <div style="min-width: 200px; max-width: 280px;">
@@ -446,7 +447,7 @@
         </div>
       </div>
     `;
-    
+
     // Add marker with popup
     const marker = L.marker(coords, { icon: markerIcon }).addTo(map);
     marker.bindPopup(popupContent, {
@@ -455,7 +456,7 @@
       closeOnClick: false,
       className: 'business-detail-popup'
     }).openPopup();
-    
+
     // Adjust map view to show both marker and popup on mobile
     setTimeout(() => {
       map.invalidateSize();
@@ -466,14 +467,14 @@
       }
     }, 100);
 
-    
+
     // Add click handler to open full map
     mapContainer.style.cursor = 'pointer';
     mapContainer.addEventListener('click', () => {
       window.open(business.mapLink, '_blank');
     });
   }
-  
+
   /**
    * Get coordinates for a business by ID
    * @param {string} businessId - Business ID
@@ -509,7 +510,7 @@
       'saraswati-studio-makole': [26.9228271, 81.2605057],
       'jamwant-mobile-shop': [26.922656, 81.260429]
     };
-    
+
     return coordinates[businessId] || null;
   }
 })();
