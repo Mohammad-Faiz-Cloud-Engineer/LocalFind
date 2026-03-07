@@ -620,6 +620,37 @@
       box-shadow: 0 6px 20px rgba(255, 138, 0, 0.4);
     }
 
+    /* Mobile-specific map popup optimization */
+    @media (max-width: 768px) {
+      .leaflet-popup-content {
+        margin: 12px;
+      }
+
+      .popup-title {
+        font-size: 15px;
+        margin: 0 0 6px 0;
+      }
+
+      .popup-category,
+      .popup-rating {
+        font-size: 12px;
+        margin: 0 0 6px 0;
+      }
+
+      .popup-address {
+        font-size: 12px;
+        margin: 0 0 10px 0;
+      }
+
+      .popup-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+    }
+
     /* Desktop-specific improvements */
     @media (min-width: 1024px) {
       .map-controls {
