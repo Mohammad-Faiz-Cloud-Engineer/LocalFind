@@ -23,10 +23,7 @@
    * @returns {string} Text with URLs converted to links
    */
   function linkifyText(text) {
-    // First sanitize the text
     const sanitized = sanitizeHTML(text);
-
-    // Then convert URLs to links
     return sanitized.replace(
       /(https?:\/\/[^\s<]+)/g,
       '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline; word-break: break-all;">$1</a>'
@@ -34,7 +31,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Check if data exists
     if (!window.LISTINGS || window.LISTINGS.length === 0) {
       const content = document.querySelector('.biz-content');
       if (content) {
@@ -53,7 +49,6 @@
     const id = params.get('id');
     const biz = window.LISTINGS.find(b => b.id === id);
 
-    // If business not found, show error
     if (!biz) {
       const content = document.querySelector('.biz-content');
       if (content) {
@@ -79,7 +74,6 @@
     if (categoryEl) categoryEl.textContent = biz.category;
     if (nameEl) nameEl.textContent = biz.name;
 
-    // Add verified badge to title if business is verified
     if (biz.verified) {
       const titleElement = document.getElementById('biz-title');
       if (titleElement) {
@@ -91,7 +85,6 @@
       }
     }
 
-    // Generate avatar from business name (first letter of each word, max 2 letters)
     const avatarText = biz.name
       .split(' ')
       .filter(word => word.length > 0)
@@ -101,18 +94,12 @@
     const avatarEl = document.getElementById('biz-avatar');
     if (avatarEl) avatarEl.textContent = avatarText;
 
-    // Render badges
     const badgesHtml = [];
-    if (biz.featured) {
-      badgesHtml.push('<span class="badge badge-featured">FEATURED</span>');
-    }
-    if (biz.isNew) {
-      badgesHtml.push('<span class="badge badge-new">NEW</span>');
-    }
+    if (biz.featured) badgesHtml.push('<span class="badge badge-featured">FEATURED</span>');
+    if (biz.isNew) badgesHtml.push('<span class="badge badge-new">NEW</span>');
     const badgesEl = document.getElementById('biz-badges');
     if (badgesEl) badgesEl.innerHTML = badgesHtml.join('');
 
-    // Render rating
     const stars = '★'.repeat(Math.floor(biz.rating)) + '☆'.repeat(5 - Math.floor(biz.rating));
     const ratingEl = document.getElementById('biz-rating');
     if (ratingEl) {
@@ -124,7 +111,6 @@
       `;
     }
 
-    // Render reviews
     const reviewsList = document.getElementById('reviews-list');
     if (biz.reviews && biz.reviews.length > 0) {
       reviewsList.innerHTML = biz.reviews.map(review => {
@@ -135,8 +121,6 @@
           month: 'short',
           day: 'numeric'
         });
-
-        // Sanitize and linkify review text
         const reviewTextSafe = linkifyText(review.text);
 
         return `
@@ -164,7 +148,6 @@
       reviewsList.innerHTML = '<div class="empty-state"><p>No reviews yet. Be the first to review!</p></div>';
     }
 
-    // Render contact info
     const contactHtml = `
       <h4 class="section-header">Contact Information</h4>
       <div class="contact-item">
@@ -279,7 +262,6 @@
     `;
     document.getElementById('biz-contact').innerHTML = contactHtml;
 
-    // UPI Payment Bottom Sheet
     if (biz.upiId) {
       const upiPayBtn = document.getElementById('upi-pay-btn');
       if (upiPayBtn) {
@@ -294,27 +276,76 @@
     }
 
     /**
-     * Open UPI payment bottom sheet
+     * Open UPI payment bottom sheet with app selection
      * @param {Object} business - Business data with upiId and upiName
      */
     function openUPISheet(business) {
-      // Prevent duplicate modals
       if (document.getElementById('upi-payment-sheet')) return;
 
       const safeUpiId = sanitizeHTML(business.upiId);
       const safeUpiName = sanitizeHTML(business.upiName || business.name);
-
-      // Clean UPI name to remove special characters that break PhonePe/GPay parsers
       const cleanUpiName = (business.upiName || business.name).replace(/[^a-zA-Z0-9 ]/g, '').trim();
-
-      // Do not URL-encode the '@' in UPI ID
       const cleanUpiId = business.upiId.trim();
 
-      // Build UPI URI - using standard upi://pay scheme for maximum compatibility
-      // The key fix: Use upi://pay without intent:// wrapper to ensure all UPI apps appear in chooser
-      const upiUri = `upi://pay?pa=${encodeURIComponent(cleanUpiId)}&pn=${encodeURIComponent(cleanUpiName)}&cu=INR`;
+      // Build UPI URI parameters
+      const upiParams = `pa=${encodeURIComponent(cleanUpiId)}&pn=${encodeURIComponent(cleanUpiName)}&cu=INR`;
+      
+      // Generic UPI URI (for QR code and banking apps)
+      const genericUpiUri = `upi://pay?${upiParams}`;
+      
+      // App-specific deep links based on research [^18^][^19^][^23^]
+      const upiApps = [
+        {
+          id: 'phonepe',
+          name: 'PhonePe',
+          scheme: `phonepe://upi/pay?${upiParams}`,
+          package: 'com.phonepe.app',
+          icon: 'fa-solid fa-mobile-screen'
+        },
+        {
+          id: 'gpay',
+          name: 'Google Pay',
+          scheme: `gpay://upi/pay?${upiParams}`,
+          package: 'com.google.android.apps.nbu.paisa.user',
+          icon: 'fa-brands fa-google'
+        },
+        {
+          id: 'paytm',
+          name: 'Paytm',
+          scheme: `paytm://upi/pay?${upiParams}`,
+          package: 'net.one97.paytm',
+          icon: 'fa-solid fa-wallet'
+        },
+        {
+          id: 'bhim',
+          name: 'BHIM',
+          scheme: `bhim://upi/pay?${upiParams}`,
+          package: 'in.org.npci.upiapp',
+          icon: 'fa-solid fa-building-columns'
+        },
+        {
+          id: 'amazonpay',
+          name: 'Amazon Pay',
+          scheme: `amazonpay://upi/pay?${upiParams}`,
+          package: 'in.amazon.mShop.android.shopping',
+          icon: 'fa-brands fa-amazon'
+        },
+        {
+          id: 'cred',
+          name: 'CRED',
+          scheme: `credpay://upi/pay?${upiParams}`,
+          package: 'com.dreamplug.androidapp',
+          icon: 'fa-solid fa-credit-card'
+        },
+        {
+          id: 'generic',
+          name: 'Other UPI App',
+          scheme: genericUpiUri,
+          package: null,
+          icon: 'fa-solid fa-qrcode'
+        }
+      ];
 
-      // Build the overlay + bottom sheet
       const overlay = document.createElement('div');
       overlay.id = 'upi-payment-overlay';
       overlay.className = 'upi-overlay';
@@ -333,7 +364,7 @@
               <i class="fa-solid fa-indian-rupee-sign"></i>
             </div>
             <h3>Pay ${safeUpiName}</h3>
-            <p>Scan QR code or tap button to pay</p>
+            <p>Choose your preferred UPI app</p>
           </div>
           <div class="upi-qr-container">
             <div class="upi-qr-frame" id="upi-qr-target"></div>
@@ -345,10 +376,14 @@
               <i class="fa-regular fa-copy"></i>
             </button>
           </div>
-          <a href="${upiUri}" class="upi-pay-app-btn" id="upi-app-btn" rel="noopener">
-            <i class="fa-solid fa-mobile-screen-button"></i>
-            Pay using UPI App
-          </a>
+          <div class="upi-apps-grid" id="upi-apps-grid">
+            ${upiApps.map(app => `
+              <button class="upi-app-btn" data-scheme="${app.scheme}" data-package="${app.package || ''}" aria-label="Pay with ${app.name}">
+                <i class="${app.icon}"></i>
+                <span>${app.name}</span>
+              </button>
+            `).join('')}
+          </div>
           <p class="upi-disclaimer">
             <i class="fa-solid fa-shield-halved"></i>
             Secure payment via your UPI app
@@ -358,98 +393,79 @@
 
       document.body.appendChild(overlay);
 
-      // Generate real scannable QR code (off-screen render → clean img)
+      // Generate QR code with generic UPI URI
       const qrTarget = document.getElementById('upi-qr-target');
-      if (qrTarget) {
-        if (typeof QRCode !== 'undefined') {
-          // Render QR into a hidden off-screen container
-          const offscreen = document.createElement('div');
-          offscreen.style.cssText = 'position:absolute;left:-9999px;top:-9999px;';
-          document.body.appendChild(offscreen);
+      if (qrTarget && typeof QRCode !== 'undefined') {
+        const offscreen = document.createElement('div');
+        offscreen.style.cssText = 'position:absolute;left:-9999px;top:-9999px;';
+        document.body.appendChild(offscreen);
 
-          new QRCode(offscreen, {
-            text: upiUri,
-            width: 256,
-            height: 256,
-            colorDark: '#000000',
-            colorLight: '#ffffff',
-            correctLevel: QRCode.CorrectLevel.H
-          });
+        new QRCode(offscreen, {
+          text: genericUpiUri,
+          width: 256,
+          height: 256,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.H
+        });
 
-          // Extract data URL from the generated canvas and inject clean img
-          setTimeout(() => {
-            const canvas = offscreen.querySelector('canvas');
-            if (canvas) {
-              const dataUrl = canvas.toDataURL('image/png');
-              qrTarget.innerHTML = `<img src="${dataUrl}" alt="UPI QR Code" class="upi-qr-img" />`;
+        setTimeout(() => {
+          const canvas = offscreen.querySelector('canvas');
+          if (canvas) {
+            const dataUrl = canvas.toDataURL('image/png');
+            qrTarget.innerHTML = `<img src="${dataUrl}" alt="UPI QR Code" class="upi-qr-img" />`;
+          } else {
+            const img = offscreen.querySelector('img');
+            if (img && img.src) {
+              qrTarget.innerHTML = `<img src="${img.src}" alt="UPI QR Code" class="upi-qr-img" />`;
             } else {
-              // Library might have used img fallback
-              const img = offscreen.querySelector('img');
-              if (img && img.src) {
-                qrTarget.innerHTML = `<img src="${img.src}" alt="UPI QR Code" class="upi-qr-img" />`;
-              } else {
-                qrTarget.innerHTML = '<div class="upi-qr-fallback"><i class="fa-solid fa-qrcode"></i><p>QR code unavailable</p></div>';
-              }
+              qrTarget.innerHTML = '<div class="upi-qr-fallback"><i class="fa-solid fa-qrcode"></i><p>QR code unavailable</p></div>';
             }
-            offscreen.remove();
-          }, 50);
-        } else {
-          // QRCode library not loaded - show fallback message
-          qrTarget.innerHTML = `
-            <div class="upi-qr-fallback" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center;">
-              <i class="fa-solid fa-qrcode" style="font-size: 48px; color: var(--text-muted); margin-bottom: 16px;"></i>
-              <p style="color: var(--text-muted); font-size: 14px; margin: 0;">QR code generator unavailable</p>
-              <p style="color: var(--text-muted); font-size: 12px; margin-top: 8px;">Use the "Pay using UPI App" button below</p>
-            </div>
-          `;
-        }
+          }
+          offscreen.remove();
+        }, 50);
+      } else if (qrTarget) {
+        qrTarget.innerHTML = `
+          <div class="upi-qr-fallback" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center;">
+            <i class="fa-solid fa-qrcode" style="font-size: 48px; color: var(--text-muted); margin-bottom: 16px;"></i>
+            <p style="color: var(--text-muted); font-size: 14px; margin: 0;">QR code generator unavailable</p>
+          </div>
+        `;
       }
 
-      // Prevent body scroll while sheet is open
       document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => overlay.classList.add('active'));
 
-      // Trigger entrance animation on next frame
-      requestAnimationFrame(() => {
-        overlay.classList.add('active');
-      });
-
-      // --- Event Handlers ---
-
-      // Close button
+      // Event handlers
       const closeBtn = document.getElementById('upi-close-btn');
       closeBtn.addEventListener('click', closeUPISheet);
 
-      // Backdrop click
       overlay.addEventListener('click', (e) => {
         if (e.target === overlay) closeUPISheet();
       });
 
-      // Escape key
       function handleEscape(e) {
         if (e.key === 'Escape') closeUPISheet();
       }
       document.addEventListener('keydown', handleEscape);
 
-      // Handle UPI App button click - ensures proper intent triggering
-      const upiAppBtn = document.getElementById('upi-app-btn');
-      if (upiAppBtn) {
-        upiAppBtn.addEventListener('click', (e) => {
-          // For Android Chrome, we need to ensure the intent is properly triggered
-          // Using window.location assignment ensures the system handles the upi:// scheme
-          e.preventDefault();
+      // Handle app selection
+      const appButtons = document.querySelectorAll('.upi-app-btn');
+      appButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const scheme = btn.getAttribute('data-scheme');
+          const packageName = btn.getAttribute('data-package');
           
-          const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
-          
-          if (isAndroid) {
-            // Use window.location for Android to force system chooser
-            // This bypasses Chrome's navigation blocking and ensures all apps appear
-            window.location.href = upiUri;
-          } else {
-            // For iOS and other platforms, use standard link behavior
-            window.open(upiUri, '_blank');
+          if (scheme) {
+            // Try to open the app-specific scheme
+            window.location.href = scheme;
+            
+            // For Android, if package is known, we could try intent:// but 
+            // since this is web, we rely on the app registering its scheme
+            // Fallback: if app doesn't open in 1 second, show error or try generic
           }
         });
-      }
+      });
 
       // Copy UPI ID
       const copyBtn = document.getElementById('upi-copy-btn');
@@ -463,13 +479,12 @@
             copyBtn.style.color = '';
           }, 2000);
         } catch (err) {
-          // Fallback for older browsers
           const textArea = document.createElement('textarea');
           textArea.value = business.upiId;
           textArea.style.cssText = 'position:fixed;left:-9999px;';
           document.body.appendChild(textArea);
           textArea.select();
-          try { document.execCommand('copy'); } catch (e) { /* silent */ }
+          try { document.execCommand('copy'); } catch (e) {}
           document.body.removeChild(textArea);
           copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
           copyBtn.style.color = 'var(--accent-success)';
@@ -480,9 +495,6 @@
         }
       });
 
-      /**
-       * Close and destroy the UPI sheet with exit animation
-       */
       function closeUPISheet() {
         const currentOverlay = document.getElementById('upi-payment-overlay');
         if (!currentOverlay) return;
@@ -490,9 +502,7 @@
         currentOverlay.classList.add('closing');
         document.removeEventListener('keydown', handleEscape);
         document.body.style.overflow = '';
-        setTimeout(() => {
-          currentOverlay.remove();
-        }, 350);
+        setTimeout(() => currentOverlay.remove(), 350);
       }
     }
 
@@ -507,24 +517,14 @@
       sun: 'Sunday'
     };
 
-    /**
-     * Convert 24-hour time to 12-hour AM/PM format
-     * @param {string} time - Time in HH:MM format
-     * @returns {string} Time in 12-hour format with AM/PM
-     */
     function convertTo12Hour(time) {
       const [hours, minutes] = time.split(':').map(Number);
       if (hours === 0 && minutes === 0) return '12:00 AM';
-
       const period = hours >= 12 ? 'PM' : 'AM';
       const hour12 = hours % 12 || 12;
       return `${hour12}:${minutes.toString().padStart(2, '0')} ${period}`;
     }
 
-    /**
-     * Check if business is open 24/7
-     * @returns {boolean} True if open 24/7
-     */
     function isOpen24x7() {
       if (!biz.hours) return false;
       return Object.keys(days).every(day => {
@@ -549,7 +549,6 @@
         } else if (isClosed) {
           timeDisplay = 'Closed';
         } else if (hours.open2 && hours.close2) {
-          // Split shift - show both time slots
           timeDisplay = convertTo12Hour(hours.open) + ' - ' + convertTo12Hour(hours.close) +
             ' & ' + convertTo12Hour(hours.open2) + ' - ' + convertTo12Hour(hours.close2);
         } else {
@@ -567,12 +566,10 @@
       }).join('');
     document.getElementById('biz-hours').innerHTML = hoursHtml;
 
-    // Render tags
     const tagsHtml = '<h4 class="section-header">Services</h4>' +
       (Array.isArray(biz.tags) ? biz.tags.map(tag => `<span class="tag">${sanitizeHTML(tag)}</span>`).join('') : '<p class="empty-state">No services listed.</p>');
     document.getElementById('biz-tags').innerHTML = tagsHtml;
 
-    // Render related listings
     const relatedList = document.getElementById('related-list');
     const related = window.LISTINGS.filter(b => b.categorySlug === biz.categorySlug && b.id !== biz.id).slice(0, 3);
     if (related.length > 0) {
@@ -581,7 +578,6 @@
       relatedList.innerHTML = '<div class="empty-state"><p>No related listings available.</p></div>';
     }
 
-    // Share functionality
     const shareBtn = document.getElementById('share-btn');
     if (shareBtn) {
       shareBtn.addEventListener('click', async () => {
@@ -592,62 +588,46 @@
         };
 
         try {
-          // Check if Web Share API is supported
           if (navigator.share) {
             await navigator.share(shareData);
           } else {
-            // Fallback: Copy to clipboard
             await navigator.clipboard.writeText(window.location.href);
-
-            // Show success message
             const originalHTML = shareBtn.innerHTML;
             shareBtn.innerHTML = '<i class="fa-solid fa-check"></i><span>Link Copied!</span>';
             shareBtn.style.background = 'var(--accent-success)';
-
             setTimeout(() => {
               shareBtn.innerHTML = originalHTML;
               shareBtn.style.background = '';
             }, 2000);
           }
         } catch (error) {
-          // If share fails, try clipboard as fallback
           try {
             await navigator.clipboard.writeText(window.location.href);
             const originalHTML = shareBtn.innerHTML;
             shareBtn.innerHTML = '<i class="fa-solid fa-check"></i><span>Link Copied!</span>';
             shareBtn.style.background = 'var(--accent-success)';
-
             setTimeout(() => {
               shareBtn.innerHTML = originalHTML;
               shareBtn.style.background = '';
             }, 2000);
-          } catch (clipboardError) {
-            // Silent fail - user will see no feedback
-          }
+          } catch (clipboardError) {}
         }
       });
     }
 
-    // Initialize map
     initBusinessMap(biz);
   });
 
-  /**
-   * Initialize OpenStreetMap for business location
-   * @param {Object} business - Business object with id and name
-   */
   function initBusinessMap(business) {
     const mapContainer = document.getElementById('biz-map');
     if (!mapContainer) return;
 
-    // Get coordinates for this business
     const coords = getBusinessCoordinates(business.id);
     if (!coords) {
       mapContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-muted);">Map location not available</div>';
       return;
     }
 
-    // Initialize map
     const map = L.map('biz-map', {
       zoomControl: false,
       scrollWheelZoom: false,
@@ -656,13 +636,11 @@
       doubleClickZoom: true
     }).setView(coords, 16);
 
-    // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19
     }).addTo(map);
 
-    // Create custom marker icon
     const markerIcon = L.divIcon({
       className: 'custom-marker',
       html: `<div class="marker-pin ${business.featured ? 'featured' : 'regular'}"></div>`,
@@ -671,7 +649,6 @@
       popupAnchor: [0, -30]
     });
 
-    // Create popup content with business details
     const popupContent = `
       <div style="min-width: 200px; max-width: 280px;">
         <div style="font-weight: 700; font-size: 16px; color: var(--text-primary); margin-bottom: 8px;">
@@ -683,7 +660,6 @@
       </div>
     `;
 
-    // Add marker with popup
     const marker = L.marker(coords, { icon: markerIcon }).addTo(map);
     marker.bindPopup(popupContent, {
       closeButton: false,
@@ -692,29 +668,18 @@
       className: 'business-detail-popup'
     }).openPopup();
 
-    // Adjust map view to show both marker and popup on mobile
     setTimeout(() => {
       map.invalidateSize();
-      // Pan slightly up to ensure popup is visible
       const isMobile = window.innerWidth <= 768;
-      if (isMobile) {
-        map.panBy([0, -30]);
-      }
+      if (isMobile) map.panBy([0, -30]);
     }, 100);
 
-
-    // Add click handler to open full map
     mapContainer.style.cursor = 'pointer';
     mapContainer.addEventListener('click', () => {
       window.open(business.mapLink, '_blank');
     });
   }
 
-  /**
-   * Get coordinates for a business by ID
-   * @param {string} businessId - Business ID
-   * @returns {Array|null} [latitude, longitude] or null if not found
-   */
   function getBusinessCoordinates(businessId) {
     const coordinates = {
       'raheem-common-service-center': [26.9238021, 81.2612707],
