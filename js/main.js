@@ -256,8 +256,75 @@ function initNavbar(){
     });
   }
 }
+/**
+ * Initialize scroll-reveal animations using IntersectionObserver.
+ * Auto-adds .reveal class to key elements and triggers on scroll.
+ */
+function initScrollReveal() {
+  // Respect prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const revealSelectors = [
+    'section',
+    '.card',
+    '.stat-card',
+    '.cat-card',
+    '.category-card',
+    '.value-card',
+    '.mission-card',
+    '.founder-section',
+    '.cta-banner',
+    '.cta-section',
+    '.review-card',
+    '.stat-card-about',
+    '.contact-card',
+    '.hours-card',
+    '.tags-card'
+  ];
+
+  const staggerContainers = [
+    '.category-grid',
+    '.cards-grid',
+    '.stats-grid',
+    '.stats-grid-about',
+    '.values-grid'
+  ];
+
+  // Mark stagger containers
+  staggerContainers.forEach(selector => {
+    document.querySelectorAll(selector).forEach(container => {
+      container.classList.add('reveal-stagger');
+    });
+  });
+
+  // Gather all revealable elements
+  const elements = document.querySelectorAll(revealSelectors.join(', '));
+  elements.forEach(el => {
+    if (!el.classList.contains('reveal')) {
+      el.classList.add('reveal');
+    }
+  });
+
+  // Create observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
 
 /**
  * Initialize application on DOM ready
  */
-document.addEventListener('DOMContentLoaded', initNavbar);
+document.addEventListener('DOMContentLoaded', () => {
+  initNavbar();
+  initScrollReveal();
+});

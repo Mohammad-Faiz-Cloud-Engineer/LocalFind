@@ -375,7 +375,7 @@ section h2::after {
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 159, 67, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 138, 0, 0.08) 0%, transparent 70%);
   animation: pulse 8s ease-in-out infinite;
 }
 
@@ -696,6 +696,74 @@ section h2::after {
     font-size: 10px;
     letter-spacing: 0.8px;
   }
+}
+
+/* ============================================
+   SCROLL REVEAL ANIMATIONS
+   ============================================ */
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children delays */
+.reveal-stagger>.reveal:nth-child(1) {
+  transition-delay: 0.05s;
+}
+
+.reveal-stagger>.reveal:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.reveal-stagger>.reveal:nth-child(3) {
+  transition-delay: 0.15s;
+}
+
+.reveal-stagger>.reveal:nth-child(4) {
+  transition-delay: 0.2s;
+}
+
+.reveal-stagger>.reveal:nth-child(5) {
+  transition-delay: 0.25s;
+}
+
+.reveal-stagger>.reveal:nth-child(6) {
+  transition-delay: 0.3s;
+}
+
+/* Page-load fade-in */
+@keyframes pageIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+body {
+  animation: pageIn 0.4s ease-out;
 }
 
 /* ============================================

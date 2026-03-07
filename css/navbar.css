@@ -91,7 +91,7 @@
 
 .nav-links a.active {
   color: var(--text-primary);
-  background: rgba(255, 159, 67, 0.1);
+  background: rgba(255, 138, 0, 0.1);
 }
 
 .nav-links a.active::after {
@@ -144,7 +144,7 @@
   font-size: 14px;
   text-decoration: none;
   transition: all var(--transition-base);
-  box-shadow: 0 4px 12px rgba(255, 159, 67, 0.2);
+  box-shadow: 0 4px 12px rgba(255, 138, 0, 0.2);
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -165,7 +165,7 @@
 
 .cta-list:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 159, 67, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 138, 0, 0.3);
   color: #0A0E17;
 }
 
@@ -206,11 +206,14 @@
   width: 100%;
   max-width: 400px;
   height: 100vh;
-  background: var(--bg-surface);
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   z-index: var(--z-modal);
   transition: right var(--transition-slow);
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.3);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5);
   overflow-y: auto;
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .mobile-menu.open {
@@ -270,7 +273,7 @@
 
 .mobile-links a.active {
   color: var(--text-primary);
-  background: rgba(255, 159, 67, 0.1);
+  background: rgba(255, 138, 0, 0.1);
   border-color: var(--accent-primary);
 }
 
@@ -419,8 +422,10 @@
   width: 100%;
   padding: 16px 20px 16px 52px;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-color);
-  background: var(--bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(30, 39, 54, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--text-primary);
   font-size: 16px;
   font-family: var(--font-sans);
@@ -430,7 +435,7 @@
 .search-input-wrapper input:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.12), 0 0 16px rgba(255, 138, 0, 0.06);
   background: var(--bg-card);
 }
 
@@ -477,7 +482,7 @@
 }
 
 .search-tag:hover {
-  background: rgba(255, 159, 67, 0.1);
+  background: rgba(255, 138, 0, 0.1);
   border-color: var(--accent-primary);
   color: var(--accent-primary);
   transform: translateY(-2px);

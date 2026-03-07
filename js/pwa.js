@@ -290,20 +290,20 @@
         font-weight: 700;
         font-size: 14px;
         cursor: pointer;
-        box-shadow: 0 4px 16px rgba(255, 159, 67, 0.3);
+        box-shadow: 0 4px 16px rgba(255, 138, 0, 0.3);
         transition: all 0.3s;
         animation: pulse 2s infinite;
       }
       .pwa-install-button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 24px rgba(255, 159, 67, 0.4);
+        box-shadow: 0 6px 24px rgba(255, 138, 0, 0.4);
       }
       @keyframes pulse {
         0%, 100% {
-          box-shadow: 0 4px 16px rgba(255, 159, 67, 0.3);
+          box-shadow: 0 4px 16px rgba(255, 138, 0, 0.3);
         }
         50% {
-          box-shadow: 0 4px 24px rgba(255, 159, 67, 0.5);
+          box-shadow: 0 4px 24px rgba(255, 138, 0, 0.5);
         }
       }
       @media (max-width: 640px) {

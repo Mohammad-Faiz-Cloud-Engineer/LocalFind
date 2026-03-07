@@ -704,14 +704,14 @@
   font-weight: 700;
   cursor: pointer;
   transition: all var(--transition-fast);
-  box-shadow: 0 2px 8px rgba(255, 159, 67, 0.3);
+  box-shadow: 0 2px 8px rgba(255, 138, 0, 0.3);
   font-family: var(--font-sans);
   z-index: 10;
 }
 
 .btn-share:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 159, 67, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 138, 0, 0.4);
 }
 
 .btn-share:active {
@@ -767,7 +767,7 @@
 
 .marker-pin.featured {
   background: var(--accent-primary);
-  box-shadow: 0 2px 12px rgba(255, 159, 67, 0.5);
+  box-shadow: 0 2px 12px rgba(255, 138, 0, 0.4);
 }
 
 .marker-pin.regular {
