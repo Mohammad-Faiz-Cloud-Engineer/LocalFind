@@ -3,11 +3,13 @@
    ============================================ */
 
 form {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: rgba(30, 39, 54, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: var(--space-xl);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 label {
@@ -43,7 +45,7 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.15), 0 0 20px rgba(255, 138, 0, 0.08);
   background: var(--bg-card);
 }
 
@@ -73,7 +75,7 @@ select {
   gap: var(--space-md);
 }
 
-.input-group > * {
+.input-group>* {
   flex: 1;
 }
 
@@ -129,9 +131,9 @@ input[type="radio"] {
 
 /* Success Message */
 .success {
-  background: linear-gradient(135deg, 
-    rgba(38, 222, 129, 0.1) 0%, 
-    rgba(38, 222, 129, 0.05) 100%);
+  background: linear-gradient(135deg,
+      rgba(38, 222, 129, 0.1) 0%,
+      rgba(38, 222, 129, 0.05) 100%);
   border: 1px solid rgba(38, 222, 129, 0.3);
   border-radius: var(--radius-xl);
   padding: var(--space-2xl);
@@ -175,12 +177,12 @@ select.error:focus {
     padding: var(--space-md);
     border-radius: var(--radius-lg);
   }
-  
+
   label {
     margin-bottom: var(--space-md);
     font-size: 13px;
   }
-  
+
   input,
   textarea,
   select {
@@ -188,53 +190,53 @@ select.error:focus {
     font-size: 14px;
     border-radius: var(--radius-md);
   }
-  
+
   textarea {
     min-height: 120px;
   }
-  
+
   select {
     background-position: right 14px center;
     padding-right: 36px;
   }
-  
+
   .step h3 {
     font-size: 20px;
     margin-bottom: var(--space-md);
     padding-bottom: var(--space-sm);
   }
-  
+
   .step-controls {
     flex-direction: column-reverse;
     gap: var(--space-sm);
     margin-top: var(--space-md);
     padding-top: var(--space-md);
   }
-  
+
   .step-controls .btn {
     width: 100%;
   }
-  
+
   .input-group {
     flex-direction: column;
     gap: var(--space-md);
   }
-  
+
   .char-count {
     font-size: 12px;
     margin-top: 6px;
   }
-  
+
   .success {
     padding: var(--space-lg);
     border-radius: var(--radius-lg);
   }
-  
+
   .success h3 {
     font-size: 20px;
     margin-bottom: var(--space-sm);
   }
-  
+
   .success p {
     font-size: 14px;
   }
@@ -244,41 +246,41 @@ select.error:focus {
   form {
     padding: var(--space-sm) var(--space-md);
   }
-  
+
   label {
     margin-bottom: var(--space-sm);
     font-size: 12px;
   }
-  
+
   input,
   textarea,
   select {
     padding: 11px 12px;
     font-size: 13px;
   }
-  
+
   textarea {
     min-height: 100px;
   }
-  
+
   .step h3 {
     font-size: 18px;
     margin-bottom: var(--space-sm);
   }
-  
+
   .step-controls {
     margin-top: var(--space-sm);
     padding-top: var(--space-sm);
   }
-  
+
   .success {
     padding: var(--space-md);
   }
-  
+
   .success h3 {
     font-size: 18px;
   }
-  
+
   .success p {
     font-size: 13px;
   }

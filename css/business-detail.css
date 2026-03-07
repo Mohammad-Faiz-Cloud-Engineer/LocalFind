@@ -22,7 +22,7 @@
   left: 0;
   width: 100%;
   height: 200px;
-  background: linear-gradient(135deg, rgba(255, 159, 67, 0.1) 0%, rgba(84, 214, 200, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(255, 138, 0, 0.1) 0%, rgba(229, 46, 113, 0.05) 100%);
   border-radius: var(--radius-xl);
   z-index: 0;
 }
@@ -69,12 +69,15 @@
 }
 
 .main-col article {
-  background: var(--bg-card);
+  background: rgba(30, 39, 54, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: var(--space-xl);
   border-radius: var(--radius-xl);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   line-height: 1.8;
   color: var(--text-secondary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar {
@@ -87,10 +90,13 @@
 .hours-card,
 .tags-card,
 .small-map {
-  background: var(--bg-card);
+  background: rgba(30, 39, 54, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: var(--space-lg);
   border-radius: var(--radius-xl);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .contact-card p,
@@ -134,10 +140,13 @@
 }
 
 #reviews {
-  background: var(--bg-card);
+  background: rgba(30, 39, 54, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: var(--space-xl);
   border-radius: var(--radius-xl);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 #reviews h3 {
@@ -178,22 +187,22 @@
     padding: var(--space-md) 0;
     font-size: 12px;
   }
-  
+
   .biz-hero {
     padding: var(--space-lg) 0;
     margin-bottom: var(--space-lg);
   }
-  
+
   .biz-hero .cover {
     height: 120px;
   }
-  
+
   .biz-content {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
     margin-bottom: var(--space-2xl);
   }
-  
+
   .biz-meta {
     flex-direction: column;
     align-items: center;
@@ -201,7 +210,7 @@
     padding-top: var(--space-md);
     gap: var(--space-md);
   }
-  
+
   .biz-meta .avatar {
     width: 80px;
     height: 80px;
@@ -209,54 +218,54 @@
     border: 3px solid var(--bg-primary);
     border-radius: var(--radius-lg);
   }
-  
+
   .meta-text h1 {
     font-size: clamp(1.5rem, 5vw, 2rem);
     margin-bottom: var(--space-xs);
   }
-  
+
   .main-col {
     gap: var(--space-md);
   }
-  
+
   .main-col article {
     padding: var(--space-md);
     font-size: 14px;
     line-height: 1.7;
   }
-  
+
   .sidebar {
     gap: var(--space-md);
   }
-  
+
   .contact-card,
   .hours-card,
   .tags-card,
   .small-map {
     padding: var(--space-md);
   }
-  
+
   .small-map {
     min-height: 200px;
   }
-  
+
   .small-map iframe {
     height: 200px;
   }
-  
+
   #reviews {
     padding: var(--space-md);
   }
-  
+
   #reviews h3 {
     font-size: 18px;
     margin-bottom: var(--space-md);
   }
-  
+
   .related-section {
     margin-top: var(--space-2xl);
   }
-  
+
   .related-section h3 {
     font-size: 18px;
     margin-bottom: var(--space-md);
@@ -268,50 +277,50 @@
     font-size: 11px;
     padding: var(--space-sm) 0;
   }
-  
+
   .biz-hero {
     padding: var(--space-md) 0;
     margin-bottom: var(--space-md);
   }
-  
+
   .biz-hero .cover {
     height: 100px;
     border-radius: var(--radius-lg);
   }
-  
+
   .biz-meta {
     padding-top: var(--space-sm);
     gap: var(--space-sm);
   }
-  
+
   .biz-meta .avatar {
     width: 70px;
     height: 70px;
     font-size: 28px;
     border-radius: var(--radius-md);
   }
-  
+
   .meta-text h1 {
     font-size: 1.5rem;
     line-height: 1.2;
   }
-  
+
   .biz-content {
     gap: var(--space-md);
   }
-  
+
   .main-col article {
     padding: var(--space-sm) var(--space-md);
     font-size: 13px;
   }
-  
+
   .contact-card,
   .hours-card,
   .tags-card,
   .small-map {
     padding: var(--space-sm) var(--space-md);
   }
-  
+
   #reviews {
     padding: var(--space-sm) var(--space-md);
   }
@@ -335,10 +344,13 @@
 }
 
 @keyframes verifiedPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     filter: drop-shadow(0 0 12px rgba(75, 123, 236, 0.5));
   }
+
   50% {
     transform: scale(1.08);
     filter: drop-shadow(0 0 18px rgba(75, 123, 236, 0.7));
@@ -454,11 +466,11 @@
     font-size: 13px;
     padding: 8px 0;
   }
-  
+
   .hours-day {
     min-width: 80px;
   }
-  
+
   .hours-time {
     font-size: 11px;
   }
@@ -470,11 +482,11 @@
     gap: 4px;
     padding: 10px 0;
   }
-  
+
   .hours-day {
     min-width: auto;
   }
-  
+
   .hours-time {
     text-align: left;
     font-size: 12px;
@@ -494,19 +506,27 @@
 
 /* Review Card Styling */
 .review-card {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-color);
+  background: rgba(26, 35, 50, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-lg);
   padding: var(--space-md);
   margin-bottom: var(--space-md);
   position: relative;
+  transition: all var(--transition-base);
+}
+
+.review-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .review-card.official {
-  background: linear-gradient(135deg, 
-    rgba(255, 159, 67, 0.08) 0%, 
-    rgba(84, 214, 200, 0.04) 100%);
-  border-color: rgba(255, 159, 67, 0.3);
+  background: linear-gradient(135deg,
+      rgba(255, 138, 0, 0.08) 0%,
+      rgba(229, 46, 113, 0.04) 100%);
+  border-color: rgba(255, 138, 0, 0.2);
 }
 
 .review-badge {
@@ -710,7 +730,7 @@
     padding: 8px 14px;
     font-size: 13px;
   }
-  
+
   .btn-share i {
     font-size: 14px;
   }
@@ -766,9 +786,12 @@
 }
 
 @keyframes bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: rotate(-45deg) translateY(0);
   }
+
   50% {
     transform: rotate(-45deg) translateY(-10px);
   }
@@ -812,15 +835,15 @@
   .small-map {
     min-height: 240px;
   }
-  
+
   .small-map .leaflet-container {
     height: 240px;
   }
-  
+
   .business-detail-popup .leaflet-popup-content-wrapper {
     max-width: 240px;
   }
-  
+
   .business-detail-popup .leaflet-popup-content {
     margin: 10px;
     font-size: 13px;
@@ -831,15 +854,15 @@
   .small-map {
     min-height: 260px;
   }
-  
+
   .small-map .leaflet-container {
     height: 260px;
   }
-  
+
   .business-detail-popup .leaflet-popup-content-wrapper {
     max-width: 220px;
   }
-  
+
   .business-detail-popup .leaflet-popup-content {
     margin: 8px;
     font-size: 12px;
@@ -854,11 +877,11 @@
     font-size: 12px;
     border-radius: var(--radius-md);
   }
-  
+
   .btn-share span {
     display: inline;
   }
-  
+
   .btn-share i {
     font-size: 14px;
   }

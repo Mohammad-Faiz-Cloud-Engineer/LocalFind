@@ -1,9 +1,11 @@
 /* Footer Styles */
 footer {
-  background: linear-gradient(180deg, var(--bg-elevated), var(--bg-surface));
+  background: linear-gradient(180deg, rgba(19, 24, 36, 0.6), rgba(10, 14, 23, 0.95));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 48px 20px 24px;
   margin-top: 60px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 #site-footer {
@@ -17,7 +19,7 @@ footer {
   margin-bottom: 32px;
 }
 
-.footer-grid > div h4 {
+.footer-grid>div h4 {
   color: var(--text-primary);
   font-size: 16px;
   font-weight: 600;
@@ -98,20 +100,23 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   color: var(--text-muted);
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all var(--transition-base);
   font-size: 16px;
 }
 
 .socials a:hover {
   background: var(--accent-primary);
+  border-color: var(--accent-primary);
   color: var(--bg-primary);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgba(255, 138, 0, 0.3);
 }
 
 /* Footer Bottom */
@@ -156,18 +161,18 @@ footer {
   footer {
     padding: 32px 16px 20px;
   }
-  
+
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 28px;
   }
-  
+
   .footer-bottom {
     flex-direction: column;
     text-align: center;
     gap: 12px;
   }
-  
+
   .socials {
     justify-content: flex-start;
   }

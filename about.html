@@ -33,7 +33,7 @@
     .about-hero {
       padding: 80px 0 60px;
       text-align: center;
-      background: radial-gradient(ellipse at top, rgba(255, 159, 67, 0.05) 0%, transparent 50%);
+      background: transparent;
     }
     
     .about-hero h1 {
@@ -83,14 +83,17 @@
     }
     
     .mission-card {
-      background: linear-gradient(135deg, rgba(255, 159, 67, 0.08) 0%, rgba(84, 214, 200, 0.04) 100%);
-      border: 1px solid var(--border-color);
+      background: linear-gradient(135deg, rgba(255, 138, 0, 0.08) 0%, rgba(229, 46, 113, 0.04) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-xl);
       padding: 48px;
       margin: 60px 0;
       text-align: center;
       width: 100%;
       box-sizing: border-box;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     }
     
     .mission-card blockquote {
@@ -117,8 +120,10 @@
     }
     
     .founder-section {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
+      background: rgba(30, 39, 54, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-xl);
       padding: 48px;
       margin: 60px 0;
@@ -127,6 +132,7 @@
       align-items: center;
       width: 100%;
       box-sizing: border-box;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     }
     
     .founder-avatar {
@@ -182,19 +188,22 @@
     }
     
     .stat-card-about {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
+      background: rgba(30, 39, 54, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-xl);
       padding: 32px 24px;
       text-align: center;
-      transition: all var(--transition-base);
+      transition: all calc(var(--transition-base) * 1.5) cubic-bezier(0.16, 1, 0.3, 1);
       min-width: 0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     }
     
     .stat-card-about:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent-primary);
-      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(255, 138, 0, 0.3);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 138, 0, 0.08);
     }
     
     .stat-card-about .num {
@@ -227,18 +236,21 @@
     }
     
     .value-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
+      background: rgba(30, 39, 54, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-xl);
       padding: 32px;
-      transition: all var(--transition-base);
+      transition: all calc(var(--transition-base) * 1.5) cubic-bezier(0.16, 1, 0.3, 1);
       min-width: 0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     }
     
     .value-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent-primary);
-      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(255, 138, 0, 0.3);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 138, 0, 0.08);
     }
     
     .value-card .icon {
@@ -274,14 +286,17 @@
     }
     
     .cta-section {
-      background: linear-gradient(135deg, rgba(255, 159, 67, 0.08) 0%, rgba(84, 214, 200, 0.04) 100%);
-      border: 1px solid var(--border-color);
+      background: linear-gradient(135deg, rgba(255, 138, 0, 0.08) 0%, rgba(229, 46, 113, 0.04) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-2xl);
       padding: 60px 48px;
       text-align: center;
       margin: 60px 0;
       width: 100%;
       box-sizing: border-box;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     }
     
     .cta-section h2 {

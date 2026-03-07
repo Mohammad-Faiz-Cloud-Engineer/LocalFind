@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-3xl) 0;
-  background: radial-gradient(ellipse at top, rgba(255, 159, 67, 0.05) 0%, transparent 50%);
+  background: transparent;
   overflow: hidden;
 }
 
@@ -34,15 +34,16 @@
 }
 
 .hero-text h1 {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: var(--space-lg);
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, var(--accent-primary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .hero-text p {
@@ -66,8 +67,10 @@
 
 .search-bar input,
 .search-bar select {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: rgba(30, 39, 54, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 14px 18px;
   border-radius: var(--radius-lg);
   color: var(--text-primary);
@@ -76,6 +79,7 @@
   min-width: 200px;
   transition: all var(--transition-fast);
   font-family: var(--font-sans);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Custom Select Dropdown Styling */
@@ -137,15 +141,17 @@
 }
 
 .hero-stats .stat {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: var(--space-md) var(--space-lg);
   border-radius: var(--radius-full);
   font-size: 14px;
   font-weight: 600;
   color: var(--text-muted);
   transition: all var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .hero-stats .stat:hover {
@@ -257,12 +263,12 @@
   .hero-inner {
     padding: var(--space-lg);
   }
-  
+
   .hero-text h1 {
     font-size: clamp(2rem, 6vw, 3rem);
     margin-bottom: var(--space-md);
   }
-  
+
   .hero-text p {
     font-size: clamp(1rem, 2.5vw, 1.2rem);
     margin-bottom: var(--space-lg);
@@ -283,26 +289,26 @@
     font-size: 14px;
     min-height: 48px;
   }
-  
+
   .search-bar select {
     padding-right: 40px;
     background-position: right 12px center;
   }
-  
+
   .search-bar button {
     padding: 12px 20px;
   }
-  
+
   .hero-stats {
     gap: var(--space-sm);
     margin-top: var(--space-lg);
   }
-  
+
   .hero-stats .stat {
     padding: 10px 16px;
     font-size: 13px;
   }
-  
+
   .hero-stats .stat strong {
     font-size: 15px;
   }
@@ -321,11 +327,11 @@
     width: 44px;
     height: 44px;
   }
-  
+
   .category-card span {
     font-size: 14px;
   }
-  
+
   .categories-section {
     padding: var(--space-2xl) 0;
   }
@@ -336,26 +342,26 @@
     min-height: 450px;
     padding: var(--space-xl) 0;
   }
-  
+
   .hero-inner {
     padding: var(--space-md);
   }
-  
+
   .hero-text h1 {
     font-size: 1.85rem;
     margin-bottom: 12px;
   }
-  
+
   .hero-text p {
     font-size: 0.95rem;
     margin-bottom: var(--space-md);
   }
-  
+
   .search-bar {
     gap: 10px;
     margin-top: var(--space-md);
   }
-  
+
   .search-bar input,
   .search-bar select,
   .search-bar button {
@@ -364,14 +370,14 @@
     min-height: 44px;
     border-radius: var(--radius-md);
   }
-  
+
   .hero-stats {
     flex-direction: column;
     align-items: center;
     gap: 8px;
     margin-top: var(--space-md);
   }
-  
+
   .hero-stats .stat {
     padding: 8px 14px;
     font-size: 12px;
@@ -379,30 +385,30 @@
     max-width: 280px;
     text-align: center;
   }
-  
+
   .hero-stats .stat strong {
     font-size: 14px;
   }
-  
+
   .category-grid {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  
+
   .category-card {
     padding: 12px;
   }
-  
+
   .category-card i {
     font-size: 26px;
     width: 40px;
     height: 40px;
   }
-  
+
   .category-card span {
     font-size: 13px;
   }
-  
+
   .categories-section {
     padding: var(--space-xl) 0;
   }

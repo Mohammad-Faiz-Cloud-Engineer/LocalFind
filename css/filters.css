@@ -6,9 +6,11 @@
   margin: var(--space-xl) 0;
   padding: var(--space-lg);
   border-radius: var(--radius-xl);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
+  background: rgba(30, 39, 54, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .filters-row {
@@ -149,9 +151,10 @@
 }
 
 .view-toggle.active {
-  background: rgba(255, 159, 67, 0.1);
+  background: rgba(255, 138, 0, 0.12);
   border-color: var(--accent-primary);
   color: var(--accent-primary);
+  box-shadow: 0 0 12px rgba(255, 138, 0, 0.15);
 }
 
 .view-toggle i {
@@ -177,42 +180,42 @@
   .filters {
     padding: var(--space-md);
   }
-  
+
   .filters-row {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .search-inline {
     width: 100%;
     min-width: auto;
   }
-  
+
   .search-inline input {
     padding: 11px 14px;
     font-size: 13px;
   }
-  
+
   .sort-controls {
     width: 100%;
     justify-content: space-between;
   }
-  
+
   .sort-controls select {
     flex: 1;
     padding: 9px 34px 9px 13px;
     font-size: 13px;
   }
-  
+
   .view-toggle {
     width: 38px;
     height: 38px;
   }
-  
+
   .view-toggle i {
     font-size: 15px;
   }
-  
+
   .results-count {
     margin-top: 12px;
     font-size: 13px;
@@ -224,26 +227,26 @@
     padding: 12px;
     border-radius: var(--radius-lg);
   }
-  
+
   .search-inline input {
     padding: 10px 12px;
     font-size: 12px;
   }
-  
+
   .sort-controls select {
     padding: 8px 32px 8px 12px;
     font-size: 12px;
   }
-  
+
   .view-toggle {
     width: 36px;
     height: 36px;
   }
-  
+
   .view-toggle i {
     font-size: 14px;
   }
-  
+
   .results-count {
     margin-top: 10px;
     font-size: 12px;

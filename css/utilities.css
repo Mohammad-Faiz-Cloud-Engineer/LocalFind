@@ -27,26 +27,77 @@
    SPACING UTILITIES
    ============================================ */
 
-.mt-xs { margin-top: var(--space-xs); }
-.mt-sm { margin-top: var(--space-sm); }
-.mt-md { margin-top: var(--space-md); }
-.mt-lg { margin-top: var(--space-lg); }
-.mt-xl { margin-top: var(--space-xl); }
-.mt-2xl { margin-top: var(--space-2xl); }
+.mt-xs {
+  margin-top: var(--space-xs);
+}
 
-.mb-xs { margin-bottom: var(--space-xs); }
-.mb-sm { margin-bottom: var(--space-sm); }
-.mb-md { margin-bottom: var(--space-md); }
-.mb-lg { margin-bottom: var(--space-lg); }
-.mb-xl { margin-bottom: var(--space-xl); }
-.mb-2xl { margin-bottom: var(--space-2xl); }
+.mt-sm {
+  margin-top: var(--space-sm);
+}
 
-.p-xs { padding: var(--space-xs); }
-.p-sm { padding: var(--space-sm); }
-.p-md { padding: var(--space-md); }
-.p-lg { padding: var(--space-lg); }
-.p-xl { padding: var(--space-xl); }
-.p-2xl { padding: var(--space-2xl); }
+.mt-md {
+  margin-top: var(--space-md);
+}
+
+.mt-lg {
+  margin-top: var(--space-lg);
+}
+
+.mt-xl {
+  margin-top: var(--space-xl);
+}
+
+.mt-2xl {
+  margin-top: var(--space-2xl);
+}
+
+.mb-xs {
+  margin-bottom: var(--space-xs);
+}
+
+.mb-sm {
+  margin-bottom: var(--space-sm);
+}
+
+.mb-md {
+  margin-bottom: var(--space-md);
+}
+
+.mb-lg {
+  margin-bottom: var(--space-lg);
+}
+
+.mb-xl {
+  margin-bottom: var(--space-xl);
+}
+
+.mb-2xl {
+  margin-bottom: var(--space-2xl);
+}
+
+.p-xs {
+  padding: var(--space-xs);
+}
+
+.p-sm {
+  padding: var(--space-sm);
+}
+
+.p-md {
+  padding: var(--space-md);
+}
+
+.p-lg {
+  padding: var(--space-lg);
+}
+
+.p-xl {
+  padding: var(--space-xl);
+}
+
+.p-2xl {
+  padding: var(--space-2xl);
+}
 
 /* ============================================
    DISPLAY UTILITIES
@@ -80,10 +131,21 @@
   justify-content: space-between;
 }
 
-.gap-xs { gap: var(--space-xs); }
-.gap-sm { gap: var(--space-sm); }
-.gap-md { gap: var(--space-md); }
-.gap-lg { gap: var(--space-lg); }
+.gap-xs {
+  gap: var(--space-xs);
+}
+
+.gap-sm {
+  gap: var(--space-sm);
+}
+
+.gap-md {
+  gap: var(--space-md);
+}
+
+.gap-lg {
+  gap: var(--space-lg);
+}
 
 /* ============================================
    EMPTY STATE
@@ -241,15 +303,16 @@
   border-radius: var(--radius-full);
   font-size: 13px;
   font-weight: 600;
-  border: 1px solid rgba(255, 159, 67, 0.3);
+  border: 1px solid rgba(255, 138, 0, 0.25);
   white-space: nowrap;
   transition: all var(--transition-fast);
 }
 
 .benefits span:hover {
-  background: rgba(255, 159, 67, 0.1);
+  background: rgba(255, 138, 0, 0.08);
   border-color: var(--accent-primary);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 138, 0, 0.15);
 }
 
 /* ============================================
@@ -257,20 +320,28 @@
    ============================================ */
 
 .review-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: rgba(30, 39, 54, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-xl);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
   position: relative;
   overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.review-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .review-card.official {
-  background: linear-gradient(135deg, rgba(255, 159, 67, 0.15), rgba(80, 196, 182, 0.15));
-  border: 2px solid var(--accent-primary);
+  background: linear-gradient(135deg, rgba(255, 138, 0, 0.12), rgba(229, 46, 113, 0.08));
+  border: 2px solid rgba(255, 138, 0, 0.3);
   padding: 2rem;
-  box-shadow: 0 8px 32px rgba(255, 159, 67, 0.2);
+  box-shadow: 0 8px 32px rgba(255, 138, 0, 0.15);
 }
 
 .review-badge {
@@ -444,187 +515,188 @@
   .empty-state {
     padding: 3rem 1.5rem;
   }
-  
+
   .benefits {
     gap: 8px;
     margin: var(--space-md) 0;
     justify-content: flex-start;
     padding: 0 4px;
   }
-  
+
   .benefits span {
     padding: 5px 12px;
     font-size: 11px;
     border-width: 1px;
   }
-  
+
   /* Compact Review Cards for Mobile */
   .review-card {
     padding: 12px;
     margin-bottom: 12px;
     border-radius: var(--radius-lg);
   }
-  
+
   .review-card.official {
     padding: 14px;
     border-width: 1.5px;
   }
-  
+
   .review-badge {
     padding: 4px 12px;
     font-size: 9px;
     letter-spacing: 0.3px;
     border-radius: 0 12px 0 14px;
   }
-  
+
   .review-header {
     flex-direction: column;
     gap: 8px;
     margin-bottom: 10px;
   }
-  
+
   .review-header.official {
     margin-top: 12px;
   }
-  
+
   .review-author-info {
     gap: 8px;
     margin-bottom: 6px;
   }
-  
+
   .review-avatar {
     width: 32px;
     height: 32px;
     font-size: 14px;
   }
-  
+
   .review-author-name strong {
     font-size: 14px;
   }
-  
+
   .review-author-name strong.large {
     font-size: 15px;
   }
-  
+
   .review-role {
     font-size: 12px;
   }
-  
+
   .review-date {
     margin-left: 0;
     font-size: 11px;
   }
-  
+
   .review-text {
     font-size: 13px;
     line-height: 1.6;
   }
-  
+
   .review-text.large {
     font-size: 14px;
     line-height: 1.65;
   }
-  
+
   /* Compact Contact Info */
   .contact-item {
     margin-bottom: 10px;
     font-size: 13px;
     gap: 10px;
   }
-  
+
   .contact-item i {
     width: 18px;
     font-size: 14px;
   }
-  
+
   /* Compact Section Headers */
   .section-header {
     font-size: 16px;
     margin-bottom: 12px;
   }
-  
+
   /* Compact Hours Display */
   .hours-row {
     font-size: 13px;
     margin-bottom: 8px;
   }
-  
+
   /* Compact Badges */
   .badge {
     padding: 3px 10px;
     font-size: 10px;
     letter-spacing: 0.2px;
   }
-  
+
   .badge-verified {
     padding: 3px 8px;
     font-size: 10px;
   }
-  
+
   /* Compact Rating */
   .rating {
     font-size: 16px;
     margin-top: 6px;
     gap: 6px;
   }
-  
+
   .rating-small {
     font-size: 14px;
   }
-  
+
   .rating-count {
     font-size: 12px;
   }
 }
 
 @media (max-width: 480px) {
+
   /* Extra compact for small phones */
   .review-card {
     padding: 10px;
     margin-bottom: 10px;
   }
-  
+
   .review-card.official {
     padding: 12px;
   }
-  
+
   .review-badge {
     padding: 3px 10px;
     font-size: 8px;
   }
-  
+
   .review-avatar {
     width: 28px;
     height: 28px;
     font-size: 12px;
   }
-  
+
   .review-author-name strong {
     font-size: 13px;
   }
-  
+
   .review-author-name strong.large {
     font-size: 14px;
   }
-  
+
   .review-text {
     font-size: 12px;
   }
-  
+
   .review-text.large {
     font-size: 13px;
   }
-  
+
   .contact-item {
     font-size: 12px;
     margin-bottom: 8px;
   }
-  
+
   .section-header {
     font-size: 15px;
     margin-bottom: 10px;
   }
-  
+
   .hours-row {
     font-size: 12px;
     margin-bottom: 6px;
@@ -651,9 +723,12 @@
 }
 
 @keyframes verifiedGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     filter: drop-shadow(0 0 6px rgba(75, 123, 236, 0.4));
   }
+
   50% {
     filter: drop-shadow(0 0 10px rgba(75, 123, 236, 0.6));
   }
@@ -665,9 +740,9 @@
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  background: linear-gradient(135deg, 
-    rgba(75, 123, 236, 0.15) 0%, 
-    rgba(84, 214, 200, 0.1) 100%);
+  background: linear-gradient(135deg,
+      rgba(75, 123, 236, 0.15) 0%,
+      rgba(84, 214, 200, 0.1) 100%);
   border: 1px solid rgba(75, 123, 236, 0.3);
   border-radius: var(--radius-full);
   color: var(--accent-info);
