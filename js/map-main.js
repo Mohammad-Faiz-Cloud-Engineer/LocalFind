@@ -7,7 +7,7 @@
  * @updated 2026-03-07
  */
 
-(function() {
+(function () {
   'use strict';
 
   let map;
@@ -34,7 +34,7 @@
   function initMap() {
     const loading = document.getElementById('loading');
     const mapStatus = document.getElementById('map-status');
-    
+
     const defaultCenter = [26.9135, 81.2328];
 
     map = L.map('map', {
@@ -84,12 +84,12 @@
 
     if (window.LISTINGS && window.LISTINGS.length > 0) {
       let markersAdded = 0;
-      
+
       window.LISTINGS.forEach(business => {
         const added = addBusinessMarker(business);
         if (added) markersAdded++;
       });
-      
+
       mapStatus.textContent = `Showing ${markersAdded} businesses`;
     } else {
       mapStatus.textContent = 'No businesses to display';
@@ -188,7 +188,7 @@
     marker.bindPopup(popupContent);
     marker.addTo(markersGroup);
     businessMarkers.push(marker);
-    
+
     return true;
   }
 
@@ -199,34 +199,117 @@
    */
   function extractCoordinates(business) {
     const coordinates = {
-      'raheem-common-service-center': [26.9238021, 81.2612707],
-      'aman-garments': [26.9248848, 81.2620547],
-      'affan-garments': [26.9249000, 81.2621000],
-      'shariq-hashmi-electric-shop': [26.9249200, 81.2621500],
-      'hind-pharmacy': [26.9248500, 81.2620000],
-      'abdul-hospital': [26.9226786, 81.2559463],
-      'rajju-pankaj-sweets': [26.9238500, 81.2613000],
-      'friend-fitness-gym': [26.9261896, 81.2611953],
-      'golden-csc': [26.9238300, 81.2612500],
-      'om-dhaba': [26.9227000, 81.2559800],
-      'hala-motors': [26.9226500, 81.2559100],
-      'chandra-shekhar-azad-inter-college': [26.9203899, 81.2609952],
-      'shri-shyam-medicals': [26.9253005, 81.2622223],
-      'satyam-footwear': [26.9244569, 81.2614599],
-      'khidmat-enterprises': [26.9231717, 81.2608811],
-      'rasauli-hardware': [26.9232000, 81.2609100],
-      'kartik-medical-store': [26.9231400, 81.2608500],
-      'suraj-kumar-clothing-store': [26.9244800, 81.2614900],
-      'janta-clinic': [26.9253300, 81.2622500],
-      'sk-tent-light-house': [26.9262100, 81.2612200],
-      'balemora-wellness-retreats': [26.9220302, 81.2606909],
-      'kfc-barabanki': [26.9250001, 81.2497201],
-      'box-park-international': [26.9246388, 81.249308],
-      'pps-college-of-nursing': [26.9252489, 81.2486689],
-      'maxwell-hospital': [26.9253413, 81.2414972],
-      'saraswati-studio-makole': [26.9228271, 81.2605057],
-      'jamwant-mobile-shop': [26.922656, 81.260429]
-    };
+      "raheem-common-service-center": [
+            26.9230278,
+            81.2608333
+      ],
+      "aman-garments": [
+            26.9230278,
+            81.2609167
+      ],
+      "affan-garments": [
+            26.9239722,
+            81.2612222
+      ],
+      "shariq-hashmi-electric-shop": [
+            26.9249722,
+            81.2620556
+      ],
+      "hind-pharmacy": [
+            26.9248889,
+            81.2620556
+      ],
+      "abdul-hospital": [
+            26.9246097,
+            81.2619726
+      ],
+      "rajju-pankaj-sweets": [
+            26.924135,
+            81.2614237
+      ],
+      "friend-fitness-gym": [
+            26.9236389,
+            81.2541389
+      ],
+      "golden-csc": [
+            26.9234167,
+            81.2610556
+      ],
+      "om-dhaba": [
+            26.9219589,
+            81.2613632
+      ],
+      "hala-motors": [
+            26.9226786,
+            81.2559463
+      ],
+      "chandra-shekhar-azad-inter-college": [
+            26.9203899,
+            81.2609952
+      ],
+      "shri-shyam-medicals": [
+            26.9242222,
+            81.2614444
+      ],
+      "satyam-footwear": [
+            26.9241667,
+            81.2613333
+      ],
+      "khidmat-enterprises": [
+            26.9231944,
+            81.2561667
+      ],
+      "rasauli-hardware": [
+            26.9230833,
+            81.2564167
+      ],
+      "kartik-medical-store": [
+            26.9231907,
+            81.2608735
+      ],
+      "suraj-kumar-clothing-store": [
+            26.9246194,
+            81.2612665
+      ],
+      "janta-clinic": [
+            26.9252745,
+            81.2622634
+      ],
+      "sk-tent-light-house": [
+            26.9257475,
+            81.2612005
+      ],
+      "balemora-wellness-retreats": [
+            26.9220302,
+            81.258116
+      ],
+      "kfc-barabanki": [
+            26.9237173,
+            81.2504984
+      ],
+      "box-park-international": [
+            26.9247718,
+            81.24984
+      ],
+      "pps-college-of-nursing": [
+            26.9257332,
+            81.2481373
+      ],
+      "maxwell-hospital": [
+            26.9254186,
+            81.2414883
+      ],
+      "saraswati-studio-makole": [
+            26.9228271,
+            81.2605057
+      ],
+      "jamwant-mobile-shop": [
+            26.9226667,
+            81.2604167
+      ]
+};
+
+
 
     return coordinates[business.id] || null;
   }
@@ -236,7 +319,7 @@
    */
   function requestUserLocation() {
     const mapStatus = document.getElementById('map-status');
-    
+
     if (!navigator.geolocation) {
       mapStatus.innerHTML = '<i class="fa-solid fa-circle-xmark" style="color: #e74c3c;"></i> Geolocation not supported';
       return;
@@ -263,7 +346,7 @@
         }
 
         const userIcon = createCustomIcon('user');
-        userMarker = L.marker(userLocation, { 
+        userMarker = L.marker(userLocation, {
           icon: userIcon,
           title: `Your Location (±${Math.round(accuracy)}m accuracy)`
         }).addTo(map);
@@ -292,8 +375,8 @@
       (error) => {
         let errorMsg = '';
         let errorIcon = '<i class="fa-solid fa-circle-exclamation" style="color: #f39c12;"></i>';
-        
-        switch(error.code) {
+
+        switch (error.code) {
           case error.PERMISSION_DENIED:
             errorMsg = 'Location permission denied';
             errorIcon = '<i class="fa-solid fa-circle-xmark" style="color: #e74c3c;"></i>';
@@ -311,7 +394,7 @@
           default:
             errorMsg = 'Unable to retrieve location';
         }
-        
+
         mapStatus.innerHTML = `${errorIcon} ${errorMsg} • ${window.LISTINGS.length} businesses`;
       },
       {
@@ -342,7 +425,7 @@
         }
 
         const userIcon = createCustomIcon('user');
-        userMarker = L.marker(userLocation, { 
+        userMarker = L.marker(userLocation, {
           icon: userIcon,
           title: `Your Location (±${Math.round(accuracy)}m accuracy)`
         }).addTo(map);
@@ -377,7 +460,7 @@
    */
   function showLocationPrompt(type) {
     const mapInfoBox = document.querySelector('.map-info-box');
-    
+
     const existingPrompt = document.getElementById('location-prompt');
     if (existingPrompt) {
       existingPrompt.remove();
@@ -452,7 +535,7 @@
     }
 
     mapInfoBox.appendChild(prompt);
-    
+
     const retryBtn = prompt.querySelector('.retry-location-btn');
     if (retryBtn) {
       retryBtn.addEventListener('click', requestUserLocation);
@@ -494,20 +577,58 @@
     if (showAllBtn) {
       showAllBtn.addEventListener('click', () => {
         const bounds = L.latLngBounds();
-        
+
         businessMarkers.forEach(marker => {
           bounds.extend(marker.getLatLng());
         });
-        
+
         if (userMarker) {
           bounds.extend(userMarker.getLatLng());
         }
-        
+
         if (bounds.isValid()) {
           map.fitBounds(bounds, { padding: [50, 50] });
         }
       });
     }
+  }
+
+  /**
+   * Calculate relevance score for a business based on search terms
+   * @param {Object} business - Business object
+   * @param {string} query - Search query
+   * @returns {number} Relevance score (higher is better)
+   */
+  function calculateRelevance(business, query) {
+    if (!query) return 0;
+    let score = 0;
+    const queryLower = query.toLowerCase();
+    const nameLower = business.name.toLowerCase();
+    const categoryLower = business.category.toLowerCase();
+    const descLower = business.description.toLowerCase();
+
+    if (nameLower === queryLower) score += 1000;
+    else if (nameLower.startsWith(queryLower)) score += 500;
+    else if (nameLower.includes(queryLower)) score += 300;
+
+    if (categoryLower === queryLower) score += 200;
+    else if (categoryLower.includes(queryLower)) score += 150;
+
+    if (business.tags && business.tags.some(tag => tag.toLowerCase() === queryLower)) score += 100;
+    else if (business.tags && business.tags.some(tag => tag.toLowerCase().includes(queryLower))) score += 50;
+
+    if (descLower.includes(queryLower)) score += 10;
+    return score;
+  }
+
+  /**
+   * Format distance nicely
+   * @param {number} meters - Distance in meters
+   * @returns {string} Formatted string
+   */
+  function formatDistance(meters) {
+    if (meters < 1000) return `${Math.round(meters)}m away`;
+    return `${(meters / 1000).toFixed(1)} km away`;
   }
 
   /**
@@ -537,7 +658,7 @@
 
     searchInput.addEventListener('input', (e) => {
       const query = e.target.value.toLowerCase().trim();
-      
+
       if (query) {
         clearBtn.classList.add('visible');
       } else {
@@ -554,26 +675,75 @@
         return;
       }
 
+      // Check if user location is available
+      const userLatLng = userMarker ? userMarker.getLatLng() : null;
+
       const matchingBusinesses = [];
       window.LISTINGS.forEach((business, index) => {
-        const matches = 
-          business.name.toLowerCase().includes(query) ||
-          business.category.toLowerCase().includes(query) ||
-          business.description.toLowerCase().includes(query) ||
-          (business.tags && business.tags.some(tag => tag.toLowerCase().includes(query)));
+        // Expand search logic to match relevance
+        const matches = calculateRelevance(business, query) > 0;
 
         if (matches) {
-          matchingBusinesses.push({ business, index });
+          // Calculate distance if user location is known
+          let distance = null;
+          let distanceFormatted = '';
+          const bizCoords = extractCoordinates(business);
+
+          if (userLatLng && bizCoords && map) {
+            const bizLatLng = L.latLng(bizCoords[0], bizCoords[1]);
+            distance = map.distance(userLatLng, bizLatLng);
+            distanceFormatted = formatDistance(distance);
+          }
+
+          matchingBusinesses.push({
+            business,
+            index,
+            score: calculateRelevance(business, query),
+            distance,
+            distanceFormatted
+          });
+        }
+      });
+
+      // Group by Relevance Tiers to ensure exact matches always beat weak description matches
+      function getRelevanceTier(score) {
+        if (score >= 100) return 1; // Name, Category, or Exact Tag match
+        if (score >= 50) return 2;  // Partial Tag match
+        return 3;                   // Weak match (Description only)
+      }
+
+      // Sort matches: Primary by Relevance Tier, Secondary by Distance
+      matchingBusinesses.sort((a, b) => {
+        const tierA = getRelevanceTier(a.score);
+        const tierB = getRelevanceTier(b.score);
+
+        if (tierA !== tierB) {
+          return tierA - tierB; // Lower tier number is better
+        }
+
+        // If same tier, sort by proximity
+        if (a.distance !== null && b.distance !== null) {
+          return a.distance - b.distance;
+        } else if (a.distance !== null) {
+          return -1;
+        } else if (b.distance !== null) {
+          return 1;
+        } else {
+          // Fallback to strict score match
+          return b.score - a.score;
         }
       });
 
       if (matchingBusinesses.length > 0) {
-        searchResults.innerHTML = matchingBusinesses.map(({ business }) => `
+        searchResults.innerHTML = matchingBusinesses.map(({ business, distanceFormatted }) => `
           <div class="search-result-item" data-business-id="${sanitizeHTML(business.id)}" role="option">
-            <div class="search-result-name">
-              ${sanitizeHTML(business.name)}
-              ${business.featured ? '<span class="search-result-badge"><i class="fa-solid fa-star"></i> Featured</span>' : ''}
-              ${business.verified ? '<i class="fa-solid fa-circle-check" style="color: #4ECDC4;"></i>' : ''}
+            <div class="search-result-name" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+              <div>
+                ${sanitizeHTML(business.name)}
+                ${business.featured ? '<span class="search-result-badge"><i class="fa-solid fa-star"></i> Featured</span>' : ''}
+                ${business.verified ? '<i class="fa-solid fa-circle-check" style="color: #4ECDC4;"></i>' : ''}
+              </div>
+              ${distanceFormatted ? `<span style="font-size: 11px; color: var(--text-muted); background: rgba(255,138,0,0.1); padding: 2px 6px; border-radius: 4px; white-space: nowrap;"><i class="fa-solid fa-location-arrow" style="font-size: 10px; margin-right: 3px; color: var(--accent-primary);"></i>${distanceFormatted}</span>` : ''}
             </div>
             <div class="search-result-category">
               <i class="fa-solid fa-tag"></i>
@@ -591,7 +761,7 @@
           });
         });
       } else {
-        searchResults.innerHTML = '<div class="no-results">No businesses found</div>';
+        searchResults.innerHTML = '<div class="no-results">No businesses found near you</div>';
         searchResults.classList.add('visible');
       }
 
@@ -620,7 +790,7 @@
       searchInput.value = '';
       clearBtn.classList.remove('visible');
       searchResults.classList.remove('visible');
-      
+
       allMarkers.forEach(marker => {
         if (!map.hasLayer(marker)) {
           marker.addTo(map);
@@ -651,7 +821,7 @@
 
     if (marker) {
       map.setView(coords, 17);
-      
+
       setTimeout(() => {
         marker.openPopup();
       }, 300);
