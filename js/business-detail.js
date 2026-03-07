@@ -303,10 +303,7 @@
 
       const safeUpiId = sanitizeHTML(business.upiId);
       const safeUpiName = sanitizeHTML(business.upiName || business.name);
-      
-      // Enhanced UPI deep link - Standard format that works across all UPI apps
-      // Includes mode=02 for app-to-app payment (shows all UPI apps)
-      const upiDeepLink = `upi://pay?pa=${encodeURIComponent(business.upiId)}&pn=${encodeURIComponent(business.upiName || business.name)}&cu=INR&mode=02`;
+      const upiDeepLink = `upi://pay?pa=${encodeURIComponent(business.upiId)}&pn=${encodeURIComponent(business.upiName || business.name)}&cu=INR`;
 
       // Build the overlay + bottom sheet
       const overlay = document.createElement('div');
@@ -339,10 +336,10 @@
               <i class="fa-regular fa-copy"></i>
             </button>
           </div>
-          <button class="upi-pay-app-btn" id="upi-app-btn" type="button">
+          <a href="${upiDeepLink}" class="upi-pay-app-btn" id="upi-app-btn" rel="noopener">
             <i class="fa-solid fa-mobile-screen-button"></i>
             Pay using UPI App
-          </button>
+          </a>
           <p class="upi-disclaimer">
             <i class="fa-solid fa-shield-halved"></i>
             Secure payment via your UPI app
@@ -407,14 +404,6 @@
         overlay.classList.add('active');
       });
 
-      // Enhanced UPI payment handler with multiple fallback strategies
-      const upiAppBtn = document.getElementById('upi-app-btn');
-      if (upiAppBtn) {
-        upiAppBtn.addEventListener('click', () => {
-          handleUPIPayment(business.upiId, business.upiName || business.name);
-        });
-      }
-
       // --- Event Handlers ---
 
       // Close button
@@ -475,102 +464,6 @@
           currentOverlay.remove();
         }, 350);
       }
-    }
-
-    /**
-     * Enhanced UPI Payment Handler
-     * Tries multiple UPI deep link formats to ensure all UPI apps are detected
-     * Supports: PhonePe, Google Pay, Paytm, BHIM, Amazon Pay, WhatsApp Pay, etc.
-     * 
-     * @param {string} upiId - UPI ID (e.g., "7007126025@naviaxis")
-     * @param {string} upiName - Payee name
-     */
-    function handleUPIPayment(upiId, upiName) {
-      // Sanitize inputs for security
-      const safeUpiId = encodeURIComponent(upiId);
-      const safeName = encodeURIComponent(upiName);
-      
-      // Detect platform
-      const isAndroid = /Android/i.test(navigator.userAgent);
-      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-      
-      // Build UPI payment URL with all required parameters
-      // mode=02 ensures app-to-app payment (shows all UPI apps)
-      const upiParams = `pa=${safeUpiId}&pn=${safeName}&cu=INR`;
-      
-      let paymentUrl;
-      
-      if (isAndroid) {
-        // Android Intent URL - This is the KEY to showing ALL UPI apps
-        // The S.browser_fallback_url parameter ensures it works even without GPay
-        paymentUrl = `intent://pay?${upiParams}#Intent;scheme=upi;S.browser_fallback_url=https://www.google.com;end`;
-      } else if (isIOS) {
-        // iOS uses standard UPI deep link
-        paymentUrl = `upi://pay?${upiParams}`;
-      } else {
-        // Desktop/Other - standard UPI link
-        paymentUrl = `upi://pay?${upiParams}`;
-      }
-      
-      // Open the payment URL
-      try {
-        // Direct window.location approach works best for UPI intents
-        window.location.href = paymentUrl;
-        
-        // Track if user returns without completing payment
-        let returned = false;
-        const checkReturn = setTimeout(() => {
-          returned = true;
-        }, 3000);
-        
-        // If user returns quickly, might mean no UPI app installed
-        window.addEventListener('focus', () => {
-          clearTimeout(checkReturn);
-          if (returned) {
-            showUPIFallbackMessage();
-          }
-        }, { once: true });
-        
-      } catch (error) {
-        console.error('UPI payment error:', error);
-        showUPIFallbackMessage();
-      }
-    }
-
-    /**
-     * Show fallback message when UPI apps cannot be opened automatically
-     */
-    function showUPIFallbackMessage() {
-      const upiAppBtn = document.getElementById('upi-app-btn');
-      if (!upiAppBtn) return;
-      
-      // Update button to show manual instruction
-      const originalHTML = upiAppBtn.innerHTML;
-      upiAppBtn.innerHTML = '<i class="fa-solid fa-circle-info"></i> No UPI app detected';
-      upiAppBtn.style.background = 'var(--accent-info)';
-      
-      // Show helpful message
-      const disclaimer = document.querySelector('.upi-disclaimer');
-      if (disclaimer) {
-        disclaimer.innerHTML = `
-          <i class="fa-solid fa-circle-info"></i>
-          Please install a UPI app (PhonePe, GPay, Paytm, BHIM) or scan the QR code above
-        `;
-        disclaimer.style.color = 'var(--accent-info)';
-      }
-      
-      // Reset after 5 seconds
-      setTimeout(() => {
-        upiAppBtn.innerHTML = originalHTML;
-        upiAppBtn.style.background = '';
-        if (disclaimer) {
-          disclaimer.innerHTML = `
-            <i class="fa-solid fa-shield-halved"></i>
-            Secure payment via PhonePe, GPay, Paytm, BHIM & more
-          `;
-          disclaimer.style.color = '';
-        }
-      }, 5000);
     }
 
     // Render hours
