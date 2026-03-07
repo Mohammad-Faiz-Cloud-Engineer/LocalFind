@@ -163,7 +163,7 @@
     const marker = L.marker(coords, { icon: icon });
 
     const popupContent = `
-      <div style="min-width: 220px;">
+      <div style="min-width: 200px; max-width: 260px;">
         <div class="popup-title">
           ${sanitizeHTML(business.name)}
           ${business.verified ? '<i class="fa-solid fa-circle-check" style="color: #4ECDC4;"></i>' : ''}
