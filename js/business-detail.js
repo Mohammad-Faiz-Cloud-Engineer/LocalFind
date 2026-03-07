@@ -73,7 +73,7 @@
     const descEl = document.getElementById('biz-desc');
     const categoryEl = document.getElementById('biz-category');
     const nameEl = document.getElementById('biz-name');
-    
+
     if (titleEl) titleEl.textContent = biz.name;
     if (descEl) descEl.textContent = biz.description;
     if (categoryEl) categoryEl.textContent = biz.category;
@@ -303,7 +303,21 @@
 
       const safeUpiId = sanitizeHTML(business.upiId);
       const safeUpiName = sanitizeHTML(business.upiName || business.name);
-      const upiDeepLink = `upi://pay?pa=${encodeURIComponent(business.upiId)}&pn=${encodeURIComponent(business.upiName || business.name)}&cu=INR`;
+
+      // Clean UPI name to remove special characters that break PhonePe/GPay parsers
+      const cleanUpiName = (business.upiName || business.name).replace(/[^a-zA-Z0-9 ]/g, '').trim();
+
+      // Do not URL-encode the '@' in UPI ID
+      const cleanUpiId = business.upiId.trim();
+
+      // Standard URI for QR Code and non-Android platforms
+      let upiDeepLink = `upi://pay?pa=${cleanUpiId}&pn=${encodeURIComponent(cleanUpiName)}&cu=INR`;
+
+      // Use intent:// scheme on Android to force the system app chooser
+      const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
+      if (isAndroid) {
+        upiDeepLink = `intent://pay?pa=${cleanUpiId}&pn=${encodeURIComponent(cleanUpiName)}&cu=INR#Intent;scheme=upi;end`;
+      }
 
       // Build the overlay + bottom sheet
       const overlay = document.createElement('div');
