@@ -406,7 +406,7 @@ window.LISTINGS = [
     reviewCount: 0,
     reviews: [],
     address: "Barabanki, W7F3+F9P, Uttar Pradesh 225001",
-    mapLink: "https://maps.app.goo.gl/1irTf5avokw1RjUW7",
+    mapLink: "https://maps.app.goo.gl/uQGpSd1gGLf17zzo9",
     phone: "+91 94534 97384",
     phoneName: "Ram Kishor",
     email: "",
