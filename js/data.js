@@ -826,7 +826,7 @@ window.LISTINGS = [
     reviewCount: 0,
     reviews: [],
     address: "HGG Campus, Railway Station, NH-28, Ayodhya - Lucknow Rd, opposite Rasauli, behind Seth M.R. Jaipuria School, lucknow, Rasauli, Uttar Pradesh 225203",
-    mapLink: "https://maps.app.goo.gl/DJGDv5eqJt3aRhwN7",
+    mapLink: "https://maps.app.goo.gl/WKpiLWGSBUKesZzcA",
     phone: "+91 90054 30333",
     email: "",
     website: "https://balemorawellnessretreats.com/",
