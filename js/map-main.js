@@ -232,20 +232,20 @@
     };
 
     const coords = coordinates[business.id];
-    
+
     // Validate coordinates are within reasonable bounds for Rasauli area
     if (coords) {
       const [lat, lng] = coords;
       const isValidLat = lat >= 26.90 && lat <= 26.93;
       const isValidLng = lng >= 81.24 && lng <= 81.27;
-      
-      // Return null for invalid coordinates with warning
+
+      // Return null for invalid coordinates
       if (!isValidLat || !isValidLng) {
-        console.warn(`[Map] Invalid coordinates for business "${business.name}" (${business.id}):`, coords, '- Expected range: Lat 26.90-26.93, Lng 81.24-81.27');
+        // Warning: Out of bounding box
         return null;
       }
     }
-    
+
     return coords || null;
   }
 

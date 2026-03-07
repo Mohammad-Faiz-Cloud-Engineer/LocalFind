@@ -30,6 +30,14 @@
     );
   }
 
+  /**
+   * Generate unique transaction reference ID
+   * @returns {string} Unique transaction ID
+   */
+  function generateTransactionRef() {
+    return 'TXN' + Date.now() + Math.random().toString(36).substr(2, 6).toUpperCase();
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     if (!window.LISTINGS || window.LISTINGS.length === 0) {
       const content = document.querySelector('.biz-content');
@@ -266,6 +274,7 @@
     `;
     document.getElementById('biz-contact').innerHTML = contactHtml;
 
+    // UPI Payment Bottom Sheet
     if (biz.upiId) {
       const upiPayBtn = document.getElementById('upi-pay-btn');
       if (upiPayBtn) {
@@ -288,16 +297,19 @@
 
       const safeUpiId = sanitizeHTML(business.upiId);
       const safeUpiName = sanitizeHTML(business.upiName || business.name);
-      const cleanUpiName = (business.upiName || business.name).replace(/[^a-zA-Z0-9 ]/g, '').trim();
-      const cleanUpiId = business.upiId.trim();
+      const transactionRef = generateTransactionRef();
 
-      // Build UPI URI parameters
-      const upiParams = `pa=${encodeURIComponent(cleanUpiId)}&pn=${encodeURIComponent(cleanUpiName)}&cu=INR`;
-      
-      // Standard UPI URI for QR code
-      const upiUri = `upi://pay?${upiParams}`;
+      // Build UPI deep link with all required parameters
+      const upiParams = new URLSearchParams({
+        pa: business.upiId,
+        pn: business.upiName || business.name,
+        cu: 'INR',
+        tr: transactionRef,
+        tn: `Payment to ${business.name}`
+      }).toString();
 
-      // Build the overlay + bottom sheet
+      const upiDeepLink = `upi://pay?${upiParams}`;
+
       const overlay = document.createElement('div');
       overlay.id = 'upi-payment-overlay';
       overlay.className = 'upi-overlay';
@@ -328,7 +340,7 @@
               <i class="fa-regular fa-copy"></i>
             </button>
           </div>
-          <button class="upi-pay-app-btn" id="upi-app-btn" type="button">
+          <button class="upi-pay-app-btn" id="upi-app-btn" aria-label="Pay using UPI App">
             <i class="fa-solid fa-mobile-screen-button"></i>
             Pay using UPI App
           </button>
@@ -350,7 +362,7 @@
           document.body.appendChild(offscreen);
 
           new QRCode(offscreen, {
-            text: upiUri,
+            text: upiDeepLink,
             width: 256,
             height: 256,
             colorDark: '#000000',
@@ -390,6 +402,28 @@
         overlay.classList.add('active');
       });
 
+      // Pay using UPI App button - opens platform-based app chooser
+      const appBtn = document.getElementById('upi-app-btn');
+      if (appBtn) {
+        appBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (typeof window.openUpiAppChooser === 'function') {
+            closeUPISheet();
+            // Pass all necessary data for the app chooser
+            window.openUpiAppChooser({
+              upiId: business.upiId,
+              upiName: business.upiName || business.name,
+              businessName: business.name,
+              transactionRef: transactionRef,
+              amount: null // User will enter in their UPI app
+            });
+          } else {
+            // Fallback: direct UPI link
+            window.location.href = upiDeepLink;
+          }
+        });
+      }
+
       // Close button
       const closeBtn = document.getElementById('upi-close-btn');
       closeBtn.addEventListener('click', closeUPISheet);
@@ -404,52 +438,6 @@
         if (e.key === 'Escape') closeUPISheet();
       }
       document.addEventListener('keydown', handleEscape);
-
-      // CRITICAL FIX: Handle UPI App button click
-      // The issue is that Chrome on Android 11+ has package visibility restrictions
-      // We need to try multiple approaches to ensure all UPI apps appear
-      const upiAppBtn = document.getElementById('upi-app-btn');
-      if (upiAppBtn) {
-        upiAppBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          
-          const isAndroid = /android/i.test(navigator.userAgent || navigator.vendor || window.opera);
-          const isChrome = /chrome/i.test(navigator.userAgent) && /google/i.test(navigator.vendor);
-          
-          if (isAndroid) {
-            // Method 1: Try using intent:// scheme with ACTION_VIEW to force chooser
-            // This bypasses Chrome's default app selection
-            const intentUri = `intent://pay?${upiParams}#Intent;action=android.intent.action.VIEW;scheme=upi;end`;
-            
-            // Method 2: Create a hidden iframe to trigger the intent (works around Chrome's restrictions)
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = upiUri;
-            document.body.appendChild(iframe);
-            
-            // Method 3: Also try window.location as fallback
-            setTimeout(() => {
-              window.location.href = upiUri;
-              document.body.removeChild(iframe);
-            }, 100);
-            
-            // Method 4: For Chrome specifically, try to force the app chooser
-            if (isChrome) {
-              // Use a form submission to trigger the intent (forces chooser in some cases)
-              const form = document.createElement('form');
-              form.method = 'GET';
-              form.action = upiUri;
-              form.target = '_blank';
-              document.body.appendChild(form);
-              form.submit();
-              document.body.removeChild(form);
-            }
-          } else {
-            // iOS and other platforms
-            window.location.href = upiUri;
-          }
-        });
-      }
 
       // Copy UPI ID
       const copyBtn = document.getElementById('upi-copy-btn');
