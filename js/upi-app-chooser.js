@@ -8,23 +8,23 @@
     // Supported UPI Apps with Brand Colors and Intent Configurations
     const UPI_APPS = [
         { id: 'gpay', name: 'Google Pay', pkg: 'com.google.android.apps.nbu.paisa.user', color: '#4285F4', textCol: '#fff', priority: 'high', scheme: 'tez' },
-        { id: 'phonepe', name: 'PhonePe', pkg: 'com.phonepe.app', color: '#5f259f', textCol: '#fff', priority: 'high', scheme: 'phonepe', act: 'pay' },
+        { id: 'phonepe', name: 'PhonePe', pkg: 'com.phonepe.app', color: '#5f259f', textCol: '#fff', priority: 'high', scheme: 'phonepe' },
         { id: 'paytm', name: 'Paytm', pkg: 'net.one97.paytm', color: '#00baf2', textCol: '#fff', priority: 'high', scheme: 'paytm' },
-        { id: 'bhim', name: 'BHIM', pkg: 'in.org.npci.upiapp', color: '#4B0082', textCol: '#fff', priority: 'medium', scheme: 'bhim', act: 'pay' },
-        { id: 'amazon', name: 'Amazon Pay', pkg: 'in.amazon.mShop.android.shopping', color: '#00A8E1', textCol: '#fff', priority: 'medium', scheme: 'amazonpay' },
+        { id: 'bhim', name: 'BHIM', pkg: 'in.org.npci.upiapp', color: '#4B0082', textCol: '#fff', priority: 'medium', scheme: 'upi' },
+        { id: 'amazon', name: 'Amazon Pay', pkg: 'in.amazon.mShop.android.shopping', color: '#00A8E1', textCol: '#fff', priority: 'medium', scheme: 'upi' },
         { id: 'fampay', name: 'FamPay', pkg: 'com.fampay.in', color: '#FF6B00', textCol: '#fff', priority: 'medium', scheme: 'upi' },
-        { id: 'navi', name: 'Navi', pkg: 'com.naviapp', color: '#6C5DD3', textCol: '#fff', priority: 'medium', scheme: 'navi' },
-        { id: 'cred', name: 'CRED', pkg: 'com.dreamplug.androidapp', color: '#1a1a1a', textCol: '#fff', priority: 'medium', scheme: 'cred' },
-        { id: 'mobikwik', name: 'Mobikwik', pkg: 'com.mobikwik_new', color: '#00baf2', textCol: '#fff', priority: 'low', scheme: 'mobikwik' },
-        { id: 'freecharge', name: 'FreeCharge', pkg: 'com.freecharge.android', color: '#4CAF50', textCol: '#fff', priority: 'low', scheme: 'freecharge' },
-        { id: 'airtel', name: 'Airtel Thanks', pkg: 'com.myairtelapp', color: '#E31837', textCol: '#fff', priority: 'low', scheme: 'airtel' },
-        { id: 'jiopay', name: 'JioPay', pkg: 'com.jio.myjio', color: '#0066CC', textCol: '#fff', priority: 'low', scheme: 'jiopay' },
-        { id: 'whatsapp', name: 'WhatsApp', pkg: 'com.whatsapp', color: '#25D366', textCol: '#fff', priority: 'low', scheme: 'whatsapp' },
-        { id: 'icici', name: 'iMobile', pkg: 'com.csam.icici.bank.imobile', color: '#C41230', textCol: '#fff', priority: 'low', scheme: 'icici' },
-        { id: 'hdfc', name: 'HDFC', pkg: 'com.snapwork.hdfc', color: '#004C8F', textCol: '#fff', priority: 'low', scheme: 'hdfc' },
-        { id: 'sbi', name: 'SBI YONO', pkg: 'com.sbi.upi', color: '#1E5AA8', textCol: '#fff', priority: 'low', scheme: 'sbi' },
-        { id: 'axis', name: 'Axis Bank', pkg: 'com.axis.mobile', color: '#97144D', textCol: '#fff', priority: 'low', scheme: 'axis' },
-        { id: 'kotak', name: 'Kotak 811', pkg: 'com.kotak811', color: '#ED1C24', textCol: '#fff', priority: 'low', scheme: 'kotak' }
+        { id: 'navi', name: 'Navi', pkg: 'com.naviapp', color: '#6C5DD3', textCol: '#fff', priority: 'medium', scheme: 'upi' },
+        { id: 'cred', name: 'CRED', pkg: 'com.dreamplug.androidapp', color: '#1a1a1a', textCol: '#fff', priority: 'medium', scheme: 'upi' },
+        { id: 'mobikwik', name: 'Mobikwik', pkg: 'com.mobikwik_new', color: '#00baf2', textCol: '#fff', priority: 'low', scheme: 'upi' },
+        { id: 'freecharge', name: 'FreeCharge', pkg: 'com.freecharge.android', color: '#4CAF50', textCol: '#fff', priority: 'low', scheme: 'upi' },
+        { id: 'airtel', name: 'Airtel Thanks', pkg: 'com.myairtelapp', color: '#E31837', textCol: '#fff', priority: 'low', scheme: 'upi' },
+        { id: 'jiopay', name: 'JioPay', pkg: 'com.jio.myjio', color: '#0066CC', textCol: '#fff', priority: 'low', scheme: 'upi' },
+        { id: 'whatsapp', name: 'WhatsApp', pkg: 'com.whatsapp', color: '#25D366', textCol: '#fff', priority: 'low', scheme: 'upi' },
+        { id: 'icici', name: 'iMobile', pkg: 'com.csam.icici.bank.imobile', color: '#C41230', textCol: '#fff', priority: 'low', scheme: 'upi' },
+        { id: 'hdfc', name: 'HDFC', pkg: 'com.snapwork.hdfc', color: '#004C8F', textCol: '#fff', priority: 'low', scheme: 'upi' },
+        { id: 'sbi', name: 'SBI YONO', pkg: 'com.sbi.upi', color: '#1E5AA8', textCol: '#fff', priority: 'low', scheme: 'upi' },
+        { id: 'axis', name: 'Axis Bank', pkg: 'com.axis.mobile', color: '#97144D', textCol: '#fff', priority: 'low', scheme: 'upi' },
+        { id: 'kotak', name: 'Kotak 811', pkg: 'com.kotak811', color: '#ED1C24', textCol: '#fff', priority: 'low', scheme: 'upi' }
     ];
 
     const PREF_KEY = 'localfind_upi_preferences';
@@ -35,10 +35,11 @@
     function buildIntentUrl(app, upiParams) {
         const fallbackUrl = encodeURIComponent(`https://play.google.com/store/apps/details?id=${app.pkg}`);
         const scheme = app.scheme || 'upi';
-        const action = app.act ? `//${app.act}` : `//upi/pay`;
-
-        // Format: intent://upi/pay?pa=...#Intent;scheme=...;package=...;S.browser_fallback_url=...;end
-        return `intent:${action}?${upiParams}#Intent;scheme=${scheme};package=${app.pkg};S.browser_fallback_url=${fallbackUrl};end`;
+        
+        // For intent:// format, always use //pay? as the path
+        // The scheme parameter in the Intent extras determines the actual protocol
+        // Format: intent://pay?pa=...#Intent;scheme=upi;package=...;S.browser_fallback_url=...;end
+        return `intent://pay?${upiParams}#Intent;scheme=${scheme};package=${app.pkg};S.browser_fallback_url=${fallbackUrl};end`;
     }
 
     /**
