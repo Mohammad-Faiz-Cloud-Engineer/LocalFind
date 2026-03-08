@@ -255,6 +255,12 @@
           <a href="${sanitizeHTML(biz.website)}" target="_blank" rel="noopener noreferrer">${biz.website.includes('jsdl.in') || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
         </div>
       ` : ''}
+      ${biz.bloodDonor ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-droplet"></i>
+          <a href="${sanitizeHTML(biz.bloodDonor)}" target="_blank" rel="noopener noreferrer" style="color: #DC2626; font-weight: 600;">Find Blood Donors</a>
+        </div>
+      ` : ''}
       ${biz.onlineOrder ? `
         <div class="contact-item">
           <i class="fa-solid fa-shopping-bag"></i>
