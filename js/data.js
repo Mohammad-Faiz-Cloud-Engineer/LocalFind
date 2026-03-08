@@ -1068,16 +1068,18 @@ window.renderCard = function (b) {
   const verifiedBadge = b.verified ? '<span class="verified-badge" title="Verified Business"><i class="fa-solid fa-circle-check"></i></span>' : '';
 
   return `
-  <article class="card ${b.featured ? 'featured' : ''} ${b.verified ? 'verified' : ''}" role="article">
-    <div class="meta">
-      <div class="title">
-        <a href="business-detail.html?id=${encodeURIComponent(b.id)}">${name}</a>
-        ${verifiedBadge}
+  <a href="business-detail.html?id=${encodeURIComponent(b.id)}" class="card-link" aria-label="View details for ${name}">
+    <article class="card ${b.featured ? 'featured' : ''} ${b.verified ? 'verified' : ''}" role="article">
+      <div class="meta">
+        <div class="title">
+          <span class="business-name">${name}</span>
+          ${verifiedBadge}
+        </div>
+        <div class="small" aria-label="Rating ${b.rating} out of 5 stars">${b.rating} ★ (${b.reviewCount})</div>
       </div>
-      <div class="small" aria-label="Rating ${b.rating} out of 5 stars">${b.rating} ★ (${b.reviewCount})</div>
-    </div>
-    <div class="desc">${desc}...</div>
-    <div class="tags">${tags}</div>
-  </article>
+      <div class="desc">${desc}...</div>
+      <div class="tags">${tags}</div>
+    </article>
+  </a>
   `;
 };
