@@ -10,6 +10,7 @@
  * 
  * IMPORTANT: Update these values before deploying to production
  */
+'use strict';
 
 const CONFIG = {
   // Application Version

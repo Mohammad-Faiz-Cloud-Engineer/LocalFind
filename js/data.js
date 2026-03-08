@@ -38,6 +38,9 @@
  *   isNew: false                                 // true/false - New listing badge
  * }
  */
+'use strict';
+
+
 window.LISTINGS = [
   {
     id: "raheem-common-service-center",
@@ -811,7 +814,7 @@ window.LISTINGS = [
       sun: { open: "09:00", close: "20:00" }
     },
     description: "SK Tent & Light House is Rasauli's premier event decoration and rental service provider, specializing in making your special occasions memorable and visually stunning. We offer comprehensive tent and lighting solutions for weddings, receptions, birthday parties, corporate events, religious ceremonies, and all types of celebrations. Our extensive inventory includes elegant wedding tents and shamianas in various sizes and designs, decorative lighting solutions including fairy lights, LED lights, chandeliers, and festive illumination, stage decoration and backdrop setups, mandap decoration for wedding ceremonies, seating arrangements with chairs, tables, and furniture rentals, sound systems and DJ equipment, catering equipment and crockery, red carpet and walkway decorations, floral arrangements and artificial flower decorations, entrance gate decorations, and complete event setup services. We understand that every event is unique, and our experienced team works closely with clients to understand their vision, theme, and budget requirements. From intimate family gatherings to grand wedding celebrations, we have the expertise and resources to handle events of any scale. Our professional team ensures timely setup, proper installation, and safe operation of all equipment. We use high-quality materials and maintain our inventory in excellent condition. Our lighting solutions create the perfect ambiance, transforming ordinary spaces into magical venues. We offer flexible rental packages, competitive pricing, and reliable service. Our team handles everything from initial consultation, site visit, design planning, equipment delivery, complete setup, event support, to post-event dismantling and cleanup. Located near Primary Govt School in Katra Mohalla, we serve Rasauli and surrounding areas. Contact us to discuss your event requirements and let us help you create an unforgettable celebration. Open daily from 9 AM to 8 PM for consultations and bookings.",
-    tags: ["tent-house", "event-services", "wedding-decoration", "lighting", "party-rentals", "event-planning", "shamianas", "stage-decoration", "catering-equipment", "celebration"],
+    tags: ["tent-house", "event-services", "wedding-decoration", "lighting", "party-rentals", "event-planning", "shamianas", "stage-decoration", "catering-equipment", "furniture-rental"],
     upiId: "7007126025@naviaxis",
     upiName: "SK Tent & Light House",
     isNew: true

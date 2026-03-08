@@ -47,7 +47,7 @@
         const formData = new FormData(businessForm);
         const data = Object.fromEntries(formData.entries());
         
-        // Basic validation
+        // Enhanced validation with Utils
         if (!data.name || !data.phone || !data.category) {
           const errorMsg = document.createElement('div');
           errorMsg.className = 'error-message';
@@ -57,15 +57,44 @@
           return;
         }
         
+        // Validate email if provided
+        if (data.email && !window.Utils.isValidEmail(data.email)) {
+          const errorMsg = document.createElement('div');
+          errorMsg.className = 'error-message';
+          errorMsg.textContent = 'Please enter a valid email address.';
+          businessForm.insertBefore(errorMsg, businessForm.firstChild);
+          setTimeout(() => errorMsg.remove(), 3000);
+          return;
+        }
+        
+        // Validate phone number
+        if (data.phone && !window.Utils.isValidPhone(data.phone)) {
+          const errorMsg = document.createElement('div');
+          errorMsg.className = 'error-message';
+          errorMsg.textContent = 'Please enter a valid phone number (at least 10 digits).';
+          businessForm.insertBefore(errorMsg, businessForm.firstChild);
+          setTimeout(() => errorMsg.remove(), 3000);
+          return;
+        }
+        
         // In production, send to backend API
         // fetch('/api/business/submit', {method: 'POST', body: JSON.stringify(data)})
         
-        businessForm.innerHTML = `
-          <div class="success">
-            <h3>Thank you for your submission</h3>
-            <p>Your listing is currently under review. We will notify you at the email address provided within 24-48 hours.</p>
-          </div>
-        `;
+        // SECURITY: Create success message safely without innerHTML
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success';
+        
+        const successTitle = document.createElement('h3');
+        successTitle.textContent = 'Thank you for your submission';
+        
+        const successText = document.createElement('p');
+        successText.textContent = 'Your listing is currently under review. We will notify you at the email address provided within 24-48 hours.';
+        
+        successDiv.appendChild(successTitle);
+        successDiv.appendChild(successText);
+        
+        businessForm.innerHTML = '';
+        businessForm.appendChild(successDiv);
       });
     }
 
@@ -87,15 +116,34 @@
           return;
         }
         
+        // Validate email format
+        if (!window.Utils.isValidEmail(data.email)) {
+          const errorMsg = document.createElement('div');
+          errorMsg.className = 'error-message';
+          errorMsg.textContent = 'Please enter a valid email address.';
+          contactForm.insertBefore(errorMsg, contactForm.firstChild);
+          setTimeout(() => errorMsg.remove(), 3000);
+          return;
+        }
+        
         // In production, send to backend API
         // fetch('/api/contact/submit', {method: 'POST', body: JSON.stringify(data)})
         
-        contactForm.innerHTML = `
-          <div class="success">
-            <h3>Message received</h3>
-            <p>Thank you for contacting us. We will respond to your inquiry within 24 hours.</p>
-          </div>
-        `;
+        // SECURITY: Create success message safely without innerHTML
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success';
+        
+        const successTitle = document.createElement('h3');
+        successTitle.textContent = 'Message received';
+        
+        const successText = document.createElement('p');
+        successText.textContent = 'Thank you for contacting us. We will respond to your inquiry within 24 hours.';
+        
+        successDiv.appendChild(successTitle);
+        successDiv.appendChild(successText);
+        
+        contactForm.innerHTML = '';
+        contactForm.appendChild(successDiv);
       });
     }
     

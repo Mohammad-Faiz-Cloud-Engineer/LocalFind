@@ -1,13 +1,33 @@
 /**
  * Utility functions for production-grade operations
- * Reserved for future use - currently not imported by any module
  * 
- * To use these utilities, import them in your JavaScript files:
- * Example: import { debounce, isValidEmail } from './utils.js';
+ * USAGE NOTE: These utilities are available globally via window.Utils
+ * They are automatically loaded but not actively used in the current codebase.
+ * Consider integrating them for enhanced functionality:
+ * 
+ * - debounce: Use in search inputs (directory.js, map-main.js)
+ * - isValidEmail/isValidPhone: Use in form.js for validation
+ * - handleError: Use in API calls when backend is integrated
+ * - sanitizeHTML: CRITICAL - Use everywhere to prevent XSS (already used in multiple files)
+ * 
+ * To use: window.Utils.debounce(func, 300)
  */
 
 (function() {
   'use strict';
+
+  /**
+   * Security: HTML sanitization function to prevent XSS attacks
+   * CRITICAL: Use this for ALL user-generated content before rendering
+   * @param {string} str - String to sanitize
+   * @returns {string} Sanitized string
+   */
+  function sanitizeHTML(str) {
+    if (!str) return '';
+    const temp = document.createElement('div');
+    temp.textContent = str;
+    return temp.innerHTML;
+  }
 
   /**
    * Debounce function for performance optimization
@@ -94,6 +114,7 @@
 
   // Export utilities to window object for global access
   window.Utils = {
+    sanitizeHTML,
     debounce,
     isValidEmail,
     isValidPhone,

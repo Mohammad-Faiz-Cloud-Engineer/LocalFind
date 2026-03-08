@@ -11,7 +11,7 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https://www.openstreetmap.org;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; style-src 'self' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https://www.openstreetmap.org;">
 
   <!-- PWA Meta Tags -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -61,8 +61,10 @@
   <meta name="theme-color" content="#FF8A00">
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://unpkg.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
     rel="stylesheet">
 
@@ -286,29 +288,7 @@
   <script defer src="js/counter.js"></script>
   <script defer src="js/directory.js"></script>
   <script defer src="js/pwa.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Check if data exists
-      if (!window.LISTINGS || window.LISTINGS.length === 0) {
-        // Show placeholder message when no data
-        const featuredContainer = document.getElementById('featured-list');
-
-        if (featuredContainer) {
-          featuredContainer.innerHTML = '<div class="empty-state"><p>No listings available yet. Add your business data to js/data.js</p></div>';
-        }
-        return;
-      }
-
-      // Render featured listings
-      const featured = window.LISTINGS.filter(b => b.featured).slice(0, 6);
-      const container = document.getElementById('featured-list');
-      if (featured.length > 0) {
-        featured.forEach(b => { container.insertAdjacentHTML('beforeend', window.renderCard(b)); });
-      } else {
-        container.innerHTML = '<div class="empty-state"><p>No featured listings available.</p></div>';
-      }
-    });
-  </script>
+  <script defer src="js/index-init.js"></script>
 </body>
 
 </html>

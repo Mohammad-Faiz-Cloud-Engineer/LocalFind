@@ -11,6 +11,9 @@
  * Configuration is loaded from config.js
  */
 
+'use strict';
+
+
 /**
  * Render site header with navigation
  */
@@ -248,6 +251,7 @@ function initNavbar(){
   // Back to top button
   const backToTop = document.getElementById('back-to-top');
   if (backToTop) {
+    backToTop.setAttribute('aria-label', 'Scroll back to top');
     backToTop.addEventListener('click', () => {
       window.scrollTo({
         top: 0,
