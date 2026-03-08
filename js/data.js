@@ -219,6 +219,7 @@ window.LISTINGS = [
     phone: "+91 80815 88195",
     email: "",
     website: "",
+    bloodDonor: "https://www.friends2support.org/",
     whatsapp: "+91 80815 88195",
     hours: {
       mon: { open: "10:00", close: "19:00" },
@@ -539,6 +540,7 @@ window.LISTINGS = [
     phoneSecondary: "+91 88878 55405",
     email: "",
     website: "",
+    bloodDonor: "https://www.friends2support.org/",
     whatsapp: "+91 92609 49998",
     whatsappSecondary: "+91 88878 55405",
     hours: {
@@ -698,6 +700,7 @@ window.LISTINGS = [
     phone: "+91 90266 16696",
     email: "",
     website: "",
+    bloodDonor: "https://www.friends2support.org/",
     whatsapp: "+91 90266 16696",
     hours: {
       mon: { open: "09:30", close: "22:00" },
@@ -759,6 +762,7 @@ window.LISTINGS = [
     phoneName: "Dharmendra",
     email: "",
     website: "",
+    bloodDonor: "https://www.friends2support.org/",
     whatsapp: "+91 89539 85147",
     whatsappName: "Dharmendra",
     hours: {
