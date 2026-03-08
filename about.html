@@ -22,9 +22,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
     rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/footer.css">
@@ -773,7 +771,33 @@
   <script defer src="js/config.js"></script>
   <script defer src="js/main.js"></script>
   <script defer src="js/pwa.js"></script>
-  <script defer src="js/about-init.js"></script>
+  <script>
+    // Display version and PWA info
+    document.addEventListener('DOMContentLoaded', () => {
+      const versionEl = document.getElementById('app-version');
+      const modeEl = document.getElementById('app-mode');
+      const statusEl = document.getElementById('app-status');
+
+      if (versionEl && window.CONFIG) {
+        versionEl.textContent = window.CONFIG.version || '4.2.0';
+      }
+
+      if (modeEl && window.PWA) {
+        modeEl.textContent = window.PWA.isPWA() ? 'PWA (Installed)' : 'Browser';
+        modeEl.style.color = window.PWA.isPWA() ? 'var(--accent-success)' : 'var(--text-secondary)';
+      }
+
+      if (statusEl) {
+        const updateStatus = () => {
+          statusEl.textContent = navigator.onLine ? 'Online' : 'Offline';
+          statusEl.style.color = navigator.onLine ? 'var(--accent-success)' : 'var(--accent-danger)';
+        };
+        updateStatus();
+        window.addEventListener('online', updateStatus);
+        window.addEventListener('offline', updateStatus);
+      }
+    });
+  </script>
 </body>
 
 </html>
