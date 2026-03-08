@@ -12,7 +12,7 @@
         { id: 'paytm', name: 'Paytm', pkg: 'net.one97.paytm', color: '#00baf2', textCol: '#fff', priority: 'high', scheme: 'paytm' },
         { id: 'bhim', name: 'BHIM', pkg: 'in.org.npci.upiapp', color: '#4B0082', textCol: '#fff', priority: 'medium', scheme: 'bhim', act: 'pay' },
         { id: 'amazon', name: 'Amazon Pay', pkg: 'in.amazon.mShop.android.shopping', color: '#00A8E1', textCol: '#fff', priority: 'medium', scheme: 'amazonpay' },
-        { id: 'fampay', name: 'FamPay', pkg: 'in.fampay.app', color: '#FF6B00', textCol: '#fff', priority: 'medium', scheme: 'fampay', act: 'pay' },
+        { id: 'fampay', name: 'FamPay', pkg: 'com.fampay.in', color: '#FF6B00', textCol: '#fff', priority: 'medium', scheme: 'upi' },
         { id: 'navi', name: 'Navi', pkg: 'com.naviapp', color: '#6C5DD3', textCol: '#fff', priority: 'medium', scheme: 'navi' },
         { id: 'cred', name: 'CRED', pkg: 'com.dreamplug.androidapp', color: '#1a1a1a', textCol: '#fff', priority: 'medium', scheme: 'cred' },
         { id: 'mobikwik', name: 'Mobikwik', pkg: 'com.mobikwik_new', color: '#00baf2', textCol: '#fff', priority: 'low', scheme: 'mobikwik' },
