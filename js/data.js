@@ -259,6 +259,7 @@ window.LISTINGS = [
     phone: "+91 96215 27752",
     email: "abdulhospital786@gmail.com",
     website: "https://abdulhospitalwebsite.blogspot.com/",
+    bloodDonor: "https://www.friends2support.org/",
     whatsapp: "+91 96215 27752",
     hours: {
       mon: { open: "00:00", close: "23:59" },
@@ -956,6 +957,7 @@ window.LISTINGS = [
     phoneName: "Amit Singh",
     email: "beenugupta53@gmail.com",
     website: "",
+    bloodDonor: "https://www.friends2support.org/",
     whatsapp: "+91 90449 35596",
     whatsappName: "Amit Singh",
     hours: {
