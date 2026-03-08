@@ -320,10 +320,7 @@
   max-width: 100%;
 }
 
-.card .title a {
-  color: var(--text-primary);
-  text-decoration: none;
-  transition: color var(--transition-fast);
+.card .title .business-name {
   line-height: 1.3;
 }
 
