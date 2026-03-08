@@ -8,6 +8,25 @@
   gap: var(--space-md);
 }
 
+/* Clickable Card Wrapper */
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform var(--transition-base);
+}
+
+.card-link:focus {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 4px;
+  border-radius: var(--radius-xl);
+}
+
+.card-link:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 4px;
+}
+
 .card {
   background: rgba(30, 39, 54, 0.4);
   backdrop-filter: blur(16px);
@@ -22,6 +41,7 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .card::before {
@@ -37,14 +57,20 @@
   transition: transform var(--transition-base);
 }
 
-.card:hover {
+.card-link:hover .card,
+.card-link:focus .card {
   transform: translateY(-6px) scale(1.02);
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), inset 0 2px 0px rgba(255, 255, 255, 0.1);
 }
 
-.card:hover::before {
+.card-link:hover .card::before,
+.card-link:focus .card::before {
   transform: scaleX(1);
+}
+
+.card-link:active .card {
+  transform: translateY(-2px) scale(1.01);
 }
 
 .card .meta {
@@ -66,13 +92,12 @@
   gap: 4px;
 }
 
-.card .title a {
+.card .title .business-name {
   color: var(--text-primary);
-  text-decoration: none;
   transition: color var(--transition-fast);
 }
 
-.card .title a:hover {
+.card-link:hover .card .title .business-name {
   color: var(--accent-primary);
 }
 
