@@ -262,26 +262,6 @@
     }
 
     render();
-
-    // View toggle buttons
-    const gridBtn = document.getElementById('view-grid');
-    const listBtn = document.getElementById('view-list');
-
-    if (gridBtn) {
-      gridBtn.addEventListener('click', () => {
-        document.body.classList.remove('list-view');
-        gridBtn.classList.add('active');
-        if (listBtn) listBtn.classList.remove('active');
-      });
-    }
-
-    if (listBtn) {
-      listBtn.addEventListener('click', () => {
-        document.body.classList.add('list-view');
-        listBtn.classList.add('active');
-        if (gridBtn) gridBtn.classList.remove('active');
-      });
-    }
   }
 
   // Initialize when DOM is ready
