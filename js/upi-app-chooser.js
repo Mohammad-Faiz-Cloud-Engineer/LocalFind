@@ -36,9 +36,8 @@
         const fallbackUrl = encodeURIComponent(`https://play.google.com/store/apps/details?id=${app.pkg}`);
         const scheme = app.scheme || 'upi';
         
-        // For intent:// format, always use //pay? as the path
-        // The scheme parameter in the Intent extras determines the actual protocol
-        // Format: intent://pay?pa=...#Intent;scheme=upi;package=...;S.browser_fallback_url=...;end
+        // Always use intent:// format with package specification for direct app launch
+        // Format: intent://pay?pa=...#Intent;scheme=upi;package=com.fampay.in;S.browser_fallback_url=...;end
         return `intent://pay?${upiParams}#Intent;scheme=${scheme};package=${app.pkg};S.browser_fallback_url=${fallbackUrl};end`;
     }
 
@@ -322,12 +321,63 @@
                 e.preventDefault();
                 return;
             }
+            
+            const appRef = UPI_APPS.find(a => a.id === selectedAppId);
+            if (!appRef) {
+                e.preventDefault();
+                return;
+            }
+            
             createRipple(e, primaryBtn);
-
             savePreference(selectedAppId, rememberCb.checked);
 
+            // For standard UPI scheme apps, try direct upi:// first via iframe
+            // This bypasses Chrome's intent restrictions
+            if (appRef.scheme === 'upi') {
+                e.preventDefault();
+                
+                const directUpiUrl = `upi://pay?${upiParams}`;
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = directUpiUrl;
+                document.body.appendChild(iframe);
+                
+                // Set a timer to check if app opened
+                let appOpened = false;
+                document.addEventListener('visibilitychange', handleVisibilityChange);
+                
+                visibilityTimeout = setTimeout(() => {
+                    document.body.removeChild(iframe);
+                    
+                    if (document.visibilityState === 'visible' && !appOpened) {
+                        // App didn't open, try intent:// format as fallback
+                        const intentUrl = buildIntentUrl(appRef, upiParams);
+                        window.location.href = intentUrl;
+                        
+                        // Show toast after another delay
+                        setTimeout(() => {
+                            if (document.visibilityState === 'visible') {
+                                showToast("If nothing happens, install the app or use Generic UPI");
+                            }
+                        }, 1500);
+                    }
+                }, 1000);
+                
+                // If visibility changes, app likely opened
+                const visHandler = () => {
+                    if (document.visibilityState === 'hidden') {
+                        appOpened = true;
+                        clearTimeout(visibilityTimeout);
+                        document.removeEventListener('visibilitychange', visHandler);
+                    }
+                };
+                document.addEventListener('visibilitychange', visHandler);
+                
+                return;
+            }
+
+            // For custom scheme apps (gpay, phonepe, paytm), use intent:// directly
             // Set a timer to check if we stay on page (app not installed)
-            // Some intent urls fallback to play store, so maybe we won't stay on page anyway
             document.addEventListener('visibilitychange', handleVisibilityChange);
 
             visibilityTimeout = setTimeout(() => {
