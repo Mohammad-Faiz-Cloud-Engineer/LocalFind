@@ -786,7 +786,7 @@ window.LISTINGS = [
     featured: true,
     verified: true,
     status: "open",
-    rating: 4.0,
+    rating: 5.0,
     reviewCount: 0,
     reviews: [],
     address: "Village & Post Rasauli District, Near Primary Govt School, KATRA MOHALLA, W7G6+FF, Rasauli, Barabanki, Uttar Pradesh 225203",
