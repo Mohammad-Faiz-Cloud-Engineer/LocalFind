@@ -258,7 +258,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 5.0,
         date: "2026-02-28",
-        text: "Abdul Hospital provides excellent medical care for common health issues and emergencies with professional and caring staff. For very serious or critical conditions requiring specialized treatment, we recommend larger multi-specialty hospitals. For routine healthcare, minor emergencies, and general medical needs, this is a reliable choice in Rasauli.",
+        text: "Excellent medical care for common health issues and emergencies with professional, caring staff. For very serious conditions, consult larger multi-specialty hospitals. Reliable choice for routine healthcare and minor emergencies in Rasauli.",
         verified: true
       }
     ],
@@ -278,7 +278,7 @@ window.LISTINGS = [
       sat: { open: "00:00", close: "23:59" },
       sun: { open: "00:00", close: "23:59" }
     },
-    description: "Abdul Hospital is a trusted 24/7 healthcare facility serving Rasauli with comprehensive medical services. We provide emergency care, general medicine consultations, diagnostic services, and treatment for various health conditions. Our experienced team of qualified doctors, nurses, and support staff is dedicated to patient care. Services include emergency treatment, outpatient consultations, minor surgeries, laboratory tests, X-ray, pharmacy, and patient admission. Equipped with modern medical equipment, we maintain high hygiene and safety standards. We specialize in treating common illnesses, injuries, fever, infections, and providing maternal and child healthcare. Available round the clock for all your healthcare emergencies and medical consultations.",
+    description: "Abdul Hospital is a trusted 24/7 healthcare facility in Rasauli. We provide emergency care, general medicine, diagnostic services, and treatment for various conditions. Our experienced doctors, nurses, and staff offer emergency treatment, outpatient consultations, minor surgeries, lab tests, X-ray, pharmacy, and patient admission. We treat common illnesses, injuries, fever, infections, and provide maternal and child healthcare. Available round the clock for all your healthcare needs.",
     tags: ["hospital", "emergency-care", "24x7", "medical-services", "healthcare", "doctor", "clinic", "diagnostic", "laboratory", "patient-care"],
     isNew: true
   },
@@ -300,7 +300,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 5.0,
         date: "2026-02-28",
-        text: "Rajju/Pankaj Sweets is the best sweet shop in Rasauli! Their sweets are absolutely delicious and authentic with premium ingredients and traditional recipes. The ice cream is fantastic with rich, creamy flavors. Namkeen varieties are fresh and crispy, perfect for snacking or gifting. Custom cakes are beautifully crafted and taste amazing. The shop maintains excellent hygiene and the staff is friendly and helpful. Prices are reasonable for the quality, and everything is made fresh daily. From classic Indian sweets to modern fusion desserts, they have it all. A must-visit for sweet lovers!",
+        text: "Best sweet shop in Rasauli! Sweets are delicious and authentic with premium ingredients. Ice cream is fantastic with rich flavors. Namkeen is fresh and crispy. Custom cakes are beautifully crafted. Excellent hygiene, friendly staff, reasonable prices. Everything made fresh daily. A must-visit!",
         verified: true
       }
     ],
@@ -319,7 +319,7 @@ window.LISTINGS = [
       sat: { open: "08:00", close: "21:00" },
       sun: { open: "08:00", close: "21:00" }
     },
-    description: "Rajju/Pankaj Sweets is the premier destination for authentic Indian sweets and confectionery in Rasauli. We specialize in traditional sweets made with the finest ingredients and time-honored recipes. Our menu includes fresh sweets, premium ice creams in multiple flavors, savory namkeen snacks, custom celebration cakes, refreshing beverages, and seasonal specialties. Each item is crafted with care to ensure authentic flavors and freshness. Whether celebrating a special occasion, looking for the perfect gift, or craving something sweet, we have it all. Known throughout Rasauli for delicious taste and quality, we also offer custom cake orders for birthdays, anniversaries, and celebrations. Visit us to experience the best sweets, ice cream, namkeen, and cakes in Rasauli.",
+    description: "Rajju/Pankaj Sweets is the premier destination for authentic Indian sweets in Rasauli. We specialize in traditional sweets, premium ice creams, savory namkeen, custom cakes, and beverages. Each item is crafted with care for authentic flavors and freshness. Known throughout Rasauli for delicious taste and quality. Perfect for celebrations, gifts, or treating yourself. Visit us for the best sweets, ice cream, namkeen, and cakes in Rasauli.",
     tags: ["sweets", "ice-cream", "namkeen", "cakes", "desserts", "beverages", "indian-sweets", "confectionery", "snacks", "celebration-cakes"],
     isNew: true
   },
@@ -341,7 +341,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 4.0,
         date: "2026-02-28",
-        text: "Friends Fitness GYM is the best and only gym in Rasauli, making it essential for the community. Well-equipped with quality equipment for strength training, cardio, and functional fitness. Owner Dileep Rawat is dedicated and knowledgeable, providing good guidance. For the best experience, visit during early morning (4-7 AM) when it's less crowded, or after 8 PM for a peaceful environment. Peak hours (6-8 PM) can get busy. Facilities are clean, well-maintained, and membership rates are reasonable. A solid choice for anyone serious about fitness in Rasauli!",
+        text: "Best and only gym in Rasauli! Well-equipped with quality equipment. Owner Dileep Rawat provides good guidance. Visit early morning (4-7 AM) or after 8 PM to avoid crowds. Clean facilities, reasonable rates. Solid choice for fitness!",
         verified: true
       }
     ],
@@ -361,7 +361,7 @@ window.LISTINGS = [
       sat: { open: "04:00", close: "07:00", open2: "18:00", close2: "22:00" },
       sun: { open: "00:00", close: "00:00" }
     },
-    description: "Friends Fitness GYM is Rasauli's premier fitness center managed by experienced professional Dileep Rawat. We offer complete gym facilities for all fitness levels including modern strength training equipment (free weights, dumbbells, barbells, weight machines), cardio equipment (treadmills, exercise bikes, cross trainers), functional training areas, and stretching spaces. We provide personalized workout plans, professional guidance, weight loss programs, muscle building training, and fitness coaching. Whether you want to lose weight, build muscle, improve stamina, or maintain fitness, our supportive environment helps you succeed. Two convenient shifts: early morning (4-7 AM) and evening (6-10 PM). Closed Sundays. Join us and start your transformation journey today!",
+    description: "Friends Fitness GYM is Rasauli's premier fitness center managed by Dileep Rawat. We offer modern strength training equipment, cardio machines, functional training areas, and stretching spaces. Services include personalized workout plans, professional guidance, weight loss programs, and muscle building training. Two shifts: early morning (4-7 AM) and evening (6-10 PM). Closed Sundays. Join us today!",
     tags: ["gym", "fitness", "workout", "weight-training", "cardio", "health", "bodybuilding", "exercise", "fitness-center", "personal-training"],
     isNew: true
   },
@@ -383,7 +383,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 3.0,
         date: "2026-02-28",
-        text: "Golden CSC can handle basic government services, but service quality and professionalism are inconsistent. For simple tasks, they might get the job done, but expect delays. We strongly recommend <a href='business-detail.html?id=raheem-common-service-center'>Raheem CSC</a> for reliable and professional service. However, for particularly tricky or complicated work requiring connections, Golden CSC might help through their network. For most people, especially important documents and time-sensitive work, Raheem CSC is the better choice. Use Golden CSC as a last resort or for specific situations where their connections might be beneficial.",
+        text: "Can handle basic services but quality is inconsistent. Expect delays. We recommend <a href='business-detail.html?id=raheem-common-service-center'>Raheem CSC</a> for reliable service. Golden CSC might help with tricky work requiring connections. Use as last resort.",
         verified: true
       }
     ],
@@ -434,7 +434,7 @@ window.LISTINGS = [
       sat: { open: "00:00", close: "23:59" },
       sun: { open: "00:00", close: "23:59" }
     },
-    description: "Om Dhaba is your authentic roadside dining destination in Rasauli, serving delicious home-style food 24/7. We specialize in traditional North Indian cuisine with genuine 'ghar jaisa swaad' (home-like taste). Our menu features fresh rotis, parathas, dal, sabzi, rice dishes, and dhaba favorites. Whether you need breakfast, lunch, late-night dinner, or a quick snack, we're always open. Known for generous portions, affordable prices, and authentic flavors that remind you of home-cooked meals. We maintain high hygiene standards using fresh ingredients and traditional cooking methods. Perfect for truck drivers, travelers, and anyone seeking authentic dhaba food anytime. Stop by for a filling meal that tastes just like home!",
+    description: "Om Dhaba serves delicious home-style food 24/7. We specialize in traditional North Indian cuisine with genuine 'ghar jaisa swaad'. Menu features fresh rotis, parathas, dal, sabzi, rice, and dhaba favorites. Known for generous portions, affordable prices, and authentic flavors. High hygiene standards with fresh ingredients. Perfect for travelers and anyone seeking authentic dhaba food anytime!",
     tags: ["dhaba", "restaurant", "food", "north-indian", "24x7", "roadside-food", "home-style", "traditional-food", "roti", "paratha", "dal", "sabzi"],
     isNew: true
   },
@@ -456,7 +456,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 5.0,
         date: "2026-02-28",
-        text: "Hala Motors is the best vehicle repair shop in Rasauli with exceptional professionalism in work quality and customer service. Highly skilled mechanics handle everything from routine maintenance to complex repairs, diagnosing issues accurately and fixing them right the first time. Staff maintains professional behavior, explaining problems clearly with transparent pricing and no hidden charges. They handle all vehicle types with expertise, use modern tools and genuine spare parts, complete work on time, and stand behind their repairs. Highly recommended for quality workmanship, honest service, and professional treatment!",
+        text: "Best vehicle repair shop in Rasauli! Exceptional professionalism and quality. Skilled mechanics diagnose accurately and fix right the first time. Transparent pricing, no hidden charges. Modern tools, genuine parts, timely completion. Highly recommended!",
         verified: true
       }
     ],
@@ -477,7 +477,7 @@ window.LISTINGS = [
       sat: { open: "09:00", close: "17:00" },
       sun: { open: "00:00", close: "00:00" }
     },
-    description: "Hala Motors is Rasauli's premier vehicle repair and service center with skilled mechanics offering professional automotive solutions. We specialize in comprehensive repairs, routine maintenance, engine diagnostics, brake services, suspension repairs, electrical work, and servicing for two-wheelers and four-wheelers. Our workshop has modern diagnostic tools to accurately identify and fix any issue. We use genuine spare parts and follow manufacturer-recommended procedures. Services include oil changes, tire services, battery replacement, AC repair, denting and painting, and complete overhauls. We pride ourselves on transparent pricing, honest assessments, and timely completion. Trust us for reliable, professional, and affordable vehicle repair services. Open Monday to Saturday, 9 AM to 5 PM.",
+    description: "Hala Motors is Rasauli's premier vehicle repair center with skilled mechanics. We specialize in comprehensive repairs, maintenance, engine diagnostics, brake services, suspension, electrical work, and servicing for two-wheelers and four-wheelers. Services include oil changes, tire services, battery replacement, AC repair, denting and painting. We use genuine parts with transparent pricing and timely completion. Open Monday to Saturday, 9 AM to 5 PM.",
     tags: ["vehicle-repair", "car-service", "bike-service", "mechanic", "auto-repair", "garage", "maintenance", "two-wheeler", "four-wheeler", "engine-repair", "brake-service"],
     isNew: true
   },
@@ -499,7 +499,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 3.0,
         date: "2026-02-28",
-        text: "Chandra Shekhar Azad Inter College is the best UP Board school for Hindi and English Medium in Rasauli. However, management and administration are unprofessional. Most teachers lack professionalism, but some are exceptional. Vikash Jaiswal sir is a genius in Mathematics who can solve JEE Advanced questions with outstanding teaching. Abhey Verma sir teaches Maths and Physics excellently with valuable experience. Abhishek sir handles Chemistry and Social Science but can be unprofessional. The school offers Nursery to 10th with UP Board recognition. For 11th-12th, they're associated with Jay Hind Inter College Barabanki. If you focus on learning from the good teachers, this school provides quality education.",
+        text: "Best UP Board school in Rasauli for Hindi and English Medium. Management is unprofessional, but some teachers are exceptional like Vikash Jaiswal sir (Math genius) and Abhey Verma sir (excellent Maths and Physics). Offers Nursery to 10th. Associated with Jay Hind Inter College for 11th-12th.",
         verified: true
       }
     ],
@@ -532,7 +532,7 @@ window.LISTINGS = [
       sat: { open: "09:00", close: "17:00" },
       sun: { open: "00:00", close: "00:00" }
     },
-    description: "Chandra Shekhar Azad Inter College is a recognized UP Board institution in Rasauli, offering education in Hindi and English Medium from Nursery to Class 10th with full UP Board recognition. For Classes 11th-12th, we're associated with Jay Hind Inter College Barabanki. Our curriculum follows UP Board syllabus including Mathematics, Science, Social Studies, Hindi, English, and optional subjects. We have dedicated faculty with subject expertise focusing on academic excellence and personality development. Facilities include classrooms, library, and basic infrastructure. We offer structured learning with regular classes, examinations, and parent-teacher meetings. Admissions open for all classes from Nursery to 10th. Contact our principals or manager for inquiries. Open Monday to Saturday, 9 AM to 5 PM.",
+    description: "Chandra Shekhar Azad Inter College is a recognized UP Board institution offering Hindi and English Medium education from Nursery to Class 10th. For 11th-12th, we're associated with Jay Hind Inter College Barabanki. Curriculum follows UP Board syllabus with dedicated faculty. Facilities include classrooms, library, and basic infrastructure. Admissions open for Nursery to 10th. Open Monday to Saturday, 9 AM to 5 PM.",
     tags: ["school", "education", "up-board", "hindi-medium", "english-medium", "nursery", "primary-school", "high-school", "inter-college", "coaching", "classes"],
     isNew: true
   },
@@ -566,7 +566,7 @@ window.LISTINGS = [
       sat: { open: "09:00", close: "21:00" },
       sun: { open: "09:00", close: "21:00" }
     },
-    description: "Shri Shyam Medicals is your trusted neighborhood pharmacy in Rasauli, located near Pankaj Sweets. We stock prescription medications, over-the-counter medicines, health supplements, vitamins, and wellness products from reputed brands. We maintain strict quality standards with authorized distributors and proper storage. Our knowledgeable staff assists with medication information, dosage guidance, and health queries. Services include prescription filling, medicine home delivery for elderly and bedridden patients, health monitoring devices, first-aid supplies, baby care, personal hygiene, diabetic care products, and medical equipment. Open daily 9 AM to 9 PM for your convenience. Visit us for all your healthcare and pharmaceutical needs.",
+    description: "Shri Shyam Medicals is your trusted pharmacy near Pankaj Sweets. We stock prescription medications, OTC medicines, health supplements, vitamins, and wellness products from reputed brands. Services include prescription filling, home delivery, health monitoring devices, first-aid supplies, baby care, and diabetic care products. Open daily 9 AM to 9 PM.",
     tags: ["pharmacy", "medical-store", "medicines", "healthcare", "prescription", "health-supplements", "wellness", "first-aid", "baby-care", "diabetic-care"],
     isNew: true
   },
@@ -599,7 +599,7 @@ window.LISTINGS = [
       sat: { open: "09:00", close: "20:00" },
       sun: { open: "09:00", close: "20:00" }
     },
-    description: "Satyam Footwear is your one-stop destination for quality footwear in Rasauli, near Pankaj Sweets. Managed by Satyam Prajapati, we offer a wide variety for men, women, and children. Our collection includes formal shoes, casual footwear, sports shoes, sandals, slippers, traditional footwear, school shoes, and seasonal collections. We stock trusted brands and affordable local options. Whether you need comfortable daily wear, stylish party shoes, durable work boots, or trendy sneakers, we have it all. We maintain high quality standards with competitive pricing and excellent customer service. Visit us for all your footwear needs - from traditional chappals to modern sports shoes. Open daily 9 AM to 8 PM.",
+    description: "Satyam Footwear offers quality footwear near Pankaj Sweets. Managed by Satyam Prajapati, we have a wide variety for men, women, and children including formal shoes, casual footwear, sports shoes, sandals, slippers, and traditional footwear. We stock trusted brands and affordable options with competitive pricing. Open daily 9 AM to 8 PM.",
     tags: ["footwear", "shoes", "sandals", "slippers", "sports-shoes", "formal-shoes", "casual-footwear", "fashion", "men-shoes", "women-shoes", "kids-shoes"],
     isNew: true
   },
@@ -621,7 +621,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 5.0,
         date: "2026-03-02",
-        text: "Khidmat Enterprises is the best furniture brand in Rasauli! Quality is absolutely top-notch - genuine A1 grade craftsmanship that lasts. The team (Faizal, Asjad, and Akhlad) are wonderful people who genuinely care about customer satisfaction. They listen carefully and provide expert guidance. Their custom furniture projects are impressive - they bring any design vision to life with precision. Whether you need a bed, sofa, dressing table, wardrobe, or custom piece, they deliver excellence. Pricing is very reasonable for the premium quality. High-quality materials and impeccable finishing. The entire experience from consultation to delivery is smooth and professional. Highly recommended!",
+        text: "Best furniture brand in Rasauli! Top-notch A1 grade craftsmanship. Team (Faizal, Asjad, Akhlad) genuinely cares about customers. They bring any design vision to life with precision. Very reasonable pricing for premium quality. Smooth experience from consultation to delivery. Highly recommended!",
         verified: true
       }
     ],
@@ -654,7 +654,7 @@ window.LISTINGS = [
       sat: { open: "09:00", close: "18:00" },
       sun: { open: "09:00", close: "18:00" }
     },
-    description: "Khidmat Enterprises is Rasauli's premier custom furniture manufacturer and design studio. Led by experienced craftsmen Faizal, Asjad, and Akhlad, we create high-quality, handcrafted furniture tailored to your specifications. We make beds, sofas, dressing tables, wardrobes, dining tables, chairs, TV units, study tables, kitchen cabinets, and more. We specialize in custom projects - creating furniture from scratch based on your vision, space, and budget. We use premium wood, hardware, and finishing materials for durability and aesthetics. Services include design consultation, 3D visualization, material selection, custom manufacturing, finishing, polishing, and installation. Whether you need modern contemporary, traditional classic, or minimalist designs, we craft with precision. We work with solid wood, plywood, MDF, and engineered wood. Our workshop has modern tools for complex designs. We pride ourselves on timely delivery, transparent pricing, and exceptional after-sales service. Open daily 9 AM to 6 PM.",
+    description: "Khidmat Enterprises is Rasauli's premier custom furniture manufacturer. Led by Faizal, Asjad, and Akhlad, we create high-quality, handcrafted furniture tailored to your specifications including beds, sofas, wardrobes, dining tables, and more. We specialize in custom projects from scratch based on your vision and budget. Services include design consultation, 3D visualization, manufacturing, finishing, and installation. We work with solid wood, plywood, MDF, and engineered wood. Timely delivery and transparent pricing. Open daily 9 AM to 6 PM.",
     tags: ["furniture", "custom-furniture", "beds", "sofas", "dressing-tables", "wardrobes", "home-decor", "interior-design", "woodwork", "carpentry", "custom-design"],
     isNew: true
   },
@@ -676,7 +676,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 5.0,
         date: "2026-03-02",
-        text: "Rasauli Hardware is the best hardware shop in Rasauli! They stock only high-quality products and A1 grade materials you can trust. Owner Noor Alam provides exceptional service with professional behavior. Extensive range includes premium wooden doors in various designs, high-quality plywood from reputed brands, building materials, tools, fittings, locks, hinges, handles, paints, adhesives, and all essential hardware. Their product knowledge is excellent with honest recommendations. Quality is consistently top-notch with no compromise. Pricing is fair and competitive. Good stock levels mean rare unavailability. Conveniently located near the Over-Bridge. Highly recommended for quality materials, expert guidance, and excellent service!",
+        text: "Best hardware shop in Rasauli! Only A1 grade materials. Owner Noor Alam provides exceptional service. Extensive range of wooden doors, plywood, building materials, tools, and fittings. Excellent product knowledge and honest recommendations. Highly recommended!",
         verified: true
       }
     ],
@@ -697,7 +697,7 @@ window.LISTINGS = [
       sat: { open: "09:30", close: "18:00" },
       sun: { open: "09:30", close: "18:00" }
     },
-    description: "Rasauli Hardware is your trusted one-stop shop for hardware and building materials near the Over-Bridge. Managed by Noor Alam, we provide premium quality products for residential, commercial, and industrial projects. Our inventory includes high-quality wooden doors (panel, flush, decorative, custom designs), premium plywood from leading brands, building hardware (cement, sand, bricks, steel, TMT bars, roofing, tiles), sanitary and bathroom fixtures, kitchen fittings, electrical items, wiring accessories, switches, MCBs, pipes and plumbing materials, paints and coatings, adhesives, tools, locks and security hardware, door and window fittings, hinges, handles, and more. We stock only A1 grade materials from reputed manufacturers. Our team provides expert consultation for your requirements, budget, and project scope. We offer competitive pricing, bulk discounts, and reliable delivery. Open daily 9:30 AM to 6 PM.",
+    description: "Rasauli Hardware is your trusted shop for hardware and building materials near the Over-Bridge. Managed by Noor Alam, we provide premium quality products including wooden doors, plywood, building hardware, sanitary fixtures, kitchen fittings, electrical items, plumbing materials, paints, tools, locks, and door fittings. We stock only A1 grade materials from reputed manufacturers. Expert consultation, competitive pricing, and reliable delivery. Open daily 9:30 AM to 6 PM.",
     tags: ["hardware", "building-materials", "wooden-doors", "plywood", "construction", "tools", "paints", "plumbing", "electrical", "home-improvement", "renovation"],
     isNew: true
   },
@@ -729,7 +729,7 @@ window.LISTINGS = [
       sat: { open: "09:30", close: "22:00" },
       sun: { open: "09:30", close: "22:00" }
     },
-    description: "Kartik Medical Store is your reliable neighborhood pharmacy at Shop No 02, Bazzar Road, Rasauli. We maintain a well-stocked inventory of prescription medications, over-the-counter medicines, health supplements, vitamins, minerals, wellness products, and healthcare essentials from trusted brands. All medicines are sourced from authorized distributors and stored under proper temperature-controlled conditions. Our knowledgeable staff assists with medication information, dosage instructions, drug interactions, and health queries. Services include prescription filling, medicine home delivery for elderly and bedridden patients, health monitoring devices (BP monitors, glucometers), first-aid supplies, baby care products, personal care items, diabetic care products, surgical supplies, medical equipment, and health consultation. Open 9:30 AM to 10 PM daily with extended hours. We prioritize customer health, maintain strict quality standards, and offer competitive pricing. Your health is our priority.",
+    description: "Kartik Medical Store is your reliable pharmacy at Shop No 02, Bazzar Road. We stock prescription medications, OTC medicines, health supplements, vitamins, and wellness products from trusted brands. Services include prescription filling, home delivery, health monitoring devices, first-aid supplies, baby care, diabetic care, and medical equipment. Open 9:30 AM to 10 PM daily. Strict quality standards and competitive pricing.",
     tags: ["pharmacy", "medical-store", "medicines", "healthcare", "prescription", "health-supplements", "wellness", "first-aid", "baby-care", "diabetic-care"],
     isNew: true
   },
@@ -760,7 +760,7 @@ window.LISTINGS = [
       sat: { open: "09:00", close: "20:00" },
       sun: { open: "09:00", close: "20:00" }
     },
-    description: "Suraj Kumar Clothing Store is your destination for fashionable and affordable clothing in Rasauli Bazar. We offer a diverse collection for men, women, and children. Our range includes traditional ethnic wear (kurtas, salwar suits, sarees, sherwanis) for special occasions and festivals, trendy casual wear (jeans, t-shirts, shirts, tops, western outfits), formal wear for office settings, seasonal collections with latest trends, kids' clothing with comfortable and colorful options, traditional and modern fusion wear, party wear and festive collections, and accessories. We curate quality fabrics, good stitching, and stylish designs at competitive prices. Whether shopping for daily wear, weddings, festivals, or something special, you'll find variety. Our friendly staff helps you find the perfect outfit for your style, occasion, and budget. Located conveniently in Rasauli Bazar. Open daily 9 AM to 8 PM.",
+    description: "Suraj Kumar Clothing Store offers fashionable and affordable clothing in Rasauli Bazar for men, women, and children. Our range includes ethnic wear, casual wear, formal wear, seasonal collections, kids' clothing, fusion wear, and party wear. Quality fabrics, good stitching, and stylish designs at competitive prices. Friendly staff helps you find the perfect outfit. Open daily 9 AM to 8 PM.",
     tags: ["clothing", "fashion", "garments", "ethnic-wear", "casual-wear", "formal-wear", "kids-clothing", "traditional-wear", "party-wear", "apparel"],
     isNew: true
   },
@@ -794,7 +794,7 @@ window.LISTINGS = [
       sat: { open: "09:00", close: "20:00" },
       sun: { open: "09:00", close: "20:00" }
     },
-    description: "Janta Clinic is a trusted healthcare facility serving Rasauli with comprehensive medical services and compassionate care. Led by Dr. Dharmendra, we provide accessible and affordable healthcare. Services include general medicine consultations for common illnesses, fever, infections, chronic conditions, preventive healthcare and check-ups, treatment for seasonal diseases, minor injury treatment and wound care, blood pressure and diabetes management, respiratory illness treatment, digestive disorders, skin conditions and dermatology, pediatric care, women's health services, vaccination and immunization, health counseling and lifestyle guidance, prescription services, and specialist referrals. Equipped with basic diagnostic facilities in a clean, hygienic environment. Dr. Dharmendra brings years of experience with a patient-first approach. We believe in preventive care and patient education. Affordable consultation fees make quality healthcare accessible. Located conveniently in Rasauli Bazar. Open daily 9 AM to 8 PM.",
+    description: "Janta Clinic is a trusted healthcare facility led by Dr. Dharmendra. We provide accessible and affordable healthcare including general medicine, preventive care, treatment for common illnesses, minor injury care, BP and diabetes management, respiratory treatment, pediatric care, women's health, vaccination, and specialist referrals. Basic diagnostic facilities in a clean environment. Affordable consultation fees. Open daily 9 AM to 8 PM.",
     tags: ["clinic", "healthcare", "doctor", "medical-services", "general-medicine", "consultation", "health-checkup", "treatment", "patient-care", "family-doctor"],
     isNew: true
   },
@@ -815,7 +815,7 @@ window.LISTINGS = [
         author: "LocalFind Admin",
         role: "LocalFind Team",
         rating: 5,
-        text: "Highly recommended! SK Tent & Light House has consistently demonstrated exceptional professionalism and service excellence in the Rasauli community. Their comprehensive event solutions, from elegant tent setups to stunning lighting arrangements, have transformed countless celebrations into memorable experiences. The team's attention to detail, punctuality, and commitment to client satisfaction sets them apart. They handle everything from intimate family gatherings to grand wedding celebrations with equal dedication. Their extensive inventory is well-maintained, and their pricing is transparent and competitive. What truly impresses us is their personalized approach, they take time to understand each client's vision and budget, offering creative solutions that exceed expectations. The team's expertise in stage decoration, mandap setups, and complete event coordination is remarkable. Their 9 AM to 8 PM availability and multiple contact options make them easily accessible. As a verified business on LocalFind, they exemplify the quality and reliability we promote. Whether you're planning a wedding, corporate event, or any celebration, SK Tent & Light House is your trusted partner for creating magical moments. Proud to have them serve our community!",
+        text: "Highly recommended! Exceptional professionalism and service. Comprehensive event solutions create memorable experiences. Well-maintained inventory, transparent pricing, personalized approach. Expertise in stage decoration, mandap setups, and event coordination. Trusted partner!",
         date: "2026-03-08",
         verified: true
       }
@@ -846,7 +846,7 @@ window.LISTINGS = [
       sat: { open: "09:00", close: "20:00" },
       sun: { open: "09:00", close: "20:00" }
     },
-    description: "SK Tent & Light House is Rasauli's premier event decoration and rental service provider, making your special occasions memorable and visually stunning. We offer comprehensive tent and lighting solutions for weddings, receptions, birthdays, corporate events, religious ceremonies, and celebrations. Our inventory includes elegant wedding tents and shamianas in various sizes, decorative lighting (fairy lights, LED lights, chandeliers, festive illumination), stage decoration and backdrops, mandap decoration for weddings, seating arrangements with chairs, tables, and furniture rentals, sound systems and DJ equipment, catering equipment and crockery, red carpet and walkway decorations, floral arrangements, entrance gate decorations, and complete event setup. Our experienced team works closely with clients to understand their vision, theme, and budget. From intimate gatherings to grand weddings, we handle events of any scale. We ensure timely setup, proper installation, and safe operation. We use high-quality materials and maintain excellent inventory condition. Our lighting creates perfect ambiance, transforming spaces into magical venues. We offer flexible packages, competitive pricing, and reliable service. Services include consultation, site visit, design planning, equipment delivery, complete setup, event support, and post-event cleanup. Located near Primary Govt School in Katra Mohalla. Open daily 9 AM to 8 PM.",
+    description: "SK Tent & Light House is Rasauli's premier event decoration and rental service. We offer comprehensive tent and lighting solutions for weddings, birthdays, corporate events, and celebrations. Our inventory includes wedding tents, shamianas, decorative lighting, stage decoration, mandap decoration, seating arrangements, sound systems, catering equipment, and floral arrangements. Our experienced team works with clients to understand their vision and budget. We handle events of any scale with timely setup and high-quality materials. Located near Primary Govt School in Katra Mohalla. Open daily 9 AM to 8 PM.",
     tags: ["tent-house", "event-services", "wedding-decoration", "lighting", "party-rentals", "event-planning", "shamianas", "stage-decoration", "catering-equipment", "celebration"],
     upiId: "7007126025@naviaxis",
     upiName: "SK Tent & Light House",
@@ -879,7 +879,7 @@ window.LISTINGS = [
       sat: { open: "00:00", close: "23:59" },
       sun: { open: "00:00", close: "23:59" }
     },
-    description: "Balemora Wellness Retreats is a luxury wellness resort where ancient Ayurvedic wisdom meets modern holistic healing. This 20-unit premium destination operates 24/7 with check-in at 8 AM and check-out at midnight. We offer comprehensive Ayurvedic treatments, authentic Kerala therapies, yoga and meditation sessions, personalized detox programs, and mindful wellness cuisine. Located at NH27 Lucknow (near Bara Banki) and Almora in Uttarakhand, we create a sanctuary for families, couples, and wellness seekers. Our full-service spa features deep-tissue, hot stone, sports, Swedish massages, aromatherapy, Ayurvedic treatments, and hydrotherapy with mud bath, sauna, hot tub, and steam room. Spa open daily with hot springs/mineral springs on site. Enjoy 2 outdoor pools, 2 indoor pools, garden, outdoor entertainment area, and walkway to water. Wheelchair-accessible pool, restaurant, and lounge with well-lit paths and stair-free entrance. Dining includes restaurant, coffee shop, free full breakfast (8-10 AM), free daily reception, and 24-hour room service. Climate-controlled rooms feature balcony, separate dining and sitting areas, private bathroom with bathtub and shower, desk, and free WiFi (500+ Mbps). Business facilities include meeting rooms and conference center. Services: 24-hour front desk, dry cleaning/laundry, daily housekeeping. Free on-site self-parking. Minimum check-in age 18. Credit card, debit card, or cash deposit required. Pets not allowed. Government ID may be required. Spa reservations required. Perfect for workcations, spiritual pilgrimages to Ayodhya, Buddhist circuit tours, and long wellness stays.",
+    description: "Balemora Wellness Retreats is a luxury wellness resort offering Ayurvedic treatments, Kerala therapies, yoga, meditation, detox programs, and wellness cuisine. Located at NH27 Lucknow and Almora Uttarakhand. Full-service spa with massages, hydrotherapy, sauna, hot tub, and steam room. Features 2 outdoor pools, 2 indoor pools, restaurant, coffee shop, free breakfast, and 24-hour room service. Climate-controlled rooms with balcony, bathroom, and free WiFi. Business facilities, 24-hour front desk, laundry, and free parking. Perfect for workcations and wellness stays.",
     tags: ["wellness", "ayurveda", "spa", "resort", "yoga", "meditation", "detox", "retreat", "heritage", "luxury", "health", "healing", "pool", "restaurant"],
     isNew: true
   },
@@ -911,7 +911,7 @@ window.LISTINGS = [
       sat: { open: "11:00", close: "23:00" },
       sun: { open: "11:00", close: "23:00" }
     },
-    description: "KFC (Kentucky Fried Chicken) brings the world-famous fried chicken experience to Barabanki. Located at Box Park International on NH 27, adjacent to Seth M.R. Jaipuria School, this outlet serves Colonel Sanders' secret recipe of 11 herbs and spices. Our menu features Original Recipe Chicken, Hot & Crispy Chicken, Zinger Burgers, Chicken Buckets, Popcorn Chicken, Chicken Wings, Rice Bowls, Wraps, and sides including French Fries, Coleslaw, and Mashed Potatoes. We also offer refreshing beverages and desserts. Whether dining in, taking away, or ordering online for home delivery, KFC provides consistent, high-quality fast-food. We maintain strict hygiene standards and food safety protocols. The outlet features comfortable seating and a family-friendly atmosphere. Perfect for casual dining, birthday celebrations, office lunches, or satisfying chicken cravings. Order online through Swiggy for home delivery, or visit us in person. Open daily 11 AM to 11 PM, serving finger-lickin' good chicken!",
+    description: "KFC brings world-famous fried chicken to Barabanki at Box Park International on NH 27. Our menu features Original Recipe Chicken, Hot & Crispy Chicken, Zinger Burgers, Chicken Buckets, Popcorn Chicken, Wings, Rice Bowls, Wraps, and sides including Fries, Coleslaw, and Mashed Potatoes. Dine in, take away, or order online through Swiggy. Comfortable seating and family-friendly atmosphere. Open daily 11 AM to 11 PM.",
     tags: ["kfc", "fast-food", "fried-chicken", "burgers", "restaurant", "chicken", "zinger", "delivery", "takeaway", "family-dining"],
     isNew: true
   },
@@ -942,7 +942,7 @@ window.LISTINGS = [
       sat: { open: "00:00", close: "23:59" },
       sun: { open: "00:00", close: "23:59" }
     },
-    description: "Box Park International is a unique shopping and entertainment destination on NH 27 Ayodhya Highway, next to Seth M.R. Jaipuria School. What makes us special? We're built entirely from repurposed shipping containers - the first mall of its kind in the region. Each container is painted in bright, eye-catching colors with creative designs that look like a giant art installation. Hard to miss when driving by! Inside, you'll find a great mix of places to eat, shop, and hang out. We've got popular spots like KFC, along with local restaurants, cafes, clothing stores, and other shops - all in colorful container spaces. The open-air design gives it a relaxed, outdoor market vibe perfect for families and friends. Whether stopping for a meal during a road trip, shopping, or taking cool Instagram photos (every corner is photo-worthy), Box Park has something for you. Open 24/7, so visit anytime. It's become a popular highway landmark, and people love the sustainable design, vibrant atmosphere, and convenient location. Come see why everyone's talking about Box Park!",
+    description: "Box Park International is a unique shopping and entertainment destination on NH 27 Ayodhya Highway, built entirely from repurposed shipping containers. Each container is painted in bright colors with creative designs. Inside you'll find places to eat (including KFC), shop, and hang out. The open-air design gives it a relaxed vibe perfect for families. Great for meals, shopping, or Instagram photos. Open 24/7. A popular highway landmark combining sustainable design and vibrant atmosphere!",
     tags: ["mall", "shopping", "entertainment", "food-court", "instagram", "container-mall", "sustainable", "family-destination", "highway-stop", "lifestyle"],
     isNew: true
   },
@@ -975,7 +975,7 @@ window.LISTINGS = [
       sat: { open: "09:00", close: "16:00" },
       sun: { open: "09:00", close: "16:00" }
     },
-    description: "PPS College of Nursing is a premier private nursing education institution shaping future healthcare professionals. Located on NH 27 in Sursanda, Barabanki, we provide comprehensive nursing education programs. We offer General Nursing and Midwifery (GNM), Auxiliary Nurse Midwife (ANM), and B.Sc. Nursing programs with theoretical knowledge and practical clinical experience. Our state-of-the-art campus features modern classrooms, well-equipped laboratories, simulation labs for hands-on training, a comprehensive library, and clinical training facilities. We maintain affiliations with reputed hospitals for clinical rotations and internships. Our experienced faculty comprises qualified nursing professionals, medical practitioners, and educators committed to quality education and mentorship. We develop technical nursing skills, critical thinking, patient care ethics, communication abilities, and leadership qualities. The curriculum meets national nursing education standards and prepares students for nursing council examinations and professional practice. We emphasize holistic development, combining academic excellence with personality development, soft skills training, and career guidance. Our graduates are well-prepared for hospitals, clinics, community health centers, nursing homes, and healthcare settings in India and abroad. We offer placement assistance, connecting students with leading healthcare institutions. With modern infrastructure, experienced faculty, comprehensive curriculum, and strong industry connections, we produce competent, confident, and caring nursing professionals. Admissions open for aspiring nursing students. Contact Amit Singh for admission inquiries, course details, eligibility, and campus visits. Open Monday to Sunday, 9 AM to 4 PM.",
+    description: "PPS College of Nursing is a premier nursing education institution on NH 27 in Sursanda, Barabanki. We offer GNM, ANM, and B.Sc. Nursing programs with practical clinical experience. Campus features modern classrooms, laboratories, simulation labs, and library. Affiliations with reputed hospitals for clinical rotations. Experienced faculty of qualified nursing professionals. Curriculum meets national standards. Holistic development with academic excellence and career guidance. Placement assistance available. Contact Amit Singh for admissions. Open Monday to Sunday, 9 AM to 4 PM.",
     tags: ["nursing-college", "education", "healthcare-education", "gnm", "anm", "bsc-nursing", "medical-education", "nursing-course", "career", "healthcare"],
     isNew: true
   },
@@ -1009,7 +1009,7 @@ window.LISTINGS = [
       sat: { open: "00:00", close: "23:59" },
       sun: { open: "00:00", close: "23:59" }
     },
-    description: "Maxwell Hospital is a trusted private healthcare facility providing comprehensive medical services in Sursanda, Barabanki. Operating 24/7, we deliver quality healthcare with compassion and professionalism. Our hospital offers emergency care, general medicine consultations, surgical procedures, diagnostic services, laboratory tests, X-ray and imaging facilities, pharmacy services, and patient admission. We have experienced doctors, skilled nurses, and dedicated healthcare staff working round the clock. Our emergency department handles medical emergencies, accidents, and urgent health conditions with prompt treatment. We specialize in treating common illnesses, chronic diseases, injuries, infections, and providing maternal and child healthcare. Equipped with modern medical equipment, we maintain high hygiene and patient safety standards. We offer outpatient consultations for diagnosis, treatment plans, and follow-up care. For hospitalization, we provide comfortable patient rooms with medical monitoring and nursing care. Our diagnostic center offers complete laboratory tests including blood tests, urine tests, pathology, and medical imaging. The in-house pharmacy ensures immediate access to prescribed medications. We believe in providing affordable and accessible healthcare with transparent pricing. Our patient-centric approach focuses on treating illnesses, preventive healthcare, health education, and wellness guidance. Contact Amit Singh for appointments, emergency services, or inquiries. Available 24/7.",
+    description: "Maxwell Hospital is a trusted private healthcare facility in Sursanda, Barabanki, operating 24/7. Services include emergency care, general medicine, surgical procedures, diagnostic services, lab tests, X-ray, pharmacy, and patient admission. Experienced doctors, nurses, and staff work round the clock. We treat common illnesses, chronic diseases, injuries, infections, and provide maternal and child healthcare. Modern medical equipment with high hygiene standards. Outpatient consultations, hospitalization, complete lab tests, and in-house pharmacy. Affordable healthcare with transparent pricing. Contact Amit Singh. Available 24/7.",
     tags: ["hospital", "healthcare", "emergency-care", "24x7", "medical-services", "doctor", "clinic", "diagnostic", "laboratory", "patient-care", "surgery"],
     isNew: true
   },
@@ -1031,7 +1031,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 4.7,
         date: "2026-03-06",
-        text: "Best Studio in Rasauli! Saraswati Studio offers exceptional photography and videography with professional quality work. Their wedding video coverage is outstanding, capturing every precious moment beautifully. Photo shoot sessions are creative and well-executed for weddings, events, or personal portfolios. They also provide cup printing services which is unique. Staff maintains good behavior and professionalism. Work quality is impressive and they deliver on time. Highly recommended for all your photography, videography, and printing needs!",
+        text: "Best Studio in Rasauli! Exceptional photography and videography with professional quality. Outstanding wedding video coverage. Creative photo shoots. Also provide cup printing services. Good behavior, impressive work quality, and on-time delivery. Highly recommended!",
         verified: true
       }
     ],
@@ -1052,7 +1052,7 @@ window.LISTINGS = [
       sat: { open: "10:00", close: "20:00" },
       sun: { open: "10:00", close: "20:00" }
     },
-    description: "Saraswati Studio is your premier destination for professional photography and videography services in Rasauli, located in Makole. We specialize in capturing life's precious moments with creativity, technical expertise, and artistic vision. Our services include wedding photography and videography covering every aspect from pre-wedding shoots to ceremony and reception. We excel in event photography for birthdays, anniversaries, corporate events, and social gatherings. Our studio offers professional photo shoots for individuals, families, couples, and commercial purposes including portfolio shoots, product photography, and promotional content. We provide high-quality video production including wedding films, event coverage, promotional videos, and documentary-style recordings. What sets us apart is our attention to detail, creative approach, and commitment to delivering stunning visual content. We also offer cup printing services for personalized mugs with photos and designs - perfect for gifts, events, or promotional merchandise. Equipped with modern cameras, lighting equipment, and editing software for professional-grade output. We work closely with you to understand your vision and deliver results that exceed expectations. Our team maintains professional behavior, punctuality, and clear communication. We offer flexible packages for different budgets. Visit us in Makole, Rasauli, or contact us to discuss your photography, videography, and printing needs. Open daily 10 AM to 8 PM.",
+    description: "Saraswati Studio is your premier destination for professional photography and videography in Rasauli, Makole. We specialize in capturing precious moments with creativity and expertise. Services include wedding photography and videography, event photography, professional photo shoots, video production, and cup printing services for personalized mugs. Equipped with modern cameras, lighting, and editing software. We work closely with you to understand your vision and deliver exceptional results. Professional behavior, punctuality, and flexible packages. Open daily 10 AM to 8 PM.",
     tags: ["photography", "videography", "studio", "wedding-photography", "photo-shoot", "video-production", "event-photography", "cup-printing", "printing", "portraits", "commercial-photography"],
     isNew: true
   },
@@ -1085,7 +1085,7 @@ window.LISTINGS = [
       sat: { open: "10:00", close: "20:00" },
       sun: { open: "10:00", close: "20:00" }
     },
-    description: "Jamwant Mobile Shop is your trusted destination for all mobile phone needs in Rasauli on Rasauli Bazar Road. Managed by Jamwant Singh, we specialize in comprehensive mobile services and accessories. We offer professional mobile phone repair for all brands including screen replacement, battery replacement, charging port repair, software issues, water damage repair, and troubleshooting. We sell mobile phones from budget-friendly to premium smartphones. Our extensive accessories collection includes phone cases and covers, tempered glass and screen protectors, charging cables and adapters, power banks, earphones and headphones, TWS (True Wireless Stereo) earbuds, neckband headphones, Bluetooth speakers, mobile holders and stands, memory cards and pen drives, and more. We stock trusted brands with quality at competitive prices. Whether you need a quick repair, want to upgrade to a new smartphone, or looking for the latest audio accessories like TWS earbuds or neckband headphones, we have you covered. Our knowledgeable staff provides expert advice and warranty support on repairs and products. Customer satisfaction is our priority with prompt service, genuine products, and fair pricing. Open daily 10 AM to 8 PM.",
+    description: "Jamwant Mobile Shop is your trusted destination for mobile phone needs in Rasauli on Rasauli Bazar Road. Managed by Jamwant Singh, we offer professional mobile repair for all brands including screen replacement, battery replacement, charging port repair, software issues, and water damage repair. We sell mobile phones from budget to premium smartphones. Extensive accessories include phone cases, tempered glass, charging cables, power banks, earphones, TWS earbuds, neckband headphones, Bluetooth speakers, mobile holders, memory cards, and more. Expert advice, warranty support, genuine products, and fair pricing. Open daily 10 AM to 8 PM.",
     tags: ["mobile-shop", "phone-repair", "mobile-accessories", "smartphones", "earphones", "tws", "neckband", "headphones", "phone-cases", "screen-protector", "chargers", "electronics"],
     isNew: true
   }
