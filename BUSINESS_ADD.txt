@@ -1,29 +1,31 @@
-Add new business to LocalFind directory with COMPLETE integration:
+Add New Business to LocalFind
 
-[PASTE BUSINESS DATA HERE]
-
-Business Name: 
+BUSINESS INFO:
+Name: 
 Location: 
 Category: 
 Phone: 
 WhatsApp: 
+Email: 
+Website: 
+Google Maps Link: 
 Coordinates: Lat: XX.XXXXXX, Lng: XX.XXXXXX
-Google Maps: 
 Hours: 
 Description: 
 Tags: 
 Featured: Yes/No
 Verified: Yes/No
 Rating: X.X/5
-Review: 
 
-UPDATE ALL FILES:
-✅ js/data.js - Add business entry with coordinates object
-✅ js/business-detail.js - Add coordinates to getBusinessCoordinates()
-✅ map.html - Add coordinates to extractCoordinates()
-✅ js/config.js - Add search aliases + increment version
-✅ index.html - Update listing/category counts
-✅ categories.html - Update category count or add new category
-✅ js/main.js, js/pwa.js, manifest.json, sw.js - Update versions
+FILES TO UPDATE:
+1. js/data.js - Add business with coordinates: { lat: XX.XX, lng: XX.XX }
+2. js/config.js - Add search keywords + bump version
+3. index.html - Update business count
+4. categories.html - Update category count
+5. Version files - js/main.js, js/pwa.js, manifest.json, sw.js
 
-VERIFY: Count businesses in data.js, business-detail.js, and map.html must match!
+VERIFY:
+- Business appears on map
+- Search works
+- Detail page loads
+- All counts match
