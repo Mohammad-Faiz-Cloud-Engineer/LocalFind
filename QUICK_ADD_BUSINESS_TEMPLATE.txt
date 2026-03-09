@@ -1,58 +1,76 @@
 ═══════════════════════════════════════════════════════════════
-🚀 QUICK ADD BUSINESS - COPY THIS TEMPLATE
+QUICK ADD BUSINESS TEMPLATE
 ═══════════════════════════════════════════════════════════════
 
-Add new business with complete integration. Update ALL files below.
+Copy this and fill in the details:
 
-BUSINESS DATA:
+BUSINESS INFO:
 ──────────────────────────────────────────────────────────────
-Name: [Business Name]
-Location: [Area], [City], [State] [PIN]
-Category: [Category Name]
-Category Slug: [category-slug]
+Name: 
+Location: 
+Category: 
+Category Slug: 
 
-Phone: [+91 XXXXX XXXXX]
-Phone Name: [Optional]
-WhatsApp: [+91 XXXXX XXXXX]
-WhatsApp Name: [Optional]
-Email: [email or N/A]
-Website: [URL or N/A]
+Phone: +91 
+WhatsApp: +91 
+Email: 
+Website: 
 
-Google Maps: [https://maps.app.goo.gl/...]
-Latitude: [XX.XXXXXXX]
-Longitude: [XX.XXXXXXX]
+Google Maps: https://maps.app.goo.gl/
+Latitude: 
+Longitude: 
 
-Hours: [e.g., 10 AM - 8 PM daily, or specify each day]
+Hours: (e.g., 9 AM - 6 PM Mon-Sat, Closed Sunday)
 
-Description: [Full description of services/products]
-Tags: [tag1, tag2, tag3, ...]
+Description: 
 
-Featured: [Yes/No]
-Verified: [Yes/No]
-Rating: [X.X/5]
+Tags: 
 
-Admin Review: [Optional - Your review text]
+Featured: Yes/No
+Verified: Yes/No
+Rating: /5
 
-FILES TO UPDATE (CHECK ALL):
+FILES TO UPDATE:
 ──────────────────────────────────────────────────────────────
-☐ js/data.js - Add business entry with coordinates field
-☐ js/business-detail.js - Add to getBusinessCoordinates()
-☐ map.html - Add to extractCoordinates()
-☐ js/config.js - Add search aliases + bump version
-☐ index.html - Update stats (listings/categories)
-☐ categories.html - Update category count or add new
-☐ js/main.js - Update @version
-☐ js/pwa.js - Update @version and PWA_VERSION
-☐ manifest.json - Update version fields
-☐ sw.js - Update version, CACHE_VERSION, BUILD_NUMBER
+☐ js/data.js - Add business with coordinates: { lat: X, lng: Y }
+☐ js/config.js - Add search keywords + bump version
+☐ index.html - Update business count
+☐ categories.html - Update category count
+☐ js/main.js, js/pwa.js, manifest.json, sw.js - Update versions
 
 VERIFY:
 ──────────────────────────────────────────────────────────────
-☐ Business count matches in all files
-☐ Coordinates in 3 places (data.js, business-detail.js, map.html)
-☐ Search works with business name
-☐ Map shows marker
-☐ Business detail page loads
-☐ Version numbers consistent
+☐ Shows on map
+☐ Search works
+☐ Detail page loads
+☐ Counts match
+
+═══════════════════════════════════════════════════════════════
+
+EXAMPLE:
+
+Name: Example Cafe
+Location: Main Road, Rasauli, UP 225203
+Category: Food & Beverages
+Category Slug: food-beverages
+
+Phone: +91 98765 43210
+WhatsApp: +91 98765 43210
+Email: info@example.com
+Website: https://example.com
+
+Google Maps: https://maps.app.goo.gl/abc123
+Latitude: 26.9135
+Longitude: 81.2328
+
+Hours: 8 AM - 10 PM daily
+
+Description: Best cafe in Rasauli serving coffee, snacks, and meals.
+
+Tags: cafe, coffee, snacks, food, beverages
+
+Featured: Yes
+Verified: Yes
+Rating: 4.5/5
 
 ═══════════════════════════════════════════════════════════════
