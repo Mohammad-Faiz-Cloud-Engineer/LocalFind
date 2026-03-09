@@ -86,7 +86,7 @@
       // Check if audio file exists for this business (sanitize business name for path)
       const safeBizName = sanitizeHTML(biz.name);
       const audioPath = `Voices/${encodeURIComponent(safeBizName)}/`;
-      const descriptionAudio = `${audioPath}${encodeURIComponent(safeBizName)} Business Description.mp3`;
+      const descriptionAudio = `${audioPath}Business Description.mp3`;
       
       descEl.innerHTML = `
         <div class="collapsible-section">
@@ -286,7 +286,7 @@
         // Check if audio file exists for admin review (sanitize business name for path)
         const safeBizName = sanitizeHTML(biz.name);
         const audioPath = `Voices/${encodeURIComponent(safeBizName)}/`;
-        const reviewAudio = isAdmin ? `${audioPath}${encodeURIComponent(safeBizName)} Admin Review.mp3` : '';
+        const reviewAudio = isAdmin ? `${audioPath}Admin Review.mp3` : '';
 
         return `
           <div class="review-card ${isAdmin ? 'official' : ''}">
