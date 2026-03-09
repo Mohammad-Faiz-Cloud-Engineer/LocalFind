@@ -27,19 +27,16 @@
     // Extract coordinates from mapLink or use default
     let lat, lng;
     
-    // Check if business has explicit coordinates
+    // Check if business has explicit coordinates in data
     if (business.coordinates && business.coordinates.lat && business.coordinates.lng) {
       lat = business.coordinates.lat;
       lng = business.coordinates.lng;
     }
-    // Handle different Google Maps URL formats
+    // Handle different Google Maps URL formats as fallback
     else if (business.mapLink.includes('maps.app.goo.gl') || business.mapLink.includes('goo.gl')) {
       // For shortened Google Maps links, try to extract from Plus Code in address
       const plusCodeMatch = business.address.match(/([A-Z0-9]{4}\+[A-Z0-9]{2,3})/);
       if (plusCodeMatch) {
-        // Extract approximate coordinates from Plus Code format
-        // This is a fallback - the actual link will work on mobile
-        const plusCode = plusCodeMatch[1];
         // Use config coordinates as fallback for OpenStreetMap display
         lat = CONFIG.mapLat;
         lng = CONFIG.mapLng;

@@ -198,55 +198,25 @@
    * @returns {Array|null} [lat, lng] or null
    */
   function extractCoordinates(business) {
-    // Hardcoded coordinates for all businesses (verified accurate)
-    // Format: [latitude, longitude]
-    // Valid range for Rasauli area: Lat 26.90-26.93, Lng 81.24-81.27
-    const coordinates = {
-      "raheem-common-service-center": [26.9230278, 81.2608333],
-      "aman-garments": [26.9230278, 81.2609167],
-      "affan-garments": [26.9239722, 81.2612222],
-      "shariq-hashmi-electric-shop": [26.9249722, 81.2620556],
-      "hind-pharmacy": [26.9248889, 81.2620556],
-      "abdul-hospital": [26.9246097, 81.2619726],
-      "rajju-pankaj-sweets": [26.924135, 81.2614237],
-      "friend-fitness-gym": [26.9236389, 81.2541389],
-      "golden-csc": [26.9234167, 81.2610556],
-      "om-dhaba": [26.9219589, 81.2613632],
-      "hala-motors": [26.9226786, 81.2559463],
-      "chandra-shekhar-azad-inter-college": [26.9203899, 81.2609952],
-      "shri-shyam-medicals": [26.9242222, 81.2614444],
-      "satyam-footwear": [26.9241667, 81.2613333],
-      "khidmat-enterprises": [26.9231944, 81.2561667],
-      "rasauli-hardware": [26.9230833, 81.2564167],
-      "kartik-medical-store": [26.9231907, 81.2608735],
-      "suraj-kumar-clothing-store": [26.9246194, 81.2612665],
-      "janta-clinic": [26.9252745, 81.2622634],
-      "sk-tent-light-house": [26.9257475, 81.2612005],
-      "balemora-wellness-retreats": [26.9220302, 81.2581160],
-      "kfc-barabanki": [26.9237173, 81.2504984],
-      "box-park-international": [26.9247718, 81.2498400],
-      "pps-college-of-nursing": [26.9257332, 81.2481373],
-      "maxwell-hospital": [26.9254186, 81.2414883],
-      "saraswati-studio-makole": [26.9228271, 81.2605057],
-      "jamwant-mobile-shop": [26.9226667, 81.2604167]
-    };
-
-    const coords = coordinates[business.id];
-    
-    // Validate coordinates are within reasonable bounds for Rasauli area
-    if (coords) {
-      const [lat, lng] = coords;
+    // Get coordinates from business data
+    if (business.coordinates && business.coordinates.lat && business.coordinates.lng) {
+      const lat = business.coordinates.lat;
+      const lng = business.coordinates.lng;
+      
+      // Validate coordinates are within reasonable bounds for Rasauli area
       const isValidLat = lat >= 26.90 && lat <= 26.93;
       const isValidLng = lng >= 81.24 && lng <= 81.27;
       
       // Return null for invalid coordinates with warning
       if (!isValidLat || !isValidLng) {
-        console.warn(`[Map] Invalid coordinates for business "${business.name}" (${business.id}):`, coords, '- Expected range: Lat 26.90-26.93, Lng 81.24-81.27');
+        console.warn(`[Map] Invalid coordinates for business "${business.name}" (${business.id}):`, [lat, lng], '- Expected range: Lat 26.90-26.93, Lng 81.24-81.27');
         return null;
       }
+      
+      return [lat, lng];
     }
     
-    return coords || null;
+    return null;
   }
 
   /**

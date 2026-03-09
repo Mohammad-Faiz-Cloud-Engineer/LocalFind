@@ -689,36 +689,11 @@
    * @returns {Array|null} [latitude, longitude] or null if not found
    */
   function getBusinessCoordinates(businessId) {
-    const coordinates = {
-      'raheem-common-service-center': [26.9238021, 81.2612707],
-      'aman-garments': [26.9248848, 81.2620547],
-      'affan-garments': [26.9249000, 81.2621000],
-      'shariq-hashmi-electric-shop': [26.9249200, 81.2621500],
-      'hind-pharmacy': [26.9248500, 81.2620000],
-      'abdul-hospital': [26.9226786, 81.2559463],
-      'rajju-pankaj-sweets': [26.9238500, 81.2613000],
-      'friend-fitness-gym': [26.9261896, 81.2611953],
-      'golden-csc': [26.9238300, 81.2612500],
-      'om-dhaba': [26.9227000, 81.2559800],
-      'hala-motors': [26.9226500, 81.2559100],
-      'chandra-shekhar-azad-inter-college': [26.9203899, 81.2609952],
-      'shri-shyam-medicals': [26.9253005, 81.2622223],
-      'satyam-footwear': [26.9244569, 81.2614599],
-      'khidmat-enterprises': [26.9231717, 81.2608811],
-      'rasauli-hardware': [26.9232000, 81.2609100],
-      'kartik-medical-store': [26.9231400, 81.2608500],
-      'suraj-kumar-clothing-store': [26.9244800, 81.2614900],
-      'janta-clinic': [26.9253300, 81.2622500],
-      'sk-tent-light-house': [26.9262100, 81.2612200],
-      'balemora-wellness-retreats': [26.9220302, 81.2606909],
-      'kfc-barabanki': [26.9250001, 81.2497201],
-      'box-park-international': [26.9246388, 81.249308],
-      'pps-college-of-nursing': [26.9252489, 81.2486689],
-      'maxwell-hospital': [26.9253413, 81.2414972],
-      'saraswati-studio-makole': [26.9228271, 81.2605057],
-      'jamwant-mobile-shop': [26.922656, 81.260429]
-    };
-
-    return coordinates[businessId] || null;
+    // Find business in LISTINGS and return its coordinates
+    const business = window.LISTINGS.find(b => b.id === businessId);
+    if (business && business.coordinates && business.coordinates.lat && business.coordinates.lng) {
+      return [business.coordinates.lat, business.coordinates.lng];
+    }
+    return null;
   }
 })();

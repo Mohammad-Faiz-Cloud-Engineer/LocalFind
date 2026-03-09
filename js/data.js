@@ -18,6 +18,7 @@
  *   status: "open",                              // "open" or "closed"
  *   rating: 4.5,                                 // Rating out of 5
  *   reviewCount: 100,                            // Number of reviews
+ *   coordinates: {lat: 26.9230, lng: 81.2608},  // GPS coordinates for map display
  *   address: "Full Address",                     // Complete address
  *   mapLink: "https://maps.google.com/?q=...",  // Google Maps link
  *   phone: "+91 00000 00000",                    // Contact phone
@@ -49,6 +50,7 @@ window.LISTINGS = [
     status: "open",
     rating: 5.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9230278, lng: 81.2608333 },
     reviews: [
       {
         id: "review-1",
@@ -89,6 +91,7 @@ window.LISTINGS = [
     status: "open",
     rating: 4.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9230278, lng: 81.2609167 },
     reviews: [
       {
         id: "review-1",
@@ -130,6 +133,7 @@ window.LISTINGS = [
     status: "open",
     rating: 4.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9239722, lng: 81.2612222 },
     reviews: [
       {
         id: "review-1",
@@ -173,6 +177,7 @@ window.LISTINGS = [
     status: "open",
     rating: 5.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9249722, lng: 81.2620556 },
     reviews: [
       {
         id: "review-1",
@@ -213,6 +218,7 @@ window.LISTINGS = [
     status: "open",
     rating: 0,
     reviewCount: 0,
+    coordinates: { lat: 26.9248889, lng: 81.2620556 },
     reviews: [],
     address: "Village & Post Rasauli, District Barabanki, Near Galla Bazar, Uttar Pradesh 225203",
     mapLink: "https://maps.google.com/?q=26.9248848,81.2620547",
@@ -244,6 +250,7 @@ window.LISTINGS = [
     status: "open",
     rating: 5.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9246097, lng: 81.2619726 },
     reviews: [
       {
         id: "review-1",
@@ -285,6 +292,7 @@ window.LISTINGS = [
     status: "open",
     rating: 5.0,
     reviewCount: 1,
+    coordinates: { lat: 26.924135, lng: 81.2614237 },
     reviews: [
       {
         id: "review-1",
@@ -325,6 +333,7 @@ window.LISTINGS = [
     status: "open",
     rating: 4.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9236389, lng: 81.2541389 },
     reviews: [
       {
         id: "review-1",
@@ -366,6 +375,7 @@ window.LISTINGS = [
     status: "open",
     rating: 3.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9234167, lng: 81.2610556 },
     reviews: [
       {
         id: "review-1",
@@ -406,6 +416,7 @@ window.LISTINGS = [
     status: "open",
     rating: 0,
     reviewCount: 0,
+    coordinates: { lat: 26.9239213, lng: 81.2535000 },
     reviews: [],
     address: "Barabanki, W7F3+F9P, Uttar Pradesh 225001",
     mapLink: "https://maps.app.goo.gl/uQGpSd1gGLf17zzo9",
@@ -437,6 +448,7 @@ window.LISTINGS = [
     status: "open",
     rating: 5.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9226786, lng: 81.2559463 },
     reviews: [
       {
         id: "review-1",
@@ -479,6 +491,7 @@ window.LISTINGS = [
     status: "open",
     rating: 3.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9203899, lng: 81.2609952 },
     reviews: [
       {
         id: "review-1",
@@ -533,6 +546,7 @@ window.LISTINGS = [
     status: "open",
     rating: 0,
     reviewCount: 0,
+    coordinates: { lat: 26.9242222, lng: 81.2614444 },
     reviews: [],
     address: "Village & Post Rasauli District, Rasauli Bazar Near Pankaj Sweets, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/ntCuyZaRHJ7idkMX7",
@@ -566,6 +580,7 @@ window.LISTINGS = [
     status: "open",
     rating: 0,
     reviewCount: 0,
+    coordinates: { lat: 26.9241667, lng: 81.2613333 },
     reviews: [],
     address: "Village & Post Rasauli District, Rasauli Bazar Near Pankaj Sweets, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/zePwKwQZytsyY6hGA",
@@ -598,6 +613,7 @@ window.LISTINGS = [
     status: "open",
     rating: 5.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9231944, lng: 81.2561667 },
     reviews: [
       {
         id: "review-1",
@@ -652,6 +668,7 @@ window.LISTINGS = [
     status: "open",
     rating: 5.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9230833, lng: 81.2564167 },
     reviews: [
       {
         id: "review-1",
@@ -694,6 +711,7 @@ window.LISTINGS = [
     status: "open",
     rating: 0,
     reviewCount: 0,
+    coordinates: { lat: 26.9231907, lng: 81.2608735 },
     reviews: [],
     address: "Village & Post Rasauli District, Shop No 02, Bazzar Road, Barabanki, Rasauli, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/yJkBVrBr9XtyGv2T6",
@@ -725,6 +743,7 @@ window.LISTINGS = [
     status: "open",
     rating: 0,
     reviewCount: 0,
+    coordinates: { lat: 26.9246194, lng: 81.2612665 },
     reviews: [],
     address: "Village & Post Rasauli District, In Rasauli Bazar, Suraj Kumar Clothing Shop, Rasauli, Barabanki, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/aehRADgJmPL452tr5",
@@ -755,6 +774,7 @@ window.LISTINGS = [
     status: "open",
     rating: 0,
     reviewCount: 0,
+    coordinates: { lat: 26.9252745, lng: 81.2622634 },
     reviews: [],
     address: "Village & Post Rasauli District, In Rasauli Bazar, W7G6+4VH, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/qCXk6fHbr8Cei5tM7",
@@ -788,6 +808,7 @@ window.LISTINGS = [
     status: "open",
     rating: 5.0,
     reviewCount: 1,
+    coordinates: { lat: 26.9257475, lng: 81.2612005 },
     reviews: [
       {
         id: "review-1",
@@ -841,6 +862,7 @@ window.LISTINGS = [
     status: "open",
     rating: 5.0,
     reviewCount: 0,
+    coordinates: { lat: 26.9220302, lng: 81.2581160 },
     reviews: [],
     address: "HGG Campus, Railway Station, NH-28, Ayodhya - Lucknow Rd, opposite Rasauli, behind Seth M.R. Jaipuria School, lucknow, Rasauli, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/WKpiLWGSBUKesZzcA",
@@ -871,6 +893,7 @@ window.LISTINGS = [
     status: "open",
     rating: 4.7,
     reviewCount: 0,
+    coordinates: { lat: 26.9237173, lng: 81.2504984 },
     reviews: [],
     address: "Box Park International, NH 27, Ayodhya - Lucknow Rd, adjacent to Seth Mr Jaipuria School, Barabanki, Sursanda, Uttar Pradesh 225001",
     mapLink: "https://maps.app.goo.gl/BPzGsEjv6nz8MM6H8",
@@ -902,6 +925,7 @@ window.LISTINGS = [
     status: "open",
     rating: 4.7,
     reviewCount: 0,
+    coordinates: { lat: 26.9247718, lng: 81.2498400 },
     reviews: [],
     address: "Khasra No, 203 & 204, Ayodhya - Lucknow Rd, Pargana, Pratap Ganj, Barabanki, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/FjNzddaGYa29m9g29",
@@ -932,6 +956,7 @@ window.LISTINGS = [
     status: "open",
     rating: 4.3,
     reviewCount: 0,
+    coordinates: { lat: 26.9257332, lng: 81.2481373 },
     reviews: [],
     address: "W6GX+3FV, NH 27, Sursanda, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/5M2QxgKZQugKDdZJ7",
@@ -964,6 +989,7 @@ window.LISTINGS = [
     status: "open",
     rating: 4.7,
     reviewCount: 0,
+    coordinates: { lat: 26.9254186, lng: 81.2414883 },
     reviews: [],
     address: "W6GR+4HQ, Barabanki, Sursanda, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/6pqEGygAYb9ShF1T7",
@@ -997,6 +1023,7 @@ window.LISTINGS = [
     status: "open",
     rating: 4.7,
     reviewCount: 1,
+    coordinates: { lat: 26.9228271, lng: 81.2605057 },
     reviews: [
       {
         id: "review-1",
@@ -1039,6 +1066,7 @@ window.LISTINGS = [
     status: "open",
     rating: 3.8,
     reviewCount: 0,
+    coordinates: { lat: 26.9226667, lng: 81.2604167 },
     reviews: [],
     address: "Village & Post Rasauli District Barabanki, Rasauli Bazar Road, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/cG5dYAkjyFKb6qTz8",
