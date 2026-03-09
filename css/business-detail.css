@@ -95,14 +95,6 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   margin-bottom: var(--space-md);
   outline: none;
-  transition: background-color 0.2s ease;
-}
-
-.collapsible-header:hover {
-  background-color: rgba(255, 138, 0, 0.05);
-  border-radius: var(--radius-md);
-  padding-left: var(--space-sm);
-  padding-right: var(--space-sm);
 }
 
 .collapsible-header:focus-visible {
