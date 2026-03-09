@@ -786,9 +786,18 @@ window.LISTINGS = [
     featured: true,
     verified: true,
     status: "open",
-    rating: 5.0,
-    reviewCount: 0,
-    reviews: [],
+    rating: 4.9,
+    reviewCount: 1,
+    reviews: [
+      {
+        name: "LocalFind Admin",
+        rating: 5,
+        comment: "Highly recommended! SK Tent & Light House has consistently demonstrated exceptional professionalism and service excellence in the Rasauli community. Their comprehensive event solutions, from elegant tent setups to stunning lighting arrangements, have transformed countless celebrations into memorable experiences. The team's attention to detail, punctuality, and commitment to client satisfaction sets them apart. They handle everything from intimate family gatherings to grand wedding celebrations with equal dedication. Their extensive inventory is well-maintained, and their pricing is transparent and competitive. What truly impresses us is their personalized approach—they take time to understand each client's vision and budget, offering creative solutions that exceed expectations. The team's expertise in stage decoration, mandap setups, and complete event coordination is remarkable. Their 9 AM to 8 PM availability and multiple contact options make them easily accessible. As a verified business on LocalFind, they exemplify the quality and reliability we promote. Whether you're planning a wedding, corporate event, or any celebration, SK Tent & Light House is your trusted partner for creating magical moments. Proud to have them serve our community!",
+        date: "2026-03-08",
+        verified: true,
+        adminReview: true
+      }
+    ],
     address: "Village & Post Rasauli District, Near Primary Govt School, KATRA MOHALLA, W7G6+FF, Rasauli, Barabanki, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/Y3B8Q6WUctiXWezE6",
     phone: "+91 70071 26025",
