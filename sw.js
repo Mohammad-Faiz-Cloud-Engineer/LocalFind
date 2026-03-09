@@ -24,7 +24,6 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/business-detail.html`,
   `${BASE_PATH}/add-business.html`,
   `${BASE_PATH}/about.html`,
-  `${BASE_PATH}/contact.html`,
   `${BASE_PATH}/map.html`,
   `${BASE_PATH}/offline.html`,
   `${BASE_PATH}/404.html`,
