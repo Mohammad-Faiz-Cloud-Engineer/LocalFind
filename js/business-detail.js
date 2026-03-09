@@ -78,18 +78,31 @@
     if (categoryEl) categoryEl.textContent = biz.category;
     if (nameEl) nameEl.textContent = biz.name;
     
-    // Render description with collapse/expand
+    // Render description with collapse/expand and listen feature
     if (descEl) {
       const descText = sanitizeHTML(biz.description);
       const needsPreview = descText.length > 300;
+      
+      // Check if audio file exists for this business (sanitize business name for path)
+      const safeBizName = sanitizeHTML(biz.name);
+      const audioPath = `Voices/${encodeURIComponent(safeBizName)}/`;
+      const descriptionAudio = `${audioPath}${encodeURIComponent(safeBizName)} Business Description.mp3`;
       
       descEl.innerHTML = `
         <div class="collapsible-section">
           <div class="collapsible-header" id="desc-toggle" role="button" tabindex="0" aria-expanded="true" aria-controls="desc-content">
             <h3>About</h3>
-            <i class="fa-solid fa-chevron-down collapse-icon" aria-hidden="true"></i>
+            <div class="header-actions">
+              <button class="listen-btn" id="desc-listen-btn" aria-label="Listen to description" title="Listen to description">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+              <i class="fa-solid fa-chevron-down collapse-icon" aria-hidden="true"></i>
+            </div>
           </div>
           <div class="collapsible-content" id="desc-content" role="region" aria-labelledby="desc-toggle">
+            <audio id="desc-audio" preload="none" style="display: none;">
+              <source src="${descriptionAudio}" type="audio/mpeg">
+            </audio>
             <div class="text-preview ${needsPreview ? '' : 'expanded'}" id="desc-preview">
               ${descText}
             </div>
@@ -116,13 +129,25 @@
           descToggle.setAttribute('aria-expanded', isCollapsed ? 'true' : 'false');
         };
         
-        descToggle.addEventListener('click', toggleCollapse);
+        descToggle.addEventListener('click', (e) => {
+          // Don't toggle if clicking on listen button
+          if (e.target.closest('.listen-btn')) return;
+          toggleCollapse();
+        });
         descToggle.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             toggleCollapse();
           }
         });
+      }
+      
+      // Add audio player functionality
+      const descListenBtn = document.getElementById('desc-listen-btn');
+      const descAudio = document.getElementById('desc-audio');
+      
+      if (descListenBtn && descAudio) {
+        initAudioPlayer(descListenBtn, descAudio, 'description');
       }
       
       // Add see more/less functionality
@@ -257,6 +282,11 @@
         const reviewTextSafe = linkifyText(review.text);
         const needsPreview = review.text.length > 200;
         const reviewId = `review-${sanitizeHTML(index.toString())}`;
+        
+        // Check if audio file exists for admin review (sanitize business name for path)
+        const safeBizName = sanitizeHTML(biz.name);
+        const audioPath = `Voices/${encodeURIComponent(safeBizName)}/`;
+        const reviewAudio = isAdmin ? `${audioPath}${encodeURIComponent(safeBizName)} Admin Review.mp3` : '';
 
         return `
           <div class="review-card ${isAdmin ? 'official' : ''}">
@@ -273,8 +303,20 @@
                 </div>
                 <div class="rating ${isAdmin ? '' : 'rating-small'}" aria-label="${review.rating} out of 5 stars">${reviewStars}</div>
               </div>
-              <span class="review-date">${reviewDate}</span>
+              <div class="review-header-right">
+                ${isAdmin && reviewAudio ? `
+                  <button class="listen-btn review-listen-btn" id="review-listen-${reviewId}" aria-label="Listen to review" title="Listen to review">
+                    <i class="fa-solid fa-volume-high"></i>
+                  </button>
+                ` : ''}
+                <span class="review-date">${reviewDate}</span>
+              </div>
             </div>
+            ${isAdmin && reviewAudio ? `
+              <audio id="review-audio-${reviewId}" preload="none" style="display: none;">
+                <source src="${reviewAudio}" type="audio/mpeg">
+              </audio>
+            ` : ''}
             <div class="text-preview ${needsPreview ? '' : 'expanded'}" id="review-preview-${reviewId}">
               <p class="review-text ${isAdmin ? 'large' : ''}">${reviewTextSafe}</p>
             </div>
@@ -288,10 +330,23 @@
         `;
       }).join('');
       
-      // Add see more/less functionality for each review
+      // Add see more/less functionality and audio players for each review
       biz.reviews.forEach((review, index) => {
+        const isAdmin = review.role && review.role.includes('LocalFind');
+        const reviewId = `review-${index}`;
+        
+        // Audio player for admin reviews
+        if (isAdmin) {
+          const reviewListenBtn = document.getElementById(`review-listen-${reviewId}`);
+          const reviewAudio = document.getElementById(`review-audio-${reviewId}`);
+          
+          if (reviewListenBtn && reviewAudio) {
+            initAudioPlayer(reviewListenBtn, reviewAudio, `review-${index}`);
+          }
+        }
+        
+        // See more/less functionality
         if (review.text.length > 200) {
-          const reviewId = `review-${index}`;
           const seeMoreBtn = document.getElementById(`review-see-more-${reviewId}`);
           const reviewPreview = document.getElementById(`review-preview-${reviewId}`);
           
@@ -848,3 +903,86 @@
     return null;
   }
 })();
+
+
+  /**
+   * Initialize audio player for listen buttons
+   * @param {HTMLElement} button - The listen button element
+   * @param {HTMLAudioElement} audio - The audio element
+   * @param {string} id - Unique identifier for this audio player
+   */
+  function initAudioPlayer(button, audio, id) {
+    let isPlaying = false;
+    let currentAudio = null;
+    
+    // Stop all other audio players
+    const stopAllAudio = () => {
+      document.querySelectorAll('audio').forEach(a => {
+        if (a !== audio && !a.paused) {
+          a.pause();
+          a.currentTime = 0;
+        }
+      });
+      document.querySelectorAll('.listen-btn.playing').forEach(btn => {
+        if (btn !== button) {
+          btn.classList.remove('playing');
+          const icon = btn.querySelector('i');
+          if (icon) {
+            icon.className = 'fa-solid fa-volume-high';
+          }
+        }
+      });
+    };
+    
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      
+      if (isPlaying) {
+        // Pause audio
+        audio.pause();
+        audio.currentTime = 0;
+        isPlaying = false;
+        button.classList.remove('playing');
+        button.querySelector('i').className = 'fa-solid fa-volume-high';
+        button.setAttribute('aria-label', 'Listen');
+      } else {
+        // Stop all other audio
+        stopAllAudio();
+        
+        // Play audio
+        audio.play().then(() => {
+          isPlaying = true;
+          button.classList.add('playing');
+          button.querySelector('i').className = 'fa-solid fa-pause';
+          button.setAttribute('aria-label', 'Pause');
+        }).catch((error) => {
+          console.warn('Audio playback failed:', error);
+          // Fallback: show error message
+          button.querySelector('i').className = 'fa-solid fa-volume-xmark';
+          button.setAttribute('aria-label', 'Audio not available');
+          button.disabled = true;
+          setTimeout(() => {
+            button.querySelector('i').className = 'fa-solid fa-volume-high';
+            button.setAttribute('aria-label', 'Listen');
+            button.disabled = false;
+          }, 2000);
+        });
+      }
+    });
+    
+    // Reset button when audio ends
+    audio.addEventListener('ended', () => {
+      isPlaying = false;
+      button.classList.remove('playing');
+      button.querySelector('i').className = 'fa-solid fa-volume-high';
+      button.setAttribute('aria-label', 'Listen');
+      audio.currentTime = 0;
+    });
+    
+    // Handle audio errors
+    audio.addEventListener('error', () => {
+      button.querySelector('i').className = 'fa-solid fa-volume-xmark';
+      button.setAttribute('aria-label', 'Audio not available');
+      button.disabled = true;
+    });
+  }
