@@ -138,7 +138,7 @@ function renderFooter(){
       <div>
         <h4>Contact</h4>
         <p>${address}</p>
-        <p><a href="${CONFIG.socialLinks.whatsapp}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> ${phone} (WhatsApp Only)</a></p>
+        <p><a href="${CONFIG.socialLinks.whatsapp}" target="_blank" rel="noopener noreferrer">${phone} (WhatsApp Only)</a></p>
         <p><a href="mailto:${email}">${email}</a></p>
       </div>
     </div>
