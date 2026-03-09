@@ -39,7 +39,7 @@ const CONFIG = {
   socialLinks: {
     facebook: "https://facebook.com/",
     instagram: "https://instagram.com/localfind_",
-    twitter: "https://twitter.com/localfind",
+    twitter: "https://x.com/localfind_",
     whatsapp: "https://wa.me/918004037031"
   },
   
