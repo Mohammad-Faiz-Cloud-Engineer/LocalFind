@@ -75,9 +75,74 @@
     const nameEl = document.getElementById('biz-name');
     
     if (titleEl) titleEl.textContent = biz.name;
-    if (descEl) descEl.textContent = biz.description;
     if (categoryEl) categoryEl.textContent = biz.category;
     if (nameEl) nameEl.textContent = biz.name;
+    
+    // Render description with collapse/expand
+    if (descEl) {
+      const descText = sanitizeHTML(biz.description);
+      const needsPreview = descText.length > 300;
+      
+      descEl.innerHTML = `
+        <div class="collapsible-section">
+          <div class="collapsible-header" id="desc-toggle" role="button" tabindex="0" aria-expanded="true" aria-controls="desc-content">
+            <h3>About</h3>
+            <i class="fa-solid fa-chevron-down collapse-icon" aria-hidden="true"></i>
+          </div>
+          <div class="collapsible-content" id="desc-content" role="region" aria-labelledby="desc-toggle">
+            <div class="text-preview ${needsPreview ? '' : 'expanded'}" id="desc-preview">
+              ${descText}
+            </div>
+            ${needsPreview ? `
+              <button class="see-more-btn" id="desc-see-more" aria-expanded="false">
+                <span>See More</span>
+                <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `;
+      
+      // Add collapse/expand toggle functionality
+      const descToggle = document.getElementById('desc-toggle');
+      const descContent = document.getElementById('desc-content');
+      const descIcon = descToggle.querySelector('.collapse-icon');
+      
+      if (descToggle && descContent && descIcon) {
+        const toggleCollapse = () => {
+          const isCollapsed = descContent.classList.contains('collapsed');
+          descContent.classList.toggle('collapsed');
+          descIcon.classList.toggle('collapsed');
+          descToggle.setAttribute('aria-expanded', isCollapsed ? 'true' : 'false');
+        };
+        
+        descToggle.addEventListener('click', toggleCollapse);
+        descToggle.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleCollapse();
+          }
+        });
+      }
+      
+      // Add see more/less functionality
+      if (needsPreview) {
+        const seeMoreBtn = document.getElementById('desc-see-more');
+        const descPreview = document.getElementById('desc-preview');
+        
+        if (seeMoreBtn && descPreview) {
+          const toggleExpand = () => {
+            const isExpanded = descPreview.classList.contains('expanded');
+            descPreview.classList.toggle('expanded');
+            seeMoreBtn.classList.toggle('expanded');
+            seeMoreBtn.querySelector('span').textContent = isExpanded ? 'See More' : 'See Less';
+            seeMoreBtn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+          };
+          
+          seeMoreBtn.addEventListener('click', toggleExpand);
+        }
+      }
+    }
 
     // Add verified badge to title if business is verified
     if (biz.verified) {
@@ -124,10 +189,62 @@
       `;
     }
 
-    // Render reviews
+    // Render reviews with collapse/expand
+    const reviewsSection = document.getElementById('reviews');
     const reviewsList = document.getElementById('reviews-list');
+    
+    if (reviewsSection && biz.reviews && biz.reviews.length > 0) {
+      // Add collapsible header to reviews section
+      const reviewsHeader = reviewsSection.querySelector('h3');
+      if (reviewsHeader) {
+        const headerWrapper = document.createElement('div');
+        headerWrapper.className = 'collapsible-header';
+        headerWrapper.id = 'reviews-toggle';
+        headerWrapper.setAttribute('role', 'button');
+        headerWrapper.setAttribute('tabindex', '0');
+        headerWrapper.setAttribute('aria-expanded', 'true');
+        headerWrapper.setAttribute('aria-controls', 'reviews-content');
+        headerWrapper.innerHTML = `
+          <h3>Reviews (${sanitizeHTML(biz.reviews.length.toString())})</h3>
+          <i class="fa-solid fa-chevron-down collapse-icon" aria-hidden="true"></i>
+        `;
+        reviewsHeader.replaceWith(headerWrapper);
+        
+        // Wrap reviews list in collapsible content
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = 'collapsible-content';
+        contentWrapper.id = 'reviews-content';
+        contentWrapper.setAttribute('role', 'region');
+        contentWrapper.setAttribute('aria-labelledby', 'reviews-toggle');
+        reviewsList.parentNode.insertBefore(contentWrapper, reviewsList);
+        contentWrapper.appendChild(reviewsList);
+        
+        // Add toggle functionality
+        const reviewsToggle = document.getElementById('reviews-toggle');
+        const reviewsContent = document.getElementById('reviews-content');
+        const reviewsIcon = reviewsToggle.querySelector('.collapse-icon');
+        
+        if (reviewsToggle && reviewsContent && reviewsIcon) {
+          const toggleReviews = () => {
+            const isCollapsed = reviewsContent.classList.contains('collapsed');
+            reviewsContent.classList.toggle('collapsed');
+            reviewsIcon.classList.toggle('collapsed');
+            reviewsToggle.setAttribute('aria-expanded', isCollapsed ? 'true' : 'false');
+          };
+          
+          reviewsToggle.addEventListener('click', toggleReviews);
+          reviewsToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggleReviews();
+            }
+          });
+        }
+      }
+    }
+    
     if (biz.reviews && biz.reviews.length > 0) {
-      reviewsList.innerHTML = biz.reviews.map(review => {
+      reviewsList.innerHTML = biz.reviews.map((review, index) => {
         const isAdmin = review.role && review.role.includes('LocalFind');
         const reviewStars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
         const reviewDate = new Date(review.date).toLocaleDateString('en-US', {
@@ -138,6 +255,8 @@
 
         // Sanitize and linkify review text
         const reviewTextSafe = linkifyText(review.text);
+        const needsPreview = review.text.length > 200;
+        const reviewId = `review-${sanitizeHTML(index.toString())}`;
 
         return `
           <div class="review-card ${isAdmin ? 'official' : ''}">
@@ -152,14 +271,46 @@
                   ${review.verified ? '<span class="badge badge-verified">✓ VERIFIED</span>' : ''}
                   ${review.role ? `<span class="review-role ${isAdmin ? 'official' : ''}">${sanitizeHTML(review.role)}</span>` : ''}
                 </div>
-                <div class="rating ${isAdmin ? '' : 'rating-small'}">${reviewStars}</div>
+                <div class="rating ${isAdmin ? '' : 'rating-small'}" aria-label="${review.rating} out of 5 stars">${reviewStars}</div>
               </div>
               <span class="review-date">${reviewDate}</span>
             </div>
-            <p class="review-text ${isAdmin ? 'large' : ''}">${reviewTextSafe}</p>
+            <div class="text-preview ${needsPreview ? '' : 'expanded'}" id="review-preview-${reviewId}">
+              <p class="review-text ${isAdmin ? 'large' : ''}">${reviewTextSafe}</p>
+            </div>
+            ${needsPreview ? `
+              <button class="see-more-btn" id="review-see-more-${reviewId}" aria-expanded="false">
+                <span>See More</span>
+                <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+              </button>
+            ` : ''}
           </div>
         `;
       }).join('');
+      
+      // Add see more/less functionality for each review
+      biz.reviews.forEach((review, index) => {
+        if (review.text.length > 200) {
+          const reviewId = `review-${index}`;
+          const seeMoreBtn = document.getElementById(`review-see-more-${reviewId}`);
+          const reviewPreview = document.getElementById(`review-preview-${reviewId}`);
+          
+          if (seeMoreBtn && reviewPreview) {
+            const toggleReviewExpand = () => {
+              const isExpanded = reviewPreview.classList.contains('expanded');
+              reviewPreview.classList.toggle('expanded');
+              seeMoreBtn.classList.toggle('expanded');
+              const btnText = seeMoreBtn.querySelector('span');
+              if (btnText) {
+                btnText.textContent = isExpanded ? 'See More' : 'See Less';
+              }
+              seeMoreBtn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+            };
+            
+            seeMoreBtn.addEventListener('click', toggleReviewExpand);
+          }
+        }
+      });
     } else {
       reviewsList.innerHTML = '<div class="empty-state"><p>No reviews yet. Be the first to review!</p></div>';
     }
