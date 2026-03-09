@@ -28,7 +28,8 @@ const CONFIG = {
   
   // Contact Information
   contactEmail: "hello@localfind.com",
-  contactPhone: "+91 00000 00000",
+  contactPhone: "+91 8004037031",
+  contactWhatsApp: "+91 8004037031",
   contactAddress: "Rasauli, Barabanki, Uttar Pradesh 225001",
   
   // Business Information
@@ -39,7 +40,7 @@ const CONFIG = {
     facebook: "https://facebook.com/localfind",
     instagram: "https://instagram.com/localfind",
     twitter: "https://twitter.com/localfind",
-    whatsapp: "https://wa.me/910000000000"
+    whatsapp: "https://wa.me/918004037031"
   },
   
   // API Configuration (for production backend integration)
