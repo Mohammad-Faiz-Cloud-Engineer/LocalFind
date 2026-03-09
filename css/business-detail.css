@@ -128,7 +128,7 @@
 }
 
 .collapsible-content {
-  max-height: 1000px;
+  max-height: 2000px;
   overflow: hidden;
   transition: max-height 0.4s ease, opacity 0.3s ease;
   opacity: 1;
@@ -137,16 +137,19 @@
 .collapsible-content.collapsed {
   max-height: 0;
   opacity: 0;
+  margin-bottom: 0;
 }
 
 .text-preview {
   position: relative;
   max-height: 150px;
   overflow: hidden;
+  margin-bottom: 0;
 }
 
 .text-preview.expanded {
   max-height: none;
+  overflow: visible;
 }
 
 .text-preview::after {
@@ -158,9 +161,11 @@
   height: 60px;
   background: linear-gradient(to bottom, transparent, rgba(30, 39, 54, 0.95));
   pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .text-preview.expanded::after {
+  opacity: 0;
   display: none;
 }
 
@@ -168,7 +173,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: var(--space-md);
+  margin-top: var(--space-sm);
+  margin-bottom: 0;
   padding: 8px 16px;
   background: rgba(255, 138, 0, 0.1);
   border: 1px solid var(--accent-primary);
@@ -180,6 +186,7 @@
   transition: all 0.2s ease;
   font-family: var(--font-sans);
   outline: none;
+  width: fit-content;
 }
 
 .see-more-btn:hover {
@@ -203,6 +210,22 @@
 
 .see-more-btn.expanded i {
   transform: rotate(180deg);
+}
+
+/* Mobile optimization for see more button */
+@media (max-width: 768px) {
+  .see-more-btn {
+    font-size: 12px;
+    padding: 6px 14px;
+    margin-top: var(--space-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .see-more-btn {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
 }
 
 .sidebar {
@@ -273,6 +296,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   position: relative;
+  margin-top: var(--space-lg);
 }
 
 #reviews h3 {
@@ -282,6 +306,19 @@
 #reviews .collapsible-header {
   padding: 0 0 var(--space-md) 0;
   margin-bottom: var(--space-md);
+}
+
+/* Mobile spacing for reviews */
+@media (max-width: 768px) {
+  #reviews {
+    margin-top: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  #reviews {
+    margin-top: var(--space-sm);
+  }
 }
 
 #review-form {
@@ -646,11 +683,16 @@
   margin-bottom: var(--space-md);
   position: relative;
   transition: all var(--transition-base);
+  overflow: hidden;
 }
 
 .review-card:hover {
   border-color: rgba(255, 255, 255, 0.12);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.review-card:last-child {
+  margin-bottom: 0;
 }
 
 .review-card.official {
