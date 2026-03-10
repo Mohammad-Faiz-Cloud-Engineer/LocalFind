@@ -6,12 +6,11 @@
  * @updated 2026-03-07
  */
 
-const CACHE_VERSION = 'localfind-v4.4.0';
-const BUILD_NUMBER = '20260310'; // YYYYMMDD format
+const CACHE_VERSION = 'localfind-v4.3.0';
+const BUILD_NUMBER = '20260307b'; // YYYYMMDD format
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
-const AI_CACHE = `${CACHE_VERSION}-ai`;
 
 // Base path for GitHub Pages deployment
 const BASE_PATH = '/LocalFind';
@@ -48,15 +47,6 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/js/business-detail.js`,
   `${BASE_PATH}/js/utils.js`,
   `${BASE_PATH}/js/pwa.js`,
-  `${BASE_PATH}/js/ai/ai-config.js`,
-  `${BASE_PATH}/js/ai/ai-security.js`,
-  `${BASE_PATH}/js/ai/ai-cache.js`,
-  `${BASE_PATH}/js/ai/ai-analytics.js`,
-  `${BASE_PATH}/js/ai/ai-chatbot.js`,
-  `${BASE_PATH}/js/ai/ai-search.js`,
-  `${BASE_PATH}/js/ai/ai-ui.js`,
-  `${BASE_PATH}/js/ai/ai-init.js`,
-  `${BASE_PATH}/css/ai/ai-chatbot.css`,
   `${BASE_PATH}/assets/images/mainlogo.svg`,
   `${BASE_PATH}/assets/images/og-image.svg`,
   `${BASE_PATH}/manifest.json`
@@ -77,7 +67,7 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean up only OLD version caches
 self.addEventListener('activate', (event) => {
-  const currentCaches = [STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE, AI_CACHE];
+  const currentCaches = [STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE];
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
