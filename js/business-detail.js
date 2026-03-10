@@ -18,19 +18,181 @@
   }
 
   /**
-   * Convert URLs in text to clickable links (safely)
-   * @param {string} text - Text containing URLs
+   * Validates and sanitizes a URL to prevent XSS attacks
+   * @private
+   * @param {string} url - URL to validate
+   * @returns {string|null} Sanitized URL or null if invalid
+   */
+  function validateAndSanitizeURL(url) {
+    if (!url || typeof url !== 'string') return null;
+    
+    // Remove any whitespace
+    url = url.trim();
+    
+    // Check for javascript: protocol and other dangerous protocols
+    const dangerousProtocols = /^(javascript|data|vbscript|file|about):/i;
+    if (dangerousProtocols.test(url)) {
+      console.warn('Blocked potentially dangerous URL:', url);
+      return null;
+    }
+    
+    // For relative URLs, ensure they don't contain suspicious patterns
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      // Block URLs with suspicious patterns
+      if (url.includes('javascript:') || url.includes('data:')) {
+        console.warn('Blocked suspicious relative URL:', url);
+        return null;
+      }
+    }
+    
+    return url;
+  }
+
+  /**
+   * Determines if a URL is internal (same site) or external
+   * @private
+   * @param {string} url - URL to check
+   * @returns {boolean} True if internal, false if external
+   */
+  function isInternalURL(url) {
+    if (!url) return false;
+    
+    // External URLs start with http:// or https://
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return false;
+    }
+    
+    // Relative paths are internal
+    return true;
+  }
+
+  /**
+   * Creates an HTML anchor tag with appropriate attributes
+   * @private
+   * @param {string} url - The URL for the href attribute
+   * @param {boolean} isInternal - Whether the link is internal
+   * @returns {string} Opening anchor tag HTML
+   */
+  function createAnchorTag(url, isInternal) {
+    const sanitizedURL = validateAndSanitizeURL(url);
+    if (!sanitizedURL) {
+      // Return a span instead of a link for invalid URLs
+      return '<span class="invalid-link" style="color: var(--text-secondary);">';
+    }
+    
+    const baseAttributes = `href="${sanitizedURL}" class="content-link"`;
+    
+    if (isInternal) {
+      // Internal link - opens in same tab
+      return `<a ${baseAttributes}>`;
+    } else {
+      // External link - opens in new tab with security attributes
+      return `<a ${baseAttributes} target="_blank" rel="noopener noreferrer">`;
+    }
+  }
+
+  /**
+   * Processes text containing HTML anchor tags
+   * Preserves existing links while sanitizing surrounding content
+   * @private
+   * @param {string} text - Text containing HTML links
+   * @returns {string} Processed text with safe links
+   */
+  function processExistingLinks(text) {
+    try {
+      // Replace single quotes with double quotes in href attributes
+      // Support both <a href='...'> and <a href="...">
+      let processed = text.replace(/<a\s+href=['"]([^'"]+)['"]>/gi, (match, url) => {
+        const isInternal = isInternalURL(url);
+        return createAnchorTag(url, isInternal);
+      });
+      
+      // Split by anchor tags to sanitize only non-link content
+      const parts = processed.split(/(<a[^>]*>.*?<\/a>)/gi);
+      
+      processed = parts.map((part) => {
+        // Preserve anchor tags and their content
+        if (part.match(/^<a[^>]*>.*?<\/a>$/i)) {
+          return part;
+        }
+        // Sanitize non-link text to prevent XSS
+        return sanitizeHTML(part);
+      }).join('');
+      
+      return processed;
+    } catch (error) {
+      console.error('Error processing existing links:', error);
+      // Fallback to full sanitization on error
+      return sanitizeHTML(text);
+    }
+  }
+
+  /**
+   * Converts plain URLs in text to clickable links
+   * @private
+   * @param {string} text - Sanitized text containing plain URLs
    * @returns {string} Text with URLs converted to links
    */
-  function linkifyText(text) {
-    // First sanitize the text
-    const sanitized = sanitizeHTML(text);
+  function linkifyPlainURLs(text) {
+    // Match http:// and https:// URLs
+    const urlPattern = /(https?:\/\/[^\s<]+)/g;
+    
+    return text.replace(urlPattern, (url) => {
+      const sanitizedURL = validateAndSanitizeURL(url);
+      if (!sanitizedURL) {
+        return url; // Return original if validation fails
+      }
+      
+      return `<a href="${sanitizedURL}" class="content-link" target="_blank" rel="noopener noreferrer">${url}</a>`;
+    });
+  }
 
-    // Then convert URLs to links
-    return sanitized.replace(
-      /(https?:\/\/[^\s<]+)/g,
-      '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline; word-break: break-all;">$1</a>'
-    );
+  /**
+   * Convert URLs in text to clickable links (safely)
+   * Handles both existing HTML links and plain URLs
+   * Internal links open in same tab, external links open in new tab
+   * 
+   * @param {string} text - Text containing URLs or HTML links
+   * @returns {string} Text with URLs converted to safe, clickable links
+   * 
+   * @example
+   * // With existing HTML link
+   * linkifyText("Visit <a href='page.html'>here</a>")
+   * // Returns: "Visit <a href="page.html" class="content-link">here</a>"
+   * 
+   * @example
+   * // With plain URL
+   * linkifyText("Visit https://example.com")
+   * // Returns: "Visit <a href="https://example.com" class="content-link" target="_blank" rel="noopener noreferrer">https://example.com</a>"
+   */
+  function linkifyText(text) {
+    // Input validation
+    if (!text || typeof text !== 'string') {
+      return '';
+    }
+    
+    // Trim whitespace
+    text = text.trim();
+    
+    if (text.length === 0) {
+      return '';
+    }
+    
+    try {
+      // Check if text contains existing HTML anchor tags
+      if (text.includes('<a href=') || text.includes('<a href=')) {
+        return processExistingLinks(text);
+      }
+      
+      // No HTML links - sanitize and convert plain URLs to links
+      const sanitized = sanitizeHTML(text);
+      return linkifyPlainURLs(sanitized);
+      
+    } catch (error) {
+      console.error('Error in linkifyText:', error);
+      // Fallback to sanitized text on error
+      return sanitizeHTML(text);
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
