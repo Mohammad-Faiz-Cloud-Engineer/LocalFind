@@ -85,7 +85,9 @@
       
       // Check if audio file exists for this business
       // Use raw business name (not sanitized) for file path construction
-      const audioPath = `Voices/${encodeURIComponent(biz.name)}/`;
+      // Replace forward slashes with hyphens for file system compatibility
+      const folderName = biz.name.replace(/\//g, '-');
+      const audioPath = `Voices/${encodeURIComponent(folderName)}/`;
       const descriptionAudio = `${audioPath}${encodeURIComponent('Business Description.mp3')}`;
       
       descEl.innerHTML = `
@@ -285,7 +287,9 @@
         
         // Check if audio file exists for admin review
         // Use raw business name (not sanitized) for file path construction
-        const audioPath = `Voices/${encodeURIComponent(biz.name)}/`;
+        // Replace forward slashes with hyphens for file system compatibility
+        const folderName = biz.name.replace(/\//g, '-');
+        const audioPath = `Voices/${encodeURIComponent(folderName)}/`;
         const reviewAudio = isAdmin ? `${audioPath}${encodeURIComponent('Admin Review.mp3')}` : '';
 
         return `
