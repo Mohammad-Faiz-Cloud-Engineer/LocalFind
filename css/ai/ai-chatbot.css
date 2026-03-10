@@ -658,12 +658,93 @@
     padding: 16px 20px;
   }
 
+  .ai-header-info h3 {
+    font-size: 17px;
+  }
+
+  .ai-subtitle {
+    font-size: 12px;
+  }
+
   .ai-chat-messages {
-    padding: 20px;
+    padding: 16px;
+  }
+
+  .ai-message-content {
+    max-width: 85%;
+  }
+
+  .ai-message-content p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .ai-welcome-message p {
+    font-size: 13px;
+  }
+
+  .ai-quick-btn {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .ai-message-time {
+    font-size: 10px;
   }
 
   .ai-chat-input {
-    padding: 16px 20px;
+    padding: 16px;
+  }
+
+  .ai-chat-input input {
+    font-size: 13px;
+    padding: 12px 16px;
+  }
+
+  .ai-powered {
+    font-size: 10px;
+  }
+
+  .ai-offline-indicator {
+    font-size: 12px;
+    padding: 10px 16px;
+  }
+
+  /* Reduce table text on mobile */
+  .ai-message-content table {
+    font-size: 12px;
+  }
+
+  .ai-message-content th,
+  .ai-message-content td {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  /* Reduce code block text */
+  .ai-message-content code {
+    font-size: 11px;
+  }
+
+  .ai-message-content pre code {
+    font-size: 12px;
+  }
+
+  /* Reduce heading sizes */
+  .ai-message-content h1 {
+    font-size: 16px;
+  }
+
+  .ai-message-content h2 {
+    font-size: 15px;
+  }
+
+  .ai-message-content h3 {
+    font-size: 14px;
+  }
+
+  .ai-message-content h4 {
+    font-size: 13px;
   }
 }
 
