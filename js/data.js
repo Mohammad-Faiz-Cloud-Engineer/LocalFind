@@ -499,7 +499,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 3.0,
         date: "2026-02-28",
-        text: "Best UP Board school in Rasauli for Hindi and English Medium. Management is unprofessional, but some teachers are exceptional like Vikash Jaiswal sir (Math genius) and Abhey Verma sir (excellent Maths and Physics). Offers Nursery to 10th. Associated with Jay Hind Inter College for 11th-12th.",
+        text: "Best UP Board school in Rasauli for Hindi and English Medium. Management is unprofessional, but some teachers are exceptional like Vikas Jaiswal sir (Math genius) and Abhey Verma sir (excellent Maths and Physics). Offers Nursery to 10th. Associated with Jay Hind Inter College for 11th-12th.",
         verified: true
       }
     ],
