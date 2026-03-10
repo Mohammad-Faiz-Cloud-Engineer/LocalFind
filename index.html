@@ -11,7 +11,7 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https://www.openstreetmap.org;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https: https://Rox-Turbo-API.hf.space https://api-inference.huggingface.co; frame-src 'self' https://www.openstreetmap.org;">
 
   <!-- PWA Meta Tags -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -79,6 +79,9 @@
   <link rel="stylesheet" href="css/categories.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/utilities.css">
+  
+  <!-- AI Styles -->
+  <link rel="stylesheet" href="css/ai/ai-chatbot.css">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -286,6 +289,16 @@
   <script defer src="js/counter.js"></script>
   <script defer src="js/directory.js"></script>
   <script defer src="js/pwa.js"></script>
+  
+  <!-- AI Features -->
+  <script defer src="js/ai/ai-config.js"></script>
+  <script defer src="js/ai/ai-security.js"></script>
+  <script defer src="js/ai/ai-cache.js"></script>
+  <script defer src="js/ai/ai-analytics.js"></script>
+  <script defer src="js/ai/ai-chatbot.js"></script>
+  <script defer src="js/ai/ai-search.js"></script>
+  <script defer src="js/ai/ai-ui.js"></script>
+  <script defer src="js/ai/ai-init.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Check if data exists
