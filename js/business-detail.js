@@ -83,10 +83,10 @@
       const descText = sanitizeHTML(biz.description);
       const needsPreview = descText.length > 300;
       
-      // Check if audio file exists for this business (sanitize business name for path)
-      const safeBizName = sanitizeHTML(biz.name);
-      const audioPath = `Voices/${encodeURIComponent(safeBizName)}/`;
-      const descriptionAudio = `${audioPath}Business Description.mp3`;
+      // Check if audio file exists for this business
+      // Use raw business name (not sanitized) for file path construction
+      const audioPath = `Voices/${encodeURIComponent(biz.name)}/`;
+      const descriptionAudio = `${audioPath}${encodeURIComponent('Business Description.mp3')}`;
       
       descEl.innerHTML = `
         <div class="collapsible-section">
@@ -283,10 +283,10 @@
         const needsPreview = review.text.length > 200;
         const reviewId = `review-${sanitizeHTML(index.toString())}`;
         
-        // Check if audio file exists for admin review (sanitize business name for path)
-        const safeBizName = sanitizeHTML(biz.name);
-        const audioPath = `Voices/${encodeURIComponent(safeBizName)}/`;
-        const reviewAudio = isAdmin ? `${audioPath}Admin Review.mp3` : '';
+        // Check if audio file exists for admin review
+        // Use raw business name (not sanitized) for file path construction
+        const audioPath = `Voices/${encodeURIComponent(biz.name)}/`;
+        const reviewAudio = isAdmin ? `${audioPath}${encodeURIComponent('Admin Review.mp3')}` : '';
 
         return `
           <div class="review-card ${isAdmin ? 'official' : ''}">
