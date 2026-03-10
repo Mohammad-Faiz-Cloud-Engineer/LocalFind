@@ -1487,3 +1487,44 @@
     font-size: 13px;
   }
 }
+
+/* ============================================
+   Content Link Styles
+   ============================================ */
+
+/**
+ * Styling for links within content (reviews, descriptions)
+ * Provides consistent styling for both internal and external links
+ */
+.content-link {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  word-break: break-word;
+  cursor: pointer;
+}
+
+.content-link:hover {
+  color: var(--accent-secondary);
+  text-decoration-color: var(--accent-secondary);
+}
+
+.content-link:focus {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.content-link:active {
+  color: var(--accent-primary);
+  opacity: 0.8;
+}
+
+/* Invalid link styling (for blocked/dangerous URLs) */
+.invalid-link {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
