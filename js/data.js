@@ -1088,6 +1088,49 @@ window.LISTINGS = [
     description: "Jamwant Mobile Shop is your trusted destination for mobile phone needs in Rasauli on Rasauli Bazar Road. Managed by Jamwant Singh, we offer professional mobile repair for all brands including screen replacement, battery replacement, charging port repair, software issues, and water damage repair. We sell mobile phones from budget to premium smartphones. Extensive accessories include phone cases, tempered glass, charging cables, power banks, earphones, TWS earbuds, neckband headphones, Bluetooth speakers, mobile holders, memory cards, and more. Expert advice, warranty support, genuine products, and fair pricing. Open daily 10 AM to 8 PM.",
     tags: ["mobile-shop", "phone-repair", "mobile-accessories", "smartphones", "earphones", "tws", "neckband", "headphones", "phone-cases", "screen-protector", "chargers", "electronics"],
     isNew: true
+  },
+  {
+    id: "sanskar-medical-store",
+    name: "Sanskar Medical Store",
+    category: "Healthcare & Pharmacy",
+    categorySlug: "healthcare",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 1,
+    coordinates: { lat: 26.9241131, lng: 81.2614297 },
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 5.0,
+        date: "2026-03-17",
+        text: "Best Medical Store in the entire Rasauli. Good behaviour, professional staff, premium medicines at reasonable prices. Highly recommended!",
+        verified: true
+      }
+    ],
+    address: "W7F6+MH7, Rasauli, Uttar Pradesh 225203",
+    mapLink: "https://maps.app.goo.gl/1nrKMS9NMqv9Czvj8",
+    phone: "+91 97938 08077",
+    phoneName: "Arjun Gupta (Bablu)",
+    email: "",
+    website: "",
+    whatsapp: "+91 97938 08077",
+    whatsappName: "Arjun Gupta (Bablu)",
+    hours: {
+      mon: { open: "09:00", close: "23:00" },
+      tue: { open: "09:00", close: "23:00" },
+      wed: { open: "09:00", close: "23:00" },
+      thu: { open: "09:00", close: "23:00" },
+      fri: { open: "09:00", close: "23:00" },
+      sat: { open: "09:00", close: "23:00" },
+      sun: { open: "09:00", close: "23:00" }
+    },
+    description: "Sanskar Medical Store is your trusted pharmacy in Rasauli, offering premium medicines at reasonable prices. Managed by Arjun Gupta (Bablu), we provide professional service with a knowledgeable staff. We stock prescription medications, over-the-counter medicines, health supplements, vitamins, and wellness products. Services include prescription filling, home delivery, health monitoring devices, first-aid supplies, baby care, diabetic care, and medical equipment. Open daily 9 AM to 11 PM.",
+    tags: ["pharmacy", "medical-store", "medicines", "healthcare", "prescription", "health-supplements", "wellness", "first-aid", "baby-care", "diabetic-care", "premium-medicines"],
+    isNew: true
   }
 ];
 
