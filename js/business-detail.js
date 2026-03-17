@@ -715,6 +715,12 @@
             </button>
           </div>
 
+          <button class="upi-pay-btn" id="upi-pay-app-btn" aria-label="Pay using UPI app">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <span>Pay Using UPI App</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
           <p class="upi-disclaimer">
             <i class="fa-solid fa-shield-halved"></i>
             Secure payment via your UPI app
@@ -824,6 +830,136 @@
           }, 2000);
         }
       });
+
+      // Pay Using UPI App Button
+      const payAppBtn = document.getElementById('upi-pay-app-btn');
+      if (payAppBtn) {
+        payAppBtn.addEventListener('click', () => {
+          // Validate and sanitize UPI parameters
+          const validatedUpiId = validateUPIId(business.upiId);
+          if (!validatedUpiId) {
+            console.error('Invalid UPI ID format');
+            return;
+          }
+
+          // Build secure UPI deep link with proper encoding
+          const upiParams = {
+            pa: validatedUpiId,
+            pn: sanitizeForUPI(business.upiName || business.name),
+            cu: 'INR'
+          };
+
+          // Construct deep link with validated parameters
+          const deepLink = buildUPIDeepLink(upiParams);
+
+          // Attempt to open UPI app with fallback handling
+          openUPIApp(deepLink, payAppBtn);
+        });
+      }
+
+      /**
+       * Validate UPI ID format
+       * @param {string} upiId - UPI ID to validate
+       * @returns {string|null} Validated UPI ID or null if invalid
+       */
+      function validateUPIId(upiId) {
+        if (!upiId || typeof upiId !== 'string') return null;
+        
+        // UPI ID format: identifier@provider (alphanumeric, dots, hyphens allowed)
+        const upiRegex = /^[a-zA-Z0-9.\-_]{3,}@[a-zA-Z]{3,}$/;
+        
+        const trimmed = upiId.trim();
+        return upiRegex.test(trimmed) ? trimmed : null;
+      }
+
+      /**
+       * Sanitize text for UPI parameters (remove special chars that could break URI)
+       * @param {string} text - Text to sanitize
+       * @returns {string} Sanitized text
+       */
+      function sanitizeForUPI(text) {
+        if (!text || typeof text !== 'string') return '';
+        
+        // Remove potentially dangerous characters, keep alphanumeric, spaces, and safe punctuation
+        return text
+          .replace(/[<>\"'`]/g, '') // Remove HTML/script injection chars
+          .replace(/[^\w\s&.-]/g, '') // Keep only safe characters
+          .trim()
+          .substring(0, 100); // Limit length
+      }
+
+      /**
+       * Build UPI deep link with proper encoding
+       * @param {Object} params - UPI parameters
+       * @returns {string} Encoded UPI deep link
+       */
+      function buildUPIDeepLink(params) {
+        const queryString = Object.entries(params)
+          .filter(([_, value]) => value) // Remove empty values
+          .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+          .join('&');
+        
+        return `upi://pay?${queryString}`;
+      }
+
+      /**
+       * Open UPI app with error handling and user feedback
+       * @param {string} deepLink - UPI deep link
+       * @param {HTMLElement} button - Button element for feedback
+       */
+      function openUPIApp(deepLink, button) {
+        // Store original button content
+        const originalContent = button.innerHTML;
+        
+        // Show loading state
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Opening UPI App...</span>';
+        button.disabled = true;
+
+        // Create hidden link for better compatibility
+        const link = document.createElement('a');
+        link.href = deepLink;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+
+        // Attempt to open UPI app
+        try {
+          // Try window.location first (better for iOS)
+          window.location.href = deepLink;
+          
+          // Fallback: programmatic click (better for Android)
+          setTimeout(() => {
+            link.click();
+            document.body.removeChild(link);
+          }, 100);
+
+          // Reset button after delay
+          setTimeout(() => {
+            button.innerHTML = originalContent;
+            button.disabled = false;
+          }, 2000);
+
+          // Track successful attempt (optional analytics hook)
+          if (typeof window.trackUPIPayment === 'function') {
+            window.trackUPIPayment(business.id, business.upiId);
+          }
+
+        } catch (error) {
+          // Handle errors gracefully
+          console.error('Failed to open UPI app:', error);
+          
+          button.innerHTML = '<i class="fa-solid fa-exclamation-circle"></i><span>Try Again</span>';
+          button.disabled = false;
+          
+          setTimeout(() => {
+            button.innerHTML = originalContent;
+          }, 3000);
+
+          // Clean up
+          if (document.body.contains(link)) {
+            document.body.removeChild(link);
+          }
+        }
+      }
 
       /**
        * Close and destroy the UPI sheet with exit animation
