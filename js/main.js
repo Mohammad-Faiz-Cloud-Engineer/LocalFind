@@ -5,8 +5,8 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 4.2.0
- * @updated 2026-03-07
+ * @version 4.2.1
+ * @updated 2026-03-17
  * 
  * Configuration is loaded from config.js
  */
