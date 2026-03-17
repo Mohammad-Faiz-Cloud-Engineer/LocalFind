@@ -1619,6 +1619,8 @@ html::-webkit-scrollbar-thumb:hover {
   align-items: stretch;
   padding: 20px 16px;
   gap: 8px;
+  touch-action: none;
+  overflow: hidden;
 }
 
 .time-picker-column {
@@ -1642,6 +1644,9 @@ html::-webkit-scrollbar-thumb:hover {
   height: 180px;
   position: relative;
   overflow: hidden;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
