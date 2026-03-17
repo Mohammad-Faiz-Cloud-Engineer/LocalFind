@@ -796,6 +796,7 @@
       }
 
       // Prevent body scroll while sheet is open
+      document.body.classList.add('modal-open');
       document.body.style.overflow = 'hidden';
 
       // Trigger entrance animation on next frame
@@ -988,6 +989,7 @@
         currentOverlay.classList.remove('active');
         currentOverlay.classList.add('closing');
         document.removeEventListener('keydown', handleEscape);
+        document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
         setTimeout(() => {
           currentOverlay.remove();
@@ -1107,11 +1109,59 @@
                   </button>
                 `).join('')}
               </div>
-              <div class="custom-time-input" style="margin-top: 16px;">
-                <label for="custom-time" style="display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
-                  Or enter custom time:
-                </label>
-                <input type="time" id="custom-time" class="custom-time-field" aria-label="Custom time">
+              <div class="custom-time-section">
+                <div class="custom-time-divider">
+                  <span>Or choose custom time</span>
+                </div>
+                <button class="custom-time-trigger" id="custom-time-trigger" aria-label="Select custom time">
+                  <i class="fa-regular fa-clock"></i>
+                  <span id="custom-time-display">Select Custom Time</span>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="custom-time-picker" id="custom-time-picker" style="display: none;">
+                  <div class="time-picker-header">
+                    <span>Select Time</span>
+                    <button class="time-picker-close" id="time-picker-close" aria-label="Close time picker">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                  <div class="time-picker-body">
+                    <div class="time-picker-column">
+                      <div class="time-picker-label">Hour</div>
+                      <div class="time-picker-scroll" id="hour-scroll">
+                        <div class="time-picker-scroll-inner" id="hour-scroll-inner">
+                          ${Array.from({length: 12}, (_, i) => i + 1).map(hour => `
+                            <div class="time-picker-item" data-value="${hour}">${hour.toString().padStart(2, '0')}</div>
+                          `).join('')}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="time-picker-separator">:</div>
+                    <div class="time-picker-column">
+                      <div class="time-picker-label">Minute</div>
+                      <div class="time-picker-scroll" id="minute-scroll">
+                        <div class="time-picker-scroll-inner" id="minute-scroll-inner">
+                          ${['00', '15', '30', '45'].map(min => `
+                            <div class="time-picker-item" data-value="${min}">${min}</div>
+                          `).join('')}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="time-picker-column">
+                      <div class="time-picker-label">Period</div>
+                      <div class="time-picker-scroll" id="period-scroll">
+                        <div class="time-picker-scroll-inner" id="period-scroll-inner">
+                          <div class="time-picker-item" data-value="AM">AM</div>
+                          <div class="time-picker-item" data-value="PM">PM</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="time-picker-footer">
+                    <button class="time-picker-btn time-picker-btn-cancel" id="time-picker-cancel">Cancel</button>
+                    <button class="time-picker-btn time-picker-btn-confirm" id="time-picker-confirm">Confirm</button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1151,7 +1201,8 @@
       let selectedTime = null;
       let selectedContact = null;
 
-      // Prevent body scroll
+      // Prevent body scroll and hide scrollbar
+      document.body.classList.add('modal-open');
       document.body.style.overflow = 'hidden';
 
       // Trigger entrance animation
@@ -1178,24 +1229,187 @@
 
       // Time slot selection
       const timeSlotBtns = document.querySelectorAll('.time-slot-btn');
-      const customTimeInput = document.getElementById('custom-time');
       
       timeSlotBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           selectedTime = btn.dataset.time;
-          customTimeInput.value = ''; // Clear custom input
+          // Remove active state from all buttons
+          timeSlotBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          // Reset custom time display
+          document.getElementById('custom-time-display').textContent = 'Select Custom Time';
           proceedToContactSelection();
         });
       });
 
-      // Custom time input
-      customTimeInput.addEventListener('change', (e) => {
-        if (e.target.value) {
-          selectedTime = e.target.value;
-          // Remove active state from preset buttons
-          timeSlotBtns.forEach(btn => btn.classList.remove('active'));
-          proceedToContactSelection();
+      // Custom Time Picker
+      const customTimeTrigger = document.getElementById('custom-time-trigger');
+      const customTimePicker = document.getElementById('custom-time-picker');
+      const timePickerClose = document.getElementById('time-picker-close');
+      const timePickerCancel = document.getElementById('time-picker-cancel');
+      const timePickerConfirm = document.getElementById('time-picker-confirm');
+      
+      let tempHour = 9;
+      let tempMinute = '00';
+      let tempPeriod = 'AM';
+
+      // Open custom time picker
+      customTimeTrigger.addEventListener('click', () => {
+        customTimePicker.style.display = 'block';
+        setTimeout(() => customTimePicker.classList.add('active'), 10);
+        initializeTimePicker();
+      });
+
+      // Close time picker
+      const closeTimePicker = () => {
+        customTimePicker.classList.remove('active');
+        setTimeout(() => {
+          customTimePicker.style.display = 'none';
+        }, 300);
+      };
+
+      timePickerClose.addEventListener('click', closeTimePicker);
+      timePickerCancel.addEventListener('click', closeTimePicker);
+
+      // Initialize time picker with default values
+      function initializeTimePicker() {
+        initializeWheel('hour', tempHour);
+        initializeWheel('minute', tempMinute);
+        initializeWheel('period', tempPeriod);
+      }
+
+      // Initialize wheel picker for a column
+      function initializeWheel(type, defaultValue) {
+        const scrollContainer = document.getElementById(`${type}-scroll`);
+        const scrollInner = document.getElementById(`${type}-scroll-inner`);
+        const items = scrollInner.querySelectorAll('.time-picker-item');
+        
+        let selectedIndex = 0;
+        items.forEach((item, index) => {
+          if (type === 'hour' && parseInt(item.dataset.value) === defaultValue) {
+            selectedIndex = index;
+          } else if (item.dataset.value === defaultValue) {
+            selectedIndex = index;
+          }
+        });
+
+        // Set initial position
+        updateWheelPosition(scrollInner, items, selectedIndex);
+
+        // Touch/Mouse drag handling
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
+        let startTransform = 0;
+
+        const itemHeight = 44;
+
+        scrollContainer.addEventListener('mousedown', handleStart);
+        scrollContainer.addEventListener('touchstart', handleStart, { passive: true });
+
+        function handleStart(e) {
+          isDragging = true;
+          startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+          const transform = scrollInner.style.transform;
+          startTransform = transform ? parseInt(transform.match(/-?\d+/)[0]) : 0;
+          
+          document.addEventListener('mousemove', handleMove);
+          document.addEventListener('touchmove', handleMove, { passive: true });
+          document.addEventListener('mouseup', handleEnd);
+          document.addEventListener('touchend', handleEnd);
         }
+
+        function handleMove(e) {
+          if (!isDragging) return;
+          currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+          const deltaY = currentY - startY;
+          const newTransform = startTransform + deltaY;
+          scrollInner.style.transform = `translateY(${newTransform}px)`;
+          updateSelection(newTransform);
+        }
+
+        function handleEnd() {
+          if (!isDragging) return;
+          isDragging = false;
+          
+          document.removeEventListener('mousemove', handleMove);
+          document.removeEventListener('touchmove', handleMove);
+          document.removeEventListener('mouseup', handleEnd);
+          document.removeEventListener('touchend', handleEnd);
+
+          // Snap to nearest item
+          const transform = scrollInner.style.transform;
+          const currentTransform = transform ? parseInt(transform.match(/-?\d+/)[0]) : 0;
+          const newIndex = Math.round(-currentTransform / itemHeight);
+          const clampedIndex = Math.max(0, Math.min(items.length - 1, newIndex));
+          
+          updateWheelPosition(scrollInner, items, clampedIndex);
+          
+          // Update temp value
+          const selectedItem = items[clampedIndex];
+          if (type === 'hour') {
+            tempHour = parseInt(selectedItem.dataset.value);
+          } else if (type === 'minute') {
+            tempMinute = selectedItem.dataset.value;
+          } else if (type === 'period') {
+            tempPeriod = selectedItem.dataset.value;
+          }
+        }
+
+        function updateSelection(transform) {
+          const index = Math.round(-transform / itemHeight);
+          items.forEach((item, i) => {
+            item.classList.toggle('selected', i === index);
+          });
+        }
+
+        // Click on item to select
+        items.forEach((item, index) => {
+          item.addEventListener('click', () => {
+            updateWheelPosition(scrollInner, items, index);
+            
+            if (type === 'hour') {
+              tempHour = parseInt(item.dataset.value);
+            } else if (type === 'minute') {
+              tempMinute = item.dataset.value;
+            } else if (type === 'period') {
+              tempPeriod = item.dataset.value;
+            }
+          });
+        });
+      }
+
+      function updateWheelPosition(scrollInner, items, index) {
+        const itemHeight = 44;
+        const offset = -index * itemHeight;
+        scrollInner.style.transform = `translateY(${offset}px)`;
+        
+        items.forEach((item, i) => {
+          item.classList.toggle('selected', i === index);
+        });
+      }
+
+      // Confirm time selection
+      timePickerConfirm.addEventListener('click', () => {
+        // Convert to 24-hour format
+        let hour24 = tempHour;
+        if (tempPeriod === 'PM' && tempHour !== 12) {
+          hour24 = tempHour + 12;
+        } else if (tempPeriod === 'AM' && tempHour === 12) {
+          hour24 = 0;
+        }
+        
+        selectedTime = `${hour24.toString().padStart(2, '0')}:${tempMinute}`;
+        
+        // Update display
+        const displayText = `${tempHour}:${tempMinute} ${tempPeriod}`;
+        document.getElementById('custom-time-display').textContent = displayText;
+        
+        // Remove active state from preset buttons
+        timeSlotBtns.forEach(btn => btn.classList.remove('active'));
+        
+        closeTimePicker();
+        proceedToContactSelection();
       });
 
       // Contact selection
@@ -1278,6 +1492,7 @@
         currentOverlay.classList.remove('active');
         currentOverlay.classList.add('closing');
         document.removeEventListener('keydown', handleEscape);
+        document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
         setTimeout(() => {
           currentOverlay.remove();
