@@ -651,7 +651,7 @@
           <span>Pay Online (UPI)</span>
         </div>
       ` : ''}
-      ${(biz.phone || biz.phoneSecondary || biz.whatsapp || biz.whatsappSecondary) ? `
+      ${(biz.phone || biz.phoneSecondary || biz.phoneThird || biz.whatsapp || biz.whatsappSecondary || biz.whatsappThird || biz.whatsappFourth) ? `
         <div class="contact-item appointment-trigger" id="appointment-btn" role="button" tabindex="0" aria-label="Book an appointment">
           <i class="fa-solid fa-calendar-check"></i>
           <span>Book Appointment</span>
@@ -1022,6 +1022,14 @@
         });
       }
       
+      if (business.phoneThird) {
+        contacts.push({
+          number: business.phoneThird,
+          name: business.phoneThirdName || 'Third Contact',
+          type: 'phone'
+        });
+      }
+      
       if (business.whatsapp && business.whatsapp !== business.phone) {
         contacts.push({
           number: business.whatsapp,
@@ -1034,6 +1042,22 @@
         contacts.push({
           number: business.whatsappSecondary,
           name: business.whatsappSecondaryName || 'WhatsApp Secondary',
+          type: 'whatsapp'
+        });
+      }
+      
+      if (business.whatsappThird && business.whatsappThird !== business.phoneThird) {
+        contacts.push({
+          number: business.whatsappThird,
+          name: business.whatsappThirdName || 'WhatsApp Third',
+          type: 'whatsapp'
+        });
+      }
+      
+      if (business.whatsappFourth && business.whatsappFourth !== business.phoneFourth) {
+        contacts.push({
+          number: business.whatsappFourth,
+          name: business.whatsappFourthName || 'WhatsApp Fourth',
           type: 'whatsapp'
         });
       }
