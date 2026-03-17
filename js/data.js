@@ -1131,6 +1131,8 @@ window.LISTINGS = [
     },
     description: "Sanskar Medical Store is your trusted pharmacy in Rasauli, offering premium medicines at reasonable prices. Managed by Arjun Gupta (Bablu), we provide professional service with a knowledgeable staff. We stock prescription medications, over-the-counter medicines, health supplements, vitamins, and wellness products. Services include prescription filling, home delivery, health monitoring devices, first-aid supplies, baby care, diabetic care, and medical equipment. Open daily 9 AM to 11 PM.",
     tags: ["pharmacy", "medical-store", "medicines", "healthcare", "prescription", "health-supplements", "wellness", "first-aid", "baby-care", "diabetic-care", "premium-medicines"],
+    upiId: "Q106573417@ybl",
+    upiName: "Arjun Gupta",
     isNew: true
   }
 ];
