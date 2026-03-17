@@ -1117,6 +1117,7 @@ window.LISTINGS = [
     phoneName: "Arjun Gupta (Bablu)",
     email: "",
     website: "",
+    bloodDonor: "https://www.friends2support.org/",
     whatsapp: "+91 97938 08077",
     whatsappName: "Arjun Gupta (Bablu)",
     hours: {
