@@ -5,15 +5,15 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 4.2.0
- * @updated 2026-03-07
+ * @version 4.2.1
+ * @updated 2026-03-17
  * 
  * IMPORTANT: Update these values before deploying to production
  */
 
 const CONFIG = {
   // Application Version
-  version: "4.2.0",
+  version: "4.2.1",
   
   // Site Information
   siteName: "LocalFind",
@@ -88,8 +88,8 @@ const CONFIG = {
     'pan': ['permanent account number', 'pan card'],
     'aadhaar': ['aadhar', 'adhaar', 'adhar', 'uidai'],
     'pds': ['public distribution system', 'ration shop', 'ration card'],
-    'hospital': ['clinic', 'medical center', 'health center', 'dispensary', 'abdul hospital', 'janta clinic'],
-    'pharmacy': ['medical store', 'chemist', 'drug store', 'medicine shop', 'hind pharmacy', 'shri shyam medicals', 'kartik medical store'],
+    'hospital': ['clinic', 'medical center', 'health center', 'dispensary', 'abdul hospital', 'janta clinic', 'maxwell hospital'],
+    'pharmacy': ['medical store', 'chemist', 'drug store', 'medicine shop', 'hind pharmacy', 'shri shyam medicals', 'kartik medical store', 'sanskar medical store'],
     'restaurant': ['hotel', 'dhaba', 'eatery', 'food'],
     'sweets': ['sweet shop', 'mithai', 'desserts', 'pankaj sweets', 'rajju sweets', 'ice cream', 'cake', 'namkeen'],
     'grocery': ['kirana', 'general store', 'supermarket', 'provision store'],
