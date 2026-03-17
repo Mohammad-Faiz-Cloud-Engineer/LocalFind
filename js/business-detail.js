@@ -651,6 +651,12 @@
           <span>Pay Online (UPI)</span>
         </div>
       ` : ''}
+      ${(biz.phone || biz.phoneSecondary || biz.whatsapp || biz.whatsappSecondary) ? `
+        <div class="contact-item appointment-trigger" id="appointment-btn" role="button" tabindex="0" aria-label="Book an appointment">
+          <i class="fa-solid fa-calendar-check"></i>
+          <span>Book Appointment</span>
+        </div>
+      ` : ''}
       <div class="mt-lg">
         <a href="${sanitizeHTML(biz.mapLink)}" target="_blank" rel="noopener noreferrer" class="btn" style="width:100%;">View on Map</a>
       </div>
@@ -669,6 +675,18 @@
           }
         });
       }
+    }
+
+    // Appointment Booking
+    const appointmentBtn = document.getElementById('appointment-btn');
+    if (appointmentBtn) {
+      appointmentBtn.addEventListener('click', () => openAppointmentSheet(biz));
+      appointmentBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openAppointmentSheet(biz);
+        }
+      });
     }
 
     /**
@@ -974,6 +992,332 @@
         setTimeout(() => {
           currentOverlay.remove();
         }, 350);
+      }
+    }
+
+    /**
+     * Open Appointment Booking Sheet
+     * @param {Object} business - Business data with contact information
+     */
+    function openAppointmentSheet(business) {
+      // Prevent duplicate modals
+      if (document.getElementById('appointment-sheet')) return;
+
+      // Collect all available contact numbers
+      const contacts = [];
+      
+      if (business.phone) {
+        contacts.push({
+          number: business.phone,
+          name: business.phoneName || 'Primary Contact',
+          type: 'phone'
+        });
+      }
+      
+      if (business.phoneSecondary) {
+        contacts.push({
+          number: business.phoneSecondary,
+          name: business.phoneSecondaryName || 'Secondary Contact',
+          type: 'phone'
+        });
+      }
+      
+      if (business.whatsapp && business.whatsapp !== business.phone) {
+        contacts.push({
+          number: business.whatsapp,
+          name: business.whatsappName || 'WhatsApp',
+          type: 'whatsapp'
+        });
+      }
+      
+      if (business.whatsappSecondary && business.whatsappSecondary !== business.phoneSecondary) {
+        contacts.push({
+          number: business.whatsappSecondary,
+          name: business.whatsappSecondaryName || 'WhatsApp Secondary',
+          type: 'whatsapp'
+        });
+      }
+
+      if (contacts.length === 0) return; // No contacts available
+
+      // Generate time slots
+      const timeSlots = generateTimeSlots();
+
+      // Build the overlay + appointment sheet
+      const overlay = document.createElement('div');
+      overlay.id = 'appointment-overlay';
+      overlay.className = 'appointment-overlay';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', 'Book Appointment');
+
+      const safeName = sanitizeHTML(business.name);
+
+      overlay.innerHTML = `
+        <div class="appointment-sheet" id="appointment-sheet">
+          <div class="appointment-sheet-handle" aria-hidden="true"></div>
+          <button class="appointment-sheet-close" id="appointment-close-btn" aria-label="Close appointment booking">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          
+          <div class="appointment-sheet-header">
+            <div class="appointment-sheet-icon">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <h3>Book Appointment</h3>
+            <p class="appointment-business-name">${safeName}</p>
+          </div>
+
+          <div class="appointment-content">
+            <!-- Step 1: Select Time -->
+            <div class="appointment-step active" id="step-time">
+              <div class="step-header">
+                <span class="step-number">1</span>
+                <h4>Select Preferred Time</h4>
+              </div>
+              <div class="time-slots-grid" id="time-slots">
+                ${timeSlots.map(slot => `
+                  <button class="time-slot-btn" data-time="${slot.value}" aria-label="Select ${slot.label}">
+                    <i class="fa-regular fa-clock"></i>
+                    <span>${slot.label}</span>
+                  </button>
+                `).join('')}
+              </div>
+              <div class="custom-time-input" style="margin-top: 16px;">
+                <label for="custom-time" style="display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+                  Or enter custom time:
+                </label>
+                <input type="time" id="custom-time" class="custom-time-field" aria-label="Custom time">
+              </div>
+            </div>
+
+            <!-- Step 2: Select Contact -->
+            <div class="appointment-step" id="step-contact">
+              <div class="step-header">
+                <span class="step-number">2</span>
+                <h4>Select Contact Person</h4>
+              </div>
+              <div class="selected-time-display" id="selected-time-display"></div>
+              <div class="contact-list" id="contact-list">
+                ${contacts.map((contact, index) => `
+                  <button class="contact-option-btn" data-index="${index}" aria-label="Contact ${sanitizeHTML(contact.name)}">
+                    <div class="contact-option-icon">
+                      <i class="fa-${contact.type === 'whatsapp' ? 'brands fa-whatsapp' : 'solid fa-phone'}"></i>
+                    </div>
+                    <div class="contact-option-info">
+                      <span class="contact-option-name">${sanitizeHTML(contact.name)}</span>
+                      <span class="contact-option-number">${sanitizeHTML(contact.number)}</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                `).join('')}
+              </div>
+              <button class="btn-back" id="btn-back-to-time">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Change Time</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+
+      // State management
+      let selectedTime = null;
+      let selectedContact = null;
+
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+
+      // Trigger entrance animation
+      requestAnimationFrame(() => {
+        overlay.classList.add('active');
+      });
+
+      // --- Event Handlers ---
+
+      // Close button
+      const closeBtn = document.getElementById('appointment-close-btn');
+      closeBtn.addEventListener('click', closeAppointmentSheet);
+
+      // Backdrop click
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeAppointmentSheet();
+      });
+
+      // Escape key
+      function handleEscape(e) {
+        if (e.key === 'Escape') closeAppointmentSheet();
+      }
+      document.addEventListener('keydown', handleEscape);
+
+      // Time slot selection
+      const timeSlotBtns = document.querySelectorAll('.time-slot-btn');
+      const customTimeInput = document.getElementById('custom-time');
+      
+      timeSlotBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectedTime = btn.dataset.time;
+          customTimeInput.value = ''; // Clear custom input
+          proceedToContactSelection();
+        });
+      });
+
+      // Custom time input
+      customTimeInput.addEventListener('change', (e) => {
+        if (e.target.value) {
+          selectedTime = e.target.value;
+          // Remove active state from preset buttons
+          timeSlotBtns.forEach(btn => btn.classList.remove('active'));
+          proceedToContactSelection();
+        }
+      });
+
+      // Contact selection
+      const contactBtns = document.querySelectorAll('.contact-option-btn');
+      contactBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = parseInt(btn.dataset.index);
+          selectedContact = contacts[index];
+          sendAppointmentToWhatsApp(business, selectedTime, selectedContact);
+        });
+      });
+
+      // Back button
+      const backBtn = document.getElementById('btn-back-to-time');
+      backBtn.addEventListener('click', () => {
+        document.getElementById('step-contact').classList.remove('active');
+        document.getElementById('step-time').classList.add('active');
+      });
+
+      /**
+       * Proceed to contact selection step
+       */
+      function proceedToContactSelection() {
+        document.getElementById('step-time').classList.remove('active');
+        document.getElementById('step-contact').classList.add('active');
+        
+        // Display selected time
+        const timeDisplay = document.getElementById('selected-time-display');
+        const formattedTime = formatTime12Hour(selectedTime);
+        timeDisplay.innerHTML = `
+          <div class="selected-time-badge">
+            <i class="fa-solid fa-clock"></i>
+            <span>Selected Time: <strong>${formattedTime}</strong></span>
+          </div>
+        `;
+      }
+
+      /**
+       * Send appointment request via WhatsApp
+       */
+      function sendAppointmentToWhatsApp(biz, time, contact) {
+        const formattedTime = formatTime12Hour(time);
+        const message = generateAppointmentMessage(biz, formattedTime);
+        const phoneNumber = contact.number.replace(/[^0-9]/g, '');
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        
+        // Show loading state
+        const contactBtns = document.querySelectorAll('.contact-option-btn');
+        contactBtns.forEach(btn => {
+          if (parseInt(btn.dataset.index) === contacts.indexOf(contact)) {
+            btn.innerHTML = `
+              <div class="contact-option-icon">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+              </div>
+              <div class="contact-option-info">
+                <span class="contact-option-name">Opening WhatsApp...</span>
+              </div>
+            `;
+            btn.disabled = true;
+          }
+        });
+
+        // Open WhatsApp
+        setTimeout(() => {
+          window.open(whatsappUrl, '_blank');
+          
+          // Close modal after short delay
+          setTimeout(() => {
+            closeAppointmentSheet();
+          }, 1000);
+        }, 500);
+      }
+
+      /**
+       * Close and destroy the appointment sheet
+       */
+      function closeAppointmentSheet() {
+        const currentOverlay = document.getElementById('appointment-overlay');
+        if (!currentOverlay) return;
+        currentOverlay.classList.remove('active');
+        currentOverlay.classList.add('closing');
+        document.removeEventListener('keydown', handleEscape);
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          currentOverlay.remove();
+        }, 350);
+      }
+    }
+
+    /**
+     * Generate time slots for appointment booking
+     * @returns {Array} Array of time slot objects
+     */
+    function generateTimeSlots() {
+      return [
+        { value: '09:00', label: '9:00 AM' },
+        { value: '10:00', label: '10:00 AM' },
+        { value: '11:00', label: '11:00 AM' },
+        { value: '12:00', label: '12:00 PM' },
+        { value: '14:00', label: '2:00 PM' },
+        { value: '15:00', label: '3:00 PM' },
+        { value: '16:00', label: '4:00 PM' },
+        { value: '17:00', label: '5:00 PM' },
+        { value: '18:00', label: '6:00 PM' }
+      ];
+    }
+
+    /**
+     * Format 24-hour time to 12-hour format
+     * @param {string} time - Time in HH:MM format
+     * @returns {string} Formatted time
+     */
+    function formatTime12Hour(time) {
+      const [hours, minutes] = time.split(':');
+      const hour = parseInt(hours);
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      const hour12 = hour % 12 || 12;
+      return `${hour12}:${minutes} ${ampm}`;
+    }
+
+    /**
+     * Generate personalized appointment message based on business category
+     * @param {Object} business - Business data
+     * @param {string} time - Formatted time
+     * @returns {string} WhatsApp message
+     */
+    function generateAppointmentMessage(business, time) {
+      const name = business.name;
+      const category = business.category.toLowerCase();
+      
+      // Personalized messages based on business type
+      if (category.includes('hospital') || category.includes('clinic') || category.includes('healthcare') || category.includes('pharmacy')) {
+        return `Hello ${name},\n\nI would like to book an appointment for ${time}.\n\nPlease confirm the availability.\n\nThank you!`;
+      } else if (category.includes('salon') || category.includes('spa') || category.includes('beauty')) {
+        return `Hi ${name},\n\nI'd like to book a ${time} appointment for your services.\n\nPlease let me know if this time works.\n\nThanks!`;
+      } else if (category.includes('gym') || category.includes('fitness')) {
+        return `Hello ${name},\n\nI'm interested in visiting at ${time}.\n\nCould you please confirm availability?\n\nThank you!`;
+      } else if (category.includes('restaurant') || category.includes('cafe') || category.includes('food')) {
+        return `Hi ${name},\n\nI'd like to make a reservation for ${time}.\n\nPlease confirm if a table is available.\n\nThank you!`;
+      } else if (category.includes('education') || category.includes('school') || category.includes('college') || category.includes('coaching')) {
+        return `Hello ${name},\n\nI would like to schedule a meeting/visit at ${time}.\n\nPlease confirm your availability.\n\nThank you!`;
+      } else if (category.includes('service') || category.includes('csc') || category.includes('government')) {
+        return `Hello ${name},\n\nI need to visit for services around ${time}.\n\nPlease let me know if you'll be available.\n\nThank you!`;
+      } else {
+        // Generic message for other businesses
+        return `Hello ${name},\n\nI would like to schedule a visit/appointment at ${time}.\n\nPlease confirm your availability.\n\nThank you!`;
       }
     }
 
