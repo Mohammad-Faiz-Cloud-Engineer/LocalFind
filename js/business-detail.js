@@ -1305,7 +1305,7 @@
         const itemHeight = 44;
 
         scrollContainer.addEventListener('mousedown', handleStart);
-        scrollContainer.addEventListener('touchstart', handleStart, { passive: true });
+        scrollContainer.addEventListener('touchstart', handleStart, { passive: false });
 
         function handleStart(e) {
           isDragging = true;
@@ -1313,14 +1313,25 @@
           const transform = scrollInner.style.transform;
           startTransform = transform ? parseInt(transform.match(/-?\d+/)[0]) : 0;
           
+          // Prevent default to stop panel scroll on mobile
+          if (e.type === 'touchstart') {
+            e.preventDefault();
+          }
+          
           document.addEventListener('mousemove', handleMove);
-          document.addEventListener('touchmove', handleMove, { passive: true });
+          document.addEventListener('touchmove', handleMove, { passive: false });
           document.addEventListener('mouseup', handleEnd);
           document.addEventListener('touchend', handleEnd);
         }
 
         function handleMove(e) {
           if (!isDragging) return;
+          
+          // Prevent default to stop panel scroll on mobile
+          if (e.type === 'touchmove') {
+            e.preventDefault();
+          }
+          
           currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
           const deltaY = currentY - startY;
           const newTransform = startTransform + deltaY;
