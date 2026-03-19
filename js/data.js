@@ -269,6 +269,8 @@ window.LISTINGS = [
     website: "https://abdulhospitalwebsite.blogspot.com/",
     bloodDonor: "https://www.friends2support.org/",
     whatsapp: "+91 96215 27752",
+    whatsappSecondary: "+91 6391923121",
+    whatsappSecondaryName: "Amir",
     hours: {
       mon: { open: "00:00", close: "23:59" },
       tue: { open: "00:00", close: "23:59" },
