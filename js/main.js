@@ -30,13 +30,11 @@ function renderHeader(){
         <a href="directory.html">Directory</a>
         <a href="categories.html">Categories</a>
         <a href="map.html">Map</a>
-        <a href="add-business.html">Add Business</a>
         <a href="about.html">About</a>
       </nav>
     </div>
     <div class="nav-right">
       <button class="search-icon" aria-label="Open search"><i class="fa-solid fa-magnifying-glass"></i></button>
-      <a class="cta-list" href="add-business.html">List Your Business</a>
       <button class="hamburger" aria-label="Toggle mobile menu"><i class="fa-solid fa-bars"></i></button>
     </div>
   </div>
@@ -47,7 +45,6 @@ function renderHeader(){
       <a href="directory.html">Directory</a>
       <a href="categories.html">Categories</a>
       <a href="map.html">Map</a>
-      <a href="add-business.html">Add Business</a>
       <a href="about.html">About</a>
     </nav>
   </div>
