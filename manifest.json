@@ -48,22 +48,10 @@
           "sizes": "any"
         }
       ]
-    },
-    {
-      "name": "Add Business",
-      "short_name": "Add",
-      "description": "List your business",
-      "url": "/LocalFind/add-business.html",
-      "icons": [
-        {
-          "src": "assets/images/mainlogo.svg",
-          "sizes": "any"
-        }
-      ]
     }
   ],
   "share_target": {
-    "action": "/LocalFind/add-business.html",
+    "action": "/LocalFind/directory.html",
     "method": "GET",
     "enctype": "application/x-www-form-urlencoded",
     "params": {
