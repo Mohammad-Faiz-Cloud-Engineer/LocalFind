@@ -855,37 +855,6 @@ window.LISTINGS = [
     isNew: true
   },
   {
-    id: "balemora-wellness-retreats",
-    name: "Balemora Wellness Retreats",
-    category: "Health Resort & Wellness",
-    categorySlug: "wellness",
-    featured: true,
-    verified: true,
-    status: "open",
-    rating: 5.0,
-    reviewCount: 0,
-    coordinates: { lat: 26.9220302, lng: 81.2581160 },
-    reviews: [],
-    address: "HGG Campus, Railway Station, NH-28, Ayodhya - Lucknow Rd, opposite Rasauli, behind Seth M.R. Jaipuria School, lucknow, Rasauli, Uttar Pradesh 225203",
-    mapLink: "https://maps.app.goo.gl/WKpiLWGSBUKesZzcA",
-    phone: "+91 90054 30333",
-    email: "",
-    website: "https://balemorawellnessretreats.com/",
-    whatsapp: "+91 90054 30333",
-    hours: {
-      mon: { open: "00:00", close: "23:59" },
-      tue: { open: "00:00", close: "23:59" },
-      wed: { open: "00:00", close: "23:59" },
-      thu: { open: "00:00", close: "23:59" },
-      fri: { open: "00:00", close: "23:59" },
-      sat: { open: "00:00", close: "23:59" },
-      sun: { open: "00:00", close: "23:59" }
-    },
-    description: "Balemora Wellness Retreats is a luxury wellness resort offering Ayurvedic treatments, Kerala therapies, yoga, meditation, detox programs, and wellness cuisine. Located at NH27 Lucknow and Almora Uttarakhand. Full-service spa with massages, hydrotherapy, sauna, hot tub, and steam room. Features 2 outdoor pools, 2 indoor pools, restaurant, coffee shop, free breakfast, and 24-hour room service. Climate-controlled rooms with balcony, bathroom, and free WiFi. Business facilities, 24-hour front desk, laundry, and free parking. Perfect for workcations and wellness stays.",
-    tags: ["wellness", "ayurveda", "spa", "resort", "yoga", "meditation", "detox", "retreat", "heritage", "luxury", "health", "healing", "pool", "restaurant"],
-    isNew: true
-  },
-  {
     id: "kfc-barabanki",
     name: "KFC",
     category: "Restaurants & Fast Food",
