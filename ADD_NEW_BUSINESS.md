@@ -97,7 +97,7 @@ version: '4.2.1' // Increment from current
 Update business count in hero section:
 
 ```html
-<div class="stat-number" data-target="28">0</div> <!-- Update number -->
+<div class="stat-number" data-target="27">0</div> <!-- Update number -->
 ```
 
 ### 4. categories.html
