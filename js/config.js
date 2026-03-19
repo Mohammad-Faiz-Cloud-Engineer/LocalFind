@@ -104,7 +104,7 @@ const CONFIG = {
     'hardware': ['building-materials', 'construction', 'tools', 'plywood', 'wooden-doors', 'paints', 'cement', 'rasauli hardware'],
     'event-services': ['tent-house', 'wedding-decoration', 'party-rentals', 'lighting', 'catering-equipment', 'sk tent', 'event-planning'],
     'gym': ['fitness', 'workout', 'exercise', 'friends fitness', 'bodybuilding'],
-    'wellness': ['ayurveda', 'spa', 'resort', 'retreat', 'yoga', 'meditation', 'detox', 'healing', 'balemora', 'health-resort', 'heritage', 'panchakarma', 'therapy'],
+    'wellness': ['ayurveda', 'spa', 'resort', 'retreat', 'yoga', 'meditation', 'detox', 'healing', 'health-resort', 'heritage', 'panchakarma', 'therapy'],
     'kfc': ['kentucky-fried-chicken', 'fried-chicken', 'chicken', 'fast-food', 'zinger', 'burger', 'wings', 'bucket'],
     'mall': ['shopping-mall', 'shopping-center', 'box-park', 'boxpark', 'container-mall', 'food-court', 'entertainment', 'lifestyle', 'retail'],
     'nursing': ['nursing-college', 'medical-education', 'healthcare-education', 'nursing-course', 'gnm', 'anm', 'bsc-nursing', 'pps-college'],
