@@ -659,6 +659,8 @@ window.LISTINGS = [
     phoneFourthName: "Akhlad",
     email: "",
     website: "",
+    instagram: "https://www.instagram.com/khid.matenterprises/",
+    youtube: "https://www.youtube.com/@k.furniturekhidmatenterpri8856/videos",
     whatsapp: "+91 82997 24104",
     whatsappName: "Faizal",
     whatsappSecondary: "+91 87075 15099",
