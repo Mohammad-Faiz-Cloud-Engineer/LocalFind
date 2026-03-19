@@ -83,7 +83,6 @@ LocalFind/
 ├── directory.html          # Business listings
 ├── categories.html         # Category browser
 ├── business-detail.html    # Business details
-├── add-business.html       # Add business form
 ├── about.html             # About page
 ├── css/                   # Stylesheets
 ├── js/                    # JavaScript files
