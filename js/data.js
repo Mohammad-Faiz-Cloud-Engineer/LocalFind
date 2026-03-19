@@ -1048,7 +1048,7 @@ window.LISTINGS = [
       sat: { open: "10:00", close: "20:00" },
       sun: { open: "10:00", close: "20:00" }
     },
-    description: "Saraswati Studio is your premier destination for professional photography and videography in Rasauli, Makole. We specialize in capturing precious moments with creativity and expertise. Services include wedding photography and videography, event photography, professional photo shoots, video production, and cup printing services for personalized mugs. Equipped with modern cameras, lighting, and editing software. We work closely with you to understand your vision and deliver exceptional results. Professional behavior, punctuality, and flexible packages. Open daily 10 AM to 8 PM.",
+    description: "Saraswati Studio is your premier destination for professional photography and videography in Rasauli. We specialize in capturing precious moments with creativity and expertise. Services include wedding photography and videography, event photography, professional photo shoots, video production, and cup printing services for personalized mugs. Equipped with modern cameras, lighting, and editing software. We work closely with you to understand your vision and deliver exceptional results. Professional behavior, punctuality, and flexible packages. Open daily 10 AM to 8 PM.",
     tags: ["photography", "videography", "studio", "wedding-photography", "photo-shoot", "video-production", "event-photography", "cup-printing", "printing", "portraits", "commercial-photography"],
     isNew: true
   },
