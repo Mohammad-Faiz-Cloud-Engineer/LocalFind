@@ -651,7 +651,7 @@
           <span>Pay Online (UPI)</span>
         </div>
       ` : ''}
-      ${(biz.phone || biz.phoneSecondary || biz.phoneThird || biz.whatsapp || biz.whatsappSecondary || biz.whatsappThird || biz.whatsappFourth) ? `
+      ${(biz.phone || biz.phoneSecondary || biz.phoneThird || biz.whatsapp || biz.whatsappSecondary || biz.whatsappThird || biz.whatsappFourth) && !biz.disableAppointment ? `
         <div class="contact-item appointment-trigger" id="appointment-btn" role="button" tabindex="0" aria-label="Book an appointment">
           <i class="fa-solid fa-calendar-check"></i>
           <span>Book Appointment</span>
