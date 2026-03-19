@@ -873,6 +873,7 @@ window.LISTINGS = [
     website: "https://restaurants.kfc.co.in/kfc-kfc-barabanki-restaurants-lucknow-ayodhya-road-barabanki-489849/Home?utm_source=locator&utm_medium=googleplaces",
     onlineOrder: "https://www.swiggy.com/menu/7012?source=sharing",
     whatsapp: "",
+    disableAppointment: true,
     hours: {
       mon: { open: "11:00", close: "23:00" },
       tue: { open: "11:00", close: "23:00" },
