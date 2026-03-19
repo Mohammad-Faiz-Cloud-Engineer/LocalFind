@@ -1032,6 +1032,14 @@
         });
       }
       
+      if (business.phoneFourth) {
+        contacts.push({
+          number: business.phoneFourth,
+          name: business.phoneFourthName || 'Fourth Contact',
+          type: 'phone'
+        });
+      }
+      
       if (business.whatsapp && business.whatsapp !== business.phone) {
         contacts.push({
           number: business.whatsapp,
@@ -1056,12 +1064,16 @@
         });
       }
       
-      if (business.whatsappFourth && business.whatsappFourth !== business.phoneFourth) {
-        contacts.push({
-          number: business.whatsappFourth,
-          name: business.whatsappFourthName || 'WhatsApp Fourth',
-          type: 'whatsapp'
-        });
+      if (business.whatsappFourth) {
+        // Check if this number is already added as phone or whatsapp
+        const isDuplicate = contacts.some(c => c.number === business.whatsappFourth);
+        if (!isDuplicate) {
+          contacts.push({
+            number: business.whatsappFourth,
+            name: business.whatsappFourthName || 'WhatsApp Fourth',
+            type: 'whatsapp'
+          });
+        }
       }
 
       if (contacts.length === 0) return; // No contacts available
