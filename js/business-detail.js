@@ -645,6 +645,12 @@
           <a href="${sanitizeHTML(biz.instagram)}" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
       ` : ''}
+      ${biz.youtube ? `
+        <div class="contact-item">
+          <i class="fa-brands fa-youtube"></i>
+          <a href="${sanitizeHTML(biz.youtube)}" target="_blank" rel="noopener noreferrer">YouTube</a>
+        </div>
+      ` : ''}
       ${biz.upiId ? `
         <div class="contact-item upi-payment-trigger" id="upi-pay-btn" role="button" tabindex="0" aria-label="Pay online via UPI">
           <i class="fa-solid fa-indian-rupee-sign"></i>
