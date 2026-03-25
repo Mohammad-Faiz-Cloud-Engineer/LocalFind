@@ -1,6 +1,9 @@
 /**
  * Map Integration
  * Handles map embed for business detail pages
+ * 
+ * @version 4.3.0
+ * @updated 2026-03-25
  */
 (function() {
   'use strict';
