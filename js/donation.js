@@ -40,12 +40,11 @@
    * @returns {string} UPI payment link
    */
   function generateUPILink() {
-    const params = new URLSearchParams({
-      pa: DONATION_CONFIG.upiId,
-      pn: DONATION_CONFIG.upiName,
-      cu: DONATION_CONFIG.currency
-    });
-    return `upi://pay?${params.toString()}`;
+    // Manually construct UPI link with proper encoding
+    // URLSearchParams automatically encodes spaces as '+' which works,
+    // but explicit encodeURIComponent is more reliable for UPI apps
+    const upiLink = `upi://pay?pa=${encodeURIComponent(DONATION_CONFIG.upiId)}&pn=${encodeURIComponent(DONATION_CONFIG.upiName)}&cu=${DONATION_CONFIG.currency}`;
+    return upiLink;
   }
 
   /**
