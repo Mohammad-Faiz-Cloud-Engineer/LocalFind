@@ -5,7 +5,7 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 4.3.0
+ * @version 4.3.1
  * @updated 2026-03-25
  * 
  * IMPORTANT: Update these values before deploying to production
@@ -13,7 +13,7 @@
 
 const CONFIG = {
   // Application Version
-  version: "4.3.0",
+  version: "4.3.1",
   
   // Site Information
   siteName: "LocalFind",
@@ -115,6 +115,8 @@ const CONFIG = {
     'mobile': ['mobile-shop', 'phone', 'smartphone', 'mobile-repair', 'phone-repair', 'mobile-accessories', 'jamwant-mobile', 'cell-phone'],
     'electronics': ['mobile', 'phone', 'smartphone', 'earphones', 'headphones', 'tws', 'neckband', 'accessories', 'charger', 'power-bank'],
     'repair': ['mobile-repair', 'phone-repair', 'screen-replacement', 'battery-replacement', 'fix', 'service'],
+    'fast-food': ['momos', 'spring-roll', 'fried-rice', 'burger', 'chowmein', 'finger-chips', 'aloo-patty', 'macaroni', 'shri-shyam-fast-foods', 'quick-bites', 'snacks', 'street-food'],
+    'momos': ['momo', 'dumpling', 'steamed-momos', 'fried-momos', 'veg-momos', 'chicken-momos'],
     'laundry': ['dry clean', 'washing', 'ironing'],
     'petrol': ['fuel', 'gas station', 'pump'],
     'delivery': ['courier', 'logistics', 'transport']
