@@ -170,6 +170,17 @@
       font-weight: 600;
       text-align: center;
       transition: all 0.3s;
+      appearance: textfield;
+      -moz-appearance: textfield;
+      -webkit-appearance: textfield;
+    }
+
+    /* Hide number input spinner arrows */
+    .custom-amount-input::-webkit-outer-spin-button,
+    .custom-amount-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
     }
 
     .custom-amount-input:focus {
