@@ -2,7 +2,7 @@
  * Map Integration
  * Handles map embed for business detail pages
  * 
- * @version 4.3.0
+ * @version 4.3.1
  * @updated 2026-03-25
  */
 (function() {
