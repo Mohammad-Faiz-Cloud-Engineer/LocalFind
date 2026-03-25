@@ -1,6 +1,9 @@
 /**
  * Directory Page - Filter, Sort, Search, Pagination
  * Handles business listing display and user interactions
+ * 
+ * @version 4.3.0
+ * @updated 2026-03-25
  */
 (function () {
   'use strict';
