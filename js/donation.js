@@ -181,6 +181,9 @@
     
     // Build UPI deep link with amount pre-filled
     const upiDeepLink = `upi://pay?pa=${encodeURIComponent(DONATION_CONFIG.upiId)}&pn=${encodeURIComponent(DONATION_CONFIG.upiName)}&am=${selectedAmount}&cu=${DONATION_CONFIG.currency}`;
+    
+    // Log for debugging (remove in production)
+    // console.log('UPI Link:', upiDeepLink);
 
     // Build the overlay + bottom sheet
     const overlay = document.createElement('div');
@@ -367,23 +370,11 @@
       button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Opening UPI App...</span>';
       button.disabled = true;
 
-      // Create hidden link for better compatibility
-      const link = document.createElement('a');
-      link.href = deepLink;
-      link.style.display = 'none';
-      document.body.appendChild(link);
-
       // Attempt to open UPI app
       try {
-        // Try window.location first (better for iOS)
+        // Primary method: Direct window.location assignment
         window.location.href = deepLink;
         
-        // Fallback: programmatic click (better for Android)
-        setTimeout(() => {
-          link.click();
-          document.body.removeChild(link);
-        }, 100);
-
         // Reset button after delay
         setTimeout(() => {
           button.innerHTML = originalContent;
@@ -402,18 +393,13 @@
         }, 3000);
 
       } catch (error) {
-        // Handle errors gracefully - no console.error in production
+        // Handle errors gracefully
         button.innerHTML = '<i class="fa-solid fa-exclamation-circle"></i><span>Try Again</span>';
         button.disabled = false;
         
         setTimeout(() => {
           button.innerHTML = originalContent;
         }, 3000);
-
-        // Clean up
-        if (document.body.contains(link)) {
-          document.body.removeChild(link);
-        }
       }
     }
 
