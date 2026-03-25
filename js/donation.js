@@ -192,9 +192,23 @@
     button.disabled = true;
     button.setAttribute('aria-busy', 'true');
 
+    // Create hidden link for better compatibility (works better on Android)
+    const link = document.createElement('a');
+    link.href = upiLink;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+
     try {
-      // Open UPI app
+      // Try window.location first (better for iOS)
       window.location.href = upiLink;
+      
+      // Fallback: programmatic click (better for Android)
+      setTimeout(() => {
+        link.click();
+        if (document.body.contains(link)) {
+          document.body.removeChild(link);
+        }
+      }, 100);
       
       // Reset button
       setTimeout(() => {
@@ -213,6 +227,11 @@
 
     } catch (error) {
       console.error('UPI app open failed:', error);
+      
+      // Clean up link
+      if (document.body.contains(link)) {
+        document.body.removeChild(link);
+      }
       
       // Show error state
       button.innerHTML = '<i class="fa-solid fa-exclamation-circle"></i><span>Try Again</span>';
