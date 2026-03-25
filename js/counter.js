@@ -1,6 +1,9 @@
 /**
  * Counter Animation
  * Animated count-up triggered by intersection observer
+ * 
+ * @version 4.3.0
+ * @updated 2026-03-25
  */
 (function() {
   'use strict';
