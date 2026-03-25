@@ -321,20 +321,28 @@
           copyBtn.style.color = '';
         }, 2000);
       } catch (err) {
-        // Fallback for older browsers
+        // Fallback for older browsers using modern approach
         const textArea = document.createElement('textarea');
         textArea.value = DONATION_CONFIG.upiId;
         textArea.style.cssText = 'position:fixed;left:-9999px;';
         document.body.appendChild(textArea);
         textArea.select();
-        try { document.execCommand('copy'); } catch (e) { /* silent */ }
-        document.body.removeChild(textArea);
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        copyBtn.style.color = 'var(--accent-success)';
-        setTimeout(() => {
-          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-          copyBtn.style.color = '';
-        }, 2000);
+        textArea.setSelectionRange(0, 99999); // For mobile devices
+        
+        // Use modern clipboard API as fallback
+        try {
+          document.execCommand('copy');
+          copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+          copyBtn.style.color = 'var(--accent-success)';
+          setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+            copyBtn.style.color = '';
+          }, 2000);
+        } catch (copyErr) {
+          // Silent fail - user will need to manually copy
+        } finally {
+          document.body.removeChild(textArea);
+        }
       }
     });
 
@@ -394,9 +402,7 @@
         }, 3000);
 
       } catch (error) {
-        // Handle errors gracefully
-        console.error('Failed to open UPI app:', error);
-        
+        // Handle errors gracefully - no console.error in production
         button.innerHTML = '<i class="fa-solid fa-exclamation-circle"></i><span>Try Again</span>';
         button.disabled = false;
         
