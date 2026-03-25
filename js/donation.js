@@ -20,8 +20,6 @@
     currency: 'INR',
     qrSize: 256,
     qrErrorCorrection: 'H', // High error correction
-    buttonResetDelay: 2000,
-    thankYouDelay: 3000,
     animationDuration: 300
   });
 
@@ -34,18 +32,6 @@
   // ============================================================================
   // UTILITY FUNCTIONS
   // ============================================================================
-
-  /**
-   * Generate secure UPI deep link
-   * @returns {string} UPI payment link
-   */
-  function generateUPILink() {
-    // Manually construct UPI link with proper encoding
-    // URLSearchParams automatically encodes spaces as '+' which works,
-    // but explicit encodeURIComponent is more reliable for UPI apps
-    const upiLink = `upi://pay?pa=${encodeURIComponent(DONATION_CONFIG.upiId)}&pn=${encodeURIComponent(DONATION_CONFIG.upiName)}&cu=${DONATION_CONFIG.currency}`;
-    return upiLink;
-  }
 
   /**
    * Safely get element by ID with null check
@@ -87,7 +73,7 @@
     const qrTarget = getElement('donation-qr-code');
     if (!qrTarget) return;
 
-    const upiLink = generateUPILink();
+    const upiString = `upi://pay?pa=${DONATION_CONFIG.upiId}&pn=${DONATION_CONFIG.upiName}&cu=${DONATION_CONFIG.currency}`;
 
     // Check if QRCode library is loaded
     if (typeof QRCode === 'undefined') {
@@ -104,7 +90,7 @@
 
     try {
       new QRCode(offscreen, {
-        text: upiLink,
+        text: upiString,
         width: DONATION_CONFIG.qrSize,
         height: DONATION_CONFIG.qrSize,
         colorDark: '#000000',
@@ -159,281 +145,10 @@
     }, `
       <i class="fa-solid fa-qrcode" style="font-size: 48px; color: var(--text-muted); margin-bottom: 16px;"></i>
       <p style="color: var(--text-muted); font-size: 14px; margin: 0;">QR code unavailable</p>
-      <p style="color: var(--text-muted); font-size: 12px; margin-top: 8px;">Use the "Pay using UPI App" button below</p>
+      <p style="color: var(--text-muted); font-size: 12px; margin-top: 8px;">Please scan the QR code with your UPI app</p>
     `);
     target.innerHTML = '';
     target.appendChild(fallback);
-  }
-
-  // ============================================================================
-  // UPI APP INTEGRATION
-  // ============================================================================
-
-  /**
-   * Setup pay button
-   */
-  function setupPayButton() {
-    const payBtn = getElement('pay-upi-btn');
-    if (!payBtn) return;
-
-    payBtn.addEventListener('click', () => openUPIApp(payBtn));
-  }
-
-  /**
-   * Open UPI app with user feedback
-   * @param {HTMLElement} button - Pay button
-   */
-  function openUPIApp(button) {
-    const upiLink = generateUPILink();
-    const originalContent = button.innerHTML;
-    
-    // Show loading state
-    button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Opening UPI App...</span>';
-    button.disabled = true;
-    button.setAttribute('aria-busy', 'true');
-
-    // Create hidden link for better compatibility (works better on Android)
-    const link = document.createElement('a');
-    link.href = upiLink;
-    link.style.display = 'none';
-    document.body.appendChild(link);
-
-    try {
-      // Try window.location first (better for iOS)
-      window.location.href = upiLink;
-      
-      // Fallback: programmatic click (better for Android)
-      setTimeout(() => {
-        link.click();
-        if (document.body.contains(link)) {
-          document.body.removeChild(link);
-        }
-      }, 100);
-      
-      // Reset button
-      setTimeout(() => {
-        button.innerHTML = originalContent;
-        button.disabled = false;
-        button.removeAttribute('aria-busy');
-      }, DONATION_CONFIG.buttonResetDelay);
-
-      // Analytics hook (if available)
-      if (typeof window.trackDonation === 'function') {
-        window.trackDonation('upi_opened');
-      }
-
-      // Show thank you message
-      setTimeout(showThankYouMessage, DONATION_CONFIG.thankYouDelay);
-
-    } catch (error) {
-      console.error('UPI app open failed:', error);
-      
-      // Clean up link
-      if (document.body.contains(link)) {
-        document.body.removeChild(link);
-      }
-      
-      // Show error state
-      button.innerHTML = '<i class="fa-solid fa-exclamation-circle"></i><span>Try Again</span>';
-      button.disabled = false;
-      button.removeAttribute('aria-busy');
-      
-      setTimeout(() => {
-        button.innerHTML = originalContent;
-      }, DONATION_CONFIG.buttonResetDelay);
-    }
-  }
-
-  // ============================================================================
-  // THANK YOU MODAL
-  // ============================================================================
-
-  /**
-   * Show thank you modal
-   */
-  function showThankYouMessage() {
-    // Prevent duplicate modals
-    if (activeModal || document.querySelector('.thank-you-modal')) return;
-    
-    const modal = createElement('div', {
-      class: 'thank-you-modal',
-      role: 'dialog',
-      'aria-modal': 'true',
-      'aria-labelledby': 'thank-you-title'
-    }, `
-      <div class="thank-you-content">
-        <div class="thank-you-icon" aria-hidden="true">
-          <i class="fa-solid fa-heart"></i>
-        </div>
-        <h2 id="thank-you-title">Thank You for Your Support!</h2>
-        <p>Your generous donation helps us keep LocalFind free and accessible for everyone.</p>
-        <p style="font-size: 14px; color: var(--text-muted); margin-top: 16px;">
-          Complete the payment in your UPI app to finalize your donation.
-        </p>
-        <button class="thank-you-btn" id="close-thank-you" type="button">
-          <i class="fa-solid fa-check"></i>
-          <span>Got it!</span>
-        </button>
-      </div>
-    `);
-
-    // Inject styles (once)
-    injectThankYouStyles();
-
-    document.body.appendChild(modal);
-    activeModal = modal;
-
-    // Event handlers
-    const closeBtn = getElement('close-thank-you');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => closeThankYouModal(modal));
-    }
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeThankYouModal(modal);
-    });
-
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') closeThankYouModal(modal);
-    };
-    document.addEventListener('keydown', handleEscape);
-    modal._escapeHandler = handleEscape;
-  }
-
-  /**
-   * Close thank you modal
-   * @param {HTMLElement} modal - Modal element
-   */
-  function closeThankYouModal(modal) {
-    if (!modal) return;
-    
-    modal.style.animation = `fadeIn ${DONATION_CONFIG.animationDuration}ms ease-out reverse`;
-    
-    // Clean up event listener
-    if (modal._escapeHandler) {
-      document.removeEventListener('keydown', modal._escapeHandler);
-    }
-    
-    activeModal = null;
-    
-    setTimeout(() => {
-      modal.remove();
-    }, DONATION_CONFIG.animationDuration);
-  }
-
-  /**
-   * Inject thank you modal styles (once)
-   */
-  function injectThankYouStyles() {
-    if (document.getElementById('thank-you-styles')) return;
-
-    const style = createElement('style', { id: 'thank-you-styles' });
-    style.textContent = `
-      .thank-you-modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(10, 14, 23, 0.95);
-        backdrop-filter: blur(8px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        padding: 20px;
-        animation: fadeIn 0.3s ease-out;
-      }
-
-      .thank-you-content {
-        background: var(--bg-card);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: var(--radius-2xl);
-        padding: 48px 32px;
-        max-width: 500px;
-        text-align: center;
-        animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      .thank-you-icon {
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 24px;
-        animation: heartbeat 1s ease-in-out infinite;
-      }
-
-      .thank-you-icon i {
-        font-size: 40px;
-        color: #0A0E17;
-      }
-
-      .thank-you-content h2 {
-        font-size: 28px;
-        margin-bottom: 16px;
-        color: var(--text-primary);
-      }
-
-      .thank-you-content p {
-        font-size: 16px;
-        line-height: 1.6;
-        color: var(--text-secondary);
-        margin-bottom: 24px;
-      }
-
-      .thank-you-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 14px 32px;
-        margin-top: 16px;
-        background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
-        color: #0A0E17;
-        border: none;
-        border-radius: var(--radius-xl);
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 16px rgba(255, 138, 0, 0.3);
-        font-family: var(--font-sans);
-      }
-
-      .thank-you-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(255, 138, 0, 0.4);
-      }
-
-      .thank-you-btn:active {
-        transform: translateY(0);
-      }
-
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      @keyframes slideUp {
-        from { transform: translateY(30px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-      }
-
-      @keyframes heartbeat {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-      }
-
-      @media (max-width: 640px) {
-        .thank-you-content { padding: 32px 24px; }
-        .thank-you-icon { width: 64px; height: 64px; }
-        .thank-you-icon i { font-size: 32px; }
-        .thank-you-content h2 { font-size: 24px; }
-        .thank-you-content p { font-size: 14px; }
-        .thank-you-btn { padding: 12px 24px; font-size: 14px; }
-      }
-    `;
-    document.head.appendChild(style);
   }
 
   // ============================================================================
@@ -445,7 +160,6 @@
    */
   function init() {
     generateQRCode();
-    setupPayButton();
   }
 
   // Auto-initialize when DOM is ready
