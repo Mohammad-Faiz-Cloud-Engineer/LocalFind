@@ -2,7 +2,7 @@
  * LocalFind - Donation Page Logic
  * Production-grade UPI payment integration with security and optimization
  * 
- * @version 4.3.1
+ * @version 4.3.0
  * @updated 2026-03-25
  * @author Mohammad Faiz
  */
