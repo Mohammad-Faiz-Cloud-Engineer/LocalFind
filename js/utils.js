@@ -2,7 +2,7 @@
  * Utility functions for production-grade operations
  * Reserved for future use - currently not imported by any module
  * 
- * @version 4.3.0
+ * @version 4.3.1
  * @updated 2026-03-25
  * 
  * To use these utilities, import them in your JavaScript files:
