@@ -2,12 +2,17 @@
  * LocalFind - Service Worker
  * PWA offline support with network-first caching
  * 
- * @version 4.2.1
- * @updated 2026-03-17
+ * Strategy:
+ * - Network First: Always try to fetch latest data when online
+ * - Cache Fallback: Serve cached version when offline
+ * - No manual cache clearing needed: Updates happen automatically
+ * 
+ * @version 4.3.0
+ * @updated 2026-03-25
  */
 
-const CACHE_VERSION = 'localfind-v4.2.1';
-const BUILD_NUMBER = '20260317b'; // YYYYMMDD format
+const CACHE_VERSION = 'localfind-v4.3.0';
+const BUILD_NUMBER = '20260325a'; // YYYYMMDD format
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
@@ -22,6 +27,7 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/directory.html`,
   `${BASE_PATH}/categories.html`,
   `${BASE_PATH}/business-detail.html`,
+  `${BASE_PATH}/donation.html`,
   `${BASE_PATH}/about.html`,
   `${BASE_PATH}/map.html`,
   `${BASE_PATH}/offline.html`,
@@ -44,6 +50,7 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/js/form.js`,
   `${BASE_PATH}/js/counter.js`,
   `${BASE_PATH}/js/business-detail.js`,
+  `${BASE_PATH}/js/donation.js`,
   `${BASE_PATH}/js/utils.js`,
   `${BASE_PATH}/js/pwa.js`,
   `${BASE_PATH}/assets/images/mainlogo.svg`,
