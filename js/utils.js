@@ -2,6 +2,9 @@
  * Utility functions for production-grade operations
  * Reserved for future use - currently not imported by any module
  * 
+ * @version 4.3.0
+ * @updated 2026-03-25
+ * 
  * To use these utilities, import them in your JavaScript files:
  * Example: import { debounce, isValidEmail } from './utils.js';
  */
