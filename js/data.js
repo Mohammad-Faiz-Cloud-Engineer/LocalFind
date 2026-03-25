@@ -1,6 +1,9 @@
 /**
  * Business Listings Data
  * 
+ * @version 4.3.0
+ * @updated 2026-03-25
+ * 
  * PRODUCTION NOTE: Replace this empty array with real business data
  * 
  * Option 1: Fetch from backend API
