@@ -144,32 +144,7 @@
       object-fit: contain;
     }
 
-    .upi-pay-button {
-      width: 100%;
-      padding: 18px 32px;
-      font-size: 18px;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
-      color: #0A0E17;
-      border: none;
-      border-radius: var(--radius-xl);
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 16px rgba(255, 138, 0, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
 
-    .upi-pay-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(255, 138, 0, 0.4);
-    }
-
-    .upi-pay-button:active {
-      transform: translateY(0);
-    }
 
     .impact-grid {
       display: grid;
@@ -323,10 +298,7 @@
         padding: 16px;
       }
 
-      .upi-pay-button {
-        padding: 16px 24px;
-        font-size: 16px;
-      }
+
 
       .why-donate-section {
         padding: 32px 20px;
@@ -368,16 +340,15 @@
           <div class="upi-qr-frame" id="donation-qr-code"></div>
         </div>
 
-        <!-- Pay Button -->
-        <button class="upi-pay-button" id="pay-upi-btn" type="button">
-          <i class="fa-solid fa-mobile-screen-button"></i>
-          <span>Pay Using UPI App</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
+        <!-- UPI ID Display -->
+        <div style="text-align: center; margin-top: 24px; padding: 16px; background: rgba(30, 39, 54, 0.4); border-radius: var(--radius-lg); border: 1px solid rgba(255, 255, 255, 0.08);">
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">UPI ID</p>
+          <p style="font-size: 18px; font-weight: 700; color: var(--accent-primary); margin: 0; font-family: monospace;">faiz2k9@fam</p>
+        </div>
 
         <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 16px;">
           <i class="fa-solid fa-shield-halved"></i>
-          Secure payment via UPI • No payment gateway fees
+          Scan QR code with any UPI app • No payment gateway fees
         </p>
       </div>
     </section>
