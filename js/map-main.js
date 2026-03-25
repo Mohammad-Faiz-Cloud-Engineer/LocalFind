@@ -3,8 +3,8 @@
  * Production-grade map implementation with security and performance optimizations
  * 
  * @author Mohammad Faiz
- * @version 4.2.0
- * @updated 2026-03-07
+ * @version 4.3.0
+ * @updated 2026-03-25
  */
 
 (function () {
