@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
   <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;">
 
   <!-- PWA Meta Tags -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -48,7 +48,6 @@
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/utilities.css">
-  <link rel="stylesheet" href="css/business-detail.css">
 
   <!-- QR Code Generator -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" 
@@ -58,18 +57,24 @@
     defer></script>
 
   <style>
-    /* Donation Page Specific Styles */
+    /**
+     * Donation Page Styles
+     * Optimized and production-ready CSS
+     * @version 4.3.1
+     * @updated 2026-03-25
+     */
+
+    /* Hero Section */
     .donation-hero {
       padding: 80px 0 60px;
       text-align: center;
-      background: transparent;
     }
 
     .donation-hero h1 {
       font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 800;
       margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -103,131 +108,45 @@
       padding: 40px 0;
     }
 
-    .amount-selector {
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
-
-    .amount-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .amount-btn {
+    /* UPI Payment Container */
+    .upi-payment-container {
+      max-width: 500px;
+      margin: 0 auto;
       background: rgba(30, 39, 54, 0.4);
       backdrop-filter: blur(16px);
-      border: 2px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-lg);
-      padding: 24px 16px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-2xl);
+      padding: 48px 32px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     }
 
-    .amount-btn:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 138, 0, 0.3);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    .upi-qr-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
     }
 
-    .amount-btn.active {
-      background: linear-gradient(135deg, rgba(255, 138, 0, 0.15), rgba(229, 46, 113, 0.1));
-      border-color: var(--accent-primary);
-      box-shadow: 0 0 20px rgba(255, 138, 0, 0.2);
+    .upi-qr-frame {
+      width: 280px;
+      height: 280px;
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     }
 
-    .amount-btn .amount {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--text-primary);
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .amount-btn .label {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .custom-amount {
-      margin-top: 24px;
-    }
-
-    .custom-amount-input {
+    .upi-qr-frame img {
       width: 100%;
-      padding: 16px 20px;
-      background: rgba(30, 39, 54, 0.4);
-      border: 2px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-lg);
-      color: var(--text-primary);
-      font-size: 18px;
-      font-weight: 600;
-      text-align: center;
-      transition: all 0.3s;
-      appearance: textfield;
-      -moz-appearance: textfield;
-      -webkit-appearance: textfield;
+      height: 100%;
+      object-fit: contain;
     }
 
-    /* Hide number input spinner arrows */
-    .custom-amount-input::-webkit-outer-spin-button,
-    .custom-amount-input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      appearance: none;
-      margin: 0;
-    }
-
-    .custom-amount-input:focus {
-      outline: none;
-      border-color: var(--accent-primary);
-      box-shadow: 0 0 20px rgba(255, 138, 0, 0.2);
-    }
-
-    .recurring-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 24px;
-      padding: 16px;
-      background: rgba(30, 39, 54, 0.4);
-      border-radius: var(--radius-lg);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .recurring-toggle:hover {
-      background: rgba(30, 39, 54, 0.6);
-    }
-
-    .recurring-toggle input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-    }
-
-    .recurring-toggle label {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-primary);
-      cursor: pointer;
-    }
-
-    .donate-btn-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 32px 0;
-    }
-
-    .donate-btn {
-      padding: 18px 48px;
+    .upi-pay-button {
+      width: 100%;
+      padding: 18px 32px;
       font-size: 18px;
       font-weight: 700;
       background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
@@ -237,21 +156,19 @@
       cursor: pointer;
       transition: all 0.3s;
       box-shadow: 0 4px 16px rgba(255, 138, 0, 0.3);
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
     }
 
-    .donate-btn:hover {
+    .upi-pay-button:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(255, 138, 0, 0.4);
     }
 
-    .donate-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
+    .upi-pay-button:active {
+      transform: translateY(0);
     }
 
     .impact-grid {
@@ -307,8 +224,9 @@
       margin: 0;
     }
 
+    /* Why Donate Section */
     .why-donate-section {
-      background: linear-gradient(135deg, rgba(255, 138, 0, 0.08) 0%, rgba(229, 46, 113, 0.04) 100%);
+      background: linear-gradient(135deg, rgba(255, 138, 0, 0.08), rgba(229, 46, 113, 0.04));
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-2xl);
       padding: 48px;
@@ -374,49 +292,7 @@
       margin: 0;
     }
 
-    .stats-banner {
-      background: rgba(30, 39, 54, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-xl);
-      padding: 40px;
-      margin: 40px 0;
-      text-align: center;
-    }
-
-    .stats-banner h3 {
-      font-size: 24px;
-      margin-bottom: 24px;
-      color: var(--text-primary);
-    }
-
-    .stats-row {
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      flex-wrap: wrap;
-    }
-
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-item .number {
-      font-size: 48px;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .stat-item .label {
-      font-size: 14px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+    /* Stats Banner - Removed (not in use) */
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
@@ -437,22 +313,18 @@
         font-size: 32px;
       }
 
-      .amount-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+      .upi-payment-container {
+        padding: 32px 20px;
       }
 
-      .amount-btn {
-        padding: 20px 12px;
+      .upi-qr-frame {
+        width: 240px;
+        height: 240px;
+        padding: 16px;
       }
 
-      .amount-btn .amount {
-        font-size: 24px;
-      }
-
-      .donate-btn {
-        width: 100%;
-        padding: 16px 32px;
+      .upi-pay-button {
+        padding: 16px 24px;
         font-size: 16px;
       }
 
@@ -463,14 +335,6 @@
 
       .why-item {
         padding: 16px;
-      }
-
-      .stats-row {
-        gap: 32px;
-      }
-
-      .stat-item .number {
-        font-size: 36px;
       }
 
       .impact-grid {
@@ -494,74 +358,22 @@
       <p>Help us keep local businesses connected and our platform free for everyone</p>
     </section>
 
-    <!-- Stats Banner -->
-    <div class="stats-banner">
-      <h3>Your Impact So Far</h3>
-      <div class="stats-row">
-        <div class="stat-item">
-          <span class="number count" data-target="27">0</span>
-          <span class="label">Businesses Supported</span>
-        </div>
-        <div class="stat-item">
-          <span class="number count" data-target="17">0</span>
-          <span class="label">Categories</span>
-        </div>
-        <div class="stat-item">
-          <span class="number">100%</span>
-          <span class="label">Free & Ad-Free</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Amount Selection -->
+    <!-- UPI Payment Section -->
     <section class="donation-section">
-      <div class="amount-selector">
-        <h2 style="text-align: center; margin-bottom: 24px; color: var(--text-primary);">Choose Your Contribution</h2>
+      <div class="upi-payment-container">
+        <h2 style="text-align: center; margin-bottom: 32px; color: var(--text-primary);">Support via UPI</h2>
         
-        <div class="amount-grid">
-          <button class="amount-btn" data-amount="50">
-            <span class="amount">₹50</span>
-            <span class="label">Supporter</span>
-          </button>
-          <button class="amount-btn" data-amount="100">
-            <span class="amount">₹100</span>
-            <span class="label">Contributor</span>
-          </button>
-          <button class="amount-btn" data-amount="500">
-            <span class="amount">₹500</span>
-            <span class="label">Patron</span>
-          </button>
-          <button class="amount-btn" data-amount="1000">
-            <span class="amount">₹1000</span>
-            <span class="label">Champion</span>
-          </button>
+        <!-- QR Code -->
+        <div class="upi-qr-wrapper">
+          <div class="upi-qr-frame" id="donation-qr-code"></div>
         </div>
 
-        <div class="custom-amount">
-          <input 
-            type="number" 
-            id="custom-amount-input" 
-            class="custom-amount-input" 
-            placeholder="Or enter custom amount (₹)" 
-            min="10"
-            step="10"
-          >
-        </div>
-
-        <div class="recurring-toggle">
-          <input type="checkbox" id="recurring-checkbox">
-          <label for="recurring-checkbox">
-            <i class="fa-solid fa-rotate"></i>
-            Make this a monthly donation
-          </label>
-        </div>
-
-        <div class="donate-btn-container">
-          <button class="donate-btn" id="donate-now-btn" disabled>
-            <i class="fa-solid fa-heart"></i>
-            <span>Donate Now via UPI</span>
-          </button>
-        </div>
+        <!-- Pay Button -->
+        <button class="upi-pay-button" id="pay-upi-btn" type="button">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+          <span>Pay Using UPI App</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
 
         <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 16px;">
           <i class="fa-solid fa-shield-halved"></i>
@@ -669,7 +481,6 @@
 
   <script defer src="js/config.js"></script>
   <script defer src="js/main.js"></script>
-  <script defer src="js/counter.js"></script>
   <script defer src="js/pwa.js"></script>
   <script defer src="js/donation.js"></script>
 </body>
