@@ -1,7 +1,7 @@
 /**
  * Business Listings Data
  * 
- * @version 4.3.0
+ * @version 4.3.1
  * @updated 2026-03-25
  * 
  * PRODUCTION NOTE: Replace this empty array with real business data
@@ -1135,6 +1135,53 @@ window.LISTINGS = [
     tags: ["pharmacy", "medical-store", "medicines", "healthcare", "prescription", "health-supplements", "wellness", "first-aid", "baby-care", "diabetic-care", "premium-medicines"],
     upiId: "Q106573417@ybl",
     upiName: "Arjun Gupta",
+    isNew: true
+  },
+  {
+    id: "shri-shyam-fast-foods",
+    name: "Shri Shyam Fast Foods",
+    category: "Restaurants & Food",
+    categorySlug: "restaurants",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 1,
+    coordinates: { lat: 26.923867, lng: 81.261350 },
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 5.0,
+        date: "2026-03-25",
+        text: "Excellent fast food spot in Rasauli! The momos are absolutely delicious, and the spring rolls are crispy and fresh. Great taste, good service, and very reasonable prices. Highly recommended for quick bites and snacks!",
+        verified: true
+      }
+    ],
+    address: "Village & Post Rasauli, District Barabanki, Rasauli Bazar, Near Sanskar Medical Store, Uttar Pradesh 225203",
+    mapLink: "https://maps.app.goo.gl/1TARkmnyzJ38G36TA",
+    phone: "+91 63920 03127",
+    phoneName: "Jatin Gupta",
+    phoneSecondary: "+91 92353 54143",
+    phoneSecondaryName: "Jatin Gupta",
+    email: "",
+    website: "",
+    whatsapp: "+91 63920 03127",
+    whatsappName: "Jatin Gupta",
+    whatsappSecondary: "+91 92353 54143",
+    whatsappSecondaryName: "Jatin Gupta",
+    hours: {
+      mon: { open: "10:00", close: "20:00" },
+      tue: { open: "10:00", close: "20:00" },
+      wed: { open: "10:00", close: "20:00" },
+      thu: { open: "10:00", close: "20:00" },
+      fri: { open: "10:00", close: "20:00" },
+      sat: { open: "10:00", close: "20:00" },
+      sun: { open: "10:00", close: "20:00" }
+    },
+    description: "Shri Shyam Fast Foods is the best fast food destination in Rasauli, located near Sanskar Medical Store on Rasauli Bazar. Managed by Jatin Gupta, we specialize in delicious and affordable fast food favorites. Our menu features mouth-watering momos (steamed and fried), crispy spring rolls, flavorful fried rice, juicy burgers, golden finger chips, tasty chowmein, aloo patties, and creamy macaroni. We use fresh ingredients and maintain high hygiene standards. Perfect for quick bites, snacks, or takeaway meals. Popular among students, families, and food lovers. Open daily from 10 AM to 8 PM. Visit us for great taste and excellent service!",
+    tags: ["fast-food", "momos", "spring-roll", "fried-rice", "burger", "chowmein", "snacks", "street-food", "takeaway", "finger-chips", "aloo-patty", "macaroni"],
     isNew: true
   }
 ];
