@@ -24,10 +24,11 @@ LocalFind helps people discover local businesses in their area. The platform fea
 - Responsive design for all devices
 - Interactive maps integration
 - Business submission forms
+- **UPI Donation System** with QR code generation
 - **Premium Glassmorphism UI** & Dark theme interface
 - **Production-grade, highly optimized JavaScript**
 - SEO optimized
-- Accessibility compliant
+- Accessibility compliant (WCAG 2.1 AA)
 - **Full PWA Support** (installable, offline-ready)
 - Service worker with intelligent caching
 - Push notifications ready
@@ -40,6 +41,8 @@ LocalFind helps people discover local businesses in their area. The platform fea
 - Vanilla JavaScript (ES6+)
 - Font Awesome Icons
 - OpenStreetMap Integration
+- QRCode.js for UPI payment QR generation
+- UPI Deep Linking for seamless payments
 
 ## Getting Started
 
@@ -83,10 +86,33 @@ LocalFind/
 ├── directory.html          # Business listings
 ├── categories.html         # Category browser
 ├── business-detail.html    # Business details
+├── donation.html           # Donation page with UPI integration
 ├── about.html             # About page
 ├── css/                   # Stylesheets
 ├── js/                    # JavaScript files
+│   ├── donation.js        # Donation logic & UPI payment
+│   └── ...
 └── assets/                # Images and icons
+```
+
+## Donation System
+
+LocalFind includes a fully-featured donation page with UPI integration:
+
+- **Preset Amounts**: Quick selection (₹50, ₹100, ₹500, ₹1000)
+- **Custom Amounts**: Enter any amount (₹10 - ₹100,000)
+- **Recurring Donations**: Monthly donation option
+- **UPI QR Codes**: Scannable QR codes for instant payment
+- **UPI Deep Links**: Direct payment via UPI apps
+- **Secure & Fast**: No payment gateway fees, direct UPI transfer
+
+To configure donations, edit the UPI ID in `js/donation.js`:
+```javascript
+const DONATION_CONFIG = {
+  upiId: 'your-upi-id@bank',
+  upiName: 'Your Business Name',
+  // ...
+};
 ```
 
 ## Configuration
