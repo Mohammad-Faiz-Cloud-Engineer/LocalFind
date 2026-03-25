@@ -31,6 +31,7 @@ function renderHeader(){
         <a href="categories.html">Categories</a>
         <a href="map.html">Map</a>
         <a href="about.html">About</a>
+        <a href="donation.html" class="donate-link"><i class="fa-solid fa-heart"></i> Donate</a>
       </nav>
     </div>
     <div class="nav-right">
@@ -46,6 +47,7 @@ function renderHeader(){
       <a href="categories.html">Categories</a>
       <a href="map.html">Map</a>
       <a href="about.html">About</a>
+      <a href="donation.html" class="donate-link"><i class="fa-solid fa-heart"></i> Donate</a>
     </nav>
   </div>
   <div class="search-modal" id="search-modal" role="dialog" aria-label="Search" aria-hidden="true">
