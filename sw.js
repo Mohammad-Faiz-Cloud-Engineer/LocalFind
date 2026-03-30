@@ -17,45 +17,48 @@ const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
 
-// Base path for GitHub Pages deployment
-const BASE_PATH = '/LocalFind';
+// Base path - automatically detect from service worker location
+// For GitHub Pages: '/LocalFind'
+// For custom domain: ''
+const BASE_PATH = self.location.pathname.substring(0, self.location.pathname.lastIndexOf('/'));
+const EFFECTIVE_BASE_PATH = BASE_PATH || '';
 
 // Assets to pre-cache on install (offline fallback)
 const STATIC_ASSETS = [
-  `${BASE_PATH}/`,
-  `${BASE_PATH}/index.html`,
-  `${BASE_PATH}/directory.html`,
-  `${BASE_PATH}/categories.html`,
-  `${BASE_PATH}/business-detail.html`,
-  `${BASE_PATH}/donation.html`,
-  `${BASE_PATH}/about.html`,
-  `${BASE_PATH}/map.html`,
-  `${BASE_PATH}/offline.html`,
-  `${BASE_PATH}/404.html`,
-  `${BASE_PATH}/500.html`,
-  `${BASE_PATH}/css/style.css`,
-  `${BASE_PATH}/css/navbar.css`,
-  `${BASE_PATH}/css/hero.css`,
-  `${BASE_PATH}/css/cards.css`,
-  `${BASE_PATH}/css/categories.css`,
-  `${BASE_PATH}/css/filters.css`,
-  `${BASE_PATH}/css/forms.css`,
-  `${BASE_PATH}/css/footer.css`,
-  `${BASE_PATH}/css/business-detail.css`,
-  `${BASE_PATH}/css/utilities.css`,
-  `${BASE_PATH}/js/config.js`,
-  `${BASE_PATH}/js/data.js`,
-  `${BASE_PATH}/js/main.js`,
-  `${BASE_PATH}/js/directory.js`,
-  `${BASE_PATH}/js/form.js`,
-  `${BASE_PATH}/js/counter.js`,
-  `${BASE_PATH}/js/business-detail.js`,
-  `${BASE_PATH}/js/donation.js`,
-  `${BASE_PATH}/js/utils.js`,
-  `${BASE_PATH}/js/pwa.js`,
-  `${BASE_PATH}/assets/images/mainlogo.svg`,
-  `${BASE_PATH}/assets/images/og-image.svg`,
-  `${BASE_PATH}/manifest.json`
+  `${EFFECTIVE_BASE_PATH}/`,
+  `${EFFECTIVE_BASE_PATH}/index.html`,
+  `${EFFECTIVE_BASE_PATH}/directory.html`,
+  `${EFFECTIVE_BASE_PATH}/categories.html`,
+  `${EFFECTIVE_BASE_PATH}/business-detail.html`,
+  `${EFFECTIVE_BASE_PATH}/donation.html`,
+  `${EFFECTIVE_BASE_PATH}/about.html`,
+  `${EFFECTIVE_BASE_PATH}/map.html`,
+  `${EFFECTIVE_BASE_PATH}/offline.html`,
+  `${EFFECTIVE_BASE_PATH}/404.html`,
+  `${EFFECTIVE_BASE_PATH}/500.html`,
+  `${EFFECTIVE_BASE_PATH}/css/style.css`,
+  `${EFFECTIVE_BASE_PATH}/css/navbar.css`,
+  `${EFFECTIVE_BASE_PATH}/css/hero.css`,
+  `${EFFECTIVE_BASE_PATH}/css/cards.css`,
+  `${EFFECTIVE_BASE_PATH}/css/categories.css`,
+  `${EFFECTIVE_BASE_PATH}/css/filters.css`,
+  `${EFFECTIVE_BASE_PATH}/css/forms.css`,
+  `${EFFECTIVE_BASE_PATH}/css/footer.css`,
+  `${EFFECTIVE_BASE_PATH}/css/business-detail.css`,
+  `${EFFECTIVE_BASE_PATH}/css/utilities.css`,
+  `${EFFECTIVE_BASE_PATH}/js/config.js`,
+  `${EFFECTIVE_BASE_PATH}/js/data.js`,
+  `${EFFECTIVE_BASE_PATH}/js/main.js`,
+  `${EFFECTIVE_BASE_PATH}/js/directory.js`,
+  `${EFFECTIVE_BASE_PATH}/js/form.js`,
+  `${EFFECTIVE_BASE_PATH}/js/counter.js`,
+  `${EFFECTIVE_BASE_PATH}/js/business-detail.js`,
+  `${EFFECTIVE_BASE_PATH}/js/donation.js`,
+  `${EFFECTIVE_BASE_PATH}/js/utils.js`,
+  `${EFFECTIVE_BASE_PATH}/js/pwa.js`,
+  `${EFFECTIVE_BASE_PATH}/assets/images/mainlogo.svg`,
+  `${EFFECTIVE_BASE_PATH}/assets/images/og-image.svg`,
+  `${EFFECTIVE_BASE_PATH}/manifest.json`
 ];
 
 // Install event - pre-cache static assets for offline fallback
@@ -101,7 +104,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Skip requests outside our base path
-  if (!url.pathname.startsWith(BASE_PATH)) {
+  if (EFFECTIVE_BASE_PATH && !url.pathname.startsWith(EFFECTIVE_BASE_PATH)) {
     return;
   }
 
@@ -144,7 +147,7 @@ async function handleNetworkFirst(request) {
 
     // For HTML navigation requests, show offline page
     if (request.mode === 'navigate' || url.pathname.endsWith('.html')) {
-      const offlinePage = await caches.match(`${BASE_PATH}/offline.html`);
+      const offlinePage = await caches.match(`${EFFECTIVE_BASE_PATH}/offline.html`);
       if (offlinePage) {
         return offlinePage;
       }
@@ -187,7 +190,7 @@ async function handleImageRequest(request) {
   }
 
   // Fallback to logo
-  const fallback = await caches.match(`${BASE_PATH}/assets/images/mainlogo.svg`);
+  const fallback = await caches.match(`${EFFECTIVE_BASE_PATH}/assets/images/mainlogo.svg`);
   if (fallback) {
     return fallback;
   }
@@ -230,8 +233,8 @@ async function syncBusinessSubmissions() {
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'New update available',
-    icon: `${BASE_PATH}/assets/images/mainlogo.svg`,
-    badge: `${BASE_PATH}/assets/images/mainlogo.svg`,
+    icon: `${EFFECTIVE_BASE_PATH}/assets/images/mainlogo.svg`,
+    badge: `${EFFECTIVE_BASE_PATH}/assets/images/mainlogo.svg`,
     vibrate: [200, 100, 200],
     tag: 'localfind-notification',
     requireInteraction: false,
@@ -258,7 +261,7 @@ self.addEventListener('notificationclick', (event) => {
 
   if (event.action === 'open') {
     event.waitUntil(
-      clients.openWindow(BASE_PATH + '/')
+      clients.openWindow(EFFECTIVE_BASE_PATH + '/')
     );
   }
 });
