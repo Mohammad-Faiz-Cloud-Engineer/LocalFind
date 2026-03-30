@@ -8,6 +8,20 @@
 (function () {
   'use strict';
 
+  // Constants for UI dimensions and timing
+  const UI_CONSTANTS = {
+    QR_CODE_SIZE: 256,
+    TIME_PICKER_ITEM_HEIGHT: 44,
+    DESCRIPTION_PREVIEW_LENGTH: 300,
+    REVIEW_PREVIEW_LENGTH: 200,
+    MODAL_ANIMATION_DURATION: 350,
+    BUTTON_FEEDBACK_DURATION: 2000,
+    WHATSAPP_OPEN_DELAY: 500,
+    MODAL_CLOSE_DELAY: 1000,
+    MAP_ZOOM_LEVEL: 16,
+    MAP_PAN_OFFSET_MOBILE: -30
+  };
+
   /**
    * Security: HTML sanitization function to prevent XSS attacks
    * @param {string} str - String to sanitize
@@ -447,7 +461,7 @@
 
         // Sanitize and linkify review text
         const reviewTextSafe = linkifyText(review.text);
-        const needsPreview = review.text.length > 200;
+        const needsPreview = review.text.length > UI_CONSTANTS.REVIEW_PREVIEW_LENGTH;
         const reviewId = `review-${sanitizeHTML(index.toString())}`;
         
         // Check if audio file exists for admin review
@@ -768,8 +782,8 @@
 
           new QRCode(offscreen, {
             text: upiDeepLink,
-            width: 256,
-            height: 256,
+            width: UI_CONSTANTS.QR_CODE_SIZE,
+            height: UI_CONSTANTS.QR_CODE_SIZE,
             colorDark: '#000000',
             colorLight: '#ffffff',
             correctLevel: QRCode.CorrectLevel.H
@@ -964,7 +978,7 @@
           setTimeout(() => {
             button.innerHTML = originalContent;
             button.disabled = false;
-          }, 2000);
+          }, UI_CONSTANTS.BUTTON_FEEDBACK_DURATION);
 
           // Track successful attempt (optional analytics hook)
           if (typeof window.trackUPIPayment === 'function') {
@@ -1323,7 +1337,7 @@
         let isDragging = false;
         let startTransform = 0;
 
-        const itemHeight = 44;
+        const itemHeight = UI_CONSTANTS.TIME_PICKER_ITEM_HEIGHT;
 
         scrollContainer.addEventListener('mousedown', handleStart);
         scrollContainer.addEventListener('touchstart', handleStart, { passive: false });
@@ -1412,7 +1426,7 @@
       }
 
       function updateWheelPosition(scrollInner, items, index) {
-        const itemHeight = 44;
+        const itemHeight = UI_CONSTANTS.TIME_PICKER_ITEM_HEIGHT;
         const offset = -index * itemHeight;
         scrollInner.style.transform = `translateY(${offset}px)`;
         
@@ -1511,8 +1525,8 @@
           // Close modal after short delay
           setTimeout(() => {
             closeAppointmentSheet();
-          }, 1000);
-        }, 500);
+          }, UI_CONSTANTS.MODAL_CLOSE_DELAY);
+        }, UI_CONSTANTS.WHATSAPP_OPEN_DELAY);
       }
 
       /**
@@ -1750,7 +1764,7 @@
       dragging: true,
       touchZoom: true,
       doubleClickZoom: true
-    }).setView(coords, 16);
+    }).setView(coords, UI_CONSTANTS.MAP_ZOOM_LEVEL);
 
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -1794,7 +1808,7 @@
       // Pan slightly up to ensure popup is visible
       const isMobile = window.innerWidth <= 768;
       if (isMobile) {
-        map.panBy([0, -30]);
+        map.panBy([0, UI_CONSTANTS.MAP_PAN_OFFSET_MOBILE]);
       }
     }, 100);
 
