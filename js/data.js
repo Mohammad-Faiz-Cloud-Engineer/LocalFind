@@ -4,6 +4,35 @@
  * @version 4.3.1
  * @updated 2026-03-25
  * 
+ * CRITICAL PRIVACY NOTICE
+ * ═══════════════════════════════════════════════════════════════════════════
+ * This file contains REAL PERSONAL DATA of business owners including:
+ * - Phone numbers
+ * - Email addresses
+ * - Physical addresses
+ * - WhatsApp numbers
+ * - UPI payment IDs
+ * 
+ * LEGAL REQUIREMENTS:
+ * 1. Obtain explicit written consent from ALL business owners before deployment
+ * 2. Comply with data protection laws (GDPR, CCPA, local regulations)
+ * 3. Provide opt-out mechanism for businesses to remove their data
+ * 4. Implement proper data security measures
+ * 
+ * RECOMMENDATIONS FOR PRODUCTION:
+ * - Move this data to a secure backend with authentication
+ * - Use environment variables for sensitive configuration
+ * - Implement API endpoints with proper access controls
+ * - Add data encryption for sensitive fields
+ * - Regular security audits and compliance checks
+ * 
+ * FOR DEMO/TESTING:
+ * - Replace all real data with anonymized placeholder data
+ * - Use fake phone numbers (e.g., +91 XXXXXXXXXX)
+ * - Use example.com email addresses
+ * - Use generic business names
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
  * PRODUCTION NOTE: Replace this empty array with real business data
  * 
  * Option 1: Fetch from backend API
