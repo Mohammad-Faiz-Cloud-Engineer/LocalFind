@@ -1251,7 +1251,44 @@ window.LISTINGS = [
     description: "Awadh Avenue Mall is the best shopping and entertainment destination in Barabanki, located in Awas Vikas Colony. This premier mall offers a complete shopping experience with a wide variety of retail stores, fashion outlets, electronics, lifestyle brands, and dining options. The mall features DD Cinemas for the latest movies and blockbusters - book your movie tickets online through BookMyShow or District. Perfect for families, shoppers, and entertainment seekers. The mall features modern architecture, spacious interiors, and a vibrant atmosphere. Open 24 hours for your convenience. Whether you're looking for shopping, dining, movies, or entertainment, Awadh Avenue Mall is your ultimate destination in Barabanki!",
     tags: ["mall", "shopping", "entertainment", "retail", "fashion", "lifestyle", "family-destination", "dining", "brands", "barabanki", "cinema", "movies", "dd-cinemas", "multiplex"],
     isNew: true,
-    tenants: []
+    tenants: ["burger-king-awadh"]
+  },
+  {
+    id: "burger-king-awadh",
+    name: "Burger King",
+    category: "Restaurants & Fast Food",
+    categorySlug: "restaurants",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 0,
+    coordinates: { lat: 26.9217703, lng: 81.174058 },
+    reviews: [],
+    address: "Awadh Avenue Mall, near RTO Office, Awas Vikas Colony, Barabanki, Uttar Pradesh 225001",
+    mapLink: "https://maps.app.goo.gl/Ru5uKYd6KLQkShbe8",
+    phone: "+91 86579 68544",
+    phoneName: "Burger King",
+    email: "",
+    website: "https://stores.burgerking.in/burger-king-fast-food-restaurant-awas-vikas-colony-barabanki-516878/Home",
+    onlineOrder: "https://www.swiggy.com/city/bharabanki/burger-king-barabanki-near-rto-office-awadh-avenue-mall-rest1256368",
+    zomato: "https://www.zomato.com/barabanki/burger-king-barabanki-locality/order",
+    whatsapp: "",
+    instagram: "https://www.instagram.com/burgerkingindia/",
+    disableAppointment: true,
+    hours: {
+      mon: { open: "11:00", close: "23:00" },
+      tue: { open: "11:00", close: "23:00" },
+      wed: { open: "11:00", close: "23:00" },
+      thu: { open: "11:00", close: "23:00" },
+      fri: { open: "11:00", close: "23:00" },
+      sat: { open: "11:00", close: "23:00" },
+      sun: { open: "11:00", close: "23:00" }
+    },
+    description: "Burger King brings flame-grilled perfection to Awadh Avenue Mall in Barabanki. Famous for our signature Whopper, we serve delicious burgers, crispy fries, chicken items, and refreshing beverages. Every burger is flame-grilled to perfection, giving you that authentic taste you love. Located near RTO Office in Awadh Avenue Mall, we offer dine-in, takeaway, and home delivery through Swiggy and Zomato. Whether you're craving a classic Whopper, crispy chicken burger, or our famous fries, Burger King has something for everyone. Perfect for families, friends, and burger lovers. Order online or visit us at the mall. Open daily from 11 AM to 11 PM.",
+    tags: ["burger-king", "burgers", "fast-food", "whopper", "restaurant", "flame-grilled", "delivery", "takeaway", "family-dining", "mall"],
+    isNew: true,
+    locatedInMall: "awadh-avenue-mall"
   }
 ];
 
