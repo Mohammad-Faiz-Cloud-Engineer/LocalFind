@@ -217,7 +217,7 @@
           <div class="empty-state">
             <h3>No Business Data Available</h3>
             <p>Add your business data to js/data.js</p>
-            <a href="index.html" class="btn btn-cta mt-xl">Go to Homepage</a>
+            <a href="/" class="btn btn-cta mt-xl">Go to Homepage</a>
           </div>
         `;
       }
@@ -236,7 +236,7 @@
           <div class="empty-state">
             <h3>Business Not Found</h3>
             <p>The business you are looking for does not exist.</p>
-            <a href="directory.html" class="btn btn-cta mt-xl">Browse Directory</a>
+            <a href="/directory/" class="btn btn-cta mt-xl">Browse Directory</a>
           </div>
         `;
       }
@@ -441,7 +441,7 @@
                   const tenantDesc = tenant.description.length > 120 ? tenant.description.substring(0, 120) + '...' : tenant.description;
                   
                   return `
-                    <a href="business-detail.html?id=${encodeURIComponent(tenant.id)}" class="tenant-card">
+                    <a href="/business-detail/?id=${encodeURIComponent(tenant.id)}" class="tenant-card">
                       <div class="tenant-card-header">
                         <div class="tenant-card-avatar">${tenantAvatar}</div>
                         <div class="tenant-card-meta">
@@ -883,7 +883,7 @@
               <i class="fa-solid fa-building"></i>
               Located Inside
             </h4>
-            <a href="business-detail.html?id=${encodeURIComponent(mall.id)}" class="mall-location-link">
+            <a href="/business-detail/?id=${encodeURIComponent(mall.id)}" class="mall-location-link">
               <div class="mall-location-content">
                 <div class="mall-avatar">${mall.name.split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('')}</div>
                 <div class="mall-info">

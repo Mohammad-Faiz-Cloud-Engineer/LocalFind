@@ -187,7 +187,7 @@
         <div class="popup-address">
           ${sanitizeHTML((business.address || '').substring(0, 90))}${(business.address || '').length > 90 ? '...' : ''}
         </div>
-        <a href="business-detail.html?id=${encodeURIComponent(business.id)}" class="popup-btn">
+        <a href="/business-detail/?id=${encodeURIComponent(business.id)}" class="popup-btn">
           View Details
         </a>
       </div>

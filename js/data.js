@@ -482,7 +482,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 3.0,
         date: "2026-02-28",
-        text: "Can handle basic services but quality is inconsistent. Expect delays. We recommend <a href='business-detail.html?id=raheem-common-service-center'>Raheem CSC</a> for reliable service. Golden CSC might help with tricky work requiring connections. Use as last resort.",
+        text: "Can handle basic services but quality is inconsistent. Expect delays. We recommend <a href='/business-detail/?id=raheem-common-service-center'>Raheem CSC</a> for reliable service. Golden CSC might help with tricky work requiring connections. Use as last resort.",
         verified: true
       }
     ],
@@ -1466,7 +1466,7 @@ window.renderCard = function (b) {
   const verifiedBadge = b.verified ? '<span class="verified-badge" title="Verified Business"><i class="fa-solid fa-circle-check"></i></span>' : '';
 
   return `
-  <a href="business-detail.html?id=${encodeURIComponent(b.id)}" class="card-link" aria-label="View details for ${name}">
+  <a href="/business-detail/?id=${encodeURIComponent(b.id)}" class="card-link" aria-label="View details for ${name}">
     <article class="card ${b.featured ? 'featured' : ''} ${b.verified ? 'verified' : ''}" role="article">
       <div class="meta">
         <div class="title">

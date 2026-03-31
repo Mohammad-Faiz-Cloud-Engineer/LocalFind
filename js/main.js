@@ -21,18 +21,18 @@ function renderHeader(){
   header.innerHTML = `
   <div class="navbar" id="navbar" role="navigation">
     <div class="nav-left">
-      <a href="index.html" class="logo">
-        <img src="assets/images/mainlogo.svg" alt="${siteName} Logo" width="40" height="40">
+      <a href="/" class="logo">
+        <img src="/assets/images/mainlogo.svg" alt="${siteName} Logo" width="40" height="40">
         <span>${siteName}</span>
       </a>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="directory.html">Directory</a>
-        <a href="categories.html">Categories</a>
-        <a href="map.html">Map</a>
-        <a href="about.html">About</a>
-        <a href="privacy-policy.html">Privacy</a>
-        <a href="donation.html" class="donate-link">Donate</a>
+        <a href="/">Home</a>
+        <a href="/directory/">Directory</a>
+        <a href="/categories/">Categories</a>
+        <a href="/map/">Map</a>
+        <a href="/about/">About</a>
+        <a href="/privacy-policy/">Privacy</a>
+        <a href="/donation/" class="donate-link">Donate</a>
       </nav>
     </div>
     <div class="nav-right">
@@ -43,13 +43,13 @@ function renderHeader(){
   <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation menu">
     <button class="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
     <nav class="mobile-links" aria-label="Mobile navigation">
-      <a href="index.html">Home</a>
-      <a href="directory.html">Directory</a>
-      <a href="categories.html">Categories</a>
-      <a href="map.html">Map</a>
-      <a href="about.html">About</a>
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="donation.html" class="donate-link">Donate</a>
+      <a href="/">Home</a>
+      <a href="/directory/">Directory</a>
+      <a href="/categories/">Categories</a>
+      <a href="/map/">Map</a>
+      <a href="/about/">About</a>
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/donation/" class="donate-link">Donate</a>
     </nav>
   </div>
   <div class="search-modal" id="search-modal" role="dialog" aria-label="Search" aria-hidden="true">
@@ -58,7 +58,7 @@ function renderHeader(){
         <h2>Search LocalFind</h2>
         <button class="search-close" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <form class="search-modal-form" action="directory.html" method="get">
+      <form class="search-modal-form" action="/directory/" method="get">
         <div class="search-input-wrapper">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input 
@@ -74,12 +74,12 @@ function renderHeader(){
       <div class="search-suggestions">
         <h3>Popular Searches</h3>
         <div class="search-tags">
-          <a href="directory.html?search=restaurant" class="search-tag">Restaurants</a>
-          <a href="directory.html?search=csc" class="search-tag">CSC</a>
-          <a href="directory.html?search=pharmacy" class="search-tag">Pharmacy</a>
-          <a href="directory.html?search=grocery" class="search-tag">Grocery</a>
-          <a href="directory.html?search=bank" class="search-tag">Banks</a>
-          <a href="directory.html?search=hospital" class="search-tag">Hospitals</a>
+          <a href="/directory/?search=restaurant" class="search-tag">Restaurants</a>
+          <a href="/directory/?search=csc" class="search-tag">CSC</a>
+          <a href="/directory/?search=pharmacy" class="search-tag">Pharmacy</a>
+          <a href="/directory/?search=grocery" class="search-tag">Grocery</a>
+          <a href="/directory/?search=bank" class="search-tag">Banks</a>
+          <a href="/directory/?search=hospital" class="search-tag">Hospitals</a>
         </div>
       </div>
     </div>
@@ -124,18 +124,18 @@ function renderFooter(){
       <div>
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="directory.html">Directory</a></li>
-          <li><a href="categories.html">Categories</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/directory/">Directory</a></li>
+          <li><a href="/categories/">Categories</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/privacy-policy/">Privacy Policy</a></li>
         </ul>
       </div>
       <div>
         <h4>Popular Categories</h4>
         <ul>
-          <li><a href="directory.html?category=restaurants">Restaurants</a></li>
-          <li><a href="directory.html?category=grocery">Grocery</a></li>
+          <li><a href="/directory/?category=restaurants">Restaurants</a></li>
+          <li><a href="/directory/?category=grocery">Grocery</a></li>
         </ul>
       </div>
       <div>

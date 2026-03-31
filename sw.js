@@ -26,13 +26,12 @@ const EFFECTIVE_BASE_PATH = BASE_PATH || '';
 // Assets to pre-cache on install (offline fallback)
 const STATIC_ASSETS = [
   `${EFFECTIVE_BASE_PATH}/`,
-  `${EFFECTIVE_BASE_PATH}/index.html`,
-  `${EFFECTIVE_BASE_PATH}/directory.html`,
-  `${EFFECTIVE_BASE_PATH}/categories.html`,
-  `${EFFECTIVE_BASE_PATH}/business-detail.html`,
-  `${EFFECTIVE_BASE_PATH}/donation.html`,
-  `${EFFECTIVE_BASE_PATH}/about.html`,
-  `${EFFECTIVE_BASE_PATH}/map.html`,
+  `${EFFECTIVE_BASE_PATH}/directory/`,
+  `${EFFECTIVE_BASE_PATH}/categories/`,
+  `${EFFECTIVE_BASE_PATH}/business-detail/`,
+  `${EFFECTIVE_BASE_PATH}/donation/`,
+  `${EFFECTIVE_BASE_PATH}/about/`,
+  `${EFFECTIVE_BASE_PATH}/map/`,
   `${EFFECTIVE_BASE_PATH}/offline.html`,
   `${EFFECTIVE_BASE_PATH}/404.html`,
   `${EFFECTIVE_BASE_PATH}/500.html`,
@@ -58,7 +57,7 @@ const STATIC_ASSETS = [
   `${EFFECTIVE_BASE_PATH}/js/pwa.js`,
   `${EFFECTIVE_BASE_PATH}/assets/images/mainlogo.svg`,
   `${EFFECTIVE_BASE_PATH}/assets/images/og-image.svg`,
-  `${EFFECTIVE_BASE_PATH}/privacy-policy.html`,
+  `${EFFECTIVE_BASE_PATH}/privacy-policy/`,
   `${EFFECTIVE_BASE_PATH}/manifest.json`
 ];
 
