@@ -6,6 +6,7 @@
   <meta name="viewport"
     content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https:; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -280,6 +281,9 @@
 
   <footer id="site-footer"></footer>
 
+  <script defer src="js/error-handler.js"></script>
+  <script defer src="js/security.js"></script>
+  <script defer src="js/privacy.js"></script>
   <script defer src="js/config.js"></script>
   <script defer src="js/data.js"></script>
   <script defer src="js/main.js"></script>
