@@ -102,7 +102,6 @@ test-results/
 # ============================================
 # OS Files
 # ============================================
-.DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
@@ -131,9 +130,9 @@ docs/_build/
 # ============================================
 # Internal Documentation (not for public repo)
 # ============================================
-PRODUCTION_AUDIT_REPORT.md
-STYLING_IMPROVEMENTS_REPORT.md
-PRE_LAUNCH_CHECKLIST.md
+*_AUDIT_REPORT.md
+*_CHECKLIST.md
+*_REPORT.md
 INTERNAL_NOTES.md
 
 # ============================================
