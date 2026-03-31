@@ -53,32 +53,35 @@
   function calculateRelevance(business, searchTerms, originalQuery) {
     let score = 0;
     const queryLower = originalQuery.toLowerCase();
+    const queryNormalized = normalizeText(originalQuery);
     const nameLower = business.name.toLowerCase();
+    const nameNormalized = normalizeText(business.name);
     const categoryLower = business.category.toLowerCase();
+    const categoryNormalized = normalizeText(business.category);
     const descLower = business.description.toLowerCase();
 
     // Exact name match (highest priority)
-    if (nameLower === queryLower) {
+    if (nameLower === queryLower || nameNormalized === queryNormalized) {
       score += 1000;
     }
 
     // Name starts with query
-    if (nameLower.startsWith(queryLower)) {
+    if (nameLower.startsWith(queryLower) || nameNormalized.startsWith(queryNormalized)) {
       score += 500;
     }
 
     // Name contains query
-    if (nameLower.includes(queryLower)) {
+    if (nameLower.includes(queryLower) || nameNormalized.includes(queryNormalized)) {
       score += 300;
     }
 
     // Category exact match
-    if (categoryLower === queryLower) {
+    if (categoryLower === queryLower || categoryNormalized === queryNormalized) {
       score += 200;
     }
 
     // Category contains query
-    if (categoryLower.includes(queryLower)) {
+    if (categoryLower.includes(queryLower) || categoryNormalized.includes(queryNormalized)) {
       score += 150;
     }
 
@@ -86,9 +89,10 @@
     if (Array.isArray(business.tags)) {
       business.tags.forEach(tag => {
         const tagLower = tag.toLowerCase();
-        if (tagLower === queryLower) {
+        const tagNormalized = normalizeText(tag);
+        if (tagLower === queryLower || tagNormalized === queryNormalized) {
           score += 100;
-        } else if (tagLower.includes(queryLower)) {
+        } else if (tagLower.includes(queryLower) || tagNormalized.includes(queryNormalized)) {
           score += 50;
         }
       });
@@ -110,7 +114,19 @@
   }
 
   /**
-   * Check if text matches any of the search terms
+   * Normalize text for flexible searching (removes spaces, hyphens, special chars)
+   * @param {string} text - Text to normalize
+   * @returns {string} Normalized text
+   */
+  function normalizeText(text) {
+    if (!text) return '';
+    return text.toLowerCase()
+      .replace(/[\s\-_\.]/g, '') // Remove spaces, hyphens, underscores, dots
+      .replace(/[^\w]/g, ''); // Remove other special characters
+  }
+
+  /**
+   * Check if text matches any of the search terms (with normalization)
    * @param {string} text - Text to search in
    * @param {Array} searchTerms - Array of search terms
    * @returns {boolean} True if any term matches
@@ -118,7 +134,13 @@
   function matchesSearchTerms(text, searchTerms) {
     if (!text) return false;
     const textLower = text.toLowerCase();
-    return searchTerms.some(term => textLower.includes(term));
+    const textNormalized = normalizeText(text);
+    
+    return searchTerms.some(term => {
+      const termNormalized = normalizeText(term);
+      // Match both original and normalized versions
+      return textLower.includes(term) || textNormalized.includes(termNormalized);
+    });
   }
 
   /**
