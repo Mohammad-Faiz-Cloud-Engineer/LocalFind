@@ -68,9 +68,29 @@
  *   },
  *   description: "Business description...",      // Full description
  *   tags: ["tag1", "tag2", "tag3"],             // Array of tags
- *   isNew: false                                 // true/false - New listing badge
+ *   addedDate: "2026-03-31"                     // Date when business was added (YYYY-MM-DD)
  * }
  */
+
+/**
+ * Utility function to check if a business is new (added within last 7 days)
+ * @param {Object} business - Business object
+ * @returns {boolean} True if business was added within last 7 days
+ */
+window.isBusinessNew = function(business) {
+  if (!business.addedDate) {
+    // If no addedDate, fall back to isNew property
+    return business.isNew === true;
+  }
+  
+  const addedDate = new Date(business.addedDate);
+  const today = new Date();
+  const diffTime = Math.abs(today - addedDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+  return diffDays <= 7;
+};
+
 window.LISTINGS = [
   {
     id: "raheem-common-service-center",
@@ -115,7 +135,7 @@ window.LISTINGS = [
     tags: ["csc", "aadhaar", "pan-card", "certificates", "banking", "government-services", "digital-services", "bill-payment"],
     upiId: "paytm.s1qu5dh@pty",
     upiName: "Raheem CSC",
-    isNew: true
+    addedDate: "2026-02-20"
   },
   {
     id: "aman-garments",
@@ -159,7 +179,7 @@ window.LISTINGS = [
     },
     description: "Aman Garments is your premier destination for fashionable clothing and apparel in Rasauli. We offer a wide selection of traditional and modern clothing for men, women, and children. From everyday wear to special occasion outfits, our store features quality fabrics and the latest fashion trends. Whether you're looking for ethnic wear, casual clothing, or formal attire, we have something for everyone. Our friendly staff is always ready to help you find the perfect outfit that matches your style and budget. Visit us for a complete shopping experience in the heart of Rasauli Bazar.",
     tags: ["clothing", "fashion", "apparel", "ethnic-wear", "casual-wear", "formal-wear", "men-clothing", "women-clothing", "kids-clothing"],
-    isNew: true
+    addedDate: "2026-02-25"
   },
   {
     id: "affan-garments",
@@ -1250,7 +1270,7 @@ window.LISTINGS = [
     },
     description: "Awadh Avenue Mall is the best shopping and entertainment destination in Barabanki, located in Awas Vikas Colony. This premier mall offers a complete shopping experience with a wide variety of retail stores, fashion outlets, electronics, lifestyle brands, and dining options. The mall features DD Cinemas for the latest movies and blockbusters - book your movie tickets online through BookMyShow or District. Perfect for families, shoppers, and entertainment seekers. The mall features modern architecture, spacious interiors, and a vibrant atmosphere. Open 24 hours for your convenience. Whether you're looking for shopping, dining, movies, or entertainment, Awadh Avenue Mall is your ultimate destination in Barabanki!",
     tags: ["mall", "shopping", "entertainment", "retail", "fashion", "lifestyle", "family-destination", "dining", "brands", "barabanki", "cinema", "movies", "dd-cinemas", "multiplex"],
-    isNew: true,
+    addedDate: "2026-03-15",
     tenants: ["burger-king-awadh", "v-mart-awadh-avenue"]
   },
   {
@@ -1323,7 +1343,7 @@ window.LISTINGS = [
     tags: ["v-mart", "fashion", "retail", "clothing", "family-store", "apparel", "shopping", "mall", "value-fashion", "lifestyle"],
     lgbtqFriendly: true,
     womenOwned: true,
-    isNew: true,
+    addedDate: "2026-03-31",
     locatedInMall: "awadh-avenue-mall"
   },
   {
@@ -1359,7 +1379,7 @@ window.LISTINGS = [
     description: "Rainbow Hospital & Trauma Centre is a trusted healthcare facility providing comprehensive medical services 24/7 in Barabanki. Located near Gayatri Mandir, opposite Oasis Lawn in Preet Vihar Colony, Civil Lines, we offer emergency care, trauma services, general medicine, surgical procedures, diagnostic services, and patient care. Our experienced medical team of doctors, nurses, and healthcare professionals work round the clock to provide quality healthcare. We specialize in emergency treatment, accident care, trauma management, outpatient consultations, inpatient services, laboratory tests, imaging services, and pharmacy. With modern medical equipment and a commitment to patient safety, Rainbow Hospital & Trauma Centre is your reliable healthcare partner available 24 hours a day, 7 days a week.",
     tags: ["hospital", "trauma-centre", "emergency-care", "24x7", "medical-services", "healthcare", "doctor", "clinic", "diagnostic", "laboratory", "patient-care", "surgery", "accident-care"],
     lgbtqFriendly: true,
-    isNew: true
+    addedDate: "2026-03-31"
   }
 ];
 
