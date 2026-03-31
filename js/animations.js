@@ -8,6 +8,8 @@
 (function() {
   'use strict';
   
+  let resizeHandler = null;
+  
   // Intersection Observer for scroll animations
   function onVisible(entries) {
     entries.forEach(entry => {
@@ -37,12 +39,25 @@
     const canvas = document.getElementById('hero-canvas');
     if (!canvas) return;
     
+    // Respect prefers-reduced-motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+    
     const ctx = canvas.getContext('2d');
     let width, height;
     const dots = [];
     
+    resizeHandler = resize;
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resizeHandler);
+    
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+      if (resizeHandler) {
+        window.removeEventListener('resize', resizeHandler);
+      }
+    }, { once: true });
     
     function resize() {
       width = canvas.width = canvas.offsetWidth;
