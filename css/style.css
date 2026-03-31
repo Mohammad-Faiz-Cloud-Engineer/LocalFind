@@ -325,6 +325,7 @@ a:hover {
   box-shadow: var(--shadow-glow-hover);
   filter: brightness(1.1);
   border-color: transparent;
+  color: #0A0E17;
 }
 
 /* Ensure button content (text + child elements) is above the gradient */
