@@ -96,7 +96,7 @@ const CONFIG = {
     'bank': ['banking', 'atm'],
     'school': ['education', 'college', 'institute', 'academy', 'chandra shekhar azad', 'inter college', 'up board', 'jay hind'],
     'salon': ['parlour', 'parlor', 'beauty salon', 'barber'],
-    'repair': ['service center', 'workshop', 'mechanic'],
+    'repair': ['service center', 'workshop', 'mechanic', 'mobile-repair', 'phone-repair', 'screen-replacement', 'battery-replacement', 'fix', 'service'],
     'electrician': ['electric', 'electrical', 'wiring', 'shariq hashmi'],
     'garments': ['clothes', 'clothing', 'fashion', 'apparel', 'aman garments', 'affan garments', 'suraj kumar clothing'],
     'footwear': ['shoes', 'sandals', 'slippers', 'chappals', 'footware', 'satyam footwear'],
@@ -117,7 +117,7 @@ const CONFIG = {
     'printing': ['cup-printing', 'photo-printing', 'mug-printing', 'custom-printing', 'print-shop'],
     'mobile': ['mobile-shop', 'phone', 'smartphone', 'mobile-repair', 'phone-repair', 'mobile-accessories', 'jamwant-mobile', 'cell-phone'],
     'electronics': ['mobile', 'phone', 'smartphone', 'earphones', 'headphones', 'tws', 'neckband', 'accessories', 'charger', 'power-bank'],
-    'repair': ['mobile-repair', 'phone-repair', 'screen-replacement', 'battery-replacement', 'fix', 'service'],
+
     'fast-food': ['momos', 'spring-roll', 'fried-rice', 'burger', 'chowmein', 'finger-chips', 'aloo-patty', 'macaroni', 'shri-shyam-fast-foods', 'quick-bites', 'snacks', 'street-food'],
     'momos': ['momo', 'dumpling', 'steamed-momos', 'fried-momos', 'veg-momos', 'chicken-momos'],
     'laundry': ['dry clean', 'washing', 'ironing'],
