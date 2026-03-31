@@ -89,6 +89,11 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
+.nav-links a:not(.donate-link):hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
 .nav-links a.active {
   color: var(--text-primary);
   background: rgba(255, 138, 0, 0.1);
@@ -108,7 +113,7 @@
 
 /* Donate Link Styling - Clean & Professional */
 .nav-links .donate-link {
-  background: transparent;
+  background: transparent !important;
   color: var(--accent-primary) !important;
   padding: 8px 16px;
   border-radius: var(--radius-md);
@@ -123,7 +128,7 @@
 }
 
 .nav-links .donate-link:hover {
-  background: var(--accent-primary);
+  background: var(--accent-primary) !important;
   color: #0A0E17 !important;
   border-color: var(--accent-primary);
 }
