@@ -1018,12 +1018,12 @@
             const canvas = offscreen.querySelector('canvas');
             if (canvas) {
               const dataUrl = canvas.toDataURL('image/png');
-              qrTarget.innerHTML = `<img src="${dataUrl}" alt="UPI QR Code" class="upi-qr-img" />`;
+              qrTarget.innerHTML = `<img src="${sanitizeHTML(dataUrl)}" alt="UPI QR Code" class="upi-qr-img" />`;
             } else {
               // Library might have used img fallback
               const img = offscreen.querySelector('img');
               if (img && img.src) {
-                qrTarget.innerHTML = `<img src="${img.src}" alt="UPI QR Code" class="upi-qr-img" />`;
+                qrTarget.innerHTML = `<img src="${sanitizeHTML(img.src)}" alt="UPI QR Code" class="upi-qr-img" />`;
               } else {
                 qrTarget.innerHTML = '<div class="upi-qr-fallback"><i class="fa-solid fa-qrcode"></i><p>QR code unavailable</p></div>';
               }
