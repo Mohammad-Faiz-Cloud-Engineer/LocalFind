@@ -946,7 +946,8 @@ window.LISTINGS = [
     },
     description: "KFC brings world-famous fried chicken to Barabanki at Box Park International on NH 27. Our menu features Original Recipe Chicken, Hot & Crispy Chicken, Zinger Burgers, Chicken Buckets, Popcorn Chicken, Wings, Rice Bowls, Wraps, and sides including Fries, Coleslaw, and Mashed Potatoes. Dine in, take away, or order online through Swiggy. Comfortable seating and family-friendly atmosphere. Open daily 11 AM to 11 PM.",
     tags: ["kfc", "fast-food", "fried-chicken", "burgers", "restaurant", "chicken", "zinger", "delivery", "takeaway", "family-dining"],
-    isNew: true
+    isNew: true,
+    locatedInMall: "box-park-international"
   },
   {
     id: "box-park-international",
@@ -977,7 +978,8 @@ window.LISTINGS = [
     },
     description: "Box Park International is a unique shopping and entertainment destination on NH 27 Ayodhya Highway, built entirely from repurposed shipping containers. Each container is painted in bright colors with creative designs. Inside you'll find places to eat (including KFC), shop, and hang out. The open-air design gives it a relaxed vibe perfect for families. Great for meals, shopping, or Instagram photos. Open 24/7. A popular highway landmark combining sustainable design and vibrant atmosphere!",
     tags: ["mall", "shopping", "entertainment", "food-court", "instagram", "container-mall", "sustainable", "family-destination", "highway-stop", "lifestyle"],
-    isNew: true
+    isNew: true,
+    tenants: ["kfc"]
   },
   {
     id: "pps-college-of-nursing",
@@ -1248,7 +1250,8 @@ window.LISTINGS = [
     },
     description: "Awadh Avenue Mall is the best shopping and entertainment destination in Barabanki, located in Awas Vikas Colony. This premier mall offers a complete shopping experience with a wide variety of retail stores, fashion outlets, electronics, lifestyle brands, and dining options. The mall features DD Cinemas for the latest movies and blockbusters - book your movie tickets online through BookMyShow or District. Perfect for families, shoppers, and entertainment seekers. The mall features modern architecture, spacious interiors, and a vibrant atmosphere. Open 24 hours for your convenience. Whether you're looking for shopping, dining, movies, or entertainment, Awadh Avenue Mall is your ultimate destination in Barabanki!",
     tags: ["mall", "shopping", "entertainment", "retail", "fashion", "lifestyle", "family-destination", "dining", "brands", "barabanki", "cinema", "movies", "dd-cinemas", "multiplex"],
-    isNew: true
+    isNew: true,
+    tenants: []
   }
 ];
 
