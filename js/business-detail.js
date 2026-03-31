@@ -414,7 +414,20 @@
               <i class="fa-solid fa-chevron-down collapse-icon" aria-hidden="true"></i>
             </div>
             <div class="collapsible-content expanded" id="tenants-content" role="region" aria-labelledby="tenants-toggle">
-              <div class="tenants-grid">
+              <div class="tenant-search-wrapper">
+                <i class="fa-solid fa-magnifying-glass tenant-search-icon"></i>
+                <input 
+                  type="text" 
+                  id="tenant-search" 
+                  class="tenant-search-input" 
+                  placeholder="Search businesses in this mall..." 
+                  aria-label="Search businesses in this mall"
+                />
+                <button class="tenant-search-clear" id="tenant-search-clear" title="Clear search" style="display: none;">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <div class="tenants-grid" id="tenants-grid">
                 ${tenantBusinesses.map(tenant => {
                   const tenantAvatar = tenant.name.split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('');
                   const tenantStars = '★'.repeat(Math.floor(tenant.rating)) + '☆'.repeat(5 - Math.floor(tenant.rating));
@@ -480,6 +493,64 @@
                 e.preventDefault();
                 toggleTenants();
               }
+            });
+          }
+          
+          // Add search functionality
+          const tenantSearchInput = document.getElementById('tenant-search');
+          const tenantSearchClear = document.getElementById('tenant-search-clear');
+          const tenantsGrid = document.getElementById('tenants-grid');
+          const tenantCards = tenantsGrid ? tenantsGrid.querySelectorAll('.tenant-card') : [];
+          
+          if (tenantSearchInput && tenantSearchClear && tenantsGrid) {
+            tenantSearchInput.addEventListener('input', (e) => {
+              const searchTerm = e.target.value.toLowerCase().trim();
+              
+              // Show/hide clear button
+              tenantSearchClear.style.display = searchTerm ? 'flex' : 'none';
+              
+              let visibleCount = 0;
+              
+              // Filter tenant cards
+              tenantCards.forEach(card => {
+                const businessName = card.querySelector('.tenant-card-name').textContent.toLowerCase();
+                const businessCategory = card.querySelector('.tenant-card-category').textContent.toLowerCase();
+                const businessDesc = card.querySelector('.tenant-card-desc').textContent.toLowerCase();
+                
+                const matches = businessName.includes(searchTerm) || 
+                               businessCategory.includes(searchTerm) || 
+                               businessDesc.includes(searchTerm);
+                
+                if (matches) {
+                  card.style.display = '';
+                  visibleCount++;
+                } else {
+                  card.style.display = 'none';
+                }
+              });
+              
+              // Show "no results" message if needed
+              let noResultsMsg = tenantsGrid.querySelector('.no-results-message');
+              if (visibleCount === 0 && searchTerm) {
+                if (!noResultsMsg) {
+                  noResultsMsg = document.createElement('div');
+                  noResultsMsg.className = 'no-results-message';
+                  noResultsMsg.innerHTML = `
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <p>No businesses found matching "${sanitizeHTML(searchTerm)}"</p>
+                  `;
+                  tenantsGrid.appendChild(noResultsMsg);
+                }
+              } else if (noResultsMsg) {
+                noResultsMsg.remove();
+              }
+            });
+            
+            // Clear search
+            tenantSearchClear.addEventListener('click', () => {
+              tenantSearchInput.value = '';
+              tenantSearchInput.dispatchEvent(new Event('input'));
+              tenantSearchInput.focus();
             });
           }
         }
