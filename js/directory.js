@@ -122,6 +122,40 @@
   }
 
   /**
+   * Find malls that contain businesses matching the search
+   * @param {Array} searchTerms - Array of search terms
+   * @param {string} originalQuery - Original search query
+   * @returns {Array} Array of mall businesses
+   */
+  function findMallsWithMatchingTenants(searchTerms, originalQuery) {
+    const matchingMalls = [];
+    
+    // Find all businesses that match the search
+    const matchingBusinessIds = window.LISTINGS
+      .filter(b => 
+        matchesSearchTerms(b.name, searchTerms) ||
+        matchesSearchTerms(b.category, searchTerms) ||
+        (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
+      )
+      .map(b => b.id);
+    
+    // Find malls that have these businesses as tenants
+    window.LISTINGS.forEach(business => {
+      if (business.tenants && Array.isArray(business.tenants) && business.tenants.length > 0) {
+        const hasMatchingTenant = business.tenants.some(tenantId => 
+          matchingBusinessIds.includes(tenantId)
+        );
+        
+        if (hasMatchingTenant && !matchingMalls.find(m => m.id === business.id)) {
+          matchingMalls.push(business);
+        }
+      }
+    });
+    
+    return matchingMalls;
+  }
+
+  /**
    * Apply URL query parameters to filter listings
    */
   function applyQueryParams() {
@@ -136,12 +170,27 @@
 
     if (search) {
       const searchTerms = expandSearchQuery(search);
-      currentListings = currentListings.filter(b =>
+      
+      // Find directly matching businesses
+      const directMatches = window.LISTINGS.filter(b =>
         matchesSearchTerms(b.name, searchTerms) ||
         matchesSearchTerms(b.description, searchTerms) ||
         matchesSearchTerms(b.category, searchTerms) ||
         (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
       );
+      
+      // Find malls that contain matching businesses
+      const mallsWithTenants = findMallsWithMatchingTenants(searchTerms, search);
+      
+      // Combine results (remove duplicates)
+      const combinedResults = [...directMatches];
+      mallsWithTenants.forEach(mall => {
+        if (!combinedResults.find(b => b.id === mall.id)) {
+          combinedResults.push(mall);
+        }
+      });
+      
+      currentListings = combinedResults;
 
       // Sort by relevance (most relevant first)
       currentListings.sort((a, b) => {
@@ -244,12 +293,25 @@
             applyQueryParams();
           } else {
             const searchTerms = expandSearchQuery(query);
-            currentListings = window.LISTINGS.filter(b =>
+            
+            // Find directly matching businesses
+            const directMatches = window.LISTINGS.filter(b =>
               matchesSearchTerms(b.name, searchTerms) ||
               matchesSearchTerms(b.description, searchTerms) ||
               matchesSearchTerms(b.category, searchTerms) ||
               (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
             );
+            
+            // Find malls that contain matching businesses
+            const mallsWithTenants = findMallsWithMatchingTenants(searchTerms, query);
+            
+            // Combine results (remove duplicates)
+            currentListings = [...directMatches];
+            mallsWithTenants.forEach(mall => {
+              if (!currentListings.find(b => b.id === mall.id)) {
+                currentListings.push(mall);
+              }
+            });
 
             // Sort by relevance (most relevant first)
             currentListings.sort((a, b) => {
