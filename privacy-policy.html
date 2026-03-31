@@ -1,183 +1,358 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy - LocalFind</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https:; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self' https:;">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <title>Privacy Policy — LocalFind</title>
+  <meta name="description" content="LocalFind Privacy Policy — Learn how we collect, use, and protect your data. GDPR and CCPA compliant.">
+  <link rel="canonical" href="https://mohammad-faiz-cloud-engineer.github.io/LocalFind/privacy-policy.html">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/mainlogo.svg">
+  <link rel="apple-touch-icon" href="assets/images/mainlogo.svg">
+  
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LocalFind">
+  <meta name="theme-color" content="#FF8A00">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/utilities.css">
+  
   <style>
-    .privacy-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: var(--space-2xl) var(--space-lg);
+    body {
+      overflow-x: hidden;
     }
-    .privacy-section {
-      margin-bottom: var(--space-2xl);
+
+    .privacy-hero {
+      padding: 80px 0 60px;
+      text-align: center;
     }
-    .privacy-section h2 {
-      color: var(--accent-primary);
-      margin-bottom: var(--space-md);
-      font-size: 24px;
+
+    .privacy-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .privacy-section h3 {
-      color: var(--text-primary);
-      margin: var(--space-lg) 0 var(--space-sm);
-      font-size: 18px;
-    }
-    .privacy-section p, .privacy-section li {
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-bottom: var(--space-sm);
-    }
-    .privacy-section ul {
-      margin-left: var(--space-lg);
-    }
-    .last-updated {
+
+    .privacy-hero p {
+      font-size: clamp(1rem, 2vw, 1.3rem);
       color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: var(--space-xl);
+      max-width: 700px;
+      margin: 0 auto;
     }
-    .contact-info {
-      background: rgba(255, 138, 0, 0.1);
-      border: 1px solid rgba(255, 138, 0, 0.3);
-      border-radius: var(--radius-lg);
-      padding: var(--space-lg);
-      margin-top: var(--space-xl);
+
+    .privacy-section {
+      padding: 60px 0;
+    }
+
+    .privacy-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .privacy-content h2 {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .privacy-content h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 32px 0 16px;
+      color: var(--text-primary);
+    }
+
+    .privacy-content p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .privacy-content ul {
+      margin: 20px 0 20px 24px;
+      list-style: none;
+    }
+
+    .privacy-content li {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .privacy-content li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .privacy-content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .highlight-card {
+      background: linear-gradient(135deg, rgba(255, 138, 0, 0.08), rgba(229, 46, 113, 0.04));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      margin: 60px 0;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .contact-card {
+      background: rgba(30, 39, 54, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      margin: 60px 0;
+      text-align: center;
+    }
+
+    .contact-card h2 {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .contact-card p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .consent-notice {
+      background: rgba(30, 39, 54, 0.4);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      margin: 60px 0;
+      text-align: center;
+    }
+
+    .consent-notice p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .consent-notice i {
+      color: var(--accent-success);
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .privacy-hero {
+        padding: 48px 0 32px;
+      }
+
+      .privacy-section {
+        padding: 32px 0;
+      }
+
+      .privacy-content h2 {
+        margin-bottom: 16px;
+      }
+
+      .privacy-content h3 {
+        margin: 24px 0 12px;
+      }
+
+      .privacy-content p,
+      .privacy-content li {
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .highlight-card,
+      .contact-card {
+        padding: 24px 16px;
+        margin: 40px 0;
+      }
+
+      .consent-notice {
+        padding: 24px 16px;
+        margin: 40px 0;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div id="navbar-placeholder"></div>
+  <header id="site-header"></header>
 
-  <main class="privacy-container">
-    <h1>Privacy Policy</h1>
-    <p class="last-updated">Last Updated: March 31, 2026</p>
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="privacy-hero">
+      <h1>Privacy Policy</h1>
+      <p>Last Updated: March 31, 2026</p>
+    </section>
 
-    <div class="privacy-section">
-      <h2>1. Introduction</h2>
-      <p>LocalFind ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our business directory platform.</p>
-      <p><strong>By using LocalFind, you consent to the data practices described in this policy.</strong></p>
+    <!-- Content -->
+    <section class="privacy-section">
+      <div class="privacy-content">
+        <h2>1. Introduction</h2>
+        <p>LocalFind ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our business directory platform.</p>
+        <p><strong>By using LocalFind, you consent to the data practices described in this policy.</strong></p>
+
+        <h2>2. Information We Collect</h2>
+        
+        <h3>2.1 Business Information</h3>
+        <p>We display publicly available business information including:</p>
+        <ul>
+          <li>Business names and addresses</li>
+          <li>Contact information (phone numbers, email addresses)</li>
+          <li>Business hours and descriptions</li>
+          <li>Reviews and ratings</li>
+          <li>Payment information (UPI IDs for businesses that opt-in)</li>
+        </ul>
+        <p><strong>Note:</strong> All business contact information displayed has been provided by business owners or collected from publicly available sources with consent.</p>
+
+        <h3>2.2 User Information</h3>
+        <p>We may collect:</p>
+        <ul>
+          <li>Device information (browser type, IP address)</li>
+          <li>Usage data (pages visited, time spent)</li>
+          <li>Location data (if you grant permission)</li>
+          <li>Search queries and preferences</li>
+        </ul>
+
+        <h3>2.3 Cookies and Tracking</h3>
+        <p>We use cookies and similar technologies to enhance your experience. You can control cookie preferences through your browser settings.</p>
+
+        <h2>3. How We Use Your Information</h2>
+        <ul>
+          <li>To provide and maintain our service</li>
+          <li>To improve user experience and platform functionality</li>
+          <li>To communicate with you about updates and features</li>
+          <li>To analyze usage patterns and optimize performance</li>
+          <li>To prevent fraud and ensure security</li>
+        </ul>
+
+        <h2>4. Data Sharing and Disclosure</h2>
+        <p>We do not sell your personal information. We may share data with:</p>
+        <ul>
+          <li><strong>Business Owners:</strong> When you contact a business through our platform</li>
+          <li><strong>Service Providers:</strong> Third-party services that help us operate (analytics, hosting)</li>
+          <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- GDPR/CCPA Rights Highlight -->
+    <div class="highlight-card">
+      <div class="privacy-content">
+        <h2>5. Your Rights (GDPR/CCPA Compliance)</h2>
+        <p>You have the right to:</p>
+        <ul>
+          <li><strong>Access:</strong> Request a copy of your data</li>
+          <li><strong>Rectification:</strong> Correct inaccurate information</li>
+          <li><strong>Erasure:</strong> Request deletion of your data ("right to be forgotten")</li>
+          <li><strong>Portability:</strong> Receive your data in a structured format</li>
+          <li><strong>Objection:</strong> Object to processing of your data</li>
+          <li><strong>Opt-Out:</strong> Unsubscribe from marketing communications</li>
+        </ul>
+        <p>To exercise these rights, contact us using the information below.</p>
+      </div>
     </div>
 
-    <div class="privacy-section">
-      <h2>2. Information We Collect</h2>
-      
-      <h3>2.1 Business Information</h3>
-      <p>We display publicly available business information including:</p>
-      <ul>
-        <li>Business names and addresses</li>
-        <li>Contact information (phone numbers, email addresses)</li>
-        <li>Business hours and descriptions</li>
-        <li>Reviews and ratings</li>
-        <li>Payment information (UPI IDs for businesses that opt-in)</li>
-      </ul>
-      <p><strong>Note:</strong> All business contact information displayed has been provided by business owners or collected from publicly available sources with consent.</p>
+    <section class="privacy-section">
+      <div class="privacy-content">
+        <h2>6. Data Security</h2>
+        <p>We implement industry-standard security measures to protect your information:</p>
+        <ul>
+          <li>HTTPS encryption for data transmission</li>
+          <li>Secure data storage practices</li>
+          <li>Regular security audits</li>
+          <li>Access controls and authentication</li>
+        </ul>
+        <p><strong>Note:</strong> No method of transmission over the internet is 100% secure. While we strive to protect your data, we cannot guarantee absolute security.</p>
 
-      <h3>2.2 User Information</h3>
-      <p>We may collect:</p>
-      <ul>
-        <li>Device information (browser type, IP address)</li>
-        <li>Usage data (pages visited, time spent)</li>
-        <li>Location data (if you grant permission)</li>
-        <li>Search queries and preferences</li>
-      </ul>
+        <h2>7. Data Retention</h2>
+        <p>We retain your information only as long as necessary to provide our services and comply with legal obligations. Business listings are retained as long as the business remains active on our platform.</p>
 
-      <h3>2.3 Cookies and Tracking</h3>
-      <p>We use cookies and similar technologies to enhance your experience. You can control cookie preferences through your browser settings.</p>
-    </div>
+        <h2>8. Third-Party Links</h2>
+        <p>Our platform contains links to external websites (Google Maps, WhatsApp, social media, etc.). We are not responsible for the privacy practices of these third-party sites. Please review their privacy policies.</p>
 
-    <div class="privacy-section">
-      <h2>3. How We Use Your Information</h2>
-      <ul>
-        <li>To provide and maintain our service</li>
-        <li>To improve user experience and platform functionality</li>
-        <li>To communicate with you about updates and features</li>
-        <li>To analyze usage patterns and optimize performance</li>
-        <li>To prevent fraud and ensure security</li>
-      </ul>
-    </div>
+        <h2>9. Children's Privacy</h2>
+        <p>LocalFind is not intended for users under 13 years of age. We do not knowingly collect information from children. If you believe we have collected data from a child, please contact us immediately.</p>
 
-    <div class="privacy-section">
-      <h2>4. Data Sharing and Disclosure</h2>
-      <p>We do not sell your personal information. We may share data with:</p>
-      <ul>
-        <li><strong>Business Owners:</strong> When you contact a business through our platform</li>
-        <li><strong>Service Providers:</strong> Third-party services that help us operate (analytics, hosting)</li>
-        <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
-      </ul>
-    </div>
+        <h2>10. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy periodically. Changes will be posted on this page with an updated "Last Updated" date. Continued use of LocalFind after changes constitutes acceptance of the updated policy.</p>
 
-    <div class="privacy-section">
-      <h2>5. Your Rights (GDPR/CCPA Compliance)</h2>
-      <p>You have the right to:</p>
-      <ul>
-        <li><strong>Access:</strong> Request a copy of your data</li>
-        <li><strong>Rectification:</strong> Correct inaccurate information</li>
-        <li><strong>Erasure:</strong> Request deletion of your data ("right to be forgotten")</li>
-        <li><strong>Portability:</strong> Receive your data in a structured format</li>
-        <li><strong>Objection:</strong> Object to processing of your data</li>
-        <li><strong>Opt-Out:</strong> Unsubscribe from marketing communications</li>
-      </ul>
-      <p>To exercise these rights, contact us using the information below.</p>
-    </div>
+        <h2>11. International Data Transfers</h2>
+        <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place to protect your data in accordance with this Privacy Policy.</p>
+      </div>
+    </section>
 
-    <div class="privacy-section">
-      <h2>6. Data Security</h2>
-      <p>We implement industry-standard security measures to protect your information:</p>
-      <ul>
-        <li>HTTPS encryption for data transmission</li>
-        <li>Secure data storage practices</li>
-        <li>Regular security audits</li>
-        <li>Access controls and authentication</li>
-      </ul>
-      <p><strong>Note:</strong> No method of transmission over the internet is 100% secure. While we strive to protect your data, we cannot guarantee absolute security.</p>
-    </div>
-
-    <div class="privacy-section">
-      <h2>7. Data Retention</h2>
-      <p>We retain your information only as long as necessary to provide our services and comply with legal obligations. Business listings are retained as long as the business remains active on our platform.</p>
-    </div>
-
-    <div class="privacy-section">
-      <h2>8. Third-Party Links</h2>
-      <p>Our platform contains links to external websites (Google Maps, WhatsApp, social media, etc.). We are not responsible for the privacy practices of these third-party sites. Please review their privacy policies.</p>
-    </div>
-
-    <div class="privacy-section">
-      <h2>9. Children's Privacy</h2>
-      <p>LocalFind is not intended for users under 13 years of age. We do not knowingly collect information from children. If you believe we have collected data from a child, please contact us immediately.</p>
-    </div>
-
-    <div class="privacy-section">
-      <h2>10. Changes to This Policy</h2>
-      <p>We may update this Privacy Policy periodically. Changes will be posted on this page with an updated "Last Updated" date. Continued use of LocalFind after changes constitutes acceptance of the updated policy.</p>
-    </div>
-
-    <div class="privacy-section">
-      <h2>11. International Data Transfers</h2>
-      <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place to protect your data in accordance with this Privacy Policy.</p>
-    </div>
-
-    <div class="contact-info">
-      <h2>12. Contact Us</h2>
+    <!-- Contact Card -->
+    <div class="contact-card">
+      <h2>Contact Us</h2>
       <p>For privacy-related questions, data requests, or concerns, please contact us:</p>
       <p><strong>Email:</strong> privacy@localfind.in</p>
       <p><strong>Data Protection Officer:</strong> dpo@localfind.in</p>
       <p><strong>Response Time:</strong> We will respond to requests within 30 days</p>
     </div>
 
-    <div class="privacy-section">
-      <p style="margin-top: var(--space-2xl); padding-top: var(--space-xl); border-top: 1px solid rgba(255,255,255,0.1);">
-        <strong>Consent:</strong> By using LocalFind, you acknowledge that you have read and understood this Privacy Policy and agree to its terms.
-      </p>
+    <!-- Consent Notice -->
+    <div class="consent-notice">
+      <i class="fa-solid fa-check-circle"></i>
+      <p><strong>Consent:</strong> By using LocalFind, you acknowledge that you have read and understood this Privacy Policy and agree to its terms.</p>
     </div>
   </main>
 
-  <div id="footer-placeholder"></div>
+  <footer id="site-footer"></footer>
 
-  <script src="js/main.js"></script>
+  <!-- Scripts -->
+  <script defer src="js/error-handler.js"></script>
+  <script defer src="js/security.js"></script>
+  <script defer src="js/privacy.js"></script>
+  <script defer src="js/config.js"></script>
+  <script defer src="js/data.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/pwa.js"></script>
 </body>
+
 </html>
