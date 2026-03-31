@@ -388,6 +388,7 @@
   padding: var(--space-2xl);
   box-shadow: var(--shadow-xl);
   animation: slideDown 0.3s ease-out;
+  position: relative;
 }
 
 @keyframes slideDown {
@@ -433,8 +434,7 @@
 
 .search-close:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: var(--accent-danger);
-  color: var(--accent-danger);
+  border-color: var(--border-color-hover);
 }
 
 .search-close i {
@@ -460,6 +460,7 @@
   color: var(--text-muted);
   font-size: 18px;
   pointer-events: none;
+  z-index: 1;
 }
 
 .search-input-wrapper input {
@@ -479,7 +480,7 @@
 .search-input-wrapper input:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.12), 0 0 16px rgba(255, 138, 0, 0.06);
+  box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.12);
   background: var(--bg-card);
 }
 
