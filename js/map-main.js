@@ -15,7 +15,6 @@
   let userCircle;
   let businessMarkers = [];
   let markersGroup;
-  let resizeHandler = null;
 
   /**
    * Security: HTML sanitization function to prevent XSS attacks
@@ -216,9 +215,8 @@
       const isValidLat = lat >= 26.88 && lat <= 26.95;
       const isValidLng = lng >= 81.22 && lng <= 81.29;
       
-      // Return null for invalid coordinates with warning
+      // Return null for invalid coordinates
       if (!isValidLat || !isValidLng) {
-        console.warn(`[Map] Invalid coordinates for business "${business.name}" (${business.id}):`, [lat, lng], '- Expected range: Lat 26.88-26.95, Lng 81.22-81.29');
         return null;
       }
       
