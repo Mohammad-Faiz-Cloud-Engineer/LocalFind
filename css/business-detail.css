@@ -2883,17 +2883,21 @@ html::-webkit-scrollbar-thumb:hover {
 
 /* Mall Location Card - Shows which mall a business is in */
 .mall-location-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: rgba(30, 39, 54, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
   margin-top: var(--space-lg);
   transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .mall-location-card:hover {
-  border-color: var(--accent-primary);
-  box-shadow: 0 4px 12px rgba(255, 138, 0, 0.1);
+  border-color: rgba(255, 138, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 138, 0, 0.15);
+  background: rgba(30, 39, 54, 0.5);
 }
 
 .mall-location-link {
