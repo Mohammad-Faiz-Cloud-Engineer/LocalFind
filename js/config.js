@@ -106,6 +106,7 @@ const CONFIG = {
     'gym': ['fitness', 'workout', 'exercise', 'friends fitness', 'bodybuilding'],
     'wellness': ['ayurveda', 'spa', 'resort', 'retreat', 'yoga', 'meditation', 'detox', 'healing', 'health-resort', 'heritage', 'panchakarma', 'therapy'],
     'kfc': ['kentucky-fried-chicken', 'fried-chicken', 'chicken', 'fast-food', 'zinger', 'burger', 'wings', 'bucket'],
+    'burger-king': ['bk', 'whopper', 'flame-grilled', 'burgers', 'fast-food', 'fries', 'chicken-burger'],
     'mall': ['shopping-mall', 'shopping-center', 'box-park', 'boxpark', 'container-mall', 'food-court', 'entertainment', 'lifestyle', 'retail', 'awadh-avenue', 'awadh-avenue-mall'],
     'cinema': ['movie', 'movies', 'theater', 'theatre', 'multiplex', 'dd-cinemas', 'film', 'show', 'bookmyshow', 'ticket', 'awadh-avenue'],
     'nursing': ['nursing-college', 'medical-education', 'healthcare-education', 'nursing-course', 'gnm', 'anm', 'bsc-nursing', 'pps-college'],
