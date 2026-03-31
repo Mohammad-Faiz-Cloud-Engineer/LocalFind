@@ -114,7 +114,6 @@
         offscreen.remove();
       }, 50);
     } catch (error) {
-      console.error('QR generation failed:', error);
       offscreen.remove();
       showQRFallback(qrTarget);
     }
