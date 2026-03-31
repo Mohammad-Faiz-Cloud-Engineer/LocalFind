@@ -1,7 +1,7 @@
 /**
  * Business Listings Data
  * 
- * @version 4.3.1
+ * @version 4.3.2
  * @updated 2026-03-25
  * 
  * CRITICAL PRIVACY NOTICE
@@ -1213,6 +1213,39 @@ window.LISTINGS = [
     },
     description: "Shri Shyam Fast Foods is the best fast food destination in Rasauli, located near Sanskar Medical Store on Rasauli Bazar. Managed by Jatin Gupta, we specialize in delicious and affordable fast food favorites. Our menu features mouth-watering momos (steamed and fried), crispy spring rolls, flavorful fried rice, juicy burgers, golden finger chips, tasty chowmein, aloo patties, and creamy macaroni. We use fresh ingredients and maintain high hygiene standards. Perfect for quick bites, snacks, or takeaway meals. Popular among students, families, and food lovers. Open daily from 10 AM to 8 PM. Visit us for great taste and excellent service!",
     tags: ["fast-food", "momos", "spring-roll", "fried-rice", "burger", "chowmein", "snacks", "street-food", "takeaway", "finger-chips", "aloo-patty", "macaroni"],
+    isNew: true
+  },
+  {
+    id: "awadh-avenue-mall",
+    name: "Awadh Avenue Mall",
+    category: "Shopping Mall & Entertainment",
+    categorySlug: "shopping-mall",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 0,
+    coordinates: { lat: 26.9215276, lng: 81.1742593 },
+    reviews: [],
+    address: "W5CF+QRQ, Awas Vikas Colony, Barabanki, Uttar Pradesh 225001",
+    mapLink: "https://maps.app.goo.gl/NZwU3Lk9eNZ41u9G9",
+    phone: "+91 93358 01239",
+    phoneName: "Nitin Agarwal",
+    email: "",
+    website: "",
+    whatsapp: "+91 93358 01239",
+    whatsappName: "Nitin Agarwal",
+    hours: {
+      mon: { open: "00:00", close: "23:59" },
+      tue: { open: "00:00", close: "23:59" },
+      wed: { open: "00:00", close: "23:59" },
+      thu: { open: "00:00", close: "23:59" },
+      fri: { open: "00:00", close: "23:59" },
+      sat: { open: "00:00", close: "23:59" },
+      sun: { open: "00:00", close: "23:59" }
+    },
+    description: "Awadh Avenue Mall is the best shopping and entertainment destination in Barabanki, located in Awas Vikas Colony. This premier mall offers a complete shopping experience with a wide variety of retail stores, fashion outlets, electronics, lifestyle brands, and dining options. Perfect for families, shoppers, and entertainment seekers. The mall features modern architecture, spacious interiors, and a vibrant atmosphere. Open 24 hours for your convenience. Whether you're looking for shopping, dining, or entertainment, Awadh Avenue Mall is your ultimate destination in Barabanki!",
+    tags: ["mall", "shopping", "entertainment", "retail", "fashion", "lifestyle", "family-destination", "dining", "brands", "barabanki"],
     isNew: true
   }
 ];
