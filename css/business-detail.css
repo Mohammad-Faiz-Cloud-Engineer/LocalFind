@@ -2426,6 +2426,346 @@ html::-webkit-scrollbar-thumb:hover {
 
 
 /* ============================================
+   Mall Tenants Showcase - Premium Design
+   Matches platform's professional aesthetic
+   ============================================ */
+
+.mall-tenants-showcase {
+  background: rgba(30, 39, 54, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin: var(--space-2xl) 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.mall-tenants-showcase .collapsible-header {
+  padding: 0 0 var(--space-lg) 0;
+  margin-bottom: var(--space-xl);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mall-tenants-showcase .collapsible-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.mall-tenants-showcase .collapsible-header h3 i {
+  color: var(--accent-primary);
+  font-size: 20px;
+}
+
+.tenant-count {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: rgba(255, 138, 0, 0.15);
+  color: var(--accent-primary);
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 138, 0, 0.3);
+  margin-left: var(--space-sm);
+}
+
+/* Tenants grid - matches card-grid style */
+.tenants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-md);
+}
+
+/* Tenant card - matches existing card design */
+.tenant-card {
+  background: rgba(30, 39, 54, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  transition: all calc(var(--transition-base) * 1.5) cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  min-height: 200px;
+}
+
+.tenant-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.tenant-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 138, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.tenant-card:hover::before {
+  transform: scaleX(1);
+}
+
+.tenant-card:active {
+  transform: translateY(0);
+}
+
+/* Tenant card header */
+.tenant-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  position: relative;
+}
+
+.tenant-card-avatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0A0E17;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(255, 138, 0, 0.3);
+}
+
+.tenant-card-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.tenant-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tenant-card:hover .tenant-card-name {
+  color: var(--text-primary);
+}
+
+.tenant-card-category {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.tenant-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--accent-info);
+  font-size: 16px;
+  line-height: 1;
+  animation: verifiedPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(75, 123, 236, 0.5));
+}
+
+/* Tenant card description */
+.tenant-card-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+/* Tenant card footer */
+.tenant-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: var(--space-sm);
+}
+
+.tenant-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tenant-card-rating .rating-stars {
+  color: var(--accent-primary);
+}
+
+.tenant-card-rating .rating-value {
+  color: var(--text-primary);
+}
+
+.tenant-card-rating .rating-count {
+  color: var(--text-muted);
+}
+
+.tenant-card-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.tenant-card-status i {
+  font-size: 6px;
+}
+
+.status-open {
+  color: var(--accent-success);
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-closed {
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Featured badge - matches existing style */
+.tenant-featured-badge {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
+  color: #0A0E17;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  box-shadow: 0 2px 8px rgba(255, 138, 0, 0.3);
+  z-index: 1;
+}
+
+/* Arrow indicator - subtle and professional */
+.tenant-card-arrow {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 12px;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.tenant-card:hover .tenant-card-arrow {
+  opacity: 1;
+  background: rgba(255, 138, 0, 0.15);
+  border-color: rgba(255, 138, 0, 0.3);
+  color: var(--accent-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .tenants-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .mall-tenants-showcase {
+    padding: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .mall-tenants-showcase .collapsible-header h3 {
+    font-size: 18px;
+    flex-wrap: wrap;
+  }
+
+  .tenant-count {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  .tenants-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .tenant-card {
+    padding: 12px;
+    min-height: auto;
+  }
+
+  .tenant-card-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  .tenant-card-name {
+    font-size: 13px;
+  }
+
+  .tenant-card-category {
+    font-size: 12px;
+  }
+
+  .tenant-card-desc {
+    font-size: 12px;
+  }
+
+  .tenant-featured-badge {
+    top: 10px;
+    right: 10px;
+    padding: 3px 10px;
+    font-size: 9px;
+  }
+}
+
+/* ============================================
    Mall Tenants & Location Cards
    ============================================ */
 
@@ -2518,138 +2858,23 @@ html::-webkit-scrollbar-thumb:hover {
   color: var(--accent-primary);
 }
 
-/* Mall Tenants Card - Shows businesses inside a mall */
-.mall-tenants-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  margin-top: var(--space-lg);
-}
-
-.mall-tenants-card .section-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-md);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.mall-tenants-card .section-header i {
-  color: var(--accent-primary);
-}
-
-.tenants-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.tenant-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md);
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s ease;
-}
-
-.tenant-item:hover {
-  border-color: var(--accent-primary);
-  background: var(--bg-card);
-  box-shadow: 0 2px 8px rgba(255, 138, 0, 0.1);
-  transform: translateX(4px);
-}
-
-.tenant-avatar {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 700;
-  color: white;
-  flex-shrink: 0;
-}
-
-.tenant-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.tenant-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 2px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.tenant-category {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.tenant-rating {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 13px;
-}
-
-.tenant-rating .rating-stars {
-  color: var(--accent-primary);
-}
-
-.tenant-rating .rating-value {
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-
-.tenant-item > .fa-chevron-right {
-  color: var(--text-muted);
-  font-size: 14px;
-  transition: transform 0.3s ease;
-}
-
-.tenant-item:hover .fa-chevron-right {
-  transform: translateX(4px);
-  color: var(--accent-primary);
-}
-
-/* Responsive Design */
+/* Responsive Design for Mall Location Card */
 @media (max-width: 768px) {
-  .mall-location-card,
-  .mall-tenants-card {
+  .mall-location-card {
     padding: var(--space-md);
   }
 
-  .mall-avatar,
-  .tenant-avatar {
+  .mall-avatar {
     width: 44px;
     height: 44px;
     font-size: 16px;
   }
 
-  .mall-name,
-  .tenant-name {
+  .mall-name {
     font-size: 14px;
   }
 
-  .mall-category,
-  .tenant-category {
+  .mall-category {
     font-size: 12px;
   }
 }
