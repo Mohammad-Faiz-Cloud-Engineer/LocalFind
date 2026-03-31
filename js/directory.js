@@ -13,6 +13,45 @@
   let currentListings = [...window.LISTINGS];
 
   /**
+   * Check for special search commands (e.g., /lgbtq+, /women-owned)
+   * @param {string} query - Search query
+   * @returns {Object|null} Filter object or null if not a special command
+   */
+  function parseSpecialCommand(query) {
+    // Input validation
+    if (!query || typeof query !== 'string') {
+      return null;
+    }
+    
+    const trimmed = query.trim().toLowerCase();
+    
+    // Special commands start with /
+    if (!trimmed.startsWith('/') || trimmed.length < 2) {
+      return null;
+    }
+    
+    const command = trimmed.substring(1); // Remove the /
+    
+    // Sanitize command - only allow alphanumeric, hyphens, and +
+    if (!/^[a-z0-9\-+]+$/.test(command)) {
+      return null;
+    }
+    
+    // Map commands to business properties (frozen for security)
+    const commandMap = Object.freeze({
+      'lgbtq+': Object.freeze({ property: 'lgbtqFriendly', value: true, label: 'LGBTQ+ Friendly' }),
+      'lgbtq': Object.freeze({ property: 'lgbtqFriendly', value: true, label: 'LGBTQ+ Friendly' }),
+      'women-owned': Object.freeze({ property: 'womenOwned', value: true, label: 'Women Owned' }),
+      'women': Object.freeze({ property: 'womenOwned', value: true, label: 'Women Owned' }),
+      'featured': Object.freeze({ property: 'featured', value: true, label: 'Featured' }),
+      'verified': Object.freeze({ property: 'verified', value: true, label: 'Verified' }),
+      'new': Object.freeze({ property: 'isNew', value: true, label: 'New Businesses' })
+    });
+    
+    return commandMap[command] || null;
+  }
+
+  /**
    * Expand search query with aliases
    * @param {string} query - Original search query
    * @returns {Array} Array of search terms including aliases
@@ -191,35 +230,56 @@
     }
 
     if (search) {
-      const searchTerms = expandSearchQuery(search);
+      // Check for special commands first
+      const specialCommand = parseSpecialCommand(search);
       
-      // Find directly matching businesses
-      const directMatches = window.LISTINGS.filter(b =>
-        matchesSearchTerms(b.name, searchTerms) ||
-        matchesSearchTerms(b.description, searchTerms) ||
-        matchesSearchTerms(b.category, searchTerms) ||
-        (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
-      );
-      
-      // Find malls that contain matching businesses
-      const mallsWithTenants = findMallsWithMatchingTenants(searchTerms, search);
-      
-      // Combine results (remove duplicates)
-      const combinedResults = [...directMatches];
-      mallsWithTenants.forEach(mall => {
-        if (!combinedResults.find(b => b.id === mall.id)) {
-          combinedResults.push(mall);
+      if (specialCommand) {
+        // Filter by special property
+        currentListings = window.LISTINGS.filter(b => {
+          if (specialCommand.property === 'isNew') {
+            // Use the isBusinessNew function if available
+            return window.isBusinessNew && window.isBusinessNew(b);
+          }
+          return b[specialCommand.property] === specialCommand.value;
+        });
+        
+        // Update results count to show what filter is active
+        const resultsCount = document.getElementById('results-count');
+        if (resultsCount) {
+          resultsCount.setAttribute('data-filter-label', specialCommand.label);
         }
-      });
-      
-      currentListings = combinedResults;
+      } else {
+        // Normal search
+        const searchTerms = expandSearchQuery(search);
+        
+        // Find directly matching businesses
+        const directMatches = window.LISTINGS.filter(b =>
+          matchesSearchTerms(b.name, searchTerms) ||
+          matchesSearchTerms(b.description, searchTerms) ||
+          matchesSearchTerms(b.category, searchTerms) ||
+          (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
+        );
+        
+        // Find malls that contain matching businesses
+        const mallsWithTenants = findMallsWithMatchingTenants(searchTerms, search);
+        
+        // Combine results (remove duplicates)
+        const combinedResults = [...directMatches];
+        mallsWithTenants.forEach(mall => {
+          if (!combinedResults.find(b => b.id === mall.id)) {
+            combinedResults.push(mall);
+          }
+        });
+        
+        currentListings = combinedResults;
 
-      // Sort by relevance (most relevant first)
-      currentListings.sort((a, b) => {
-        const scoreA = calculateRelevance(a, searchTerms, search);
-        const scoreB = calculateRelevance(b, searchTerms, search);
-        return scoreB - scoreA;
-      });
+        // Sort by relevance (most relevant first)
+        currentListings.sort((a, b) => {
+          const scoreA = calculateRelevance(a, searchTerms, search);
+          const scoreB = calculateRelevance(b, searchTerms, search);
+          return scoreB - scoreA;
+        });
+      }
     }
 
     if (loc) {
@@ -292,8 +352,55 @@
       });
     }
 
-    // Search functionality with debounce and alias support
+    // Search tips tooltip functionality
+    const searchTipsBtn = document.getElementById('search-tips-btn');
+    const searchTipsTooltip = document.getElementById('search-tips-tooltip');
+    const searchTipsClose = document.getElementById('search-tips-close');
     const searchInput = document.getElementById('filter-search');
+
+    if (searchTipsBtn && searchTipsTooltip && searchTipsClose) {
+      // Toggle tooltip
+      searchTipsBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isVisible = searchTipsTooltip.style.display === 'block';
+        searchTipsTooltip.style.display = isVisible ? 'none' : 'block';
+      });
+
+      // Close tooltip
+      searchTipsClose.addEventListener('click', () => {
+        searchTipsTooltip.style.display = 'none';
+      });
+
+      // Click on tip item to insert command
+      const tipItems = searchTipsTooltip.querySelectorAll('.search-tip-item');
+      tipItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const code = item.querySelector('code');
+          if (code && searchInput) {
+            searchInput.value = code.textContent;
+            searchInput.dispatchEvent(new Event('input'));
+            searchInput.focus();
+            searchTipsTooltip.style.display = 'none';
+          }
+        });
+      });
+
+      // Close tooltip when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!searchTipsTooltip.contains(e.target) && e.target !== searchTipsBtn) {
+          searchTipsTooltip.style.display = 'none';
+        }
+      });
+
+      // Close on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchTipsTooltip.style.display === 'block') {
+          searchTipsTooltip.style.display = 'none';
+        }
+      });
+    }
+
+    // Search functionality with debounce and alias support
     if (searchInput) {
       let timeout;
       searchInput.addEventListener('input', (e) => {
@@ -304,33 +411,47 @@
             currentListings = [...window.LISTINGS];
             applyQueryParams();
           } else {
-            const searchTerms = expandSearchQuery(query);
+            // Check for special commands first
+            const specialCommand = parseSpecialCommand(query);
             
-            // Find directly matching businesses
-            const directMatches = window.LISTINGS.filter(b =>
-              matchesSearchTerms(b.name, searchTerms) ||
-              matchesSearchTerms(b.description, searchTerms) ||
-              matchesSearchTerms(b.category, searchTerms) ||
-              (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
-            );
-            
-            // Find malls that contain matching businesses
-            const mallsWithTenants = findMallsWithMatchingTenants(searchTerms, query);
-            
-            // Combine results (remove duplicates)
-            currentListings = [...directMatches];
-            mallsWithTenants.forEach(mall => {
-              if (!currentListings.find(b => b.id === mall.id)) {
-                currentListings.push(mall);
-              }
-            });
+            if (specialCommand) {
+              // Filter by special property
+              currentListings = window.LISTINGS.filter(b => {
+                if (specialCommand.property === 'isNew') {
+                  return window.isBusinessNew && window.isBusinessNew(b);
+                }
+                return b[specialCommand.property] === specialCommand.value;
+              });
+            } else {
+              // Normal search
+              const searchTerms = expandSearchQuery(query);
+              
+              // Find directly matching businesses
+              const directMatches = window.LISTINGS.filter(b =>
+                matchesSearchTerms(b.name, searchTerms) ||
+                matchesSearchTerms(b.description, searchTerms) ||
+                matchesSearchTerms(b.category, searchTerms) ||
+                (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
+              );
+              
+              // Find malls that contain matching businesses
+              const mallsWithTenants = findMallsWithMatchingTenants(searchTerms, query);
+              
+              // Combine results (remove duplicates)
+              currentListings = [...directMatches];
+              mallsWithTenants.forEach(mall => {
+                if (!currentListings.find(b => b.id === mall.id)) {
+                  currentListings.push(mall);
+                }
+              });
 
-            // Sort by relevance (most relevant first)
-            currentListings.sort((a, b) => {
-              const scoreA = calculateRelevance(a, searchTerms, query);
-              const scoreB = calculateRelevance(b, searchTerms, query);
-              return scoreB - scoreA;
-            });
+              // Sort by relevance (most relevant first)
+              currentListings.sort((a, b) => {
+                const scoreA = calculateRelevance(a, searchTerms, query);
+                const scoreB = calculateRelevance(b, searchTerms, query);
+                return scoreB - scoreA;
+              });
+            }
           }
           offset = 0;
           render();
