@@ -17,15 +17,32 @@ Featured: Yes/No
 Verified: Yes/No
 Rating: X.X/5
 
+MALL LOCATION (if applicable):
+Is this business inside a mall? Yes/No
+If yes, which mall? (awadh-avenue-mall or box-park-international)
+
 FILES TO UPDATE:
 1. js/data.js - Add business with coordinates: { lat: XX.XX, lng: XX.XX }
+   - If in mall: Add locatedInMall: "mall-id"
+   - Then update mall's tenants array with your business ID
 2. js/config.js - Add search keywords + bump version
 3. index.html - Update business count
 4. categories.html - Update category count
 5. Version files - js/main.js, js/pwa.js, manifest.json, sw.js
+
+MALL SETUP (if business is inside a mall):
+Step 1: Add your business with locatedInMall property
+Step 2: Find the mall entry and add your business ID to its tenants array
+Example: tenants: ["your-business-id", "other-business-id"]
 
 VERIFY:
 - Business appears on map
 - Search works
 - Detail page loads
 - All counts match
+- If in mall: Mall page shows your business in tenant grid
+- If in mall: Your business page shows mall location card
+
+AVAILABLE MALLS:
+- awadh-avenue-mall (Awadh Avenue Mall) - Coordinates: 26.9215276, 81.1742593
+- box-park-international (Box Park International) - Coordinates: 26.9247718, 81.2498400
