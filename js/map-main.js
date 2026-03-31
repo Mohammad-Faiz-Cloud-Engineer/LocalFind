@@ -15,6 +15,7 @@
   let userCircle;
   let businessMarkers = [];
   let markersGroup;
+  let resizeHandler = null;
 
   /**
    * Security: HTML sanitization function to prevent XSS attacks
@@ -63,6 +64,14 @@
       preferCanvas: false,
       renderer: L.svg({ padding: 0.5 })
     }).setView(defaultCenter, 14);
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+      if (map) {
+        map.remove();
+        map = null;
+      }
+    }, { once: true });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -203,13 +212,13 @@
       const lat = business.coordinates.lat;
       const lng = business.coordinates.lng;
       
-      // Validate coordinates are within reasonable bounds for Rasauli area
-      const isValidLat = lat >= 26.90 && lat <= 26.93;
-      const isValidLng = lng >= 81.24 && lng <= 81.27;
+      // Validate coordinates are within reasonable bounds for Rasauli area (widened range)
+      const isValidLat = lat >= 26.88 && lat <= 26.95;
+      const isValidLng = lng >= 81.22 && lng <= 81.29;
       
       // Return null for invalid coordinates with warning
       if (!isValidLat || !isValidLng) {
-        console.warn(`[Map] Invalid coordinates for business "${business.name}" (${business.id}):`, [lat, lng], '- Expected range: Lat 26.90-26.93, Lng 81.24-81.27');
+        console.warn(`[Map] Invalid coordinates for business "${business.name}" (${business.id}):`, [lat, lng], '- Expected range: Lat 26.88-26.95, Lng 81.22-81.29');
         return null;
       }
       
