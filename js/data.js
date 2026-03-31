@@ -1409,6 +1409,39 @@ window.LISTINGS = [
     tags: ["hospital", "trauma-centre", "emergency-care", "24x7", "medical-services", "healthcare", "doctor", "clinic", "diagnostic", "laboratory", "patient-care", "surgery", "accident-care"],
     lgbtqFriendly: true,
     addedDate: "2026-03-31"
+  },
+  {
+    id: "sagar-institute-technology",
+    name: "Sagar Institute of Technology",
+    category: "Education & Schools",
+    categorySlug: "education",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 3.0,
+    reviewCount: 0,
+    coordinates: { lat: 26.9267927, lng: 81.2405581 },
+    reviews: [],
+    address: "Sagar Institute of Technology & Management, Barabanki, Uttar Pradesh, India",
+    mapLink: "https://maps.app.goo.gl/8HagrxZ2jagQtsaw7",
+    phone: "+91 98380 76745",
+    phoneName: "Sagar College",
+    email: "",
+    website: "https://www.sagar.ac.in/",
+    whatsapp: "+91 98380 76745",
+    whatsappName: "Sagar College",
+    hours: {
+      mon: { open: "09:00", close: "16:00" },
+      tue: { open: "09:00", close: "16:00" },
+      wed: { open: "09:00", close: "16:00" },
+      thu: { open: "09:00", close: "16:00" },
+      fri: { open: "09:00", close: "16:00" },
+      sat: { open: "09:00", close: "16:00" },
+      sun: { open: "00:00", close: "00:00" }
+    },
+    description: "Sagar Institute of Technology (SITM) is a leading educational institution in Barabanki, committed to shaping world-class technocrats grounded in strong moral values. Our leadership team including Chairman, Director, Deans, and Heads of Departments works together to uphold academic excellence, discipline, and innovation. Founded with a vision to set a benchmark in professional education, SITM provides a strong learning environment where students grow into skilled and responsible professionals. We instill discipline, dedication, and determination to help students excel in a competitive world. With the support of parents and guardians, we create an environment where learners can realize their potential. As the nation advances technologically and socially, we empower students to take responsibility, strive for excellence, and align their ambitions with the broader goals of society. The Sagar Educational Society encourages students to embrace education with honesty, discipline, and curiosity, empowering them to serve society with competence, compassion, and a strong sense of responsibility. Joining SITM opens the door to endless possibilities for a successful future.",
+    tags: ["college", "education", "technology", "management", "engineering", "professional-education", "higher-education", "sitm", "sagar-institute", "technical-education", "degree-college"],
+    addedDate: "2026-03-31"
   }
 ];
 
