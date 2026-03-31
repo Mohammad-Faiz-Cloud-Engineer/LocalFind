@@ -929,6 +929,8 @@ html::-webkit-scrollbar-thumb:hover {
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  margin-right: 6px;
+  margin-bottom: 6px;
 }
 
 .badge-featured {
@@ -939,6 +941,18 @@ html::-webkit-scrollbar-thumb:hover {
 .badge-new {
   background: var(--accent-success);
   color: #0A0E17;
+}
+
+.badge-lgbtq {
+  background: #6366f1;
+  color: #fff;
+  text-transform: none;
+}
+
+.badge-women-owned {
+  background: #ec4899;
+  color: #fff;
+  text-transform: none;
 }
 
 .badge-verified {
