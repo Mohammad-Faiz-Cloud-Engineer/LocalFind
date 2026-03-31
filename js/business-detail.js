@@ -2047,8 +2047,6 @@
     }
     return null;
   }
-})();
-
 
   /**
    * Initialize audio player for listen buttons
@@ -2058,7 +2056,6 @@
    */
   function initAudioPlayer(button, audio, id) {
     let isPlaying = false;
-    let currentAudio = null;
     
     // Stop all other audio players
     const stopAllAudio = () => {
@@ -2130,3 +2127,4 @@
       button.disabled = true;
     });
   }
+})();
