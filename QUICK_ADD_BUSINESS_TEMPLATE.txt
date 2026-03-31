@@ -41,20 +41,43 @@ If yes, use mall's coordinates and mention mall in address!
 
 FILES TO UPDATE:
 ──────────────────────────────────────────────────────────────
-☐ js/data.js - Add business with coordinates: { lat: X, lng: Y }
+After adding a new business, you MUST update these files:
+
+☐ 1. js/data.js - Add business entry
+  ☐ Use coordinates: { lat: X, lng: Y }
   ☐ If in mall: Add locatedInMall: "mall-id"
   ☐ If in mall: Update mall's tenants array with your business ID
-☐ js/config.js - Add search keywords + bump version
-☐ index.html - Update business count
-☐ categories.html - Update category count
-☐ js/main.js, js/pwa.js, manifest.json, sw.js - Update versions
+
+☐ 2. js/config.js - Add search keywords
+  ☐ Add business name and aliases to searchAliases
+  ☐ Bump version number (e.g., 4.3.2 → 4.3.3)
+
+☐ 3. index.html - Update business counts (3 places)
+  ☐ Hero stats section: data-target="30" → data-target="31"
+  ☐ Map overlay section: "30 listings" → "31 listings"
+  ☐ Stats grid section: data-target="30" → data-target="31"
+
+☐ 4. categories.html - Update category count
+  ☐ Find your business category
+  ☐ Increment the listing count (e.g., "4 listings" → "5 listings")
+
+☐ 5. Update version numbers in these files:
+  ☐ js/main.js - @version comment
+  ☐ js/pwa.js - @version and PWA_VERSION constant
+  ☐ manifest.json - version field
+  ☐ sw.js - @version, CACHE_VERSION, BUILD_NUMBER
+
+☐ 6. Documentation files (if counts mentioned):
+  ☐ MAP_FIX_REPORT.md - Update business count if mentioned
+  ☐ PRODUCTION_AUDIT_REPORT.md - Update business count
+  ☐ URGENT_SECURITY_NOTICE.md - Update business count
 
 VERIFY:
 ──────────────────────────────────────────────────────────────
 ☐ Shows on map
 ☐ Search works
 ☐ Detail page loads
-☐ Counts match
+☐ Counts match everywhere
 ☐ If in mall: Mall page shows your business
 ☐ If in mall: Your page shows mall location card
 
