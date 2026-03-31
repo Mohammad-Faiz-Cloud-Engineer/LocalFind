@@ -2423,3 +2423,233 @@ html::-webkit-scrollbar-thumb:hover {
   text-decoration: line-through;
   cursor: not-allowed;
 }
+
+
+/* ============================================
+   Mall Tenants & Location Cards
+   ============================================ */
+
+/* Mall Location Card - Shows which mall a business is in */
+.mall-location-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-top: var(--space-lg);
+  transition: all 0.3s ease;
+}
+
+.mall-location-card:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 12px rgba(255, 138, 0, 0.1);
+}
+
+.mall-location-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.mall-location-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.mall-avatar {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.mall-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mall-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mall-category {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.mall-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.mall-rating .rating-stars {
+  color: var(--accent-primary);
+}
+
+.mall-rating .rating-value {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.mall-location-content > .fa-chevron-right {
+  color: var(--text-muted);
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.mall-location-link:hover .fa-chevron-right {
+  transform: translateX(4px);
+  color: var(--accent-primary);
+}
+
+/* Mall Tenants Card - Shows businesses inside a mall */
+.mall-tenants-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.mall-tenants-card .section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mall-tenants-card .section-header i {
+  color: var(--accent-primary);
+}
+
+.tenants-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.tenant-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.tenant-item:hover {
+  border-color: var(--accent-primary);
+  background: var(--bg-card);
+  box-shadow: 0 2px 8px rgba(255, 138, 0, 0.1);
+  transform: translateX(4px);
+}
+
+.tenant-avatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.tenant-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tenant-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tenant-category {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.tenant-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.tenant-rating .rating-stars {
+  color: var(--accent-primary);
+}
+
+.tenant-rating .rating-value {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.tenant-item > .fa-chevron-right {
+  color: var(--text-muted);
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+.tenant-item:hover .fa-chevron-right {
+  transform: translateX(4px);
+  color: var(--accent-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mall-location-card,
+  .mall-tenants-card {
+    padding: var(--space-md);
+  }
+
+  .mall-avatar,
+  .tenant-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .mall-name,
+  .tenant-name {
+    font-size: 14px;
+  }
+
+  .mall-category,
+  .tenant-category {
+    font-size: 12px;
+  }
+}
