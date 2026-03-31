@@ -13,7 +13,7 @@
 
 const CONFIG = {
   // Application Version
-  version: "4.3.1",
+  version: "4.3.2",
   
   // Site Information
   siteName: "LocalFind",
@@ -106,7 +106,7 @@ const CONFIG = {
     'gym': ['fitness', 'workout', 'exercise', 'friends fitness', 'bodybuilding'],
     'wellness': ['ayurveda', 'spa', 'resort', 'retreat', 'yoga', 'meditation', 'detox', 'healing', 'health-resort', 'heritage', 'panchakarma', 'therapy'],
     'kfc': ['kentucky-fried-chicken', 'fried-chicken', 'chicken', 'fast-food', 'zinger', 'burger', 'wings', 'bucket'],
-    'mall': ['shopping-mall', 'shopping-center', 'box-park', 'boxpark', 'container-mall', 'food-court', 'entertainment', 'lifestyle', 'retail'],
+    'mall': ['shopping-mall', 'shopping-center', 'box-park', 'boxpark', 'container-mall', 'food-court', 'entertainment', 'lifestyle', 'retail', 'awadh-avenue', 'awadh-avenue-mall'],
     'nursing': ['nursing-college', 'medical-education', 'healthcare-education', 'nursing-course', 'gnm', 'anm', 'bsc-nursing', 'pps-college'],
     'maxwell': ['maxwell-hospital', 'private-hospital', 'emergency', '24x7-hospital'],
     'photography': ['photo', 'photographer', 'videography', 'video', 'studio', 'photo-shoot', 'photoshoot', 'wedding-photography', 'event-photography', 'saraswati-studio', 'camera', 'video-production'],
