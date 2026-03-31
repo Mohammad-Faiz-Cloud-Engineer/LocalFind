@@ -78,6 +78,8 @@
       }
     }
     
+    let animFrameId = null;
+    
     function loop() {
       ctx.clearRect(0, 0, width, height);
       
@@ -117,10 +119,24 @@
         }
       }
       
-      requestAnimationFrame(loop);
+      animFrameId = requestAnimationFrame(loop);
     }
     
-    loop();
+    // Pause animation when tab is hidden to save CPU
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (animFrameId) {
+          cancelAnimationFrame(animFrameId);
+          animFrameId = null;
+        }
+      } else {
+        if (!animFrameId) {
+          animFrameId = requestAnimationFrame(loop);
+        }
+      }
+    });
+    
+    animFrameId = requestAnimationFrame(loop);
   }
 })();
 
