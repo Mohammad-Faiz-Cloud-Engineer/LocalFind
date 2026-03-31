@@ -214,6 +214,7 @@
   function render() {
     const container = document.getElementById('listings');
     const resultsCount = document.getElementById('results-count');
+    const loadMoreBtn = document.getElementById('load-more');
 
     if (!container || !resultsCount) {
       return;
@@ -222,6 +223,15 @@
     const slice = currentListings.slice(0, offset + ITEMS_PER_PAGE);
     container.innerHTML = slice.map(b => window.renderCard(b)).join('');
     resultsCount.textContent = `Showing ${Math.min(slice.length, currentListings.length)} of ${currentListings.length} businesses`;
+
+    // Show/hide Load More button based on remaining items
+    if (loadMoreBtn) {
+      if (slice.length >= currentListings.length) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'block';
+      }
+    }
   }
 
   /**
