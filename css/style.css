@@ -729,7 +729,6 @@ section h2::after {
   }
 }
 
-/* Bidirectional scroll reveal animations */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -737,17 +736,6 @@ section h2::after {
     transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* When scrolling up - elements come from above */
-.reveal.reveal-up {
-  transform: translateY(-28px);
-}
-
-/* When scrolling down - elements come from below (default) */
-.reveal.reveal-down {
-  transform: translateY(28px);
-}
-
-/* Visible state - same for both directions */
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
