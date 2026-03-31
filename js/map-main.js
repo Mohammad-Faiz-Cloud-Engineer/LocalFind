@@ -211,9 +211,9 @@
       const lat = business.coordinates.lat;
       const lng = business.coordinates.lng;
       
-      // Validate coordinates are within reasonable bounds for Rasauli area (widened range)
+      // Validate coordinates are within reasonable bounds for Rasauli and Barabanki area (widened range)
       const isValidLat = lat >= 26.88 && lat <= 26.95;
-      const isValidLng = lng >= 81.22 && lng <= 81.29;
+      const isValidLng = lng >= 81.15 && lng <= 81.29;
       
       // Return null for invalid coordinates
       if (!isValidLat || !isValidLng) {
