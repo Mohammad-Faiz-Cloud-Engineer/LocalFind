@@ -112,21 +112,6 @@
         font-size: 12px;
       }
     }
-
-    /* HIDE CONTENT WHEN KEYBOARD IS OPEN */
-    @media (max-width: 768px) {
-      body.keyboard-open #listings,
-      body.keyboard-open .load-more-wrap,
-      body.keyboard-open .breadcrumb,
-      body.keyboard-open h1,
-      body.keyboard-open .results-count {
-        display: none !important;
-      }
-      
-      body.keyboard-open main.container {
-        padding-top: 20px;
-      }
-    }
   </style>
 </head>
 
@@ -157,21 +142,6 @@
   <script defer src="js/main.js"></script>
   <script defer src="js/directory.js"></script>
   <script defer src="js/pwa.js"></script>
-  <script>
-    // Hide content when keyboard opens on mobile
-    document.addEventListener('DOMContentLoaded', function() {
-      const searchInput = document.getElementById('filter-search');
-      if (searchInput && window.innerWidth <= 768) {
-        searchInput.addEventListener('focus', function() {
-          document.body.classList.add('keyboard-open');
-        });
-        
-        searchInput.addEventListener('blur', function() {
-          document.body.classList.remove('keyboard-open');
-        });
-      }
-    });
-  </script>
 </body>
 
 </html>
