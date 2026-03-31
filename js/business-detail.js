@@ -49,7 +49,6 @@
     // Check for javascript: protocol and other dangerous protocols
     const dangerousProtocols = /^(javascript|data|vbscript|file|about):/i;
     if (dangerousProtocols.test(url)) {
-      console.warn('Blocked potentially dangerous URL:', url);
       return null;
     }
     
@@ -57,7 +56,6 @@
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
       // Block URLs with suspicious patterns
       if (url.includes('javascript:') || url.includes('data:')) {
-        console.warn('Blocked suspicious relative URL:', url);
         return null;
       }
     }
@@ -138,7 +136,6 @@
       
       return processed;
     } catch (error) {
-      console.error('Error processing existing links:', error);
       // Fallback to full sanitization on error
       return sanitizeHTML(text);
     }
@@ -206,7 +203,6 @@
       return linkifyPlainURLs(sanitized);
       
     } catch (error) {
-      console.error('Error in linkifyText:', error);
       // Fallback to sanitized text on error
       return sanitizeHTML(text);
     }
@@ -1024,7 +1020,6 @@
           // Validate and sanitize UPI parameters
           const validatedUpiId = validateUPIId(business.upiId);
           if (!validatedUpiId) {
-            console.error('Invalid UPI ID format');
             return;
           }
 
@@ -1131,8 +1126,6 @@
 
         } catch (error) {
           // Handle errors gracefully
-          console.error('Failed to open UPI app:', error);
-          
           button.innerHTML = '<i class="fa-solid fa-exclamation-circle"></i><span>Try Again</span>';
           button.disabled = false;
           
@@ -2030,8 +2023,7 @@
           button.classList.add('playing');
           button.querySelector('i').className = 'fa-solid fa-pause';
           button.setAttribute('aria-label', 'Pause');
-        }).catch((error) => {
-          console.warn('Audio playback failed:', error);
+        }).catch(() => {
           // Fallback: show error message
           button.querySelector('i').className = 'fa-solid fa-volume-xmark';
           button.setAttribute('aria-label', 'Audio not available');
