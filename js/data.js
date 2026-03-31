@@ -1235,6 +1235,8 @@ window.LISTINGS = [
     website: "",
     whatsapp: "+91 93358 01239",
     whatsappName: "Nitin Agarwal",
+    bookMyShow: "https://in.bookmyshow.com/cinemas/lucknow/dd-cinemas-awadh-avenue-mall-barabanki/buytickets/DCAA/20260331",
+    districtIn: "https://www.district.in/movies/dd-cinemas-avadh-avenue-mall-barabanki-in-barabanki-CD1102283",
     hours: {
       mon: { open: "00:00", close: "23:59" },
       tue: { open: "00:00", close: "23:59" },
@@ -1244,8 +1246,8 @@ window.LISTINGS = [
       sat: { open: "00:00", close: "23:59" },
       sun: { open: "00:00", close: "23:59" }
     },
-    description: "Awadh Avenue Mall is the best shopping and entertainment destination in Barabanki, located in Awas Vikas Colony. This premier mall offers a complete shopping experience with a wide variety of retail stores, fashion outlets, electronics, lifestyle brands, and dining options. Perfect for families, shoppers, and entertainment seekers. The mall features modern architecture, spacious interiors, and a vibrant atmosphere. Open 24 hours for your convenience. Whether you're looking for shopping, dining, or entertainment, Awadh Avenue Mall is your ultimate destination in Barabanki!",
-    tags: ["mall", "shopping", "entertainment", "retail", "fashion", "lifestyle", "family-destination", "dining", "brands", "barabanki"],
+    description: "Awadh Avenue Mall is the best shopping and entertainment destination in Barabanki, located in Awas Vikas Colony. This premier mall offers a complete shopping experience with a wide variety of retail stores, fashion outlets, electronics, lifestyle brands, and dining options. The mall features DD Cinemas for the latest movies and blockbusters - book your movie tickets online through BookMyShow or District. Perfect for families, shoppers, and entertainment seekers. The mall features modern architecture, spacious interiors, and a vibrant atmosphere. Open 24 hours for your convenience. Whether you're looking for shopping, dining, movies, or entertainment, Awadh Avenue Mall is your ultimate destination in Barabanki!",
+    tags: ["mall", "shopping", "entertainment", "retail", "fashion", "lifestyle", "family-destination", "dining", "brands", "barabanki", "cinema", "movies", "dd-cinemas", "multiplex"],
     isNew: true
   }
 ];
