@@ -47,6 +47,7 @@ function renderHeader(){
       <a href="categories.html">Categories</a>
       <a href="map.html">Map</a>
       <a href="about.html">About</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
       <a href="donation.html" class="donate-link"><i class="fa-solid fa-heart"></i> Donate</a>
     </nav>
   </div>
@@ -125,6 +126,7 @@ function renderFooter(){
           <li><a href="index.html">Home</a></li>
           <li><a href="directory.html">Directory</a></li>
           <li><a href="categories.html">Categories</a></li>
+          <li><a href="about.html">About</a></li>
           <li><a href="privacy-policy.html">Privacy Policy</a></li>
         </ul>
       </div>
