@@ -94,7 +94,7 @@ const CONFIG = {
     'sweets': ['sweet shop', 'mithai', 'desserts', 'pankaj sweets', 'rajju sweets', 'ice cream', 'cake', 'namkeen'],
     'grocery': ['kirana', 'general store', 'supermarket', 'provision store'],
     'bank': ['banking', 'atm'],
-    'school': ['education', 'college', 'institute', 'academy', 'chandra shekhar azad', 'inter college', 'up board', 'jay hind'],
+    'school': ['education', 'college', 'institute', 'academy', 'chandra shekhar azad', 'inter college', 'up board', 'jay hind', 'sagar institute', 'sitm', 'technology', 'management'],
     'salon': ['parlour', 'parlor', 'beauty salon', 'barber'],
     'repair': ['service center', 'workshop', 'mechanic', 'mobile-repair', 'phone-repair', 'screen-replacement', 'battery-replacement', 'fix', 'service'],
     'electrician': ['electric', 'electrical', 'wiring', 'shariq hashmi'],
