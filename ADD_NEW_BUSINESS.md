@@ -46,6 +46,8 @@ Mall Location (if applicable):
 
 ## Files to Update
 
+After adding a new business, you MUST update these files:
+
 ### 1. js/data.js (Main Data File)
 Add business to `window.LISTINGS` array:
 
@@ -148,6 +150,33 @@ Update version in these files:
 - `js/pwa.js` - @version and PWA_VERSION
 - `manifest.json` - version field
 - `sw.js` - @version, CACHE_VERSION, BUILD_NUMBER
+
+### 6. Documentation Files (if counts mentioned)
+Update business counts in:
+- `MAP_FIX_REPORT.md` - Update total business count if mentioned
+- `PRODUCTION_AUDIT_REPORT.md` - Update business owner count
+- `URGENT_SECURITY_NOTICE.md` - Update business owner count
+
+## Complete Update Checklist
+
+Use this checklist every time you add a new business:
+
+- [ ] **js/data.js** - Added business entry with proper coordinates
+  - [ ] If in mall: Added `locatedInMall: "mall-id"`
+  - [ ] If in mall: Updated mall's `tenants` array
+- [ ] **js/config.js** - Added search keywords and bumped version
+- [ ] **index.html** - Updated business count in 3 places:
+  - [ ] Hero stats section (data-target)
+  - [ ] Map overlay section (X listings text)
+  - [ ] Stats grid section (data-target)
+- [ ] **categories.html** - Updated category listing count
+- [ ] **Version files** - Updated all version numbers:
+  - [ ] js/main.js
+  - [ ] js/pwa.js
+  - [ ] manifest.json
+  - [ ] sw.js
+- [ ] **Documentation** - Updated counts in report files if needed
+- [ ] **Tested** - Verified everything works
 
 ## Verification
 
