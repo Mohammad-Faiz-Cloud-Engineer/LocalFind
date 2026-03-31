@@ -5,7 +5,7 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 4.3.2
+ * @version 4.3.3
  * @updated 2026-03-31
  * 
  * IMPORTANT: Update these values before deploying to production
@@ -13,7 +13,7 @@
 
 const CONFIG = {
   // Application Version
-  version: "4.3.2",
+  version: "4.3.3",
   
   // Site Information
   siteName: "LocalFind",
@@ -107,6 +107,7 @@ const CONFIG = {
     'wellness': ['ayurveda', 'spa', 'resort', 'retreat', 'yoga', 'meditation', 'detox', 'healing', 'health-resort', 'heritage', 'panchakarma', 'therapy'],
     'kfc': ['kentucky-fried-chicken', 'fried-chicken', 'chicken', 'fast-food', 'zinger', 'burger', 'wings', 'bucket'],
     'burger-king': ['bk', 'whopper', 'flame-grilled', 'burgers', 'fast-food', 'fries', 'chicken-burger'],
+    'v-mart': ['vmart', 'v-mart-retail', 'family-fashion', 'clothing', 'apparel', 'value-fashion', 'fashion-store', 'retail-store', 'garments', 'lifestyle'],
     'mall': ['shopping-mall', 'shopping-center', 'box-park', 'boxpark', 'container-mall', 'food-court', 'entertainment', 'lifestyle', 'retail', 'awadh-avenue', 'awadh-avenue-mall'],
     'cinema': ['movie', 'movies', 'theater', 'theatre', 'multiplex', 'dd-cinemas', 'film', 'show', 'bookmyshow', 'ticket', 'awadh-avenue'],
     'nursing': ['nursing-college', 'medical-education', 'healthcare-education', 'nursing-course', 'gnm', 'anm', 'bsc-nursing', 'pps-college'],
