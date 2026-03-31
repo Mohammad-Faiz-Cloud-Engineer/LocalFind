@@ -88,7 +88,7 @@ const CONFIG = {
     'pan': ['permanent account number', 'pan card'],
     'aadhaar': ['aadhar', 'adhaar', 'adhar', 'uidai'],
     'pds': ['public distribution system', 'ration shop', 'ration card'],
-    'hospital': ['clinic', 'medical center', 'health center', 'dispensary', 'abdul hospital', 'janta clinic', 'maxwell hospital'],
+    'hospital': ['clinic', 'medical center', 'health center', 'dispensary', 'abdul hospital', 'janta clinic', 'maxwell hospital', 'rainbow hospital', 'trauma centre', 'trauma center'],
     'pharmacy': ['medical store', 'chemist', 'drug store', 'medicine shop', 'hind pharmacy', 'shri shyam medicals', 'kartik medical store', 'sanskar medical store'],
     'restaurant': ['hotel', 'dhaba', 'eatery', 'food'],
     'sweets': ['sweet shop', 'mithai', 'desserts', 'pankaj sweets', 'rajju sweets', 'ice cream', 'cake', 'namkeen'],
