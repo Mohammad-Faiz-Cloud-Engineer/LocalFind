@@ -125,6 +125,7 @@ function renderFooter(){
           <li><a href="index.html">Home</a></li>
           <li><a href="directory.html">Directory</a></li>
           <li><a href="categories.html">Categories</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
         </ul>
       </div>
       <div>
