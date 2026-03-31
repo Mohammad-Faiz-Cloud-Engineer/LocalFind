@@ -2,7 +2,7 @@
  * Business Detail Page - Rendering Logic
  * Handles business detail page display with proper styling and security
  * 
- * @version 4.3.2
+ * @version 4.3.3
  * @updated 2026-03-31
  */
 (function () {
@@ -375,6 +375,12 @@
     }
     if (biz.isNew) {
       badgesHtml.push('<span class="badge badge-new">NEW</span>');
+    }
+    if (biz.lgbtqFriendly) {
+      badgesHtml.push('<span class="badge badge-lgbtq" title="LGBTQ+ Friendly">LGBTQ+ Friendly</span>');
+    }
+    if (biz.womenOwned) {
+      badgesHtml.push('<span class="badge badge-women-owned" title="Women Owned">Women Owned</span>');
     }
     const badgesEl = document.getElementById('biz-badges');
     if (badgesEl) badgesEl.innerHTML = badgesHtml.join('');
