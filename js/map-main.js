@@ -185,7 +185,7 @@
           </div>
         ` : ''}
         <div class="popup-address">
-          ${sanitizeHTML(business.address.substring(0, 90))}${business.address.length > 90 ? '...' : ''}
+          ${sanitizeHTML((business.address || '').substring(0, 90))}${(business.address || '').length > 90 ? '...' : ''}
         </div>
         <a href="business-detail.html?id=${encodeURIComponent(business.id)}" class="popup-btn">
           View Details
@@ -554,7 +554,7 @@
     const queryLower = originalQuery.toLowerCase();
     const nameLower = business.name.toLowerCase();
     const categoryLower = business.category.toLowerCase();
-    const descLower = business.description.toLowerCase();
+    const descLower = (business.description || '').toLowerCase();
 
     if (nameLower === queryLower) score += 1000;
     if (nameLower.startsWith(queryLower)) score += 500;
