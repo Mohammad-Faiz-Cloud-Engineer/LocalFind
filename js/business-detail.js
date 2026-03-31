@@ -668,6 +668,18 @@
           <a href="${sanitizeHTML(biz.youtube)}" target="_blank" rel="noopener noreferrer">YouTube</a>
         </div>
       ` : ''}
+      ${biz.bookMyShow ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-ticket"></i>
+          <a href="${sanitizeHTML(biz.bookMyShow)}" target="_blank" rel="noopener noreferrer" style="color: #DC2626; font-weight: 600;">Book Movie Tickets (BookMyShow)</a>
+        </div>
+      ` : ''}
+      ${biz.districtIn ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-film"></i>
+          <a href="${sanitizeHTML(biz.districtIn)}" target="_blank" rel="noopener noreferrer" style="color: #DC2626; font-weight: 600;">Book Movie Tickets (District)</a>
+        </div>
+      ` : ''}
       ${biz.upiId ? `
         <div class="contact-item upi-payment-trigger" id="upi-pay-btn" role="button" tabindex="0" aria-label="Pay online via UPI">
           <i class="fa-solid fa-indian-rupee-sign"></i>
