@@ -181,7 +181,7 @@
             navigator.serviceWorker.addEventListener('controllerchange', () => {
               controllerChanged = true;
               // Force reload with cache bypass
-              window.location.reload(true);
+              window.location.reload();
             });
             
             // Send skip waiting message
@@ -190,7 +190,7 @@
             // Fallback: if controller doesn't change in 2 seconds, force reload anyway
             setTimeout(() => {
               if (!controllerChanged) {
-                window.location.reload(true);
+                window.location.reload();
               }
             }, 2000);
           } else {
