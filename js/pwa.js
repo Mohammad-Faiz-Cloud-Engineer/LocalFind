@@ -396,7 +396,7 @@
       });
       
       // Handle back button in PWA
-      window.addEventListener('popstate', (e) => {
+      window.addEventListener('popstate', () => {
         // Custom back button handling if needed
       });
     }
