@@ -395,6 +395,101 @@
       `;
     }
 
+    // Render Mall Tenants Section (Premium Display in Main Content)
+    if (biz.tenants && Array.isArray(biz.tenants) && biz.tenants.length > 0) {
+      const tenantBusinesses = biz.tenants
+        .map(tenantId => window.LISTINGS.find(b => b.id === tenantId))
+        .filter(tenant => tenant !== undefined);
+      
+      if (tenantBusinesses.length > 0) {
+        // Create the tenants showcase section
+        const tenantsSection = document.createElement('section');
+        tenantsSection.className = 'mall-tenants-showcase';
+        tenantsSection.id = 'mall-tenants-section';
+        
+        tenantsSection.innerHTML = `
+          <div class="collapsible-section">
+            <div class="collapsible-header" id="tenants-toggle" role="button" tabindex="0" aria-expanded="true" aria-controls="tenants-content">
+              <h3>
+                <i class="fa-solid fa-store"></i>
+                Businesses Inside This Mall
+                <span class="tenant-count">${tenantBusinesses.length} ${tenantBusinesses.length === 1 ? 'Business' : 'Businesses'}</span>
+              </h3>
+              <i class="fa-solid fa-chevron-down collapse-icon" aria-hidden="true"></i>
+            </div>
+            <div class="collapsible-content expanded" id="tenants-content" role="region" aria-labelledby="tenants-toggle">
+              <div class="tenants-grid">
+                ${tenantBusinesses.map(tenant => {
+                  const tenantAvatar = tenant.name.split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+                  const tenantStars = '★'.repeat(Math.floor(tenant.rating)) + '☆'.repeat(5 - Math.floor(tenant.rating));
+                  const tenantDesc = tenant.description.length > 120 ? tenant.description.substring(0, 120) + '...' : tenant.description;
+                  
+                  return `
+                    <a href="business-detail.html?id=${encodeURIComponent(tenant.id)}" class="tenant-card">
+                      <div class="tenant-card-header">
+                        <div class="tenant-card-avatar">${tenantAvatar}</div>
+                        <div class="tenant-card-meta">
+                          <h4 class="tenant-card-name">
+                            ${sanitizeHTML(tenant.name)}
+                            ${tenant.verified ? '<span class="tenant-verified-badge" title="Verified Business"><i class="fa-solid fa-circle-check"></i></span>' : ''}
+                          </h4>
+                          <div class="tenant-card-category">${sanitizeHTML(tenant.category)}</div>
+                        </div>
+                      </div>
+                      <p class="tenant-card-desc">${sanitizeHTML(tenantDesc)}</p>
+                      <div class="tenant-card-footer">
+                        <div class="tenant-card-rating">
+                          <span class="rating-stars">${tenantStars}</span>
+                          <span class="rating-value">${tenant.rating}</span>
+                          <span class="rating-count">(${tenant.reviewCount})</span>
+                        </div>
+                        <div class="tenant-card-status ${tenant.status === 'open' ? 'status-open' : 'status-closed'}">
+                          <i class="fa-solid fa-circle"></i>
+                          ${tenant.status === 'open' ? 'Open' : 'Closed'}
+                        </div>
+                      </div>
+                      ${tenant.featured ? '<div class="tenant-featured-badge">FEATURED</div>' : ''}
+                      <div class="tenant-card-arrow">
+                        <i class="fa-solid fa-arrow-right"></i>
+                      </div>
+                    </a>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // Insert after description, before reviews
+        const descSection = document.getElementById('biz-desc');
+        if (descSection && descSection.parentNode) {
+          descSection.parentNode.insertBefore(tenantsSection, descSection.nextSibling);
+          
+          // Add collapse/expand functionality
+          const tenantsToggle = document.getElementById('tenants-toggle');
+          const tenantsContent = document.getElementById('tenants-content');
+          const tenantsIcon = tenantsToggle.querySelector('.collapse-icon');
+          
+          if (tenantsToggle && tenantsContent && tenantsIcon) {
+            const toggleTenants = () => {
+              const isCollapsed = tenantsContent.classList.contains('collapsed');
+              tenantsContent.classList.toggle('collapsed');
+              tenantsIcon.classList.toggle('collapsed');
+              tenantsToggle.setAttribute('aria-expanded', isCollapsed ? 'true' : 'false');
+            };
+            
+            tenantsToggle.addEventListener('click', toggleTenants);
+            tenantsToggle.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleTenants();
+              }
+            });
+          }
+        }
+      }
+    }
+
     // Render reviews with collapse/expand
     const reviewsSection = document.getElementById('reviews');
     const reviewsList = document.getElementById('reviews-list');
@@ -698,7 +793,7 @@
     `;
     document.getElementById('biz-contact').innerHTML = contactHtml;
 
-    // Render Mall Location (if business is inside a mall)
+    // Render Mall Location in Sidebar (if business is inside a mall)
     if (biz.locatedInMall) {
       const mall = window.LISTINGS.find(b => b.id === biz.locatedInMall);
       if (mall) {
@@ -731,52 +826,6 @@
           const mallCard = document.createElement('div');
           mallCard.innerHTML = mallLocationHtml;
           contactCard.parentNode.insertBefore(mallCard.firstElementChild, contactCard.nextSibling);
-        }
-      }
-    }
-
-    // Render Mall Tenants (if business is a mall with tenants)
-    if (biz.tenants && Array.isArray(biz.tenants) && biz.tenants.length > 0) {
-      const tenantBusinesses = biz.tenants
-        .map(tenantId => window.LISTINGS.find(b => b.id === tenantId))
-        .filter(tenant => tenant !== undefined);
-      
-      if (tenantBusinesses.length > 0) {
-        const tenantsHtml = `
-          <div class="mall-tenants-card">
-            <h4 class="section-header">
-              <i class="fa-solid fa-store"></i>
-              Businesses Inside (${tenantBusinesses.length})
-            </h4>
-            <div class="tenants-list">
-              ${tenantBusinesses.map(tenant => {
-                const tenantAvatar = tenant.name.split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('');
-                return `
-                  <a href="business-detail.html?id=${encodeURIComponent(tenant.id)}" class="tenant-item">
-                    <div class="tenant-avatar">${tenantAvatar}</div>
-                    <div class="tenant-info">
-                      <div class="tenant-name">${sanitizeHTML(tenant.name)}</div>
-                      <div class="tenant-category">${sanitizeHTML(tenant.category)}</div>
-                      <div class="tenant-rating">
-                        <span class="rating-stars">${'★'.repeat(Math.floor(tenant.rating))}</span>
-                        <span class="rating-value">${tenant.rating}</span>
-                      </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right"></i>
-                  </a>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        `;
-        
-        // Insert after contact card (or after mall location if it exists)
-        const contactCard = document.getElementById('biz-contact');
-        if (contactCard && contactCard.parentNode) {
-          const tenantsCard = document.createElement('div');
-          tenantsCard.innerHTML = tenantsHtml;
-          const insertAfter = contactCard.parentNode.querySelector('.mall-location-card') || contactCard;
-          insertAfter.parentNode.insertBefore(tenantsCard.firstElementChild, insertAfter.nextSibling);
         }
       }
     }
