@@ -738,7 +738,7 @@
       ${biz.bloodDonor ? `
         <div class="contact-item">
           <i class="fa-solid fa-droplet"></i>
-          <a href="${sanitizeHTML(biz.bloodDonor)}" target="_blank" rel="noopener noreferrer" style="color: #DC2626; font-weight: 600;">Find Blood Donors</a>
+          <a href="${sanitizeHTML(biz.bloodDonor)}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Find Blood Donors</a>
         </div>
       ` : ''}
       ${biz.onlineOrder ? `
@@ -768,13 +768,13 @@
       ${biz.bookMyShow ? `
         <div class="contact-item">
           <i class="fa-solid fa-ticket"></i>
-          <a href="${sanitizeHTML(biz.bookMyShow)}" target="_blank" rel="noopener noreferrer" style="color: #DC2626; font-weight: 600;">Book Movie Tickets (BookMyShow)</a>
+          <a href="${sanitizeHTML(biz.bookMyShow)}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Book Movie Tickets (BookMyShow)</a>
         </div>
       ` : ''}
       ${biz.districtIn ? `
         <div class="contact-item">
           <i class="fa-solid fa-film"></i>
-          <a href="${sanitizeHTML(biz.districtIn)}" target="_blank" rel="noopener noreferrer" style="color: #DC2626; font-weight: 600;">Book Movie Tickets (District)</a>
+          <a href="${sanitizeHTML(biz.districtIn)}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Book Movie Tickets (District)</a>
         </div>
       ` : ''}
       ${biz.upiId ? `
