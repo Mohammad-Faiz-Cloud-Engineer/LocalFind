@@ -46,29 +46,11 @@
   min-height: 200px;
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--transition-base);
-}
-
 .card-link:hover .card,
 .card-link:focus .card {
   transform: translateY(-6px) scale(1.02);
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), inset 0 2px 0px rgba(255, 255, 255, 0.1);
-}
-
-.card-link:hover .card::before,
-.card-link:focus .card::before {
-  transform: scaleX(1);
 }
 
 .card-link:active .card {
@@ -338,19 +320,6 @@
   background: linear-gradient(135deg,
       var(--bg-card) 0%,
       rgba(75, 123, 236, 0.03) 100%);
-}
-
-.card.verified::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg,
-      var(--accent-info) 0%,
-      var(--accent-secondary) 100%);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .card.verified:hover {
