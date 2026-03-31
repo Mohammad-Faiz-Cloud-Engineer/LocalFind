@@ -698,6 +698,89 @@
     `;
     document.getElementById('biz-contact').innerHTML = contactHtml;
 
+    // Render Mall Location (if business is inside a mall)
+    if (biz.locatedInMall) {
+      const mall = window.LISTINGS.find(b => b.id === biz.locatedInMall);
+      if (mall) {
+        const mallLocationHtml = `
+          <div class="mall-location-card">
+            <h4 class="section-header">
+              <i class="fa-solid fa-building"></i>
+              Located Inside
+            </h4>
+            <a href="business-detail.html?id=${encodeURIComponent(mall.id)}" class="mall-location-link">
+              <div class="mall-location-content">
+                <div class="mall-avatar">${mall.name.split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('')}</div>
+                <div class="mall-info">
+                  <div class="mall-name">${sanitizeHTML(mall.name)}</div>
+                  <div class="mall-category">${sanitizeHTML(mall.category)}</div>
+                  <div class="mall-rating">
+                    <span class="rating-stars">${'★'.repeat(Math.floor(mall.rating))}</span>
+                    <span class="rating-value">${mall.rating}</span>
+                  </div>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+              </div>
+            </a>
+          </div>
+        `;
+        
+        // Insert after contact card
+        const contactCard = document.getElementById('biz-contact');
+        if (contactCard && contactCard.parentNode) {
+          const mallCard = document.createElement('div');
+          mallCard.innerHTML = mallLocationHtml;
+          contactCard.parentNode.insertBefore(mallCard.firstElementChild, contactCard.nextSibling);
+        }
+      }
+    }
+
+    // Render Mall Tenants (if business is a mall with tenants)
+    if (biz.tenants && Array.isArray(biz.tenants) && biz.tenants.length > 0) {
+      const tenantBusinesses = biz.tenants
+        .map(tenantId => window.LISTINGS.find(b => b.id === tenantId))
+        .filter(tenant => tenant !== undefined);
+      
+      if (tenantBusinesses.length > 0) {
+        const tenantsHtml = `
+          <div class="mall-tenants-card">
+            <h4 class="section-header">
+              <i class="fa-solid fa-store"></i>
+              Businesses Inside (${tenantBusinesses.length})
+            </h4>
+            <div class="tenants-list">
+              ${tenantBusinesses.map(tenant => {
+                const tenantAvatar = tenant.name.split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+                return `
+                  <a href="business-detail.html?id=${encodeURIComponent(tenant.id)}" class="tenant-item">
+                    <div class="tenant-avatar">${tenantAvatar}</div>
+                    <div class="tenant-info">
+                      <div class="tenant-name">${sanitizeHTML(tenant.name)}</div>
+                      <div class="tenant-category">${sanitizeHTML(tenant.category)}</div>
+                      <div class="tenant-rating">
+                        <span class="rating-stars">${'★'.repeat(Math.floor(tenant.rating))}</span>
+                        <span class="rating-value">${tenant.rating}</span>
+                      </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </a>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+        
+        // Insert after contact card (or after mall location if it exists)
+        const contactCard = document.getElementById('biz-contact');
+        if (contactCard && contactCard.parentNode) {
+          const tenantsCard = document.createElement('div');
+          tenantsCard.innerHTML = tenantsHtml;
+          const insertAfter = contactCard.parentNode.querySelector('.mall-location-card') || contactCard;
+          insertAfter.parentNode.insertBefore(tenantsCard.firstElementChild, insertAfter.nextSibling);
+        }
+      }
+    }
+
     // UPI Payment Bottom Sheet
     if (biz.upiId) {
       const upiPayBtn = document.getElementById('upi-pay-btn');
