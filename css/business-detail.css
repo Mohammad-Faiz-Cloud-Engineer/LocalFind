@@ -944,15 +944,17 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .badge-lgbtq {
-  background: #6366f1;
-  color: #fff;
+  background: linear-gradient(135deg, #8B5CF6 0%, #6366F1 50%, #3B82F6 100%);
+  color: #ffffff;
   text-transform: none;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
 }
 
 .badge-women-owned {
-  background: #ec4899;
-  color: #fff;
+  background: linear-gradient(135deg, #EC4899 0%, #F472B6 100%);
+  color: #ffffff;
   text-transform: none;
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.3);
 }
 
 .badge-verified {
