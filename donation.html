@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;">
+
+  <!-- PWA Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LocalFind">
+  <meta name="theme-color" content="#FF8A00">
+
+  <title>Support LocalFind — Donate to Keep Us Running</title>
+  <meta name="description" content="Support LocalFind and help us keep local businesses connected. Your donation helps us maintain a free, ad-free platform for the community.">
+  <meta name="keywords" content="donate, support, local business, community, LocalFind">
+  <link rel="canonical" href="https://mohammad-faiz-cloud-engineer.github.io/LocalFind/donation.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mohammad-faiz-cloud-engineer.github.io/LocalFind/donation.html">
+  <meta property="og:title" content="Support LocalFind — Donate">
+  <meta property="og:description" content="Help us keep local businesses connected. Your donation makes a difference.">
+  <meta property="og:image" content="https://mohammad-faiz-cloud-engineer.github.io/LocalFind/assets/images/og-image.svg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/mainlogo.svg">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/images/mainlogo.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/utilities.css">
+
+  <!-- QR Code Generator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" 
+    integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" 
+    defer></script>
+
+  <style>
+    /**
+     * Donation Page Styles
+     * Optimized and production-ready CSS
+     * @version 4.3.3
+     * @updated 2026-03-31
+     */
+
+    /* Hero Section */
+    .donation-hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .donation-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .donation-hero p {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+
+    .donation-hero .hero-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .donation-hero .hero-icon i {
+      font-size: 40px;
+      color: #0A0E17;
+    }
+
+    .donation-section {
+      padding: 40px 0;
+    }
+
+    /* UPI Payment Container */
+    .upi-payment-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: rgba(30, 39, 54, 0.4);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-2xl);
+      padding: 48px 32px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .upi-qr-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .upi-qr-frame {
+      width: 280px;
+      height: 280px;
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .upi-qr-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+
+    .impact-card {
+      background: rgba(30, 39, 54, 0.4);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .impact-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 138, 0, 0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .impact-card .icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(255, 138, 0, 0.1);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .impact-card .icon i {
+      font-size: 32px;
+      color: var(--accent-primary);
+    }
+
+    .impact-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .impact-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Why Donate Section */
+    .why-donate-section {
+      background: linear-gradient(135deg, rgba(255, 138, 0, 0.08), rgba(229, 46, 113, 0.04));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-2xl);
+      padding: 48px;
+      margin: 60px 0;
+      backdrop-filter: blur(16px);
+    }
+
+    .why-donate-section h2 {
+      text-align: center;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      margin-bottom: 32px;
+      color: var(--text-primary);
+    }
+
+    .why-list {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 20px;
+      background: rgba(30, 39, 54, 0.3);
+      border-radius: var(--radius-lg);
+      transition: all 0.3s;
+    }
+
+    .why-item:hover {
+      background: rgba(30, 39, 54, 0.5);
+      transform: translateX(8px);
+    }
+
+    .why-item .icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      background: rgba(255, 138, 0, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .why-item .icon i {
+      font-size: 24px;
+      color: var(--accent-primary);
+    }
+
+    .why-item .content h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .why-item .content p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Stats Banner - Removed (not in use) */
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .donation-hero {
+        padding: 48px 0 32px;
+      }
+
+      .donation-hero h1 {
+        font-size: 2rem;
+      }
+
+      .donation-hero .hero-icon {
+        width: 64px;
+        height: 64px;
+      }
+
+      .donation-hero .hero-icon i {
+        font-size: 32px;
+      }
+
+      .upi-payment-container {
+        padding: 32px 20px;
+      }
+
+      .upi-qr-frame {
+        width: 240px;
+        height: 240px;
+        padding: 16px;
+      }
+
+
+
+      .why-donate-section {
+        padding: 32px 20px;
+        margin: 40px 0;
+      }
+
+      .why-item {
+        padding: 16px;
+      }
+
+      .impact-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="site-header"></header>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="donation-hero">
+      <div class="hero-icon">
+        <i class="fa-solid fa-heart"></i>
+      </div>
+      <h1>Support LocalFind</h1>
+      <p>Help us keep local businesses connected and our platform free for everyone</p>
+    </section>
+
+    <!-- UPI Payment Section -->
+    <section class="donation-section">
+      <div class="upi-payment-container">
+        <h2 style="text-align: center; margin-bottom: 32px; color: var(--text-primary);">Support via UPI</h2>
+        
+        <!-- QR Code -->
+        <div class="upi-qr-wrapper">
+          <div class="upi-qr-frame" id="donation-qr-code"></div>
+        </div>
+
+        <!-- UPI ID Display -->
+        <div style="text-align: center; margin-top: 24px; padding: 16px; background: rgba(30, 39, 54, 0.4); border-radius: var(--radius-lg); border: 1px solid rgba(255, 255, 255, 0.08);">
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">UPI ID</p>
+          <p style="font-size: 18px; font-weight: 700; color: var(--accent-primary); margin: 0; font-family: monospace;">faiz2k9@fam</p>
+        </div>
+
+        <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 16px;">
+          <i class="fa-solid fa-shield-halved"></i>
+          Scan QR code with any UPI app • No payment gateway fees
+        </p>
+      </div>
+    </section>
+
+    <!-- Why Donate Section -->
+    <section class="why-donate-section">
+      <h2>Why Your Support Matters</h2>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="icon">
+            <i class="fa-solid fa-ban"></i>
+          </div>
+          <div class="content">
+            <h3>100% Free & Ad-Free</h3>
+            <p>LocalFind is completely free for businesses to list and users to browse. No ads, no hidden fees, no premium tiers.</p>
+          </div>
+        </div>
+
+        <div class="why-item">
+          <div class="icon">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="content">
+            <h3>Community-Driven</h3>
+            <p>Built by the community, for the community. Every donation goes directly into maintaining and improving the platform.</p>
+          </div>
+        </div>
+
+        <div class="why-item">
+          <div class="icon">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <div class="content">
+            <h3>Open Source</h3>
+            <p>Our code is open source and transparent. You can see exactly how your donations are helping us grow.</p>
+          </div>
+        </div>
+
+        <div class="why-item">
+          <div class="icon">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <div class="content">
+            <h3>Supporting Local Businesses</h3>
+            <p>Your donation helps small businesses get discovered, connect with customers, and thrive in the digital age.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="donation-section">
+      <h2 style="text-align: center; margin-bottom: 32px; color: var(--text-primary);">How Your Donation Helps</h2>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="icon">
+            <i class="fa-solid fa-server"></i>
+          </div>
+          <h3>Server Costs</h3>
+          <p>Keep the platform running 24/7 with reliable hosting and fast performance for everyone.</p>
+        </div>
+
+        <div class="impact-card">
+          <div class="icon">
+            <i class="fa-solid fa-rocket"></i>
+          </div>
+          <h3>New Features</h3>
+          <p>Develop new features like advanced search, business analytics, and mobile apps.</p>
+        </div>
+
+        <div class="impact-card">
+          <div class="icon">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3>Security & Maintenance</h3>
+          <p>Regular updates, security patches, and technical maintenance to keep data safe.</p>
+        </div>
+
+        <div class="impact-card">
+          <div class="icon">
+            <i class="fa-solid fa-handshake"></i>
+          </div>
+          <h3>Community Events</h3>
+          <p>Organize local business meetups, workshops, and networking events.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thank You Message -->
+    <div style="text-align: center; padding: 48px 24px; background: rgba(30, 39, 54, 0.4); border-radius: var(--radius-xl); margin: 40px 0;">
+      <i class="fa-solid fa-heart" style="font-size: 48px; color: var(--accent-primary); margin-bottom: 16px;"></i>
+      <h3 style="font-size: 24px; margin-bottom: 12px; color: var(--text-primary);">Thank You for Your Support!</h3>
+      <p style="font-size: 16px; color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+        Every contribution, no matter the size, makes a real difference in keeping LocalFind free and accessible for everyone in our community.
+      </p>
+    </div>
+
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script defer src="js/config.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/pwa.js"></script>
+  <script defer src="js/donation.js"></script>
+</body>
+
+</html>
