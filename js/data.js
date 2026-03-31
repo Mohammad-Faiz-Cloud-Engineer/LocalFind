@@ -1,7 +1,7 @@
 /**
  * Business Listings Data
  * 
- * @version 4.3.2
+ * @version 4.3.3
  * @updated 2026-03-31
  * 
  * CRITICAL PRIVACY NOTICE
@@ -1251,7 +1251,7 @@ window.LISTINGS = [
     description: "Awadh Avenue Mall is the best shopping and entertainment destination in Barabanki, located in Awas Vikas Colony. This premier mall offers a complete shopping experience with a wide variety of retail stores, fashion outlets, electronics, lifestyle brands, and dining options. The mall features DD Cinemas for the latest movies and blockbusters - book your movie tickets online through BookMyShow or District. Perfect for families, shoppers, and entertainment seekers. The mall features modern architecture, spacious interiors, and a vibrant atmosphere. Open 24 hours for your convenience. Whether you're looking for shopping, dining, movies, or entertainment, Awadh Avenue Mall is your ultimate destination in Barabanki!",
     tags: ["mall", "shopping", "entertainment", "retail", "fashion", "lifestyle", "family-destination", "dining", "brands", "barabanki", "cinema", "movies", "dd-cinemas", "multiplex"],
     isNew: true,
-    tenants: ["burger-king-awadh"]
+    tenants: ["burger-king-awadh", "v-mart-awadh-avenue"]
   },
   {
     id: "burger-king-awadh",
@@ -1287,6 +1287,42 @@ window.LISTINGS = [
     },
     description: "Burger King brings flame-grilled perfection to Awadh Avenue Mall in Barabanki. Famous for our signature Whopper, we serve delicious burgers, crispy fries, chicken items, and refreshing beverages. Every burger is flame-grilled to perfection, giving you that authentic taste you love. Located near RTO Office in Awadh Avenue Mall, we offer dine-in, takeaway, and home delivery through Swiggy and Zomato. Whether you're craving a classic Whopper, crispy chicken burger, or our famous fries, Burger King has something for everyone. Perfect for families, friends, and burger lovers. Order online or visit us at the mall. Open daily from 11 AM to 11 PM.",
     tags: ["burger-king", "burgers", "fast-food", "whopper", "restaurant", "flame-grilled", "delivery", "takeaway", "family-dining", "mall"],
+    isNew: true,
+    locatedInMall: "awadh-avenue-mall"
+  },
+  {
+    id: "v-mart-awadh-avenue",
+    name: "V-Mart",
+    category: "Fashion & Retail",
+    categorySlug: "fashion",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 0,
+    coordinates: { lat: 26.921628, lng: 81.1741961 },
+    reviews: [],
+    address: "Ground Floor, First Floor, Awadh Avenue Mall, Awas Vikas Colony, Barabanki, Uttar Pradesh 225001",
+    mapLink: "https://maps.app.goo.gl/R59VpRSfnprCTnqBA",
+    phone: "+91 74281 88433",
+    phoneName: "V-Mart",
+    email: "",
+    website: "https://stores.vmartretail.com/clothing-mart-awas-vikas-colony-barabanki-47253/home",
+    whatsapp: "",
+    disableAppointment: true,
+    hours: {
+      mon: { open: "10:00", close: "22:00" },
+      tue: { open: "10:00", close: "22:00" },
+      wed: { open: "10:00", close: "22:00" },
+      thu: { open: "10:00", close: "22:00" },
+      fri: { open: "10:00", close: "22:00" },
+      sat: { open: "10:00", close: "22:00" },
+      sun: { open: "10:00", close: "22:00" }
+    },
+    description: "V-Mart is a complete family fashion store that provides its customers true value for their money. We offer our customers a great shopping experience each time they visit V-Mart store by offering a vast range of products under one roof. Maintaining high standards in quality and design, V-Mart offers fashion garments at down-to-earth prices and over a period of time has emerged as the destination of choice for bargain hunters and the fashionable alike. Located on the Ground Floor and First Floor of Awadh Avenue Mall, we provide a wide selection of clothing, accessories, and lifestyle products for the entire family.",
+    tags: ["v-mart", "fashion", "retail", "clothing", "family-store", "apparel", "shopping", "mall", "value-fashion", "lifestyle"],
+    lgbtqFriendly: true,
+    womenOwned: true,
     isNew: true,
     locatedInMall: "awadh-avenue-mall"
   }
