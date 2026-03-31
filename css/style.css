@@ -320,9 +320,11 @@ a:hover {
 }
 
 .btn-cta:hover {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
   transform: translateY(-2px);
   box-shadow: var(--shadow-glow-hover);
   filter: brightness(1.1);
+  border-color: transparent;
 }
 
 /* Ensure button content (text + child elements) is above the gradient */
