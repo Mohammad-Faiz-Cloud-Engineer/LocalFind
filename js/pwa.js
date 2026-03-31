@@ -351,6 +351,12 @@
       // Disable pull-to-refresh completely
       document.body.style.overscrollBehaviorY = 'contain';
       
+      // Guard against multiple initialization
+      if (document.body.hasAttribute('data-pwa-enhanced')) {
+        return;
+      }
+      document.body.setAttribute('data-pwa-enhanced', 'true');
+      
       // Prevent default touch behaviors
       let lastTouchY = 0;
       let preventPullToRefresh = false;
