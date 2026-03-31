@@ -2,8 +2,8 @@
  * Form Handling - Form validation and submission
  * Handles contact forms and review submissions
  * 
- * @version 4.3.1
- * @updated 2026-03-25
+ * @version 4.3.2
+ * @updated 2026-03-31
  */
 (function() {
   'use strict';
