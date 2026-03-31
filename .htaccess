@@ -30,7 +30,7 @@
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   
   # Content Security Policy
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src https://www.openstreetmap.org;"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https://www.openstreetmap.org; object-src 'none'; base-uri 'self'; form-action 'self' https:;"
   
   # Permissions Policy
   Header always set Permissions-Policy "geolocation=(self), microphone=(), camera=()"
@@ -54,7 +54,7 @@
   ExpiresByType image/svg+xml "access plus 1 year"
   ExpiresByType image/webp "access plus 1 year"
   
-  # CSS and JavaScript - no cache for development, revalidate
+  # CSS and JavaScript - revalidate on every request
   ExpiresByType text/css "access plus 0 seconds"
   ExpiresByType application/javascript "access plus 0 seconds"
   
@@ -78,11 +78,9 @@
     Header set Expires "0"
   </FilesMatch>
   
-  # JavaScript and CSS - no cache for immediate updates
+  # JavaScript and CSS - revalidate every request (allows 304 responses)
   <FilesMatch "\.(js|css)$">
-    Header set Cache-Control "no-cache, no-store, must-revalidate"
-    Header set Pragma "no-cache"
-    Header set Expires "0"
+    Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
   
   # Service Worker and Manifest - never cache
