@@ -280,7 +280,6 @@ function initNavbar(){
 /**
  * Initialize scroll-reveal animations using IntersectionObserver.
  * Auto-adds .reveal class to key elements and triggers on scroll.
- * Supports bidirectional animations (scrolling up and down).
  */
 function initScrollReveal() {
   // Respect prefers-reduced-motion
@@ -327,31 +326,12 @@ function initScrollReveal() {
     }
   });
 
-  // Track scroll direction
-  let lastScrollY = window.scrollY;
-  let scrollDirection = 'down';
-  
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
-    lastScrollY = currentScrollY;
-  }, { passive: true });
-
-  // Create observer with bidirectional support
+  // Create observer
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Set direction class first, then add visible
-        entry.target.classList.remove('reveal-up', 'reveal-down');
-        entry.target.classList.add(`reveal-${scrollDirection}`);
-        
-        // Use requestAnimationFrame to ensure direction class is applied first
-        requestAnimationFrame(() => {
-          entry.target.classList.add('visible');
-        });
-      } else {
-        // Remove visible class when out of view (for re-animation)
-        entry.target.classList.remove('visible');
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
   }, {
