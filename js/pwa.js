@@ -195,11 +195,11 @@
             }, 2000);
           } else {
             // No waiting worker, just reload with cache bypass
-            window.location.reload(true);
+            window.location.reload();
           }
         } catch (error) {
           // Fallback to force reload with cache bypass
-          window.location.reload(true);
+          window.location.reload();
         }
       });
     }
