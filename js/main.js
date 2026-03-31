@@ -14,9 +14,27 @@
 /**
  * Render site header with navigation
  */
+
+/**
+ * Safely escape HTML characters
+ */
+function escapeHTML(str) {
+  if (typeof str !== 'string') return '';
+  return str.replace(/[&<>"']/g, function(match) {
+    const escape = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    };
+    return escape[match];
+  });
+}
+
 function renderHeader(){
   const header = document.getElementById('site-header');
-  const siteName = CONFIG.siteName.replace(/[<>]/g, '');
+  const siteName = escapeHTML(CONFIG.siteName);
   
   header.innerHTML = `
   <div class="navbar" id="navbar" role="navigation">
@@ -40,7 +58,7 @@ function renderHeader(){
       <button class="hamburger" aria-label="Toggle mobile menu"><i class="fa-solid fa-bars"></i></button>
     </div>
   </div>
-  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation menu">
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation menu" aria-hidden="true">
     <button class="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
     <nav class="mobile-links" aria-label="Mobile navigation">
       <a href="index.html">Home</a>
@@ -92,11 +110,11 @@ function renderHeader(){
  */
 function renderFooter(){
   const footer = document.getElementById('site-footer');
-  const siteName = CONFIG.siteName.replace(/[<>]/g, '');
-  const tagline = CONFIG.tagline.replace(/[<>]/g, '');
-  const address = CONFIG.contactAddress.replace(/[<>]/g, '');
-  const phone = CONFIG.contactPhone.replace(/[<>]/g, '');
-  const email = CONFIG.contactEmail.replace(/[<>]/g, '');
+  const siteName = escapeHTML(CONFIG.siteName);
+  const tagline = escapeHTML(CONFIG.tagline);
+  const address = escapeHTML(CONFIG.contactAddress);
+  const phone = escapeHTML(CONFIG.contactPhone);
+  const email = escapeHTML(CONFIG.contactEmail);
   
   footer.innerHTML = `
   <footer role="contentinfo">
@@ -110,13 +128,13 @@ function renderFooter(){
           </div>
         </div>
         <div class="socials">
-          <a href="${CONFIG.socialLinks.facebook}" aria-label="Visit our Facebook page" rel="noopener noreferrer" target="_blank">
+          <a href="${escapeHTML(CONFIG.socialLinks.facebook)}" aria-label="Visit our Facebook page" rel="noopener noreferrer" target="_blank">
             <i class="fa-brands fa-facebook" aria-hidden="true"></i>
           </a>
-          <a href="${CONFIG.socialLinks.instagram}" aria-label="Visit our Instagram profile" rel="noopener noreferrer" target="_blank">
+          <a href="${escapeHTML(CONFIG.socialLinks.instagram)}" aria-label="Visit our Instagram profile" rel="noopener noreferrer" target="_blank">
             <i class="fa-brands fa-instagram" aria-hidden="true"></i>
           </a>
-          <a href="${CONFIG.socialLinks.twitter}" aria-label="Visit our Twitter profile" rel="noopener noreferrer" target="_blank">
+          <a href="${escapeHTML(CONFIG.socialLinks.twitter)}" aria-label="Visit our Twitter profile" rel="noopener noreferrer" target="_blank">
             <i class="fa-brands fa-twitter" aria-hidden="true"></i>
           </a>
         </div>
@@ -141,7 +159,7 @@ function renderFooter(){
       <div>
         <h4>Contact</h4>
         <p>${address}</p>
-        <p><a href="${CONFIG.socialLinks.whatsapp}" target="_blank" rel="noopener noreferrer">${phone} (WhatsApp Only)</a></p>
+        <p><a href="${escapeHTML(CONFIG.socialLinks.whatsapp)}" target="_blank" rel="noopener noreferrer">${phone} (WhatsApp Only)</a></p>
         <p><a href="mailto:${email}">${email}</a></p>
       </div>
     </div>
