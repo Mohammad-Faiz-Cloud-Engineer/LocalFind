@@ -979,7 +979,7 @@ window.LISTINGS = [
     description: "Box Park International is a unique shopping and entertainment destination on NH 27 Ayodhya Highway, built entirely from repurposed shipping containers. Each container is painted in bright colors with creative designs. Inside you'll find places to eat (including KFC), shop, and hang out. The open-air design gives it a relaxed vibe perfect for families. Great for meals, shopping, or Instagram photos. Open 24/7. A popular highway landmark combining sustainable design and vibrant atmosphere!",
     tags: ["mall", "shopping", "entertainment", "food-court", "instagram", "container-mall", "sustainable", "family-destination", "highway-stop", "lifestyle"],
     isNew: true,
-    tenants: ["kfc"]
+    tenants: ["kfc-barabanki"]
   },
   {
     id: "pps-college-of-nursing",
