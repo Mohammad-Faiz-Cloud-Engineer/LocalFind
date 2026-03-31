@@ -10,6 +10,48 @@
  * Professional design system with comprehensive styling
  */
 
+/* ============================================
+   TEXT SELECTION - THEME MATCHING
+   ============================================ */
+
+::selection {
+  background: rgba(255, 138, 0, 0.3);
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: rgba(255, 138, 0, 0.3);
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+/* Enhanced selection for code blocks */
+code::selection,
+pre::selection {
+  background: rgba(255, 138, 0, 0.4);
+  color: #FFFFFF;
+}
+
+code::-moz-selection,
+pre::-moz-selection {
+  background: rgba(255, 138, 0, 0.4);
+  color: #FFFFFF;
+}
+
+/* Selection in input fields */
+input::selection,
+textarea::selection {
+  background: rgba(255, 138, 0, 0.35);
+  color: #FFFFFF;
+}
+
+input::-moz-selection,
+textarea::-moz-selection {
+  background: rgba(255, 138, 0, 0.35);
+  color: #FFFFFF;
+}
+
 :root {
   /* Color System - Professional Grade */
   --bg-primary: #0A0E17;
