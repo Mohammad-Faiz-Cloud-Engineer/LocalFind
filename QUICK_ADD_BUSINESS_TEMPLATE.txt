@@ -30,9 +30,20 @@ Featured: Yes/No
 Verified: Yes/No
 Rating: /5
 
+MALL LOCATION (skip if not in a mall):
+──────────────────────────────────────────────────────────────
+Inside a mall? Yes/No
+Which mall? 
+  - awadh-avenue-mall (Awadh Avenue Mall)
+  - box-park-international (Box Park International)
+
+If yes, use mall's coordinates and mention mall in address!
+
 FILES TO UPDATE:
 ──────────────────────────────────────────────────────────────
 ☐ js/data.js - Add business with coordinates: { lat: X, lng: Y }
+  ☐ If in mall: Add locatedInMall: "mall-id"
+  ☐ If in mall: Update mall's tenants array with your business ID
 ☐ js/config.js - Add search keywords + bump version
 ☐ index.html - Update business count
 ☐ categories.html - Update category count
@@ -44,10 +55,12 @@ VERIFY:
 ☐ Search works
 ☐ Detail page loads
 ☐ Counts match
+☐ If in mall: Mall page shows your business
+☐ If in mall: Your page shows mall location card
 
 ═══════════════════════════════════════════════════════════════
 
-EXAMPLE:
+EXAMPLE 1: Regular Business
 
 Name: Example Cafe
 Location: Main Road, Rasauli, UP 225203
@@ -72,5 +85,44 @@ Tags: cafe, coffee, snacks, food, beverages
 Featured: Yes
 Verified: Yes
 Rating: 4.5/5
+
+Inside a mall? No
+
+═══════════════════════════════════════════════════════════════
+
+EXAMPLE 2: Business Inside Mall
+
+Name: Spice Kitchen
+Location: Awadh Avenue Mall, 2nd Floor, Awas Vikas Colony, Barabanki
+Category: Restaurants & Food
+Category Slug: restaurants
+
+Phone: +91 98765 43210
+WhatsApp: +91 98765 43210
+Email: info@spicekitchen.com
+Website: https://spicekitchen.com
+
+Google Maps: https://maps.app.goo.gl/NZwU3Lk9eNZ41u9G9
+Latitude: 26.9215276  (same as mall)
+Longitude: 81.1742593  (same as mall)
+
+Hours: 11 AM - 10 PM daily
+
+Description: Authentic Indian cuisine at Awadh Avenue Mall. North Indian, 
+South Indian, and Chinese dishes. Perfect for families.
+
+Tags: restaurant, food, indian-food, mall, dining
+
+Featured: Yes
+Verified: Yes
+Rating: 4.5/5
+
+Inside a mall? Yes
+Which mall? awadh-avenue-mall
+
+MALL SETUP STEPS:
+1. Add business with: locatedInMall: "awadh-avenue-mall"
+2. Find awadh-avenue-mall entry in js/data.js
+3. Update its tenants array: tenants: ["spice-kitchen"]
 
 ═══════════════════════════════════════════════════════════════
