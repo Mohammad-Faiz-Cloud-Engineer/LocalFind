@@ -1325,6 +1325,41 @@ window.LISTINGS = [
     womenOwned: true,
     isNew: true,
     locatedInMall: "awadh-avenue-mall"
+  },
+  {
+    id: "rainbow-hospital-trauma-centre",
+    name: "Rainbow Hospital & Trauma Centre",
+    category: "Healthcare & Medical Services",
+    categorySlug: "healthcare",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 4.6,
+    reviewCount: 0,
+    coordinates: { lat: 26.9225804, lng: 81.1749074 },
+    reviews: [],
+    address: "near GAYATRI MANDIR, opposite OASIS LAWN, Preet Vihar Colony, Civil Lines, Barabanki, Uttar Pradesh 225001",
+    mapLink: "https://maps.app.goo.gl/6br2pUed34HQNENq8",
+    phone: "+91 63885 18560",
+    phoneName: "Rainbow Hospital",
+    email: "",
+    website: "",
+    bloodDonor: "https://www.friends2support.org/",
+    whatsapp: "+91 63885 18560",
+    whatsappName: "Rainbow Hospital",
+    hours: {
+      mon: { open: "00:00", close: "23:59" },
+      tue: { open: "00:00", close: "23:59" },
+      wed: { open: "00:00", close: "23:59" },
+      thu: { open: "00:00", close: "23:59" },
+      fri: { open: "00:00", close: "23:59" },
+      sat: { open: "00:00", close: "23:59" },
+      sun: { open: "00:00", close: "23:59" }
+    },
+    description: "Rainbow Hospital & Trauma Centre is a trusted healthcare facility providing comprehensive medical services 24/7 in Barabanki. Located near Gayatri Mandir, opposite Oasis Lawn in Preet Vihar Colony, Civil Lines, we offer emergency care, trauma services, general medicine, surgical procedures, diagnostic services, and patient care. Our experienced medical team of doctors, nurses, and healthcare professionals work round the clock to provide quality healthcare. We specialize in emergency treatment, accident care, trauma management, outpatient consultations, inpatient services, laboratory tests, imaging services, and pharmacy. With modern medical equipment and a commitment to patient safety, Rainbow Hospital & Trauma Centre is your reliable healthcare partner available 24 hours a day, 7 days a week.",
+    tags: ["hospital", "trauma-centre", "emergency-care", "24x7", "medical-services", "healthcare", "doctor", "clinic", "diagnostic", "laboratory", "patient-care", "surgery", "accident-care"],
+    lgbtqFriendly: true,
+    isNew: true
   }
 ];
 
