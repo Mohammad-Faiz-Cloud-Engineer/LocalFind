@@ -270,6 +270,24 @@
           currentListings.sort((a, b) => b.rating - a.rating);
         } else if (value === 'az') {
           currentListings.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (value === 'open') {
+          // Sort open businesses first based on current day/time
+          const now = new Date();
+          const dayKeys = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+          const todayKey = dayKeys[now.getDay()];
+          const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+          currentListings.sort((a, b) => {
+            const aHours = a.hours && a.hours[todayKey];
+            const bHours = b.hours && b.hours[todayKey];
+
+            const aOpen = aHours && !(aHours.open === '00:00' && aHours.close === '00:00') && isWithinHours(aHours, currentMinutes);
+            const bOpen = bHours && !(bHours.open === '00:00' && bHours.close === '00:00') && isWithinHours(bHours, currentMinutes);
+
+            if (aOpen && !bOpen) return -1;
+            if (!aOpen && bOpen) return 1;
+            return 0;
+          });
         } else if (value === 'newest') {
           currentListings = [...window.LISTINGS];
           applyQueryParams();
@@ -327,6 +345,35 @@
     }
 
     render();
+  }
+
+  /**
+   * Check if current time falls within business hours
+   * @param {Object} hours - Hours object with open/close (and optionally open2/close2 for split shifts)
+   * @param {number} currentMinutes - Current time in minutes since midnight
+   * @returns {boolean} True if currently within business hours
+   */
+  function isWithinHours(hours, currentMinutes) {
+    if (!hours || !hours.open || !hours.close) return false;
+
+    const toMinutes = (timeStr) => {
+      const [h, m] = timeStr.split(':').map(Number);
+      return h * 60 + m;
+    };
+
+    const open1 = toMinutes(hours.open);
+    const close1 = toMinutes(hours.close);
+
+    if (currentMinutes >= open1 && currentMinutes <= close1) return true;
+
+    // Check split shift
+    if (hours.open2 && hours.close2) {
+      const open2 = toMinutes(hours.open2);
+      const close2 = toMinutes(hours.close2);
+      if (currentMinutes >= open2 && currentMinutes <= close2) return true;
+    }
+
+    return false;
   }
 
   // Initialize when DOM is ready
