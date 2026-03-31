@@ -126,9 +126,51 @@
         <div class="search-inline">
           <input id="filter-search" placeholder="Search within results..." aria-label="Search within results"
             autocomplete="off" spellcheck="false">
+          <button class="search-tips-btn" id="search-tips-btn" aria-label="Search tips" title="Search tips">
+            <i class="fa-solid fa-circle-info"></i>
+          </button>
         </div>
       </div>
       <div class="results-count" id="results-count">Showing 0 of 0 businesses</div>
+      
+      <!-- Search Tips Tooltip -->
+      <div class="search-tips-tooltip" id="search-tips-tooltip" style="display: none;">
+        <div class="search-tips-header">
+          <h4><i class="fa-solid fa-lightbulb"></i> Search Tips</h4>
+          <button class="search-tips-close" id="search-tips-close" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="search-tips-content">
+          <p class="search-tips-intro">Use special commands to filter businesses:</p>
+          <div class="search-tips-list">
+            <div class="search-tip-item">
+              <code>/lgbtq+</code>
+              <span>LGBTQ+ Friendly businesses</span>
+            </div>
+            <div class="search-tip-item">
+              <code>/women-owned</code>
+              <span>Women Owned businesses</span>
+            </div>
+            <div class="search-tip-item">
+              <code>/featured</code>
+              <span>Featured businesses</span>
+            </div>
+            <div class="search-tip-item">
+              <code>/verified</code>
+              <span>Verified businesses</span>
+            </div>
+            <div class="search-tip-item">
+              <code>/new</code>
+              <span>New businesses</span>
+            </div>
+          </div>
+          <p class="search-tips-note">
+            <i class="fa-solid fa-circle-info"></i>
+            Just type the command in the search box above
+          </p>
+        </div>
+      </div>
     </section>
 
     <section id="listings" class="card-grid"></section>
