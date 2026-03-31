@@ -270,44 +270,6 @@
       });
     }
 
-    // Sort functionality
-    const sortSelect = document.getElementById('sort-select');
-    if (sortSelect) {
-      sortSelect.addEventListener('change', (e) => {
-        const value = e.target.value;
-
-        if (value === 'rating') {
-          currentListings.sort((a, b) => b.rating - a.rating);
-        } else if (value === 'az') {
-          currentListings.sort((a, b) => a.name.localeCompare(b.name));
-        } else if (value === 'open') {
-          // Sort open businesses first based on current day/time
-          const now = new Date();
-          const dayKeys = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-          const todayKey = dayKeys[now.getDay()];
-          const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-          currentListings.sort((a, b) => {
-            const aHours = a.hours && a.hours[todayKey];
-            const bHours = b.hours && b.hours[todayKey];
-
-            const aOpen = aHours && !(aHours.open === '00:00' && aHours.close === '00:00') && isWithinHours(aHours, currentMinutes);
-            const bOpen = bHours && !(bHours.open === '00:00' && bHours.close === '00:00') && isWithinHours(bHours, currentMinutes);
-
-            if (aOpen && !bOpen) return -1;
-            if (!aOpen && bOpen) return 1;
-            return 0;
-          });
-        } else if (value === 'newest') {
-          currentListings = [...window.LISTINGS];
-          applyQueryParams();
-        }
-
-        offset = 0;
-        render();
-      });
-    }
-
     // Search functionality with debounce and alias support
     const searchInput = document.getElementById('filter-search');
     if (searchInput) {
