@@ -7,12 +7,12 @@
  * - Cache Fallback: Serve cached version when offline
  * - No manual cache clearing needed: Updates happen automatically
  * 
- * @version 4.3.1
- * @updated 2026-03-25
+ * @version 4.3.2
+ * @updated 2026-03-31
  */
 
-const CACHE_VERSION = 'localfind-v4.3.1';
-const BUILD_NUMBER = '20260325b'; // YYYYMMDD format
+const CACHE_VERSION = 'localfind-v4.3.2';
+const BUILD_NUMBER = '20260331a'; // YYYYMMDD format
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
