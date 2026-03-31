@@ -146,7 +146,7 @@ function renderFooter(){
       </div>
     </div>
     <div class="container footer-bottom">
-      &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.3.2'}</span>
+      &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.3.3'}</span>
       <button id="back-to-top" class="btn" aria-label="Scroll back to top">Back to top</button>
     </div>
   </footer>
