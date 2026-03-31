@@ -364,8 +364,8 @@
       document.addEventListener('touchstart', (e) => {
         if (e.touches.length !== 1) return;
         lastTouchY = e.touches[0].clientY;
-        preventPullToRefresh = window.pageYOffset === 0;
-      }, { passive: false });
+        preventPullToRefresh = window.scrollY === 0;
+      }, { passive: true });
       
       document.addEventListener('touchmove', (e) => {
         const touchY = e.touches[0].clientY;
