@@ -171,7 +171,7 @@ async function handleImageRequest(request) {
   const fetchPromise = fetch(request)
     .then((networkResponse) => {
       if (networkResponse && networkResponse.status === 200) {
-        const cache = caches.open(IMAGE_CACHE).then((c) => {
+        caches.open(IMAGE_CACHE).then((c) => {
           c.put(request, networkResponse.clone());
         });
       }
