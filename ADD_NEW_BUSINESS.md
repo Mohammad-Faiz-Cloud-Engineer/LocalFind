@@ -38,6 +38,10 @@ Tags: [tag1, tag2, tag3]
 Featured: Yes/No
 Verified: Yes/No
 Rating: X.X/5
+
+Mall Location (if applicable):
+- Is this business inside a mall? Yes/No
+- If yes, which mall? [Mall name]
 ```
 
 ## Files to Update
@@ -80,6 +84,41 @@ Add business to `window.LISTINGS` array:
 
 **That's it for coordinates!** The map and detail pages automatically read from `business.coordinates`.
 
+### If Business is Inside a Mall
+
+When adding a business that's located inside a mall (like a restaurant in Awadh Avenue Mall), you need to link them together. It's a two-way connection:
+
+**Step 1:** Add the business with `locatedInMall` property:
+
+```javascript
+{
+  id: "restaurant-name",
+  name: "Restaurant Name",
+  // ... all the usual fields ...
+  coordinates: { lat: 26.9215276, lng: 81.1742593 }, // Use mall's coordinates
+  address: "Awadh Avenue Mall, Floor 2, Awas Vikas Colony, Barabanki",
+  // ... other fields ...
+  locatedInMall: "awadh-avenue-mall"  // ← Add this line
+}
+```
+
+**Step 2:** Update the mall's tenant list. Find the mall entry in js/data.js and add your business ID:
+
+```javascript
+{
+  id: "awadh-avenue-mall",
+  name: "Awadh Avenue Mall",
+  // ... other properties ...
+  tenants: ["restaurant-name", "other-business-id"]  // ← Add your business ID here
+}
+```
+
+That's it! Now the mall page will show your business in the tenant grid, and your business page will show "Located Inside [Mall Name]" card.
+
+**Available Malls:**
+- `awadh-avenue-mall` - Awadh Avenue Mall (coordinates: 26.9215276, 81.1742593)
+- `box-park-international` - Box Park International (coordinates: 26.9247718, 81.2498400)
+
 ### 2. js/config.js
 Add search keywords and bump version:
 
@@ -118,6 +157,8 @@ After adding:
 - [ ] Detail page loads correctly
 - [ ] All counts match
 - [ ] Mobile and desktop work
+- [ ] If in mall: Mall page shows business in tenant grid
+- [ ] If in mall: Business page shows mall location card
 
 ## Important Notes
 
@@ -126,8 +167,9 @@ After adding:
 - **Hours**: Use 24-hour format (e.g., "09:00", "18:00")
 - **Closed Days**: Use `{ open: "00:00", close: "00:00" }`
 - **Version**: Always bump version when adding businesses
+- **Mall Tenants**: Both business and mall need to reference each other
 
-## Example
+## Example: Regular Business
 
 ```javascript
 {
@@ -159,6 +201,51 @@ After adding:
   description: "Best restaurant in Rasauli serving authentic North Indian cuisine with a modern twist. Family-friendly atmosphere, great service, and delicious food.",
   tags: ["restaurant", "food", "north-indian", "dining", "takeaway"],
   isNew: true
+}
+```
+
+## Example: Business Inside Mall
+
+```javascript
+{
+  id: "spice-kitchen-awadh",
+  name: "Spice Kitchen",
+  category: "Restaurants & Food",
+  categorySlug: "restaurants",
+  featured: true,
+  verified: true,
+  status: "open",
+  rating: 4.5,
+  reviewCount: 12,
+  coordinates: { lat: 26.9215276, lng: 81.1742593 }, // Same as mall
+  address: "Awadh Avenue Mall, 2nd Floor, Awas Vikas Colony, Barabanki, UP 225001",
+  mapLink: "https://maps.app.goo.gl/NZwU3Lk9eNZ41u9G9",
+  phone: "+91 98765 43210",
+  email: "info@spicekitchen.com",
+  website: "https://spicekitchen.com",
+  whatsapp: "+91 98765 43210",
+  hours: {
+    mon: { open: "11:00", close: "22:00" },
+    tue: { open: "11:00", close: "22:00" },
+    wed: { open: "11:00", close: "22:00" },
+    thu: { open: "11:00", close: "22:00" },
+    fri: { open: "11:00", close: "22:00" },
+    sat: { open: "11:00", close: "23:00" },
+    sun: { open: "11:00", close: "23:00" }
+  },
+  description: "Spice Kitchen brings authentic Indian flavors to Awadh Avenue Mall. Located on the 2nd floor, we serve delicious North Indian, South Indian, and Chinese cuisine. Perfect for families and food lovers.",
+  tags: ["restaurant", "food", "indian-food", "mall", "dining"],
+  isNew: true,
+  locatedInMall: "awadh-avenue-mall"  // ← Links to mall
+}
+```
+
+Then update the mall:
+```javascript
+{
+  id: "awadh-avenue-mall",
+  // ... other properties ...
+  tenants: ["spice-kitchen-awadh"]  // ← Add business ID here
 }
 ```
 
