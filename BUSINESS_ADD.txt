@@ -27,10 +27,7 @@ CRITICAL - Update ALL of these files:
    - manifest.json - version field
    - sw.js - @version, CACHE_VERSION, BUILD_NUMBER
 
-☐ 6. Documentation files (if counts mentioned):
-   - MAP_FIX_REPORT.md - Update business count
-   - PRODUCTION_AUDIT_REPORT.md - Update business count
-   - URGENT_SECURITY_NOTICE.md - Update business count
+☐ 6. sw.js - Update STATIC_ASSETS list if new files added
 
 VERIFY EVERYTHING WORKS:
 ☐ Business appears on map
