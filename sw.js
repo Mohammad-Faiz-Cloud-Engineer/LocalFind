@@ -42,7 +42,7 @@ const STATIC_ASSETS = [
   `${EFFECTIVE_BASE_PATH}/css/cards.css`,
   `${EFFECTIVE_BASE_PATH}/css/categories.css`,
   `${EFFECTIVE_BASE_PATH}/css/filters.css`,
-  `${EFFECTIVE_BASE_PATH}/css/forms.css`,
+
   `${EFFECTIVE_BASE_PATH}/css/footer.css`,
   `${EFFECTIVE_BASE_PATH}/css/business-detail.css`,
   `${EFFECTIVE_BASE_PATH}/css/utilities.css`,
@@ -58,6 +58,7 @@ const STATIC_ASSETS = [
   `${EFFECTIVE_BASE_PATH}/js/pwa.js`,
   `${EFFECTIVE_BASE_PATH}/assets/images/mainlogo.svg`,
   `${EFFECTIVE_BASE_PATH}/assets/images/og-image.svg`,
+  `${EFFECTIVE_BASE_PATH}/privacy-policy.html`,
   `${EFFECTIVE_BASE_PATH}/manifest.json`
 ];
 
@@ -201,33 +202,7 @@ async function handleImageRequest(request) {
   });
 }
 
-// Background sync for offline form submissions
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'sync-business-submissions') {
-    event.waitUntil(syncBusinessSubmissions());
-  }
-});
 
-/**
- * Sync business submissions when back online
- */
-async function syncBusinessSubmissions() {
-  try {
-    // Get pending submissions from IndexedDB
-    // This would be implemented with your backend API
-
-    // Example: fetch pending submissions and POST to API
-    // const submissions = await getPendingSubmissions();
-    // for (const submission of submissions) {
-    //   await fetch('/api/business/submit', {
-    //     method: 'POST',
-    //     body: JSON.stringify(submission)
-    //   });
-    // }
-  } catch (error) {
-    throw error;
-  }
-}
 
 // Push notification support
 self.addEventListener('push', (event) => {
