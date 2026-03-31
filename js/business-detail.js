@@ -373,7 +373,8 @@
     if (biz.featured) {
       badgesHtml.push('<span class="badge badge-featured">FEATURED</span>');
     }
-    if (biz.isNew) {
+    // Use dynamic check for NEW badge
+    if (window.isBusinessNew && window.isBusinessNew(biz)) {
       badgesHtml.push('<span class="badge badge-new">NEW</span>');
     }
     if (biz.lgbtqFriendly) {
