@@ -27,9 +27,9 @@
 
   /* Text Colors - Better Contrast */
   --text-primary: #FFFFFF;
-  --text-secondary: #E4E7EB;
-  --text-muted: #9CA3AF;
-  --text-disabled: #6B7280;
+  --text-secondary: #F0F3F7;
+  --text-muted: #B8BFC8;
+  --text-disabled: #8B92A0;
 
   /* Border & Dividers */
   --border-color: rgba(255, 255, 255, 0.06);
