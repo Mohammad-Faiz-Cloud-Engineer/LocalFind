@@ -78,17 +78,46 @@
  * @returns {boolean} True if business was added within last 7 days
  */
 window.isBusinessNew = function(business) {
+  // Input validation
+  if (!business || typeof business !== 'object') {
+    return false;
+  }
+  
+  // If no addedDate, fall back to isNew property
   if (!business.addedDate) {
-    // If no addedDate, fall back to isNew property
     return business.isNew === true;
   }
   
-  const addedDate = new Date(business.addedDate);
-  const today = new Date();
-  const diffTime = Math.abs(today - addedDate);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  // Validate date format (YYYY-MM-DD)
+  if (typeof business.addedDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(business.addedDate)) {
+    console.warn('Invalid addedDate format for business:', business.id || business.name);
+    return business.isNew === true;
+  }
   
-  return diffDays <= 7;
+  try {
+    // Parse dates in UTC to avoid timezone issues
+    const addedDate = new Date(business.addedDate + 'T00:00:00Z');
+    const today = new Date();
+    
+    // Set today to start of day in UTC for consistent comparison
+    const todayUTC = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+    
+    // Check if date is valid
+    if (isNaN(addedDate.getTime())) {
+      console.warn('Invalid addedDate value for business:', business.id || business.name);
+      return business.isNew === true;
+    }
+    
+    // Calculate difference in days
+    const diffTime = todayUTC.getTime() - addedDate.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+    // Business is new if added within last 7 days (0-7 days inclusive)
+    return diffDays >= 0 && diffDays <= 7;
+  } catch (error) {
+    console.error('Error checking if business is new:', error);
+    return business.isNew === true;
+  }
 };
 
 window.LISTINGS = [
@@ -224,7 +253,7 @@ window.LISTINGS = [
     },
     description: "Affan Garments is your trusted destination for quality clothing and fashion apparel in Rasauli. Managed by Affan and Noman, we specialize in providing a diverse range of garments for men, women, and children. Our store features traditional ethnic wear, trendy casual outfits, and elegant formal attire to suit every occasion. We pride ourselves on offering quality fabrics and stylish designs at competitive prices. Whether you're shopping for daily wear, festive occasions, or special events, our extensive collection has something for everyone. Our knowledgeable staff is dedicated to helping you find the perfect outfit that matches your style and budget. Visit Affan Garments for a personalized shopping experience in the heart of Rasauli Bazar.",
     tags: ["clothing", "fashion", "garments", "ethnic-wear", "casual-wear", "formal-wear", "men-fashion", "women-fashion", "kids-clothing", "traditional-wear"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "shariq-hashmi-electric-shop",
@@ -267,7 +296,7 @@ window.LISTINGS = [
     },
     description: "Shariq Hashmi Electric Shop is your trusted electrical service provider in Rasauli, offering comprehensive solutions for residential and commercial properties. We specialize in house wiring, electrical installations, earthing systems, circuit repairs, and maintenance. Our expert team handles new setups, troubleshooting, switchboard installations, lighting fixtures, fan installations, and emergency repairs. With years of experience, we ensure safe and reliable electrical solutions using quality materials and following all safety standards. Whether you need complete rewiring or a simple repair, we deliver efficient and affordable services with excellent customer care.",
     tags: ["electrician", "electrical-services", "house-wiring", "earthing", "electrical-repair", "circuit-repair", "electrical-installation", "maintenance", "emergency-service"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "hind-pharmacy",
@@ -301,7 +330,7 @@ window.LISTINGS = [
     },
     description: "Hind Pharmacy is your trusted healthcare partner in Rasauli, managed by Anas. We stock prescription medications, over-the-counter medicines, health supplements, vitamins, and wellness products. Our experienced pharmacists provide expert consultation on medication usage, dosage, and drug interactions. We offer prescription filling, medicine home delivery, health check-ups, and medical equipment sales. All medicines are sourced from authorized distributors with strict quality standards. We also provide first-aid supplies, baby care, personal care, and diabetic care products. Contact Anas for accurate dispensing, competitive pricing, and friendly service for all your healthcare needs.",
     tags: ["pharmacy", "medicines", "healthcare", "prescription", "medical-store", "health-supplements", "wellness", "first-aid", "medical-equipment"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "abdul-hospital",
@@ -347,7 +376,7 @@ window.LISTINGS = [
     },
     description: "Abdul Hospital is a trusted 24/7 healthcare facility in Rasauli. We provide emergency care, general medicine, diagnostic services, and treatment for various conditions. Our experienced doctors, nurses, and staff offer emergency treatment, outpatient consultations, minor surgeries, lab tests, X-ray, pharmacy, and patient admission. We treat common illnesses, injuries, fever, infections, and provide maternal and child healthcare. Available round the clock for all your healthcare needs.",
     tags: ["hospital", "emergency-care", "24x7", "medical-services", "healthcare", "doctor", "clinic", "diagnostic", "laboratory", "patient-care"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "rajju-pankaj-sweets",
@@ -390,7 +419,7 @@ window.LISTINGS = [
     },
     description: "Rajju/Pankaj Sweets is the premier destination for authentic Indian sweets in Rasauli. We specialize in traditional sweets, premium ice creams, savory namkeen, custom cakes, and beverages. Each item is crafted with care for authentic flavors and freshness. Known throughout Rasauli for delicious taste and quality. Perfect for celebrations, gifts, or treating yourself. Visit us for the best sweets, ice cream, namkeen, and cakes in Rasauli.",
     tags: ["sweets", "ice-cream", "namkeen", "cakes", "desserts", "beverages", "indian-sweets", "confectionery", "snacks", "celebration-cakes"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "friend-fitness-gym",
@@ -433,7 +462,7 @@ window.LISTINGS = [
     },
     description: "Friends Fitness GYM is Rasauli's premier fitness center managed by Dileep Rawat. We offer modern strength training equipment, cardio machines, functional training areas, and stretching spaces. Services include personalized workout plans, professional guidance, weight loss programs, and muscle building training. Two shifts: early morning (4-7 AM) and evening (6-10 PM). Closed Sundays. Join us today!",
     tags: ["gym", "fitness", "workout", "weight-training", "cardio", "health", "bodybuilding", "exercise", "fitness-center", "personal-training"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "golden-csc",
@@ -474,7 +503,7 @@ window.LISTINGS = [
     },
     description: "Golden CSC (Common Service Center) provides government and digital services in Rasauli including Aadhaar card services, PAN card applications, government certificates (income, caste, domicile), birth and death certificates, and documentation services. We handle bill payments, digital transactions, online form submissions, banking services, insurance applications, and e-governance services. We serve the community with both routine and complex cases that may require additional coordination. Visit us for your government documentation needs.",
     tags: ["csc", "common-service-center", "aadhaar", "pan-card", "government-services", "certificates", "digital-services", "e-governance", "documentation", "bill-payment"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "om-dhaba",
@@ -507,7 +536,7 @@ window.LISTINGS = [
     },
     description: "Om Dhaba serves delicious home-style food 24/7. We specialize in traditional North Indian cuisine with genuine 'ghar jaisa swaad'. Menu features fresh rotis, parathas, dal, sabzi, rice, and dhaba favorites. Known for generous portions, affordable prices, and authentic flavors. High hygiene standards with fresh ingredients. Perfect for travelers and anyone seeking authentic dhaba food anytime!",
     tags: ["dhaba", "restaurant", "food", "north-indian", "24x7", "roadside-food", "home-style", "traditional-food", "roti", "paratha", "dal", "sabzi"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "hala-motors",
@@ -551,7 +580,7 @@ window.LISTINGS = [
     },
     description: "Hala Motors is Rasauli's premier vehicle repair center with skilled mechanics. We specialize in comprehensive repairs, maintenance, engine diagnostics, brake services, suspension, electrical work, and servicing for two-wheelers and four-wheelers. Services include oil changes, tire services, battery replacement, AC repair, denting and painting. We use genuine parts with transparent pricing and timely completion. Open Monday to Saturday, 9 AM to 5 PM.",
     tags: ["vehicle-repair", "car-service", "bike-service", "mechanic", "auto-repair", "garage", "maintenance", "two-wheeler", "four-wheeler", "engine-repair", "brake-service"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "chandra-shekhar-azad-inter-college",
@@ -607,7 +636,7 @@ window.LISTINGS = [
     },
     description: "Chandra Shekhar Azad Inter College is a recognized UP Board institution offering Hindi and English Medium education from Nursery to Class 10th. For 11th-12th, we're associated with Jay Hind Inter College Barabanki. Curriculum follows UP Board syllabus with dedicated faculty. Facilities include classrooms, library, and basic infrastructure. Admissions open for Nursery to 10th. Open Monday to Saturday, 9 AM to 5 PM.",
     tags: ["school", "education", "up-board", "hindi-medium", "english-medium", "nursery", "primary-school", "high-school", "inter-college", "coaching", "classes"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "shri-shyam-medicals",
@@ -645,7 +674,7 @@ window.LISTINGS = [
     },
     description: "Shri Shyam Medicals is your trusted pharmacy near Pankaj Sweets. We stock prescription medications, OTC medicines, health supplements, vitamins, and wellness products from reputed brands. Services include prescription filling, home delivery, health monitoring devices, first-aid supplies, baby care, and diabetic care products. Open daily 9 AM to 9 PM.",
     tags: ["pharmacy", "medical-store", "medicines", "healthcare", "prescription", "health-supplements", "wellness", "first-aid", "baby-care", "diabetic-care"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "satyam-footwear",
@@ -678,7 +707,7 @@ window.LISTINGS = [
     },
     description: "Satyam Footwear offers quality footwear near Pankaj Sweets. Managed by Satyam Prajapati, we have a wide variety for men, women, and children including formal shoes, casual footwear, sports shoes, sandals, slippers, and traditional footwear. We stock trusted brands and affordable options with competitive pricing. Open daily 9 AM to 8 PM.",
     tags: ["footwear", "shoes", "sandals", "slippers", "sports-shoes", "formal-shoes", "casual-footwear", "fashion", "men-shoes", "women-shoes", "kids-shoes"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "khidmat-enterprises",
@@ -735,7 +764,7 @@ window.LISTINGS = [
     },
     description: "Khidmat Enterprises is Rasauli's premier custom furniture manufacturer. Led by Faizal, Asjad, and Akhlad, we create high-quality, handcrafted furniture tailored to your specifications including beds, sofas, wardrobes, dining tables, and more. We specialize in custom projects from scratch based on your vision and budget. Services include design consultation, 3D visualization, manufacturing, finishing, and installation. We work with solid wood, plywood, MDF, and engineered wood. Timely delivery and transparent pricing. Open daily 9 AM to 6 PM.",
     tags: ["furniture", "custom-furniture", "beds", "sofas", "dressing-tables", "wardrobes", "home-decor", "interior-design", "woodwork", "carpentry", "custom-design"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "rasauli-hardware",
@@ -778,7 +807,7 @@ window.LISTINGS = [
     },
     description: "Rasauli Hardware is your trusted shop for hardware and building materials near the Over-Bridge. Managed by Noor Alam, we provide premium quality products including wooden doors, plywood, building hardware, sanitary fixtures, kitchen fittings, electrical items, plumbing materials, paints, tools, locks, and door fittings. We stock only A1 grade materials from reputed manufacturers. Expert consultation, competitive pricing, and reliable delivery. Open daily 9:30 AM to 6 PM.",
     tags: ["hardware", "building-materials", "wooden-doors", "plywood", "construction", "tools", "paints", "plumbing", "electrical", "home-improvement", "renovation"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "kartik-medical-store",
@@ -812,7 +841,7 @@ window.LISTINGS = [
     },
     description: "Kartik Medical Store is your reliable pharmacy at Shop No 02, Bazzar Road. We stock prescription medications, OTC medicines, health supplements, vitamins, and wellness products from trusted brands. Services include prescription filling, home delivery, health monitoring devices, first-aid supplies, baby care, diabetic care, and medical equipment. Open 9:30 AM to 10 PM daily. Strict quality standards and competitive pricing.",
     tags: ["pharmacy", "medical-store", "medicines", "healthcare", "prescription", "health-supplements", "wellness", "first-aid", "baby-care", "diabetic-care"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "suraj-kumar-clothing-store",
@@ -845,7 +874,7 @@ window.LISTINGS = [
     },
     description: "Suraj Kumar Clothing Store offers fashionable and affordable clothing in Rasauli Bazar for men, women, and children. Our range includes ethnic wear, casual wear, formal wear, seasonal collections, kids' clothing, fusion wear, and party wear. Quality fabrics, good stitching, and stylish designs at competitive prices. Friendly staff helps you find the perfect outfit. Open daily 9 AM to 8 PM.",
     tags: ["clothing", "fashion", "garments", "ethnic-wear", "casual-wear", "formal-wear", "kids-clothing", "traditional-wear", "party-wear", "apparel"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "janta-clinic",
@@ -879,7 +908,7 @@ window.LISTINGS = [
     },
     description: "Janta Clinic is a trusted healthcare facility led by Dr. Dharmendra. We provide accessible and affordable healthcare including general medicine, preventive care, treatment for common illnesses, minor injury care, BP and diabetes management, respiratory treatment, pediatric care, women's health, vaccination, and specialist referrals. Basic diagnostic facilities in a clean environment. Affordable consultation fees. Open daily 9 AM to 8 PM.",
     tags: ["clinic", "healthcare", "doctor", "medical-services", "general-medicine", "consultation", "health-checkup", "treatment", "patient-care", "family-doctor"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "sk-tent-light-house",
@@ -933,7 +962,7 @@ window.LISTINGS = [
     tags: ["tent-house", "event-services", "wedding-decoration", "lighting", "party-rentals", "event-planning", "shamianas", "stage-decoration", "catering-equipment", "celebration"],
     upiId: "7007126025@naviaxis",
     upiName: "SK Tent & Light House",
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "kfc-barabanki",
@@ -966,7 +995,7 @@ window.LISTINGS = [
     },
     description: "KFC brings world-famous fried chicken to Barabanki at Box Park International on NH 27. Our menu features Original Recipe Chicken, Hot & Crispy Chicken, Zinger Burgers, Chicken Buckets, Popcorn Chicken, Wings, Rice Bowls, Wraps, and sides including Fries, Coleslaw, and Mashed Potatoes. Dine in, take away, or order online through Swiggy. Comfortable seating and family-friendly atmosphere. Open daily 11 AM to 11 PM.",
     tags: ["kfc", "fast-food", "fried-chicken", "burgers", "restaurant", "chicken", "zinger", "delivery", "takeaway", "family-dining"],
-    isNew: true,
+    addedDate: "2026-03-15",
     locatedInMall: "box-park-international"
   },
   {
@@ -998,7 +1027,7 @@ window.LISTINGS = [
     },
     description: "Box Park International is a unique shopping and entertainment destination on NH 27 Ayodhya Highway, built entirely from repurposed shipping containers. Each container is painted in bright colors with creative designs. Inside you'll find places to eat (including KFC), shop, and hang out. The open-air design gives it a relaxed vibe perfect for families. Great for meals, shopping, or Instagram photos. Open 24/7. A popular highway landmark combining sustainable design and vibrant atmosphere!",
     tags: ["mall", "shopping", "entertainment", "food-court", "instagram", "container-mall", "sustainable", "family-destination", "highway-stop", "lifestyle"],
-    isNew: true,
+    addedDate: "2026-03-15",
     tenants: ["kfc-barabanki"]
   },
   {
@@ -1032,7 +1061,7 @@ window.LISTINGS = [
     },
     description: "PPS College of Nursing is a premier nursing education institution on NH 27 in Sursanda, Barabanki. We offer GNM, ANM, and B.Sc. Nursing programs with practical clinical experience. Campus features modern classrooms, laboratories, simulation labs, and library. Affiliations with reputed hospitals for clinical rotations. Experienced faculty of qualified nursing professionals. Curriculum meets national standards. Holistic development with academic excellence and career guidance. Placement assistance available. Contact Amit Singh for admissions. Open Monday to Sunday, 9 AM to 4 PM.",
     tags: ["nursing-college", "education", "healthcare-education", "gnm", "anm", "bsc-nursing", "medical-education", "nursing-course", "career", "healthcare"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "maxwell-hospital",
@@ -1066,7 +1095,7 @@ window.LISTINGS = [
     },
     description: "Maxwell Hospital is a trusted private healthcare facility in Sursanda, Barabanki, operating 24/7. Services include emergency care, general medicine, surgical procedures, diagnostic services, lab tests, X-ray, pharmacy, and patient admission. Experienced doctors, nurses, and staff work round the clock. We treat common illnesses, chronic diseases, injuries, infections, and provide maternal and child healthcare. Modern medical equipment with high hygiene standards. Outpatient consultations, hospitalization, complete lab tests, and in-house pharmacy. Affordable healthcare with transparent pricing. Contact Amit Singh. Available 24/7.",
     tags: ["hospital", "healthcare", "emergency-care", "24x7", "medical-services", "doctor", "clinic", "diagnostic", "laboratory", "patient-care", "surgery"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "saraswati-studio-makole",
@@ -1109,7 +1138,7 @@ window.LISTINGS = [
     },
     description: "Saraswati Studio is your premier destination for professional photography and videography in Rasauli. We specialize in capturing precious moments with creativity and expertise. Services include wedding photography and videography, event photography, professional photo shoots, video production, and cup printing services for personalized mugs. Equipped with modern cameras, lighting, and editing software. We work closely with you to understand your vision and deliver exceptional results. Professional behavior, punctuality, and flexible packages. Open daily 10 AM to 8 PM.",
     tags: ["photography", "videography", "studio", "wedding-photography", "photo-shoot", "video-production", "event-photography", "cup-printing", "printing", "portraits", "commercial-photography"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "jamwant-mobile-shop",
@@ -1142,7 +1171,7 @@ window.LISTINGS = [
     },
     description: "Jamwant Mobile Shop is your trusted destination for mobile phone needs in Rasauli on Rasauli Bazar Road. Managed by Jamwant Singh, we offer professional mobile repair for all brands including screen replacement, battery replacement, charging port repair, software issues, and water damage repair. We sell mobile phones from budget to premium smartphones. Extensive accessories include phone cases, tempered glass, charging cables, power banks, earphones, TWS earbuds, neckband headphones, Bluetooth speakers, mobile holders, memory cards, and more. Expert advice, warranty support, genuine products, and fair pricing. Open daily 10 AM to 8 PM.",
     tags: ["mobile-shop", "phone-repair", "mobile-accessories", "smartphones", "earphones", "tws", "neckband", "headphones", "phone-cases", "screen-protector", "chargers", "electronics"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "sanskar-medical-store",
@@ -1188,7 +1217,7 @@ window.LISTINGS = [
     tags: ["pharmacy", "medical-store", "medicines", "healthcare", "prescription", "health-supplements", "wellness", "first-aid", "baby-care", "diabetic-care", "premium-medicines"],
     upiId: "Q106573417@ybl",
     upiName: "Arjun Gupta",
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "shri-shyam-fast-foods",
@@ -1235,7 +1264,7 @@ window.LISTINGS = [
     },
     description: "Shri Shyam Fast Foods is the best fast food destination in Rasauli, located near Sanskar Medical Store on Rasauli Bazar. Managed by Jatin Gupta, we specialize in delicious and affordable fast food favorites. Our menu features mouth-watering momos (steamed and fried), crispy spring rolls, flavorful fried rice, juicy burgers, golden finger chips, tasty chowmein, aloo patties, and creamy macaroni. We use fresh ingredients and maintain high hygiene standards. Perfect for quick bites, snacks, or takeaway meals. Popular among students, families, and food lovers. Open daily from 10 AM to 8 PM. Visit us for great taste and excellent service!",
     tags: ["fast-food", "momos", "spring-roll", "fried-rice", "burger", "chowmein", "snacks", "street-food", "takeaway", "finger-chips", "aloo-patty", "macaroni"],
-    isNew: true
+    addedDate: "2026-03-15"
   },
   {
     id: "awadh-avenue-mall",
@@ -1307,7 +1336,7 @@ window.LISTINGS = [
     },
     description: "Burger King brings flame-grilled perfection to Awadh Avenue Mall in Barabanki. Famous for our signature Whopper, we serve delicious burgers, crispy fries, chicken items, and refreshing beverages. Every burger is flame-grilled to perfection, giving you that authentic taste you love. Located near RTO Office in Awadh Avenue Mall, we offer dine-in, takeaway, and home delivery through Swiggy and Zomato. Whether you're craving a classic Whopper, crispy chicken burger, or our famous fries, Burger King has something for everyone. Perfect for families, friends, and burger lovers. Order online or visit us at the mall. Open daily from 11 AM to 11 PM.",
     tags: ["burger-king", "burgers", "fast-food", "whopper", "restaurant", "flame-grilled", "delivery", "takeaway", "family-dining", "mall"],
-    isNew: true,
+    addedDate: "2026-03-15",
     locatedInMall: "awadh-avenue-mall"
   },
   {
