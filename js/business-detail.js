@@ -744,7 +744,13 @@
       ${biz.onlineOrder ? `
         <div class="contact-item">
           <i class="fa-solid fa-shopping-bag"></i>
-          <a href="${sanitizeHTML(biz.onlineOrder)}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-color); font-weight: 600;">Order Online</a>
+          <a href="${sanitizeHTML(biz.onlineOrder)}" target="_blank" rel="noopener noreferrer" style="color: #FC8019; font-weight: 600;">Order on Swiggy</a>
+        </div>
+      ` : ''}
+      ${biz.zomato ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-utensils"></i>
+          <a href="${sanitizeHTML(biz.zomato)}" target="_blank" rel="noopener noreferrer" style="color: #E23744; font-weight: 600;">Order on Zomato</a>
         </div>
       ` : ''}
       ${biz.instagram ? `
