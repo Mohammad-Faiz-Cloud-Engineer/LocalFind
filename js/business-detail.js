@@ -1709,7 +1709,7 @@
         timeDisplay.innerHTML = `
           <div class="selected-time-badge">
             <i class="fa-solid fa-clock"></i>
-            <span>Selected Time: <strong>${formattedTime}</strong></span>
+            <span>Selected Time: <strong>${sanitizeHTML(formattedTime)}</strong></span>
           </div>
         `;
       }
