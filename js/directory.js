@@ -341,35 +341,6 @@
     render();
   }
 
-  /**
-   * Check if current time falls within business hours
-   * @param {Object} hours - Hours object with open/close (and optionally open2/close2 for split shifts)
-   * @param {number} currentMinutes - Current time in minutes since midnight
-   * @returns {boolean} True if currently within business hours
-   */
-  function isWithinHours(hours, currentMinutes) {
-    if (!hours || !hours.open || !hours.close) return false;
-
-    const toMinutes = (timeStr) => {
-      const [h, m] = timeStr.split(':').map(Number);
-      return h * 60 + m;
-    };
-
-    const open1 = toMinutes(hours.open);
-    const close1 = toMinutes(hours.close);
-
-    if (currentMinutes >= open1 && currentMinutes <= close1) return true;
-
-    // Check split shift
-    if (hours.open2 && hours.close2) {
-      const open2 = toMinutes(hours.open2);
-      const close2 = toMinutes(hours.close2);
-      if (currentMinutes >= open2 && currentMinutes <= close2) return true;
-    }
-
-    return false;
-  }
-
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
@@ -378,4 +349,3 @@
     init();
   }
 })();
-
