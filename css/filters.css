@@ -294,6 +294,7 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 138, 0, 0.1) inset;
   z-index: 1001;
   animation: tooltipSlideIn 0.3s ease;
+  overflow: hidden;
 }
 
 @keyframes tooltipSlideIn {
@@ -314,6 +315,7 @@
   padding: 16px 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: linear-gradient(135deg, rgba(255, 138, 0, 0.08), rgba(229, 46, 113, 0.04));
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
 
 .search-tips-header h4 {
