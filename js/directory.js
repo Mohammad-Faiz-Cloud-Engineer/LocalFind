@@ -26,6 +26,11 @@
     
     const trimmed = query.trim().toLowerCase();
     
+    // Prevent excessively long queries (DoS protection)
+    if (trimmed.length > 200) {
+      return null;
+    }
+    
     // Special commands start with /
     if (!trimmed.startsWith('/') || trimmed.length < 2) {
       return null;
@@ -34,10 +39,15 @@
     // Split by space to check for combined filter + search
     const parts = trimmed.split(/\s+/);
     const commandPart = parts[0].substring(1); // Remove the /
-    const searchPart = parts.slice(1).join(' '); // Rest is search query
+    const searchPart = parts.slice(1).join(' ').substring(0, 100); // Limit search part length
     
     // Sanitize command - only allow alphanumeric, hyphens, and +
     if (!/^[a-z0-9\-+]+$/.test(commandPart)) {
+      return null;
+    }
+    
+    // Limit command length
+    if (commandPart.length > 20) {
       return null;
     }
     
@@ -71,28 +81,40 @@
    * @returns {Array} Array of search terms including aliases
    */
   function expandSearchQuery(query) {
+    // Input validation
+    if (!query || typeof query !== 'string') {
+      return [];
+    }
+    
     const queryLower = query.toLowerCase().trim();
+    
+    // Prevent excessively long queries (DoS protection)
+    if (queryLower.length > 100) {
+      return [queryLower.substring(0, 100)];
+    }
+    
     const searchTerms = [queryLower];
 
     // Check if CONFIG and searchAliases exist
-    if (window.CONFIG && window.CONFIG.searchAliases) {
+    if (window.CONFIG && window.CONFIG.searchAliases && typeof window.CONFIG.searchAliases === 'object') {
       // Check if query matches any alias key
-      if (window.CONFIG.searchAliases[queryLower]) {
+      if (Array.isArray(window.CONFIG.searchAliases[queryLower])) {
         searchTerms.push(...window.CONFIG.searchAliases[queryLower]);
       }
 
       // Check if query is part of any alias value (reverse lookup)
       Object.keys(window.CONFIG.searchAliases).forEach(key => {
         const aliases = window.CONFIG.searchAliases[key];
-        if (aliases.some(alias => alias.includes(queryLower))) {
+        if (Array.isArray(aliases) && aliases.some(alias => alias.includes(queryLower))) {
           searchTerms.push(key);
           searchTerms.push(...aliases);
         }
       });
     }
 
-    // Remove duplicates
-    return [...new Set(searchTerms)];
+    // Remove duplicates and limit total terms (performance optimization)
+    const uniqueTerms = [...new Set(searchTerms)];
+    return uniqueTerms.slice(0, 20); // Limit to 20 terms max
   }
 
   /**
@@ -104,14 +126,27 @@
    * @returns {number} Relevance score
    */
   function calculateRelevance(business, searchTerms, originalQuery) {
+    // Input validation
+    if (!business || typeof business !== 'object') {
+      return 0;
+    }
+    
+    if (!Array.isArray(searchTerms) || searchTerms.length === 0) {
+      return 0;
+    }
+    
+    if (!originalQuery || typeof originalQuery !== 'string') {
+      return 0;
+    }
+    
     let score = 0;
     const queryLower = originalQuery.toLowerCase();
     const queryNormalized = normalizeText(originalQuery);
-    const nameLower = business.name.toLowerCase();
-    const nameNormalized = normalizeText(business.name);
-    const categoryLower = business.category.toLowerCase();
-    const categoryNormalized = normalizeText(business.category);
-    const descLower = business.description.toLowerCase();
+    const nameLower = (business.name || '').toLowerCase();
+    const nameNormalized = normalizeText(business.name || '');
+    const categoryLower = (business.category || '').toLowerCase();
+    const categoryNormalized = normalizeText(business.category || '');
+    const descLower = (business.description || '').toLowerCase();
 
     // Exact name match (highest priority)
     if (nameLower === queryLower || nameNormalized === queryNormalized) {
@@ -141,12 +176,14 @@
     // Tags exact match
     if (Array.isArray(business.tags)) {
       business.tags.forEach(tag => {
-        const tagLower = tag.toLowerCase();
-        const tagNormalized = normalizeText(tag);
-        if (tagLower === queryLower || tagNormalized === queryNormalized) {
-          score += 100;
-        } else if (tagLower.includes(queryLower) || tagNormalized.includes(queryNormalized)) {
-          score += 50;
+        if (typeof tag === 'string') {
+          const tagLower = tag.toLowerCase();
+          const tagNormalized = normalizeText(tag);
+          if (tagLower === queryLower || tagNormalized === queryNormalized) {
+            score += 100;
+          } else if (tagLower.includes(queryLower) || tagNormalized.includes(queryNormalized)) {
+            score += 50;
+          }
         }
       });
     }
@@ -157,11 +194,13 @@
     }
 
     // Boost for featured/verified businesses
-    if (business.featured) score += 5;
-    if (business.verified) score += 5;
+    if (business.featured === true) score += 5;
+    if (business.verified === true) score += 5;
 
-    // Boost for higher ratings
-    score += business.rating * 2;
+    // Boost for higher ratings (with validation)
+    if (typeof business.rating === 'number' && business.rating >= 0 && business.rating <= 5) {
+      score += business.rating * 2;
+    }
 
     return score;
   }
@@ -185,11 +224,22 @@
    * @returns {boolean} True if any term matches
    */
   function matchesSearchTerms(text, searchTerms) {
-    if (!text) return false;
+    // Input validation
+    if (!text || typeof text !== 'string') {
+      return false;
+    }
+    
+    if (!Array.isArray(searchTerms) || searchTerms.length === 0) {
+      return false;
+    }
+    
     const textLower = text.toLowerCase();
     const textNormalized = normalizeText(text);
     
     return searchTerms.some(term => {
+      if (typeof term !== 'string') {
+        return false;
+      }
       const termNormalized = normalizeText(term);
       // Match both original and normalized versions
       return textLower.includes(term) || textNormalized.includes(termNormalized);
@@ -199,10 +249,18 @@
   /**
    * Find malls that contain businesses matching the search
    * @param {Array} searchTerms - Array of search terms
-   * @param {string} originalQuery - Original search query
    * @returns {Array} Array of mall businesses
    */
-  function findMallsWithMatchingTenants(searchTerms, originalQuery) {
+  function findMallsWithMatchingTenants(searchTerms) {
+    // Input validation
+    if (!Array.isArray(searchTerms) || searchTerms.length === 0) {
+      return [];
+    }
+    
+    if (!window.LISTINGS || !Array.isArray(window.LISTINGS)) {
+      return [];
+    }
+    
     const matchingMalls = [];
     
     // Find all businesses that match the search
@@ -213,6 +271,11 @@
         (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
       )
       .map(b => b.id);
+    
+    // Early return if no matches
+    if (matchingBusinessIds.length === 0) {
+      return [];
+    }
     
     // Find malls that have these businesses as tenants
     window.LISTINGS.forEach(business => {
@@ -294,7 +357,7 @@
         );
         
         // Find malls that contain matching businesses
-        const mallsWithTenants = findMallsWithMatchingTenants(searchTerms, search);
+        const mallsWithTenants = findMallsWithMatchingTenants(searchTerms);
         
         // Combine results (remove duplicates)
         const combinedResults = [...directMatches];
@@ -502,7 +565,7 @@
               );
               
               // Find malls that contain matching businesses
-              const mallsWithTenants = findMallsWithMatchingTenants(searchTerms, query);
+              const mallsWithTenants = findMallsWithMatchingTenants(searchTerms);
               
               // Combine results (remove duplicates)
               currentListings = [...directMatches];
