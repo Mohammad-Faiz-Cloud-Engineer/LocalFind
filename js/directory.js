@@ -481,20 +481,6 @@
         });
       });
 
-      // Click on example to insert combined command
-      const exampleItems = searchTipsTooltip.querySelectorAll('.search-tip-example');
-      exampleItems.forEach(item => {
-        item.addEventListener('click', () => {
-          const code = item.querySelector('code');
-          if (code && searchInput) {
-            searchInput.value = code.textContent;
-            searchInput.dispatchEvent(new Event('input'));
-            searchInput.focus();
-            searchTipsTooltip.style.display = 'none';
-          }
-        });
-      });
-
       // Close tooltip when clicking outside
       document.addEventListener('click', (e) => {
         if (!searchTipsTooltip.contains(e.target) && e.target !== searchTipsBtn) {
