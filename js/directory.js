@@ -14,6 +14,7 @@
 
   /**
    * Check for special search commands (e.g., /lgbtq+, /women-owned)
+   * Now supports combined filters like "/lgbtq+ hospital"
    * @param {string} query - Search query
    * @returns {Object|null} Filter object or null if not a special command
    */
@@ -30,10 +31,13 @@
       return null;
     }
     
-    const command = trimmed.substring(1); // Remove the /
+    // Split by space to check for combined filter + search
+    const parts = trimmed.split(/\s+/);
+    const commandPart = parts[0].substring(1); // Remove the /
+    const searchPart = parts.slice(1).join(' '); // Rest is search query
     
     // Sanitize command - only allow alphanumeric, hyphens, and +
-    if (!/^[a-z0-9\-+]+$/.test(command)) {
+    if (!/^[a-z0-9\-+]+$/.test(commandPart)) {
       return null;
     }
     
@@ -48,7 +52,17 @@
       'new': Object.freeze({ property: 'isNew', value: true, label: 'New Businesses' })
     });
     
-    return commandMap[command] || null;
+    const command = commandMap[commandPart];
+    
+    if (!command) {
+      return null;
+    }
+    
+    // Return command with optional search query
+    return {
+      ...command,
+      searchQuery: searchPart || null
+    };
   }
 
   /**
@@ -235,13 +249,32 @@
       
       if (specialCommand) {
         // Filter by special property
-        currentListings = window.LISTINGS.filter(b => {
+        let filtered = window.LISTINGS.filter(b => {
           if (specialCommand.property === 'isNew') {
-            // Use the isBusinessNew function if available
             return window.isBusinessNew && window.isBusinessNew(b);
           }
           return b[specialCommand.property] === specialCommand.value;
         });
+        
+        // If there's an additional search query, filter further
+        if (specialCommand.searchQuery) {
+          const searchTerms = expandSearchQuery(specialCommand.searchQuery);
+          filtered = filtered.filter(b =>
+            matchesSearchTerms(b.name, searchTerms) ||
+            matchesSearchTerms(b.description, searchTerms) ||
+            matchesSearchTerms(b.category, searchTerms) ||
+            (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
+          );
+          
+          // Sort by relevance
+          filtered.sort((a, b) => {
+            const scoreA = calculateRelevance(a, searchTerms, specialCommand.searchQuery);
+            const scoreB = calculateRelevance(b, searchTerms, specialCommand.searchQuery);
+            return scoreB - scoreA;
+          });
+        }
+        
+        currentListings = filtered;
         
         // Update results count to show what filter is active
         const resultsCount = document.getElementById('results-count');
@@ -385,6 +418,20 @@
         });
       });
 
+      // Click on example to insert combined command
+      const exampleItems = searchTipsTooltip.querySelectorAll('.search-tip-example');
+      exampleItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const code = item.querySelector('code');
+          if (code && searchInput) {
+            searchInput.value = code.textContent;
+            searchInput.dispatchEvent(new Event('input'));
+            searchInput.focus();
+            searchTipsTooltip.style.display = 'none';
+          }
+        });
+      });
+
       // Close tooltip when clicking outside
       document.addEventListener('click', (e) => {
         if (!searchTipsTooltip.contains(e.target) && e.target !== searchTipsBtn) {
@@ -416,12 +463,32 @@
             
             if (specialCommand) {
               // Filter by special property
-              currentListings = window.LISTINGS.filter(b => {
+              let filtered = window.LISTINGS.filter(b => {
                 if (specialCommand.property === 'isNew') {
                   return window.isBusinessNew && window.isBusinessNew(b);
                 }
                 return b[specialCommand.property] === specialCommand.value;
               });
+              
+              // If there's an additional search query, filter further
+              if (specialCommand.searchQuery) {
+                const searchTerms = expandSearchQuery(specialCommand.searchQuery);
+                filtered = filtered.filter(b =>
+                  matchesSearchTerms(b.name, searchTerms) ||
+                  matchesSearchTerms(b.description, searchTerms) ||
+                  matchesSearchTerms(b.category, searchTerms) ||
+                  (Array.isArray(b.tags) && b.tags.some(t => matchesSearchTerms(t, searchTerms)))
+                );
+                
+                // Sort by relevance
+                filtered.sort((a, b) => {
+                  const scoreA = calculateRelevance(a, searchTerms, specialCommand.searchQuery);
+                  const scoreB = calculateRelevance(b, searchTerms, specialCommand.searchQuery);
+                  return scoreB - scoreA;
+                });
+              }
+              
+              currentListings = filtered;
             } else {
               // Normal search
               const searchTerms = expandSearchQuery(query);
