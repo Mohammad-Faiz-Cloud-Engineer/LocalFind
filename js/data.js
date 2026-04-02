@@ -1461,7 +1461,7 @@ function sanitizeHTML(str) {
  */
 window.renderCard = function (b) {
   const name = sanitizeHTML(b.name);
-  const desc = sanitizeHTML(b.description.slice(0, 120));
+  const desc = sanitizeHTML((b.description || '').slice(0, 120));
   const tags = Array.isArray(b.tags) ? b.tags.slice(0, 3).map(t => `<span class="tag">${sanitizeHTML(t)}</span>`).join('') : '';
   const verifiedBadge = b.verified ? '<span class="verified-badge" title="Verified Business"><i class="fa-solid fa-circle-check"></i></span>' : '';
 
