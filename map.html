@@ -69,6 +69,10 @@
       -webkit-transform: translate3d(0, 0, 0);
       transform: translate3d(0, 0, 0);
       will-change: transform;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     .map-header {
@@ -294,7 +298,7 @@
       position: absolute;
       top: 90px;
       right: 24px;
-      z-index: 400;
+      z-index: 1000;
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -338,7 +342,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      z-index: 1000;
+      z-index: 1001;
     }
 
     .zoom-btn {
@@ -441,15 +445,6 @@
     .custom-marker {
       background: transparent;
       border: none;
-    }
-
-    #map {
-      touch-action: pan-x pan-y pinch-zoom;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .leaflet-tile-container,
