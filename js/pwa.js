@@ -14,6 +14,7 @@
   
   let deferredPrompt;
   let swRegistration;
+  let updateCheckInterval;
   
   /**
    * Register service worker
@@ -45,9 +46,17 @@
       });
       
       // Check for updates more frequently (every 5 minutes)
-      setInterval(() => {
+      updateCheckInterval = setInterval(() => {
         swRegistration.update();
       }, 5 * 60 * 1000);
+      
+      // Cleanup interval on page unload
+      window.addEventListener('beforeunload', () => {
+        if (updateCheckInterval) {
+          clearInterval(updateCheckInterval);
+          updateCheckInterval = null;
+        }
+      }, { once: true });
       
       // Also check on page visibility change
       document.addEventListener('visibilitychange', () => {
