@@ -363,40 +363,49 @@
   </div>
 
   <script>
-    const statusEl = document.getElementById('status');
-    const retryBtn = document.getElementById('retry-btn');
+    (function() {
+      const statusEl = document.getElementById('status');
+      const retryBtn = document.getElementById('retry-btn');
 
-    if (retryBtn) {
-      retryBtn.addEventListener('click', () => {
-        window.location.reload();
-      });
-    }
+      if (retryBtn) {
+        retryBtn.addEventListener('click', function() {
+          window.location.reload();
+        });
+      }
 
-    function updateStatus() {
-      if (navigator.onLine) {
-        statusEl.classList.add('online');
-        const statusText = statusEl.querySelector('span:last-child');
-        if (statusText) {
-          statusText.textContent = 'Connected';
-        }
-      } else {
-        statusEl.classList.remove('online');
-        const statusText = statusEl.querySelector('span:last-child');
-        if (statusText) {
-          statusText.textContent = 'No connection';
+      function updateStatus() {
+        if (!statusEl) return;
+        
+        if (navigator.onLine) {
+          statusEl.classList.add('online');
+          const statusText = statusEl.querySelector('span:last-child');
+          if (statusText) {
+            statusText.textContent = 'Connected';
+          }
+          setTimeout(function() {
+            window.location.reload();
+          }, 600);
+        } else {
+          statusEl.classList.remove('online');
+          const statusText = statusEl.querySelector('span:last-child');
+          if (statusText) {
+            statusText.textContent = 'No connection';
+          }
         }
       }
-    }
 
-    window.addEventListener('online', updateStatus);
-    window.addEventListener('offline', updateStatus);
-    
-    window.addEventListener('beforeunload', () => {
-      window.removeEventListener('online', updateStatus);
-      window.removeEventListener('offline', updateStatus);
-    });
+      function cleanup() {
+        window.removeEventListener('online', updateStatus);
+        window.removeEventListener('offline', updateStatus);
+        window.removeEventListener('beforeunload', cleanup);
+      }
 
-    updateStatus();
+      window.addEventListener('online', updateStatus);
+      window.addEventListener('offline', updateStatus);
+      window.addEventListener('beforeunload', cleanup);
+
+      updateStatus();
+    })();
   </script>
 </body>
 </html>
