@@ -65,18 +65,18 @@
     rel="stylesheet">
 
   <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/hero.css">
-  <link rel="stylesheet" href="css/cards.css">
-  <link rel="stylesheet" href="css/categories.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/utilities.css">
+  <link rel="stylesheet" href="css/style.css" onerror="console.error('Failed to load: css/style.css')">
+  <link rel="stylesheet" href="css/navbar.css" onerror="console.error('Failed to load: css/navbar.css')">
+  <link rel="stylesheet" href="css/hero.css" onerror="console.error('Failed to load: css/hero.css')">
+  <link rel="stylesheet" href="css/cards.css" onerror="console.error('Failed to load: css/cards.css')">
+  <link rel="stylesheet" href="css/categories.css" onerror="console.error('Failed to load: css/categories.css')">
+  <link rel="stylesheet" href="css/footer.css" onerror="console.error('Failed to load: css/footer.css')">
+  <link rel="stylesheet" href="css/utilities.css" onerror="console.error('Failed to load: css/utilities.css')">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -96,6 +96,11 @@
 </head>
 
 <body>
+  <noscript>
+    <div style="position:fixed;top:0;left:0;right:0;background:#ff4444;color:#fff;padding:16px;text-align:center;z-index:9999;font-family:sans-serif;">
+      <strong>JavaScript Required:</strong> This application requires JavaScript to function. Please enable JavaScript in your browser settings.
+    </div>
+  </noscript>
   <header id="site-header"></header>
 
   <main>
@@ -278,39 +283,52 @@
 
   <footer id="site-footer"></footer>
 
-  <script defer src="js/config.js"></script>
-  <script defer src="js/data.js"></script>
-  <script defer src="js/main.js"></script>
-  <script defer src="js/animations.js"></script>
-  <script defer src="js/counter.js"></script>
-  <script defer src="js/directory.js"></script>
-  <script defer src="js/pwa.js"></script>
+  <script defer src="js/config.js" onerror="console.error('Failed to load: js/config.js')"></script>
+  <script defer src="js/data.js" onerror="console.error('Failed to load: js/data.js - Business data will not be available')"></script>
+  <script defer src="js/main.js" onerror="console.error('Failed to load: js/main.js')"></script>
+  <script defer src="js/animations.js" onerror="console.error('Failed to load: js/animations.js')"></script>
+  <script defer src="js/counter.js" onerror="console.error('Failed to load: js/counter.js')"></script>
+  <script defer src="js/directory.js" onerror="console.error('Failed to load: js/directory.js')"></script>
+  <script defer src="js/pwa.js" onerror="console.error('Failed to load: js/pwa.js - PWA features disabled')"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const featuredContainer = document.getElementById('featured-list');
       
       if (!featuredContainer) {
+        console.error('Featured container not found');
         return;
       }
 
-      if (!window.LISTINGS || window.LISTINGS.length === 0) {
+      // Check if LISTINGS exists and is an array
+      if (!window.LISTINGS || !Array.isArray(window.LISTINGS) || window.LISTINGS.length === 0) {
         featuredContainer.innerHTML = '<div class="empty-state"><p>No listings available yet. Add your business data to js/data.js</p></div>';
         return;
       }
 
+      // Check if renderCard function exists
       if (typeof window.renderCard !== 'function') {
         featuredContainer.innerHTML = '<div class="empty-state"><p>Loading featured businesses...</p></div>';
+        console.warn('renderCard function not available yet');
         return;
       }
 
-      const featured = window.LISTINGS.filter(b => b.featured).slice(0, 6);
-      
-      if (featured.length > 0) {
-        featured.forEach(b => {
-          featuredContainer.insertAdjacentHTML('beforeend', window.renderCard(b));
-        });
-      } else {
-        featuredContainer.innerHTML = '<div class="empty-state"><p>No featured listings available.</p></div>';
+      // Filter and render featured listings
+      try {
+        const featured = window.LISTINGS.filter(b => b && b.featured).slice(0, 6);
+        
+        if (featured.length > 0) {
+          featured.forEach(b => {
+            const cardHTML = window.renderCard(b);
+            if (cardHTML) {
+              featuredContainer.insertAdjacentHTML('beforeend', cardHTML);
+            }
+          });
+        } else {
+          featuredContainer.innerHTML = '<div class="empty-state"><p>No featured listings available.</p></div>';
+        }
+      } catch (error) {
+        console.error('Error rendering featured listings:', error);
+        featuredContainer.innerHTML = '<div class="empty-state"><p>Error loading featured businesses.</p></div>';
       }
     });
   </script>
