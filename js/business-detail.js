@@ -438,7 +438,8 @@
                 ${tenantBusinesses.map(tenant => {
                   const tenantAvatar = tenant.name.split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('');
                   const tenantStars = '★'.repeat(Math.floor(tenant.rating)) + '☆'.repeat(5 - Math.floor(tenant.rating));
-                  const tenantDesc = tenant.description.length > 120 ? tenant.description.substring(0, 120) + '...' : tenant.description;
+                  const tenantDescription = tenant.description || '';
+                  const tenantDesc = tenantDescription.length > 120 ? tenantDescription.substring(0, 120) + '...' : tenantDescription;
                   
                   return `
                     <a href="business-detail.html?id=${encodeURIComponent(tenant.id)}" class="tenant-card">
@@ -1791,10 +1792,25 @@
      * @returns {string} Formatted time
      */
     function formatTime12Hour(time) {
-      const [hours, minutes] = time.split(':');
-      const hour = parseInt(hours);
-      const ampm = hour >= 12 ? 'PM' : 'AM';
-      const hour12 = hour % 12 || 12;
+      // Input validation
+      if (!time || typeof time !== 'string' || !time.includes(':')) {
+        return 'Invalid Time';
+      }
+      
+      const parts = time.split(':');
+      if (parts.length !== 2) {
+        return 'Invalid Time';
+      }
+      
+      const hours = parseInt(parts[0]);
+      const minutes = parts[1];
+      
+      if (isNaN(hours) || hours < 0 || hours > 23) {
+        return 'Invalid Time';
+      }
+      
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      const hour12 = hours % 12 || 12;
       return `${hour12}:${minutes} ${ampm}`;
     }
 
@@ -1844,7 +1860,23 @@
      * @returns {string} Time in 12-hour format with AM/PM
      */
     function convertTo12Hour(time) {
-      const [hours, minutes] = time.split(':').map(Number);
+      // Input validation
+      if (!time || typeof time !== 'string' || !time.includes(':')) {
+        return 'Invalid Time';
+      }
+      
+      const parts = time.split(':');
+      if (parts.length !== 2) {
+        return 'Invalid Time';
+      }
+      
+      const hours = Number(parts[0]);
+      const minutes = Number(parts[1]);
+      
+      if (isNaN(hours) || isNaN(minutes) || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+        return 'Invalid Time';
+      }
+      
       if (hours === 0 && minutes === 0) return '12:00 AM';
 
       const period = hours >= 12 ? 'PM' : 'AM';
@@ -1918,7 +1950,7 @@
       shareBtn.addEventListener('click', async () => {
         const shareData = {
           title: biz.name,
-          text: `Check out ${biz.name} on LocalFind - ${biz.description.slice(0, 100)}...`,
+          text: `Check out ${biz.name} on LocalFind - ${(biz.description || '').slice(0, 100)}...`,
           url: window.location.href
         };
 
