@@ -782,16 +782,16 @@
       const modeEl = document.getElementById('app-mode');
       const statusEl = document.getElementById('app-status');
 
-      if (versionEl && window.CONFIG) {
-        versionEl.textContent = window.CONFIG.version || '4.3.2';
+      if (versionEl && typeof window.CONFIG !== 'undefined') {
+        versionEl.textContent = window.CONFIG.version || '4.3.3';
       }
 
-      if (modeEl && window.PWA) {
+      if (modeEl && typeof window.PWA !== 'undefined') {
         modeEl.textContent = window.PWA.isPWA() ? 'PWA (Installed)' : 'Browser';
         modeEl.style.color = window.PWA.isPWA() ? 'var(--accent-success)' : 'var(--text-secondary)';
       }
 
-      if (statusEl) {
+      if (statusEl && typeof navigator !== 'undefined' && typeof navigator.onLine !== 'undefined') {
         const updateStatus = () => {
           statusEl.textContent = navigator.onLine ? 'Online' : 'Offline';
           statusEl.style.color = navigator.onLine ? 'var(--accent-success)' : 'var(--accent-danger)';
@@ -803,5 +803,4 @@
     });
   </script>
 </body>
-
 </html>
