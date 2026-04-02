@@ -6,52 +6,234 @@
   <title>404 - Page Not Found | LocalFind</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/svg+xml" href="assets/images/mainlogo.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
   <style>
-    .error-page {
-      min-height: 80vh;
+    :root {
+      --bg-primary: #0A0E17;
+      --accent-primary: #FF8A00;
+      --accent-primary-hover: #FFB366;
+      --accent-secondary: #E52E71;
+      --text-primary: #FFFFFF;
+      --text-muted: #B8BFC8;
+      --shadow-glow: 0 0 40px rgba(255, 138, 0, 0.25);
+      --shadow-glow-hover: 0 0 60px rgba(255, 138, 0, 0.4);
+      --radius-lg: 16px;
+      --font-sans: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Syne', 'Inter', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 40px 20px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 20px;
+      position: relative;
     }
+
+    /* Subtle animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(255, 138, 0, 0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(229, 46, 113, 0.04) 0%, transparent 50%);
+      animation: gradientShift 20s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-3%, -3%) rotate(3deg); }
+    }
+
+    .container {
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes fadeInUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(40px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
     .error-code {
+      font-family: var(--font-display);
       font-size: 120px;
       font-weight: 800;
-      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin: 0;
+      line-height: 1;
+      animation: titleGlow 3s ease-in-out infinite;
     }
+
+    @keyframes titleGlow {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 138, 0, 0.3)); }
+      50% { filter: drop-shadow(0 0 30px rgba(255, 138, 0, 0.5)); }
+    }
+
     .error-message {
-      font-size: 24px;
-      margin: 20px 0;
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
     }
+
     .error-description {
+      font-size: 17px;
       color: var(--text-muted);
-      max-width: 500px;
-      margin: 0 auto 30px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: var(--radius-lg);
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: var(--font-sans);
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
+      color: #0A0E17;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: var(--shadow-glow-hover);
+    }
+
+    .btn-primary:active {
+      transform: translateY(-2px) scale(1);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(0);
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .error-code {
+        font-size: 80px;
+      }
+
+      .error-message {
+        font-size: 24px;
+      }
+
+      .error-description {
+        font-size: 16px;
+        margin-bottom: 40px;
+      }
+
+      .button-group {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .container,
+      body::before,
+      .error-code {
+        animation: none;
+      }
+
+      .error-code {
+        filter: none;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="error-page">
+  <div class="container">
     <h1 class="error-code">404</h1>
     <h2 class="error-message">Page Not Found</h2>
     <p class="error-description">
       The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
     </p>
-    <div class="flex gap-sm justify-center">
-      <a href="index.html" class="btn btn-cta">Go to Homepage</a>
-      <a href="directory.html" class="btn">Browse Directory</a>
+    <div class="button-group">
+      <a href="index.html" class="btn btn-primary">Go to Homepage</a>
+      <a href="directory.html" class="btn btn-secondary">Browse Directory</a>
     </div>
   </div>
-
-  <script defer src="js/config.js"></script>
-  <script defer src="js/main.js"></script>
 </body>
 </html>
