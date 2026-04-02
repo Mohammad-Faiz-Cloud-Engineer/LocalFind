@@ -19,7 +19,8 @@
  * Safely escape HTML characters
  */
 function escapeHTML(str) {
-  if (typeof str !== 'string') return '';
+  if (str === null || str === undefined) return '';
+  if (typeof str !== 'string') return String(str);
   return str.replace(/[&<>"']/g, function(match) {
     const escape = {
       '&': '&amp;',
