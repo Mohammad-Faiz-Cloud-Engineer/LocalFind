@@ -382,9 +382,6 @@
           if (statusText) {
             statusText.textContent = 'Connected';
           }
-          setTimeout(function() {
-            window.location.reload();
-          }, 600);
         } else {
           statusEl.classList.remove('online');
           const statusText = statusEl.querySelector('span:last-child');
