@@ -511,6 +511,11 @@
    * @returns {Array} Array of search terms including aliases
    */
   function expandSearchQuery(query) {
+    // Input validation
+    if (!query || typeof query !== 'string') {
+      return [];
+    }
+    
     const queryLower = query.toLowerCase().trim();
     const searchTerms = [queryLower];
 
@@ -537,7 +542,14 @@
    * @returns {boolean} True if any term matches
    */
   function matchesSearchTerms(text, searchTerms) {
-    if (!text) return false;
+    // Input validation
+    if (!text || typeof text !== 'string') {
+      return false;
+    }
+    if (!Array.isArray(searchTerms) || searchTerms.length === 0) {
+      return false;
+    }
+    
     const textLower = text.toLowerCase();
     return searchTerms.some(term => textLower.includes(term));
   }
@@ -550,10 +562,21 @@
    * @returns {number} Relevance score (higher is better)
    */
   function calculateRelevance(business, searchTerms, originalQuery) {
+    // Input validation
+    if (!business || typeof business !== 'object') {
+      return 0;
+    }
+    if (!Array.isArray(searchTerms) || searchTerms.length === 0) {
+      return 0;
+    }
+    if (!originalQuery || typeof originalQuery !== 'string') {
+      return 0;
+    }
+    
     let score = 0;
     const queryLower = originalQuery.toLowerCase();
-    const nameLower = business.name.toLowerCase();
-    const categoryLower = business.category.toLowerCase();
+    const nameLower = (business.name || '').toLowerCase();
+    const categoryLower = (business.category || '').toLowerCase();
     const descLower = (business.description || '').toLowerCase();
 
     if (nameLower === queryLower) score += 1000;
@@ -565,17 +588,21 @@
 
     if (Array.isArray(business.tags)) {
       business.tags.forEach(tag => {
-        const tagLower = tag.toLowerCase();
-        if (tagLower === queryLower) score += 100;
-        else if (tagLower.includes(queryLower)) score += 50;
+        if (typeof tag === 'string') {
+          const tagLower = tag.toLowerCase();
+          if (tagLower === queryLower) score += 100;
+          else if (tagLower.includes(queryLower)) score += 50;
+        }
       });
     }
 
     if (descLower.includes(queryLower)) score += 10;
 
-    if (business.featured) score += 5;
-    if (business.verified) score += 5;
-    score += business.rating * 2;
+    if (business.featured === true) score += 5;
+    if (business.verified === true) score += 5;
+    if (typeof business.rating === 'number' && business.rating >= 0 && business.rating <= 5) {
+      score += business.rating * 2;
+    }
 
     return score;
   }
