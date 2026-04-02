@@ -29,6 +29,12 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
     }
 
     body {
@@ -44,6 +50,7 @@
       padding: 20px;
       position: relative;
       overflow: hidden;
+      overscroll-behavior: none;
     }
 
     /* Subtle animated background */
@@ -364,6 +371,10 @@
 
   <script>
     (function() {
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+      });
+
       const statusEl = document.getElementById('status');
       const retryBtn = document.getElementById('retry-btn');
 
