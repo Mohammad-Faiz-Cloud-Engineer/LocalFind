@@ -365,6 +365,7 @@
   <script>
     const statusEl = document.getElementById('status');
     const retryBtn = document.getElementById('retry-btn');
+    let reloadTimeout = null;
 
     if (retryBtn) {
       retryBtn.addEventListener('click', () => {
@@ -379,18 +380,42 @@
         if (statusText) {
           statusText.textContent = 'Connected';
         }
-        setTimeout(() => window.location.reload(), 600);
+        
+        if (reloadTimeout) {
+          clearTimeout(reloadTimeout);
+        }
+        
+        reloadTimeout = setTimeout(() => {
+          if (navigator.onLine) {
+            window.location.reload();
+          }
+        }, 600);
       } else {
         statusEl.classList.remove('online');
         const statusText = statusEl.querySelector('span:last-child');
         if (statusText) {
           statusText.textContent = 'No connection';
         }
+        
+        if (reloadTimeout) {
+          clearTimeout(reloadTimeout);
+          reloadTimeout = null;
+        }
       }
     }
 
     window.addEventListener('online', updateStatus);
     window.addEventListener('offline', updateStatus);
+    
+    window.addEventListener('beforeunload', () => {
+      window.removeEventListener('online', updateStatus);
+      window.removeEventListener('offline', updateStatus);
+      if (reloadTimeout) {
+        clearTimeout(reloadTimeout);
+      }
+    });
+
+    updateStatus();
   </script>
 </body>
 </html>
