@@ -421,6 +421,12 @@
       return;
     }
 
+    // Prevent duplicate initialization
+    if (window.__directoryInitialized) {
+      return;
+    }
+    window.__directoryInitialized = true;
+
     // Check if data exists
     if (!window.LISTINGS || window.LISTINGS.length === 0) {
       const container = document.getElementById('listings');
