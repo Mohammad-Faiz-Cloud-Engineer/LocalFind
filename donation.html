@@ -267,8 +267,6 @@
       margin: 0;
     }
 
-    /* Stats Banner - Removed (not in use) */
-
     /* Mobile Responsive */
     @media (max-width: 768px) {
       .donation-hero {
@@ -479,7 +477,6 @@
             correctLevel: QRCode.CorrectLevel.H
           });
         } catch (error) {
-          console.error('QR code generation failed:', error);
           qrContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 14px;">QR code unavailable</p>';
         }
       }
