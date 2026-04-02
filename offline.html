@@ -6,34 +6,21 @@
   <title>Offline - LocalFind</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/svg+xml" href="assets/images/mainlogo.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
   <style>
     :root {
-      /* LocalFind Theme Colors */
       --bg-primary: #0A0E17;
-      --bg-surface: #131824;
-      --bg-elevated: #1A2332;
-      --bg-card: #1E2736;
-      
       --accent-primary: #FF8A00;
       --accent-primary-hover: #FFB366;
       --accent-secondary: #E52E71;
-      --accent-danger: #EE5A6F;
-      --accent-success: #26DE81;
-      
+      --accent-danger: #FF3B30;
+      --accent-success: #34C759;
       --text-primary: #FFFFFF;
-      --text-secondary: #E4E7EB;
-      --text-muted: #9CA3AF;
-      
-      --border-color: rgba(255, 255, 255, 0.06);
-      --border-color-hover: rgba(255, 255, 255, 0.12);
-      
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --shadow-glow: 0 0 40px rgba(255, 138, 0, 0.15);
-      
+      --text-muted: #B8BFC8;
+      --shadow-glow: 0 0 40px rgba(255, 138, 0, 0.25);
+      --shadow-glow-hover: 0 0 60px rgba(255, 138, 0, 0.4);
       --radius-lg: 16px;
-      --radius-xl: 20px;
-      
+      --radius-full: 9999px;
       --font-sans: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
       --font-display: 'Syne', 'Inter', sans-serif;
     }
@@ -54,19 +41,44 @@
       justify-content: center;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(255, 138, 0, 0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(229, 46, 113, 0.04) 0%, transparent 50%);
+      animation: gradientShift 20s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-3%, -3%) rotate(3deg); }
     }
 
     .container {
       text-align: center;
-      padding: 40px;
-      max-width: 480px;
-      animation: fadeIn 0.6s ease-out;
+      max-width: 600px;
+      width: 100%;
+      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      z-index: 1;
     }
 
-    @keyframes fadeIn {
+    @keyframes fadeInUp {
       from { 
         opacity: 0; 
-        transform: translateY(20px); 
+        transform: translateY(40px); 
       }
       to { 
         opacity: 1; 
@@ -74,19 +86,18 @@
       }
     }
 
-    /* Signal icon with LocalFind gradient glow */
+    /* Signal icon */
     .signal-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 32px;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 48px;
       position: relative;
+      animation: float 4s ease-in-out infinite;
     }
 
-    .signal-svg {
-      width: 100%;
-      height: 100%;
-      color: var(--accent-primary);
-      opacity: 0.9;
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
     }
 
     .signal-glow {
@@ -94,176 +105,229 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 120px;
-      height: 120px;
+      width: 200px;
+      height: 200px;
       background: radial-gradient(circle, rgba(255, 138, 0, 0.15) 0%, transparent 70%);
       pointer-events: none;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { 
+        opacity: 0.4;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% { 
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+    }
+
+    .signal-svg {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 0 20px rgba(255, 138, 0, 0.3));
+    }
+
+    .signal-svg path {
+      stroke: var(--accent-primary);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      opacity: 0;
+      animation: signalFade 2s ease-in-out infinite;
+    }
+
+    .signal-svg path:nth-child(1) { animation-delay: 0s; }
+    .signal-svg path:nth-child(2) { animation-delay: 0.15s; }
+    .signal-svg path:nth-child(3) { animation-delay: 0.3s; }
+    .signal-svg path:nth-child(4) { animation-delay: 0.45s; }
+    .signal-svg path:nth-child(5) { animation-delay: 0.6s; }
+
+    @keyframes signalFade {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
     }
 
     h1 {
       font-family: var(--font-display);
-      font-size: 32px;
+      font-size: 56px;
       font-weight: 800;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
       background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      line-height: 1.1;
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 138, 0, 0.3)); }
+      50% { filter: drop-shadow(0 0 30px rgba(255, 138, 0, 0.5)); }
     }
 
     .subtitle {
-      font-size: 16px;
+      font-size: 19px;
       color: var(--text-muted);
-      margin-bottom: 32px;
+      margin-bottom: 56px;
       line-height: 1.6;
+      font-weight: 500;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* LocalFind styled button */
+    /* Primary button */
     .retry-btn {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 14px 28px;
+      padding: 16px 32px;
       background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
       color: #0A0E17;
       border: none;
       border-radius: var(--radius-lg);
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       font-family: var(--font-sans);
       box-shadow: var(--shadow-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .retry-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s;
+    }
+
+    .retry-btn:hover::before {
+      left: 100%;
     }
 
     .retry-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 60px rgba(255, 138, 0, 0.25);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: var(--shadow-glow-hover);
     }
 
     .retry-btn:active {
-      transform: translateY(0);
+      transform: translateY(-2px) scale(1);
+    }
+
+    .retry-btn:focus-visible {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 4px;
     }
 
     .retry-btn svg {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Status indicator with LocalFind colors */
+    /* Status indicator */
     .status {
-      margin-top: 32px;
-      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-full);
+      font-size: 16px;
       color: var(--text-muted);
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 50px;
-      display: inline-flex;
+      margin-top: 40px;
     }
 
     .status-dot {
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
       background: var(--accent-danger);
       border-radius: 50%;
-      animation: pulse 2s infinite;
+      animation: statusPulse 2s infinite;
+      box-shadow: 0 0 12px var(--accent-danger);
     }
 
-    @keyframes pulse {
+    @keyframes statusPulse {
       0%, 100% {
         opacity: 1;
+        transform: scale(1);
       }
       50% {
         opacity: 0.5;
+        transform: scale(0.85);
       }
     }
 
     .status.online .status-dot {
       background: var(--accent-success);
+      box-shadow: 0 0 12px var(--accent-success);
       animation: none;
-    }
-
-    /* Cached pages card */
-    .cached-pages {
-      margin-top: 40px;
-      padding: 24px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-xl);
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cached-pages h3 {
-      margin: 0 0 16px;
-      color: var(--text-primary);
-      font-size: 16px;
-      font-weight: 700;
-      font-family: var(--font-display);
-    }
-
-    .cached-pages ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .cached-pages li a {
-      display: block;
-      padding: 10px 14px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.2s;
-      border-radius: 8px;
-      border: 1px solid transparent;
-    }
-
-    .cached-pages li a:hover {
-      color: var(--accent-primary);
-      background: rgba(255, 138, 0, 0.05);
-      border-color: rgba(255, 138, 0, 0.2);
     }
 
     /* Responsive */
     @media (max-width: 640px) {
-      .container {
-        padding: 24px;
-      }
-
       h1 {
-        font-size: 28px;
+        font-size: 40px;
       }
 
       .subtitle {
-        font-size: 15px;
+        font-size: 17px;
+        margin-bottom: 48px;
       }
 
-      .cached-pages {
-        padding: 20px;
+      .signal-icon {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 40px;
+      }
+
+      .retry-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 16px 32px;
+      }
+
+      .status {
+        padding: 14px 24px;
+        font-size: 15px;
       }
     }
 
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
-      .container {
+      .container,
+      .signal-icon,
+      .signal-glow,
+      .status-dot,
+      body::before,
+      h1 {
         animation: none;
       }
       
-      .status-dot {
+      .signal-svg path {
+        opacity: 0.8;
         animation: none;
+      }
+
+      .signal-svg {
+        filter: none;
       }
     }
   </style>
@@ -272,7 +336,7 @@
   <div class="container">
     <div class="signal-icon">
       <div class="signal-glow"></div>
-      <svg class="signal-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="signal-svg" viewBox="0 0 24 24" fill="none">
         <path d="M2 20h.01"/>
         <path d="M7 20v-4"/>
         <path d="M12 20v-8"/>
@@ -284,27 +348,17 @@
     <h1>You're offline</h1>
     <p class="subtitle">Please check your internet connection and try again.</p>
 
-    <button class="retry-btn" id="retry-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <button class="retry-btn" id="retry-btn" aria-label="Retry connection">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <polyline points="23 4 23 10 17 10"></polyline>
         <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
       </svg>
       Try Again
     </button>
 
-    <div class="status" id="status">
-      <span class="status-dot"></span>
+    <div class="status" id="status" role="status" aria-live="polite">
+      <span class="status-dot" aria-hidden="true"></span>
       <span>No connection</span>
-    </div>
-
-    <div class="cached-pages">
-      <h3>Available Offline</h3>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="directory.html">Directory</a></li>
-        <li><a href="categories.html">Categories</a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
     </div>
   </div>
 
@@ -321,11 +375,17 @@
     function updateStatus() {
       if (navigator.onLine) {
         statusEl.classList.add('online');
-        statusEl.querySelector('span:last-child').textContent = 'Connected';
+        const statusText = statusEl.querySelector('span:last-child');
+        if (statusText) {
+          statusText.textContent = 'Connected';
+        }
         setTimeout(() => window.location.reload(), 600);
       } else {
         statusEl.classList.remove('online');
-        statusEl.querySelector('span:last-child').textContent = 'No connection';
+        const statusText = statusEl.querySelector('span:last-child');
+        if (statusText) {
+          statusText.textContent = 'No connection';
+        }
       }
     }
 
