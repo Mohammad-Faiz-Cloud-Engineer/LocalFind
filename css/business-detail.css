@@ -1600,7 +1600,7 @@ html::-webkit-scrollbar-thumb:hover {
   font-weight: 600;
   cursor: pointer;
   display: flex;
-  align-items: centerr;
+  align-items: center;
   gap: 12px;
   transition: all 0.3s ease;
 }
@@ -2228,22 +2228,6 @@ html::-webkit-scrollbar-thumb:hover {
   border-radius: 8px;
 }
 
-.upi-qr-fallback {
-  text-align: center;
-  color: #999;
-}
-
-.upi-qr-fallback i {
-  font-size: 48px;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.upi-qr-fallback p {
-  font-size: 12px;
-  margin: 0;
-}
-
 /* UPI ID Row */
 .upi-id-row {
   display: flex;
@@ -2365,10 +2349,13 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-
 
 /* Disclaimer */
 .upi-disclaimer {
@@ -2437,7 +2424,9 @@ html::-webkit-scrollbar-thumb:hover {
 
   .upi-pay-btn i:last-child {
     font-size: 12px;
-  }  .upi-qr-frame {
+  }
+
+  .upi-qr-frame {
     padding: 12px;
   }
 
