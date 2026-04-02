@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -286,24 +287,30 @@
   <script defer src="js/pwa.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Check if data exists
-      if (!window.LISTINGS || window.LISTINGS.length === 0) {
-        // Show placeholder message when no data
-        const featuredContainer = document.getElementById('featured-list');
-
-        if (featuredContainer) {
-          featuredContainer.innerHTML = '<div class="empty-state"><p>No listings available yet. Add your business data to js/data.js</p></div>';
-        }
+      const featuredContainer = document.getElementById('featured-list');
+      
+      if (!featuredContainer) {
         return;
       }
 
-      // Render featured listings
+      if (!window.LISTINGS || window.LISTINGS.length === 0) {
+        featuredContainer.innerHTML = '<div class="empty-state"><p>No listings available yet. Add your business data to js/data.js</p></div>';
+        return;
+      }
+
+      if (typeof window.renderCard !== 'function') {
+        featuredContainer.innerHTML = '<div class="empty-state"><p>Loading featured businesses...</p></div>';
+        return;
+      }
+
       const featured = window.LISTINGS.filter(b => b.featured).slice(0, 6);
-      const container = document.getElementById('featured-list');
+      
       if (featured.length > 0) {
-        featured.forEach(b => { container.insertAdjacentHTML('beforeend', window.renderCard(b)); });
+        featured.forEach(b => {
+          featuredContainer.insertAdjacentHTML('beforeend', window.renderCard(b));
+        });
       } else {
-        container.innerHTML = '<div class="empty-state"><p>No featured listings available.</p></div>';
+        featuredContainer.innerHTML = '<div class="empty-state"><p>No featured listings available.</p></div>';
       }
     });
   </script>
