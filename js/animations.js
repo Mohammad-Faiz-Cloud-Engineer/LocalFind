@@ -56,6 +56,11 @@
     window.addEventListener('beforeunload', () => {
       if (resizeHandler) {
         window.removeEventListener('resize', resizeHandler);
+        resizeHandler = null;
+      }
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
       }
     }, { once: true });
     
