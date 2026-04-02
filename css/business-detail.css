@@ -1600,7 +1600,7 @@ html::-webkit-scrollbar-thumb:hover {
   font-weight: 600;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: centerr;
   gap: 12px;
   transition: all 0.3s ease;
 }
