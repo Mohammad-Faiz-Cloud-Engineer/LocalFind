@@ -4,6 +4,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+  
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
   <title>Categories — LocalFind</title>
   <meta name="description" content="Browse categories on LocalFind">
   <link rel="canonical" href="https://mohammad-faiz-cloud-engineer.github.io/LocalFind/categories.html">
@@ -20,12 +29,14 @@
   <meta name="theme-color" content="#FF8A00">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
     rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/categories.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/utilities.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css" onerror="console.error('Failed to load: css/style.css')">
+  <link rel="stylesheet" href="css/navbar.css" onerror="console.error('Failed to load: css/navbar.css')">
+  <link rel="stylesheet" href="css/categories.css" onerror="console.error('Failed to load: css/categories.css')">
+  <link rel="stylesheet" href="css/footer.css" onerror="console.error('Failed to load: css/footer.css')">
+  <link rel="stylesheet" href="css/utilities.css" onerror="console.error('Failed to load: css/utilities.css')">
   <style>
     /* Categories Page Optimizations */
     main.container {
@@ -67,6 +78,11 @@
 </head>
 
 <body>
+  <noscript>
+    <div style="position:fixed;top:0;left:0;right:0;background:#ff4444;color:#fff;padding:16px;text-align:center;z-index:9999;font-family:sans-serif;">
+      <strong>JavaScript Required:</strong> This application requires JavaScript to function. Please enable JavaScript in your browser settings.
+    </div>
+  </noscript>
   <header id="site-header"></header>
   <main class="container">
     <h1>Browse by Category</h1>
@@ -156,9 +172,45 @@
     </div>
   </main>
   <footer id="site-footer"></footer>
-  <script defer src="js/config.js"></script>
-  <script defer src="js/main.js"></script>
-  <script defer src="js/pwa.js"></script>
+  <script defer src="js/config.js" onerror="console.error('Failed to load: js/config.js')"></script>
+  <script defer src="js/main.js" onerror="console.error('Failed to load: js/main.js')"></script>
+  <script defer src="js/pwa.js" onerror="console.error('Failed to load: js/pwa.js')"></script>
+  <script>
+    // Dynamically update category counts from data
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!window.LISTINGS || !Array.isArray(window.LISTINGS)) {
+        console.warn('LISTINGS data not available - category counts will show defaults');
+        return;
+      }
+      
+      try {
+        const categoryCounts = {};
+        window.LISTINGS.forEach(listing => {
+          if (listing && listing.category) {
+            const cat = listing.category;
+            categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+          }
+        });
+        
+        document.querySelectorAll('.cat-card').forEach(card => {
+          const href = card.getAttribute('href');
+          if (href) {
+            const match = href.match(/category=([^&]+)/);
+            if (match) {
+              const category = match[1];
+              const count = categoryCounts[category] || 0;
+              const countEl = card.querySelector('p');
+              if (countEl) {
+                countEl.textContent = `${count} listing${count !== 1 ? 's' : ''}`;
+              }
+            }
+          }
+        });
+      } catch (error) {
+        console.error('Error updating category counts:', error);
+      }
+    });
+  </script>
 </body>
 
 </html>
