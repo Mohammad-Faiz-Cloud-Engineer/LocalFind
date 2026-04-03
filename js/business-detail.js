@@ -699,7 +699,7 @@
         }
         
         // See more/less functionality
-        if (review.text.length > UI_CONSTANTS.REVIEW_PREVIEW_LENGTH) {
+        if (review.text.length > 200) {
           const seeMoreBtn = document.getElementById(`review-see-more-${reviewId}`);
           const reviewPreview = document.getElementById(`review-preview-${reviewId}`);
           
