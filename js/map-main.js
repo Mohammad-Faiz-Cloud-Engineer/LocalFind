@@ -194,6 +194,7 @@
     `;
 
     marker.bindPopup(popupContent);
+    marker.businessId = business.id;
     marker.addTo(markersGroup);
     businessMarkers.push(marker);
 
@@ -519,14 +520,14 @@
     const queryLower = query.toLowerCase().trim();
     const searchTerms = [queryLower];
 
-    if (window.CONFIG && window.CONFIG.searchAliases) {
-      if (window.CONFIG.searchAliases[queryLower]) {
+    if (window.CONFIG && window.CONFIG.searchAliases && typeof window.CONFIG.searchAliases === 'object') {
+      if (Array.isArray(window.CONFIG.searchAliases[queryLower])) {
         searchTerms.push(...window.CONFIG.searchAliases[queryLower]);
       }
 
       Object.keys(window.CONFIG.searchAliases).forEach(key => {
         const aliases = window.CONFIG.searchAliases[key];
-        if (aliases.some(alias => alias.includes(queryLower))) {
+        if (Array.isArray(aliases) && aliases.some(alias => alias.includes(queryLower))) {
           searchTerms.push(key);
           searchTerms.push(...aliases);
         }
@@ -687,7 +688,6 @@
 
           matchingBusinesses.push({
             business,
-            index,
             score: calculateRelevance(business, searchTerms, query),
             distance,
             distanceFormatted
@@ -760,10 +760,11 @@
       });
 
       const matchingMarkers = [];
-      matchingBusinesses.forEach(({ index }) => {
-        if (allMarkers[index]) {
-          allMarkers[index].addTo(map);
-          matchingMarkers.push(allMarkers[index]);
+      matchingBusinesses.forEach(({ business }) => {
+        const marker = allMarkers.find(m => m.businessId === business.id);
+        if (marker) {
+          marker.addTo(map);
+          matchingMarkers.push(marker);
         }
       });
 
@@ -806,8 +807,7 @@
     const coords = extractCoordinates(business);
     if (!coords) return;
 
-    const markerIndex = window.LISTINGS.findIndex(b => b.id === businessId);
-    const marker = businessMarkers[markerIndex];
+    const marker = businessMarkers.find(m => m.businessId === businessId);
 
     if (marker) {
       map.setView(coords, 17);
