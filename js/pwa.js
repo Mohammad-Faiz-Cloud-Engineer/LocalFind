@@ -74,6 +74,11 @@
    * Show update notification when new version available
    */
   function showUpdateNotification() {
+    // Prevent duplicate notifications
+    if (document.querySelector('.pwa-update-notification')) {
+      return;
+    }
+
     const notification = document.createElement('div');
     notification.className = 'pwa-update-notification';
     notification.innerHTML = `
@@ -275,9 +280,8 @@
       // Clear deferred prompt
       deferredPrompt = null;
       
-      if (outcome === 'accepted') {
-        hideInstallButton();
-      }
+      // Always hide button after prompt is resolved to prevent broken state
+      hideInstallButton();
     });
     
     // Add styles
