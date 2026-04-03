@@ -134,6 +134,9 @@ Object.freeze(CONFIG.features);
 Object.freeze(CONFIG.pagination);
 Object.freeze(CONFIG.validation);
 Object.freeze(CONFIG.searchAliases);
+Object.keys(CONFIG.searchAliases).forEach(key => {
+  Object.freeze(CONFIG.searchAliases[key]);
+});
 
 // Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
