@@ -35,6 +35,7 @@ function escapeHTML(str) {
 
 function renderHeader(){
   const header = document.getElementById('site-header');
+  if (!header) return;
   const siteName = escapeHTML(CONFIG.siteName);
   
   header.innerHTML = `
@@ -111,6 +112,7 @@ function renderHeader(){
  */
 function renderFooter(){
   const footer = document.getElementById('site-footer');
+  if (!footer) return;
   const siteName = escapeHTML(CONFIG.siteName);
   const tagline = escapeHTML(CONFIG.tagline);
   const address = escapeHTML(CONFIG.contactAddress);
