@@ -436,41 +436,44 @@
     notification.className = `network-status network-status--${status}`;
     notification.textContent = status === 'online' ? '✓ Back Online' : '⚠ You\'re Offline';
     
-    const style = document.createElement('style');
-    style.textContent = `
-      .network-status {
-        position: fixed;
-        top: 80px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10000;
-        padding: 12px 24px;
-        border-radius: 50px;
-        font-weight: 600;
-        font-size: 14px;
-        animation: slideDown 0.3s ease-out;
-      }
-      .network-status--online {
-        background: var(--accent-success);
-        color: #0A0E17;
-      }
-      .network-status--offline {
-        background: var(--accent-danger);
-        color: #fff;
-      }
-      @keyframes slideDown {
-        from {
-          transform: translateX(-50%) translateY(-100px);
-          opacity: 0;
+    // Only add styles once
+    if (!document.getElementById('network-status-styles')) {
+      const style = document.createElement('style');
+      style.id = 'network-status-styles';
+      style.textContent = `
+        .network-status {
+          position: fixed;
+          top: 80px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 10000;
+          padding: 12px 24px;
+          border-radius: 50px;
+          font-weight: 600;
+          font-size: 14px;
+          animation: slideDown 0.3s ease-out;
         }
-        to {
-          transform: translateX(-50%) translateY(0);
-          opacity: 1;
+        .network-status--online {
+          background: var(--accent-success);
+          color: #0A0E17;
         }
-      }
-    `;
-    
-    document.head.appendChild(style);
+        .network-status--offline {
+          background: var(--accent-danger);
+          color: #fff;
+        }
+        @keyframes slideDown {
+          from {
+            transform: translateX(-50%) translateY(-100px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
     document.body.appendChild(notification);
     
     // Remove after 3 seconds
