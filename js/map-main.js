@@ -253,6 +253,7 @@
           map.removeLayer(userCircle);
         }
 
+        // Remove any existing location prompt
         const existingPrompt = document.getElementById('location-prompt');
         if (existingPrompt) {
           existingPrompt.remove();
@@ -335,6 +336,12 @@
         }
         if (userCircle) {
           map.removeLayer(userCircle);
+        }
+
+        // Remove any existing location prompt
+        const existingPrompt = document.getElementById('location-prompt');
+        if (existingPrompt) {
+          existingPrompt.remove();
         }
 
         const userIcon = createCustomIcon('user');
