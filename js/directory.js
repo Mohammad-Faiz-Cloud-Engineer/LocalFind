@@ -346,6 +346,11 @@
         }
       } else {
         // Normal search
+        const resultsCount = document.getElementById('results-count');
+        if (resultsCount) {
+          resultsCount.removeAttribute('data-filter-label');
+        }
+        
         const searchTerms = expandSearchQuery(search);
         
         // Find directly matching businesses
@@ -511,6 +516,10 @@
           const query = e.target.value.trim();
           if (!query) {
             currentListings = [...window.LISTINGS];
+            const resultsCount = document.getElementById('results-count');
+            if (resultsCount) {
+              resultsCount.removeAttribute('data-filter-label');
+            }
             applyQueryParams();
           } else {
             // Check for special commands first
@@ -544,8 +553,18 @@
               }
               
               currentListings = filtered;
+              
+              const resultsCount = document.getElementById('results-count');
+              if (resultsCount) {
+                resultsCount.setAttribute('data-filter-label', specialCommand.label);
+              }
             } else {
               // Normal search
+              const resultsCount = document.getElementById('results-count');
+              if (resultsCount) {
+                resultsCount.removeAttribute('data-filter-label');
+              }
+              
               const searchTerms = expandSearchQuery(query);
               
               // Find directly matching businesses
