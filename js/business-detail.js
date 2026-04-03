@@ -194,7 +194,7 @@
     
     try {
       // Check if text contains existing HTML anchor tags
-      if (text.includes('<a href=') || text.includes('<a href=')) {
+      if (text.includes('<a href=')) {
         return processExistingLinks(text);
       }
       
@@ -619,7 +619,7 @@
       }
     }
     
-    if (biz.reviews && biz.reviews.length > 0) {
+    if (biz.reviews && biz.reviews.length > 0 && reviewsList) {
       reviewsList.innerHTML = biz.reviews.map((review, index) => {
         const isAdmin = review.role && review.role.includes('LocalFind');
         const reviewStars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
@@ -719,7 +719,7 @@
           }
         }
       });
-    } else {
+    } else if (reviewsList) {
       reviewsList.innerHTML = '<div class="empty-state"><p>No reviews yet. Be the first to review!</p></div>';
     }
 
@@ -811,49 +811,49 @@
       ${biz.website ? `
         <div class="contact-item">
           <i class="fa-solid fa-globe"></i>
-          <a href="${sanitizeHTML(biz.website)}" target="_blank" rel="noopener noreferrer">${biz.website.includes('jsdl.in') || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
+          <a href="${validateAndSanitizeURL(biz.website) || '#'}" target="_blank" rel="noopener noreferrer">${biz.website.includes('jsdl.in') || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
         </div>
       ` : ''}
       ${biz.bloodDonor ? `
         <div class="contact-item">
           <i class="fa-solid fa-droplet"></i>
-          <a href="${sanitizeHTML(biz.bloodDonor)}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Find Blood Donors</a>
+          <a href="${validateAndSanitizeURL(biz.bloodDonor) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Find Blood Donors</a>
         </div>
       ` : ''}
       ${biz.onlineOrder ? `
         <div class="contact-item">
           <i class="fa-solid fa-shopping-bag"></i>
-          <a href="${sanitizeHTML(biz.onlineOrder)}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Order on Swiggy</a>
+          <a href="${validateAndSanitizeURL(biz.onlineOrder) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Order on Swiggy</a>
         </div>
       ` : ''}
       ${biz.zomato ? `
         <div class="contact-item">
           <i class="fa-solid fa-utensils"></i>
-          <a href="${sanitizeHTML(biz.zomato)}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Order on Zomato</a>
+          <a href="${validateAndSanitizeURL(biz.zomato) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Order on Zomato</a>
         </div>
       ` : ''}
       ${biz.instagram ? `
         <div class="contact-item">
           <i class="fa-brands fa-instagram"></i>
-          <a href="${sanitizeHTML(biz.instagram)}" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="${validateAndSanitizeURL(biz.instagram) || '#'}" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
       ` : ''}
       ${biz.youtube ? `
         <div class="contact-item">
           <i class="fa-brands fa-youtube"></i>
-          <a href="${sanitizeHTML(biz.youtube)}" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="${validateAndSanitizeURL(biz.youtube) || '#'}" target="_blank" rel="noopener noreferrer">YouTube</a>
         </div>
       ` : ''}
       ${biz.bookMyShow ? `
         <div class="contact-item">
           <i class="fa-solid fa-ticket"></i>
-          <a href="${sanitizeHTML(biz.bookMyShow)}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Book Movie Tickets (BookMyShow)</a>
+          <a href="${validateAndSanitizeURL(biz.bookMyShow) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Book Movie Tickets (BookMyShow)</a>
         </div>
       ` : ''}
       ${biz.districtIn ? `
         <div class="contact-item">
           <i class="fa-solid fa-film"></i>
-          <a href="${sanitizeHTML(biz.districtIn)}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Book Movie Tickets (District)</a>
+          <a href="${validateAndSanitizeURL(biz.districtIn) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Book Movie Tickets (District)</a>
         </div>
       ` : ''}
       ${biz.upiId ? `
@@ -869,7 +869,7 @@
         </div>
       ` : ''}
       <div class="mt-lg">
-        <a href="${sanitizeHTML(biz.mapLink)}" target="_blank" rel="noopener noreferrer" class="btn" style="width:100%;">View on Map</a>
+        <a href="${validateAndSanitizeURL(biz.mapLink) || '#'}" target="_blank" rel="noopener noreferrer" class="btn" style="width:100%;">View on Map</a>
       </div>
     `;
     document.getElementById('biz-contact').innerHTML = contactHtml;
@@ -1568,7 +1568,8 @@
           isDragging = true;
           startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
           const transform = scrollInner.style.transform;
-          startTransform = transform ? parseInt(transform.match(/-?\d+/)[0]) : 0;
+          const transformMatch = transform ? transform.match(/-?\d+/) : null;
+          startTransform = transformMatch ? parseInt(transformMatch[0]) : 0;
           
           // Prevent default to stop panel scroll on mobile
           if (e.type === 'touchstart') {
@@ -1607,7 +1608,8 @@
 
           // Snap to nearest item
           const transform = scrollInner.style.transform;
-          const currentTransform = transform ? parseInt(transform.match(/-?\d+/)[0]) : 0;
+          const transformMatch = transform ? transform.match(/-?\d+/) : null;
+          const currentTransform = transformMatch ? parseInt(transformMatch[0]) : 0;
           const newIndex = Math.round(-currentTransform / itemHeight);
           const clampedIndex = Math.max(0, Math.min(items.length - 1, newIndex));
           
