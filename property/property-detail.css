@@ -472,7 +472,7 @@
   }
   
   .gallery-main {
-    height: 300px;
+    height: 350px;
   }
   
   .property-overview-grid {
@@ -498,12 +498,12 @@
   }
   
   .agent-info h4 {
-    font-size: 20px;
+    font-size: 22px;
   }
   
   .agent-location {
     justify-content: center;
-    font-size: 14px;
+    font-size: 16px;
   }
   
   .agent-stats-row {
@@ -512,39 +512,39 @@
   }
   
   .agent-stat-item {
-    min-width: 80px;
+    min-width: 90px;
   }
   
   .agent-stat-value {
-    font-size: 28px;
+    font-size: 32px;
   }
   
   .agent-stat-label {
-    font-size: 14px;
+    font-size: 16px;
   }
   
   .contact-agent-btn {
-    padding: 14px;
-    font-size: 16px;
+    padding: 16px;
+    font-size: 18px;
   }
 }
 
 @media (max-width: 640px) {
   .breadcrumb {
     padding: var(--space-md) 0;
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .gallery-main {
-    height: 220px;
+    height: 280px;
     border-radius: var(--radius-md);
     margin-bottom: var(--space-sm);
   }
 
   .gallery-nav {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
   }
 
   .gallery-nav-prev {
@@ -556,21 +556,21 @@
   }
 
   .gallery-thumbnails {
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 8px;
   }
 
   .gallery-thumbnail {
-    height: 60px;
-    border-radius: 6px;
+    height: 75px;
+    border-radius: 8px;
   }
 
   .fullscreen-close {
     top: var(--space-md);
     right: var(--space-md);
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
   }
 
   .property-content {
@@ -579,261 +579,261 @@
   }
 
   .property-main {
-    gap: var(--space-md);
+    gap: var(--space-lg);
   }
 
   .property-sidebar {
-    gap: var(--space-md);
+    gap: var(--space-lg);
   }
 
   .property-section {
-    padding: var(--space-md);
-    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
   }
 
   .property-section h3 {
-    font-size: 16px;
-    margin-bottom: var(--space-sm);
-    gap: 6px;
+    font-size: 20px;
+    margin-bottom: var(--space-md);
+    gap: 8px;
   }
 
   .property-section h3 i {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .property-section p {
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   .property-overview-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-sm);
+    gap: var(--space-md);
   }
 
   .overview-item {
-    padding: var(--space-sm);
+    padding: var(--space-md);
   }
 
   .overview-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-    margin-bottom: 8px;
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+    margin-bottom: 10px;
   }
 
   .overview-label {
-    font-size: 10px;
-    margin-bottom: 4px;
+    font-size: 13px;
+    margin-bottom: 6px;
   }
 
   .overview-value {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.3;
   }
 
   .amenities-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-sm);
+    gap: var(--space-md);
   }
 
   .amenity-item {
-    font-size: 12px;
-    gap: 6px;
+    font-size: 16px;
+    gap: 10px;
   }
 
   .amenity-item i {
-    font-size: 12px;
-    width: 16px;
+    font-size: 18px;
+    width: 24px;
   }
 
   .unit-table th,
   .unit-table td {
-    padding: var(--space-sm);
-    font-size: 11px;
+    padding: var(--space-md);
+    font-size: 15px;
   }
 
   .unit-price {
-    font-size: 13px;
+    font-size: 17px;
   }
 
   .unit-contact-btn {
-    padding: 6px 10px;
-    font-size: 11px;
+    padding: 10px 16px;
+    font-size: 15px;
   }
 
   .agent-card-detail {
-    gap: var(--space-md);
+    gap: var(--space-lg);
   }
 
   .agent-logo {
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
+    width: 90px;
+    height: 90px;
+    font-size: 36px;
   }
 
   .agent-info h4 {
-    font-size: 15px;
-    margin-bottom: 4px;
+    font-size: 22px;
+    margin-bottom: 8px;
   }
 
   .agent-location {
-    font-size: 11px;
-    gap: 4px;
-    margin-bottom: 6px;
+    font-size: 16px;
+    gap: 6px;
+    margin-bottom: 10px;
   }
 
   .agent-stats-row {
-    gap: var(--space-lg);
-    margin-bottom: var(--space-sm);
-    font-size: 11px;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-md);
+    font-size: 15px;
   }
 
   .agent-stat-value {
-    font-size: 20px;
-    margin-bottom: 2px;
+    font-size: 32px;
+    margin-bottom: 6px;
   }
 
   .agent-stat-label {
-    font-size: 11px;
+    font-size: 15px;
   }
 
   .contact-agent-btn {
-    padding: 10px;
-    font-size: 13px;
-    gap: 6px;
+    padding: 16px;
+    font-size: 18px;
+    gap: 8px;
   }
 
   .description-header {
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-md);
   }
 
   .listen-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
   }
 
   .text-preview {
-    max-height: 120px;
-    font-size: 13px;
-    line-height: 1.5;
+    max-height: 150px;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   .see-more-btn {
-    margin-top: 6px;
-    padding: 6px 12px;
-    font-size: 11px;
-    gap: 4px;
+    margin-top: 10px;
+    padding: 10px 18px;
+    font-size: 15px;
+    gap: 6px;
   }
 }
 
 @media (max-width: 480px) {
   .gallery-main {
-    height: 180px;
+    height: 240px;
   }
 
   .gallery-nav {
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
   }
 
   .gallery-thumbnails {
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    gap: 4px;
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+    gap: 6px;
   }
 
   .gallery-thumbnail {
-    height: 50px;
+    height: 65px;
   }
 
   .property-section {
-    padding: var(--space-sm);
+    padding: var(--space-md);
   }
 
   .property-section h3 {
-    font-size: 14px;
-    margin-bottom: 8px;
+    font-size: 18px;
+    margin-bottom: 10px;
   }
 
   .property-section p {
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .property-overview-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 10px;
   }
 
   .overview-item {
-    padding: 8px;
+    padding: 10px;
   }
 
   .overview-icon {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
-    margin-bottom: 6px;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    margin-bottom: 8px;
   }
 
   .overview-label {
-    font-size: 9px;
-    margin-bottom: 3px;
+    font-size: 12px;
+    margin-bottom: 4px;
   }
 
   .overview-value {
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.3;
   }
 
   .amenity-item {
-    font-size: 11px;
+    font-size: 15px;
   }
 
   .unit-table th,
   .unit-table td {
-    padding: 8px;
-    font-size: 10px;
-  }
-
-  .unit-price {
-    font-size: 12px;
-  }
-
-  .agent-logo {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-  }
-
-  .agent-info h4 {
+    padding: 10px;
     font-size: 14px;
   }
 
+  .unit-price {
+    font-size: 16px;
+  }
+
+  .agent-logo {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+  }
+
+  .agent-info h4 {
+    font-size: 20px;
+  }
+
   .agent-location {
-    font-size: 10px;
+    font-size: 15px;
   }
 
   .agent-stats-row {
-    gap: var(--space-md);
-    font-size: 10px;
+    gap: var(--space-lg);
+    font-size: 14px;
   }
 
   .agent-stat-value {
-    font-size: 18px;
+    font-size: 28px;
   }
 
   .agent-stat-label {
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .contact-agent-btn {
-    padding: 8px;
-    font-size: 12px;
+    padding: 14px;
+    font-size: 17px;
   }
 
   .text-preview {
-    font-size: 12px;
+    font-size: 15px;
   }
 }

@@ -235,8 +235,8 @@
   }
 
   .agent-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
   }
 }
 
@@ -248,111 +248,127 @@
   }
 
   .property-header-left h1 {
-    font-size: 1.5rem;
-    margin-bottom: 4px;
+    font-size: 1.75rem;
+    margin-bottom: 6px;
   }
 
   .property-header-left p {
-    font-size: 13px;
+    font-size: 16px;
   }
 
   .btn-toggle-mode {
-    padding: 10px 16px;
-    font-size: 13px;
+    padding: 14px 20px;
+    font-size: 16px;
   }
 
   .btn-toggle-mode i {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .property-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 12px;
   }
 
   .property-card {
-    border-radius: 8px;
+    border-radius: 10px;
   }
 
   .property-card-image {
-    height: 100px;
+    height: 140px;
   }
 
   .property-card-content {
-    padding: 8px;
+    padding: 12px;
   }
 
   .property-card-title {
-    font-size: 11px;
+    font-size: 15px;
     font-weight: 600;
-    margin-bottom: 4px;
-    line-height: 1.2;
+    margin-bottom: 6px;
+    line-height: 1.3;
     -webkit-line-clamp: 2;
     line-clamp: 2;
   }
 
   .property-card-price {
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .property-card-details {
     flex-direction: column;
-    gap: 2px;
-    margin-bottom: 4px;
-    font-size: 9px;
+    gap: 4px;
+    margin-bottom: 6px;
+    font-size: 13px;
   }
 
   .property-card-details span {
-    gap: 2px;
+    gap: 4px;
   }
 
   .property-card-details i {
-    font-size: 8px;
+    font-size: 12px;
   }
 
   .property-card-location {
-    font-size: 9px;
-    gap: 3px;
-    line-height: 1.3;
+    font-size: 13px;
+    gap: 5px;
+    line-height: 1.4;
   }
 
   .property-card-location i {
-    font-size: 8px;
+    font-size: 12px;
     flex-shrink: 0;
   }
 
-  /* Agent cards on mobile */
+  /* Agent cards on mobile - 2 per row */
+  .agent-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .agent-card {
+    padding: var(--space-lg);
+    border-radius: 10px;
+  }
+
   .agent-avatar {
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
-    margin-bottom: var(--space-sm);
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+    margin-bottom: 10px;
   }
 
   .agent-name {
     font-size: 15px;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+    line-height: 1.3;
   }
 
   .agent-company {
     font-size: 12px;
-    margin-bottom: var(--space-sm);
+    margin-bottom: 10px;
+    line-height: 1.3;
   }
 
   .agent-stats {
     gap: var(--space-md);
-    margin-bottom: var(--space-sm);
-    font-size: 11px;
+    margin-bottom: 10px;
+    font-size: 12px;
   }
 
   .agent-stat-value {
-    font-size: 16px;
+    font-size: 18px;
+  }
+
+  .agent-stat-label {
+    font-size: 11px;
   }
 
   .agent-card .btn {
-    padding: 8px 16px;
+    padding: 10px 14px;
     font-size: 13px;
   }
 }
@@ -360,87 +376,111 @@
 /* Extra small devices - Optimize further */
 @media (max-width: 380px) {
   .property-header-left h1 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 
   .property-header-left p {
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .btn-toggle-mode {
-    padding: 8px 12px;
-    font-size: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
   }
 
   .btn-toggle-mode i {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .property-grid {
-    gap: 6px;
+    gap: 10px;
   }
 
   .property-card {
-    border-radius: 6px;
+    border-radius: 8px;
   }
 
   .property-card-image {
-    height: 85px;
+    height: 120px;
   }
 
   .property-card-content {
-    padding: 6px;
+    padding: 10px;
   }
 
   .property-card-title {
-    font-size: 10px;
-    margin-bottom: 3px;
+    font-size: 14px;
+    margin-bottom: 5px;
   }
 
   .property-card-price {
-    font-size: 12px;
-    margin-bottom: 3px;
+    font-size: 16px;
+    margin-bottom: 5px;
   }
 
   .property-card-details {
-    font-size: 8px;
-    gap: 2px;
-    margin-bottom: 3px;
+    font-size: 12px;
+    gap: 3px;
+    margin-bottom: 5px;
   }
 
   .property-card-details i {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .property-card-location {
-    font-size: 8px;
-    gap: 2px;
+    font-size: 12px;
+    gap: 4px;
   }
 
   .property-card-location i {
-    font-size: 7px;
+    font-size: 11px;
   }
 
-  /* Agent cards on extra small */
+  /* Agent cards on extra small - maintain 2 per row */
+  .agent-grid {
+    gap: 10px;
+  }
+
+  .agent-card {
+    padding: 12px;
+  }
+
   .agent-avatar {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    margin-bottom: 8px;
   }
 
   .agent-name {
     font-size: 14px;
+    margin-bottom: 4px;
+    line-height: 1.3;
   }
 
   .agent-company {
     font-size: 11px;
+    margin-bottom: 8px;
+    line-height: 1.3;
   }
 
   .agent-stats {
-    font-size: 10px;
+    font-size: 11px;
+    gap: 8px;
+    margin-bottom: 8px;
   }
 
   .agent-stat-value {
-    font-size: 14px;
+    font-size: 16px;
+  }
+
+  .agent-stat-label {
+    font-size: 10px;
+  }
+
+  .agent-card .btn {
+    padding: 8px 12px;
+    font-size: 12px;
   }
 }

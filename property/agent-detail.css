@@ -423,6 +423,7 @@
   margin-bottom: var(--space-xs);
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -622,303 +623,303 @@
 @media (max-width: 640px) {
   .breadcrumb {
     padding: var(--space-md) 0;
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .page-header-actions {
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
   }
 
   .btn-back-to-properties {
-    padding: 10px 16px;
-    font-size: 13px;
+    padding: 14px 20px;
+    font-size: 16px;
   }
 
   .btn-back-to-properties i {
-    font-size: 14px;
-  }
-
-  .agent-header {
-    padding: var(--space-md);
-    margin-bottom: var(--space-md);
-    border-radius: var(--radius-md);
-    gap: var(--space-md);
-  }
-
-  .agent-logo-large {
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
-  }
-
-  .agent-title {
     font-size: 18px;
   }
 
+  .agent-header {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    border-radius: var(--radius-lg);
+    gap: var(--space-lg);
+  }
+
+  .agent-logo-large {
+    width: 90px;
+    height: 90px;
+    font-size: 36px;
+  }
+
+  .agent-title {
+    font-size: 24px;
+  }
+
   .agent-verified {
-    font-size: 16px;
+    font-size: 22px;
   }
 
   .agent-location-header {
-    font-size: 12px;
-    gap: 4px;
-    margin-bottom: var(--space-sm);
+    font-size: 16px;
+    gap: 6px;
+    margin-bottom: var(--space-md);
   }
 
   .agent-rating {
-    font-size: 12px;
-    gap: 6px;
+    font-size: 16px;
+    gap: 10px;
   }
 
   .rating-badge {
-    padding: 3px 8px;
-    font-size: 12px;
-    gap: 3px;
+    padding: 6px 12px;
+    font-size: 16px;
+    gap: 6px;
   }
 
   .rating-count {
-    font-size: 11px;
+    font-size: 15px;
   }
 
   .btn-view-contact {
-    padding: 10px 16px;
-    font-size: 13px;
+    padding: 14px 20px;
+    font-size: 17px;
   }
 
   .rera-status {
-    font-size: 11px;
+    font-size: 15px;
   }
 
   .rera-badge {
-    padding: 2px 6px;
-    font-size: 10px;
+    padding: 4px 10px;
+    font-size: 13px;
   }
 
   .agent-tabs {
-    gap: 6px;
-    margin-bottom: var(--space-md);
+    gap: 10px;
+    margin-bottom: var(--space-lg);
   }
 
   .tab-btn {
-    padding: 8px 12px;
-    font-size: 12px;
+    padding: 12px 16px;
+    font-size: 16px;
   }
 
   .tab-count {
-    font-size: 11px;
+    font-size: 15px;
   }
 
   .overview-section {
-    padding: var(--space-md);
-    margin-bottom: var(--space-md);
-    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    border-radius: var(--radius-lg);
   }
 
   .overview-section h3 {
-    font-size: 16px;
-    margin-bottom: var(--space-sm);
+    font-size: 20px;
+    margin-bottom: var(--space-md);
   }
 
   .overview-section h4 {
-    font-size: 15px;
-    margin-bottom: var(--space-sm);
+    font-size: 18px;
+    margin-bottom: var(--space-md);
   }
 
   .overview-section p {
-    font-size: 13px;
-    line-height: 1.6;
-    margin-bottom: var(--space-sm);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
   }
 
   .areas-grid,
   .deals-grid,
   .services-grid {
-    gap: 6px;
+    gap: 10px;
   }
 
   .area-tag,
   .deal-tag,
   .service-tag {
-    padding: 6px 12px;
-    font-size: 11px;
+    padding: 10px 16px;
+    font-size: 15px;
   }
 
   .more-link {
-    padding: 6px 12px;
-    font-size: 11px;
+    padding: 10px 16px;
+    font-size: 15px;
   }
 
   .info-grid {
-    gap: var(--space-md);
+    gap: var(--space-lg);
   }
 
   .info-icon {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .info-text {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .btn-view-contact-section {
-    margin-top: var(--space-md);
+    margin-top: var(--space-lg);
   }
 
   .properties-section h2 {
-    font-size: 18px;
-    margin-bottom: var(--space-md);
+    font-size: 22px;
+    margin-bottom: var(--space-lg);
   }
 
   .properties-grid,
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 12px;
   }
 
   .property-card-agent,
   .project-card {
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
   }
 
   .property-image,
   .project-image {
-    height: 120px;
+    height: 140px;
   }
 
   .property-card-content,
   .project-card-content {
-    padding: 8px;
+    padding: 12px;
   }
 
   .property-title,
   .project-name {
-    font-size: 12px;
-    margin-bottom: 4px;
+    font-size: 15px;
+    margin-bottom: 6px;
   }
 
   .property-size {
-    font-size: 11px;
-    margin-bottom: 4px;
+    font-size: 14px;
+    margin-bottom: 6px;
   }
 
   .property-price,
   .project-price-range {
-    font-size: 13px;
-    margin-bottom: 4px;
+    font-size: 17px;
+    margin-bottom: 6px;
   }
 
   .property-location,
   .project-location {
-    font-size: 10px;
-    gap: 3px;
-    margin-bottom: 4px;
+    font-size: 14px;
+    gap: 5px;
+    margin-bottom: 6px;
   }
 
   .property-society {
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .btn-ask-price,
   .btn-contact-agent {
-    padding: 6px;
-    font-size: 11px;
-    margin-top: 6px;
+    padding: 10px;
+    font-size: 15px;
+    margin-top: 10px;
   }
 
   .rera-badge-overlay {
-    padding: 3px 8px;
-    font-size: 9px;
+    padding: 5px 12px;
+    font-size: 13px;
   }
 }
 
 @media (max-width: 480px) {
   .agent-logo-large {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
   }
 
   .agent-title {
-    font-size: 16px;
+    font-size: 22px;
   }
 
   .agent-location-header {
-    font-size: 11px;
+    font-size: 15px;
   }
 
   .overview-section {
-    padding: var(--space-sm);
+    padding: var(--space-md);
   }
 
   .overview-section h3 {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .overview-section p {
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .area-tag,
   .deal-tag,
   .service-tag {
-    padding: 5px 10px;
-    font-size: 10px;
+    padding: 8px 14px;
+    font-size: 14px;
   }
 
   .info-text {
-    font-size: 11px;
+    font-size: 15px;
   }
 
   .properties-section h2 {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .properties-grid,
   .projects-grid {
-    gap: 6px;
+    gap: 10px;
   }
 
   .property-image,
   .project-image {
-    height: 100px;
+    height: 130px;
   }
 
   .property-card-content,
   .project-card-content {
-    padding: 6px;
+    padding: 10px;
   }
 
   .property-title,
   .project-name {
-    font-size: 11px;
-    margin-bottom: 3px;
+    font-size: 14px;
+    margin-bottom: 5px;
   }
 
   .property-size {
-    font-size: 10px;
-    margin-bottom: 3px;
+    font-size: 13px;
+    margin-bottom: 5px;
   }
 
   .property-price,
   .project-price-range {
-    font-size: 12px;
-    margin-bottom: 3px;
+    font-size: 16px;
+    margin-bottom: 5px;
   }
 
   .property-location,
   .project-location {
-    font-size: 9px;
-    margin-bottom: 3px;
+    font-size: 13px;
+    margin-bottom: 5px;
   }
 
   .property-society {
-    font-size: 9px;
+    font-size: 13px;
   }
 
   .btn-ask-price,
   .btn-contact-agent {
-    padding: 5px;
-    font-size: 10px;
-    margin-top: 4px;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 8px;
   }
 }
