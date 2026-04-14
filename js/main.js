@@ -49,6 +49,7 @@ function renderHeader(){
         <a href="index.html">Home</a>
         <a href="directory.html">Directory</a>
         <a href="categories.html">Categories</a>
+        <a href="property.html">Property</a>
         <a href="map.html">Map</a>
         <a href="about.html">About</a>
         <a href="privacy-policy.html">Privacy</a>
@@ -66,6 +67,7 @@ function renderHeader(){
       <a href="index.html">Home</a>
       <a href="directory.html">Directory</a>
       <a href="categories.html">Categories</a>
+      <a href="property.html">Property</a>
       <a href="map.html">Map</a>
       <a href="about.html">About</a>
       <a href="privacy-policy.html">Privacy Policy</a>
@@ -148,6 +150,7 @@ function renderFooter(){
           <li><a href="index.html">Home</a></li>
           <li><a href="directory.html">Directory</a></li>
           <li><a href="categories.html">Categories</a></li>
+          <li><a href="property.html">Property</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="privacy-policy.html">Privacy Policy</a></li>
         </ul>
