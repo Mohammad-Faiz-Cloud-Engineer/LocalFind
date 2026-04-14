@@ -132,8 +132,8 @@ async function handleNetworkFirst(request) {
   try {
     const networkResponse = await fetch(request);
 
-    // Cache the fresh response for offline use
-    if (networkResponse && networkResponse.status === 200) {
+    // Cache successful responses (2xx status codes)
+    if (networkResponse && networkResponse.ok) {
       const cache = await caches.open(DYNAMIC_CACHE);
       cache.put(request, networkResponse.clone());
     }
@@ -190,10 +190,12 @@ async function handleImageRequest(request) {
     return networkResponse;
   }
 
-  // Fallback to logo
-  const fallback = await caches.match(`${EFFECTIVE_BASE_PATH}/assets/images/mainlogo.svg`);
-  if (fallback) {
-    return fallback;
+  // Fallback to logo only if not requesting the logo itself
+  if (!request.url.includes('mainlogo.svg')) {
+    const fallback = await caches.match(`${EFFECTIVE_BASE_PATH}/assets/images/mainlogo.svg`);
+    if (fallback) {
+      return fallback;
+    }
   }
 
   return new Response('Image not available', {
