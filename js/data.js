@@ -1016,7 +1016,7 @@ window.LISTINGS = [
     phoneName: "The Hazelnut Factory",
     email: "",
     website: "https://thehazelnutfactory.com/",
-    onlineOrder: "https://www.zomato.com/barabanki/the-hazelnut-factory-barabanki-locality/order",
+    zomato: "https://www.zomato.com/barabanki/the-hazelnut-factory-barabanki-locality/order",
     whatsapp: "+91 75184 00400",
     whatsappName: "The Hazelnut Factory",
     disableAppointment: true,
