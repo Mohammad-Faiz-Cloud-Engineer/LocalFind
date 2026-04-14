@@ -1513,6 +1513,7 @@ window.LISTINGS = [
     },
     description: "Pizza Hut brings world-famous pizzas to Barabanki on Lucknow Faizabad Road. We serve delicious hand-tossed pizzas, pan pizzas, thin crust pizzas, pasta, garlic bread, chicken wings, and desserts. Our menu features classic favorites like Margherita, Pepperoni, Veggie Supreme, Chicken Supreme, and specialty pizzas. Enjoy dine-in with comfortable seating, takeaway, or home delivery through Swiggy, Zomato, and Magicpin. Fresh ingredients, quality toppings, and signature Pizza Hut taste in every bite. Perfect for families, friends, parties, and pizza lovers. Order online or visit us at Awas Vikas Colony. Open daily from 11 AM to 11 PM.",
     tags: ["pizza-hut", "pizza", "fast-food", "italian", "restaurant", "pasta", "delivery", "takeaway", "family-dining", "chicken-wings"],
+    lgbtqFriendly: true,
     addedDate: "2026-04-15"
   }
 ];
