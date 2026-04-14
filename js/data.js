@@ -1497,6 +1497,7 @@ window.LISTINGS = [
     phoneName: "Pizza Hut",
     email: "",
     website: "https://restaurants.pizzahut.co.in/pizza-hut-ph-faizabad-road-barabanki-pizza-restaurant-awas-vikas-colony-barabanki-305355/Home",
+    menu: "https://restaurants.pizzahut.co.in/pizza-hut-ph-faizabad-road-barabanki-pizza-restaurant-awas-vikas-colony-barabanki-305355/Menu",
     orderOnline: "https://www.pizzahut.co.in/?utm_source=restaurant-pizzahut&utm_medium=featured-products-buy-now",
     onlineOrder: "https://www.swiggy.com/city/bharabanki/pizza-hut-obaree-rest804074",
     zomato: "https://www.zomato.com/barabanki/pizza-hut-barabanki-locality/order",
