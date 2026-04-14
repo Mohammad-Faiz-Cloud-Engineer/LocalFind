@@ -131,7 +131,7 @@ searchAliases: {
 }
 
 // Update version
-version: '4.2.1' // Increment from current
+version: '4.3.5' // Current version
 ```
 
 ### 3. index.html
