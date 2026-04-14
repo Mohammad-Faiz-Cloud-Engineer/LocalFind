@@ -11,6 +11,20 @@
     return temp.innerHTML;
   }
 
+  function sanitizeURL(url) {
+    if (!url) return 'property/assets/placeholder.svg';
+    const urlLower = url.toLowerCase().trim();
+    if (urlLower.startsWith('javascript:') || urlLower.startsWith('data:')) {
+      return 'property/assets/placeholder.svg';
+    }
+    return url;
+  }
+
+  function validateAgentId(id) {
+    // Only allow alphanumeric characters and hyphens
+    return /^[a-zA-Z0-9-]+$/.test(id) ? id : null;
+  }
+
   function switchTab(tabName) {
     // Update tab buttons
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -35,7 +49,14 @@
       return;
     }
 
-    const agent = window.PROPERTY_DATA.agents.find(a => a.id === agentId);
+    // Validate agent ID
+    const validatedId = validateAgentId(agentId);
+    if (!validatedId) {
+      content.innerHTML = '<div class="empty-state"><p>Invalid agent ID</p></div>';
+      return;
+    }
+
+    const agent = window.PROPERTY_DATA.agents.find(a => a.id === validatedId);
 
     if (!agent) {
       content.innerHTML = '<div class="empty-state"><p>Agent not found</p></div>';
@@ -216,12 +237,12 @@
             <div class="properties-grid">
               ${saleProperties.map(property => {
                 const imageSrc = property.images && property.images.length > 0 
-                  ? property.images[0] 
+                  ? sanitizeURL(property.images[0])
                   : 'property/assets/placeholder.svg';
                 
                 return `
-                  <div class="property-card-agent" onclick="window.location.href='property-detail.html?id=${property.id}'">
-                    <img src="${imageSrc}" alt="${sanitizeHTML(property.title)}" class="property-image" onerror="this.src='property/assets/placeholder.svg'">
+                  <div class="property-card-agent" data-property-id="${sanitizeHTML(property.id)}">
+                    <img src="${sanitizeHTML(imageSrc)}" alt="${sanitizeHTML(property.title)}" class="property-image">
                     <div class="property-card-content">
                       <h3 class="property-title">${sanitizeHTML(property.title)}</h3>
                       <div class="property-size">${sanitizeHTML(property.size)}</div>
@@ -252,12 +273,12 @@
             <div class="properties-grid">
               ${rentProperties.map(property => {
                 const imageSrc = property.images && property.images.length > 0 
-                  ? property.images[0] 
+                  ? sanitizeURL(property.images[0])
                   : 'property/assets/placeholder.svg';
                 
                 return `
-                  <div class="property-card-agent" onclick="window.location.href='property-detail.html?id=${property.id}'">
-                    <img src="${imageSrc}" alt="${sanitizeHTML(property.title)}" class="property-image" onerror="this.src='property/assets/placeholder.svg'">
+                  <div class="property-card-agent" data-property-id="${sanitizeHTML(property.id)}">
+                    <img src="${sanitizeHTML(imageSrc)}" alt="${sanitizeHTML(property.title)}" class="property-image">
                     <div class="property-card-content">
                       <h3 class="property-title">${sanitizeHTML(property.title)}</h3>
                       <div class="property-size">${sanitizeHTML(property.size)}</div>
@@ -287,13 +308,13 @@
                 const minPrice = Math.min(...projectProps.map(p => parseFloat(p.price.replace(/[^\d.]/g, ''))));
                 const maxPrice = Math.max(...projectProps.map(p => parseFloat(p.price.replace(/[^\d.]/g, ''))));
                 const imageSrc = projectProps[0].images && projectProps[0].images.length > 0 
-                  ? projectProps[0].images[0] 
+                  ? sanitizeURL(projectProps[0].images[0])
                   : 'property/assets/placeholder.svg';
                 
                 return `
                   <div class="project-card">
                     <div class="project-image">
-                      <img src="${imageSrc}" alt="${sanitizeHTML(project.name)}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='property/assets/placeholder.svg'">
+                      <img src="${sanitizeHTML(imageSrc)}" alt="${sanitizeHTML(project.name)}" style="width: 100%; height: 100%; object-fit: cover;">
                       ${project.reraApproved ? '<div class="rera-badge-overlay">RERA REGISTERED</div>' : ''}
                     </div>
                     <div class="project-card-content">
@@ -321,5 +342,23 @@
 
     // Make switchTab function globally available
     window.switchTab = switchTab;
+
+    // Add click handlers for property cards
+    document.querySelectorAll('.property-card-agent').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        const propertyId = card.getAttribute('data-property-id');
+        if (propertyId) {
+          window.location.href = `property-detail.html?id=${encodeURIComponent(propertyId)}`;
+        }
+      });
+    });
+
+    // Add error handlers for images
+    document.querySelectorAll('.property-image, .project-image img').forEach(img => {
+      img.addEventListener('error', function() {
+        this.src = 'property/assets/placeholder.svg';
+      });
+    });
   });
 })();
