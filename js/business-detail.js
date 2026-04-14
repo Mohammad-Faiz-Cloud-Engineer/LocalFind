@@ -814,6 +814,12 @@
           <a href="${validateAndSanitizeURL(biz.website) || '#'}" target="_blank" rel="noopener noreferrer">${biz.website.includes('jsdl.in') || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
         </div>
       ` : ''}
+      ${biz.orderOnline ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-pizza-slice"></i>
+          <a href="${validateAndSanitizeURL(biz.orderOnline) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Order Online</a>
+        </div>
+      ` : ''}
       ${biz.bloodDonor ? `
         <div class="contact-item">
           <i class="fa-solid fa-droplet"></i>
