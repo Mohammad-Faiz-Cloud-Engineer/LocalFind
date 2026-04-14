@@ -38,9 +38,9 @@ window.PROPERTY_DATA = {
       society: "Sandauli",
       agentId: "agent-prince-dwivedi",
       images: [
-        "property/assets/%231/1_1.jpg",
-        "property/assets/%231/1_2.jpg",
-        "property/assets/%231/1_3.jpg"
+        "property/assets/property-1/1_1.jpg",
+        "property/assets/property-1/1_2.jpg",
+        "property/assets/property-1/1_3.jpg"
       ],
       description: "Independent House is available for sale. This is 3.0 BHK with Super Area 2200 Sq.ft. Independent House is located at Sandauli, Barabanki at a price of Rs. 65 Lac.\n\nJila panchayat approval\nAll bank Finance",
       amenities: [
