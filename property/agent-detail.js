@@ -108,10 +108,9 @@
           <div class="agent-rating">
             <div class="rating-badge">
               <i class="fa-solid fa-star"></i>
-              ${agent.rating || '4.6'}
+              ${agent.rating || '0'}
             </div>
-            <span class="rating-count">${agent.reviewCount || '30'} reviews</span>
-            ${agent.addReviewLink ? '<a href="#" class="see-more-link">Add Review</a>' : ''}
+            <span class="rating-count">${agent.reviewCount || '0'} reviews</span>
           </div>
         </div>
         <div class="agent-header-actions">
@@ -121,16 +120,11 @@
             </a>
           </div>
           <button class="btn-view-contact" id="btn-view-contact-header" data-phone="${sanitizeHTML(agent.phone)}">VIEW CONTACT</button>
-          <div class="rera-status">
-            ${agent.reraStatus ? `
-              <span class="rera-badge">RERA STATUS</span>
-            ` : `
-              <span class="rera-not-available">
-                <i class="fa-solid fa-circle-info"></i>
-                Not Available
-              </span>
-            `}
-          </div>
+          ${agent.reraStatus ? `
+            <div class="rera-status">
+              <span class="rera-badge">RERA REGISTERED</span>
+            </div>
+          ` : ''}
         </div>
       </div>
 
@@ -149,7 +143,7 @@
           Project <span class="tab-count">(${projects.length})</span>
         </button>
         <button class="tab-btn" data-tab="review" onclick="window.switchTab('review')">
-          Review <span class="tab-count">(${agent.reviewCount || '30'})</span>
+          Review <span class="tab-count">(${agent.reviewCount || '0'})</span>
         </button>
       </div>
 
