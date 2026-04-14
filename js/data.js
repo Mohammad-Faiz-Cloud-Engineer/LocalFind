@@ -1576,6 +1576,7 @@ window.LISTINGS = [
     website: "https://www.dominos.co.in/store-locations/barabanki/obri-barabanki-uttar-pradesh",
     menu: "https://www.dominos.co.in/store-locations/barabanki/obri-barabanki-uttar-pradesh/menu",
     orderOnline: "https://m.dominos.co.in/menu?src=local_gmb",
+    bookTable: "https://m.dominos.co.in/postorder-ui/login?&src=local_gmb&utm_source=Google_GMB&utm_medium=GMB_SEO_urls_reservation",
     disableAppointment: true,
     hours: {
       mon: { open: "11:00", close: "23:00" },
