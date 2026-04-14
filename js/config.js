@@ -129,7 +129,9 @@ const CONFIG = {
     'cafe': ['coffee-shop', 'hazelnut-factory', 'specialty-coffee', 'coffee', 'tea', 'beverages', 'european-cafe'],
     'laundry': ['dry clean', 'washing', 'ironing'],
     'petrol': ['fuel', 'gas station', 'pump'],
-    'delivery': ['courier', 'logistics', 'transport']
+    'delivery': ['courier', 'logistics', 'transport'],
+    'jiffy': ['jiffy-by-spencers', 'spencers', 'grocery', 'supermarket', 'retail', 'shopping', 'mall'],
+    'spencers': ['jiffy-by-spencers', 'jiffy', 'grocery-store', 'supermarket', 'retail-chain', 'shopping', 'mall']
   }
 };
 
