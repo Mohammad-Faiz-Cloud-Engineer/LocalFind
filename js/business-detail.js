@@ -816,7 +816,7 @@
       ` : ''}
       ${biz.orderOnline ? `
         <div class="contact-item">
-          <i class="fa-solid fa-pizza-slice"></i>
+          <i class="fa-solid fa-shopping-cart"></i>
           <a href="${validateAndSanitizeURL(biz.orderOnline) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Order Online</a>
         </div>
       ` : ''}
@@ -866,6 +866,18 @@
         <div class="contact-item">
           <i class="fa-brands fa-youtube"></i>
           <a href="${validateAndSanitizeURL(biz.youtube) || '#'}" target="_blank" rel="noopener noreferrer">YouTube</a>
+        </div>
+      ` : ''}
+      ${biz.linkedin ? `
+        <div class="contact-item">
+          <i class="fa-brands fa-linkedin"></i>
+          <a href="${validateAndSanitizeURL(biz.linkedin) || '#'}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      ` : ''}
+      ${biz.facebook ? `
+        <div class="contact-item">
+          <i class="fa-brands fa-facebook"></i>
+          <a href="${validateAndSanitizeURL(biz.facebook) || '#'}" target="_blank" rel="noopener noreferrer">Facebook</a>
         </div>
       ` : ''}
       ${biz.bookMyShow ? `
