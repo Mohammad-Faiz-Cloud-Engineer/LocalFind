@@ -1590,6 +1590,56 @@ window.LISTINGS = [
     description: "Domino's Pizza is India's leading pizza delivery chain, now serving Barabanki at Obaree on Lucknow-Faizabad Road. We're famous for our 30-minute delivery guarantee and hot, fresh pizzas made with quality ingredients. Our menu features a wide variety of pizzas including Margherita, Farmhouse, Peppy Paneer, Mexican Green Wave, Chicken Dominator, and more. Choose from hand-tossed, thin crust, fresh pan, or cheese burst options. We also serve pasta, garlic bread, chicken wings, desserts, and beverages. Order online for home delivery or dine-in at our restaurant. Open daily from 11 AM to 11 PM. Book a table, browse our menu, or order online through our website. Perfect for families, parties, and pizza lovers. Experience the taste of authentic Domino's Pizza in Barabanki.",
     tags: ["dominos", "pizza", "fast-food", "italian", "restaurant", "delivery", "takeaway", "family-dining", "cheese-burst"],
     addedDate: "2026-04-15"
+  },
+  {
+    id: "jiffy-by-spencers-barabanki",
+    name: "Jiffy By Spencers",
+    category: "Shopping & Retail",
+    categorySlug: "shopping-mall",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 3.8,
+    reviewCount: 1,
+    coordinates: { lat: 26.9230886, lng: 81.1756794 },
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 3.8,
+        date: "2026-04-15",
+        text: "Based on customer feedback: Jiffy By Spencers has a convenient roadside location with good accessibility. However, several areas need improvement. The store offers limited grocery and product variety compared to other retail chains, and prices tend to be higher than competitors. Parking space is quite limited. Staff behavior and management have received mixed reviews - some customers reported unprofessional conduct, locked trial rooms, and billing discrepancies (items billed at MRP instead of displayed prices). The store exit can be slippery, posing a safety concern. Management responsiveness needs improvement. We recommend customers verify prices before payment and be cautious during checkout. The store has potential but needs better staff training, competitive pricing, and improved customer service to match other retail chains.",
+        verified: true
+      }
+    ],
+    address: "Khasara No 521, 519, 520/2 And 520/1, Upper Ground Floor And First Floor, Tandon Complex, Nawabgar, Civil Line, Lucknow-Ayodhya Highway, Opposite Swastik Petrol Pump, Awas Vikas Colony, Barabanki, Uttar Pradesh - 225001",
+    mapLink: "https://maps.app.goo.gl/h1BVWJJSJ81eWXVF6",
+    phone: "18001236868",
+    phoneName: "Spencers Customer Care",
+    phoneSecondary: "+91 76040 64680",
+    phoneSecondaryName: "Spencers Barabanki",
+    email: "",
+    website: "https://stores.spencers.in/spencers/barabanki/Awas-Vikas-Colony/spencers-in-Awas-Vikas-Colony-barabanki--4ROgcV/home",
+    orderOnline: "https://www.spencers.in/",
+    whatsapp: "+91 76040 64680",
+    whatsappName: "Spencers Barabanki",
+    instagram: "https://www.instagram.com/spencersretail/",
+    youtube: "https://www.youtube.com/@spencersretail814",
+    linkedin: "https://www.linkedin.com/company/spencersretail/",
+    facebook: "https://www.facebook.com/spencersindia/",
+    hours: {
+      mon: { open: "10:00", close: "22:00" },
+      tue: { open: "10:00", close: "22:00" },
+      wed: { open: "10:00", close: "22:00" },
+      thu: { open: "10:00", close: "22:00" },
+      fri: { open: "10:00", close: "22:00" },
+      sat: { open: "10:00", close: "22:00" },
+      sun: { open: "10:00", close: "22:00" }
+    },
+    description: "Jiffy By Spencers is a retail grocery store and shopping mall located on Lucknow-Ayodhya Highway in Awas Vikas Colony, Barabanki. Part of the Spencers retail chain, we offer groceries, household items, personal care products, and daily essentials. Conveniently located opposite Swastik Petrol Pump on the main highway with roadside access. Open daily from 10 AM to 10 PM. For customer service, call our toll-free number 18001236868 or contact the store directly.",
+    tags: ["grocery", "retail", "shopping", "supermarket", "spencers", "jiffy", "household", "daily-essentials", "convenience-store", "mall", "shopping-mall"],
+    addedDate: "2026-04-15"
   }
 ];
 
