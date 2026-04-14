@@ -175,7 +175,7 @@ function renderFooter(){
         </div>
       </div>
       <div class="container footer-bottom">
-        &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.3.3'}</span>
+        &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.3.5'}</span>
         <button id="back-to-top" class="btn" aria-label="Scroll back to top">Back to top</button>
       </div>
     </footer>
@@ -185,7 +185,7 @@ function renderFooter(){
     footer.innerHTML = `
     <footer role="contentinfo" style="margin-top: var(--space-xl); padding: var(--space-lg) var(--space-md);">
       <div class="container footer-bottom" style="padding: 0; margin: 0; border-top: none;">
-        &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.3.3'}</span>
+        &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.3.5'}</span>
         <button id="back-to-top" class="btn" aria-label="Scroll back to top">Back to top</button>
       </div>
     </footer>
