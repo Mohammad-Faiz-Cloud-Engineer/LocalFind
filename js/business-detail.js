@@ -826,6 +826,12 @@
           <a href="${validateAndSanitizeURL(biz.menu) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">View Menu</a>
         </div>
       ` : ''}
+      ${biz.bookTable ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-chair"></i>
+          <a href="${validateAndSanitizeURL(biz.bookTable) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Book a Table</a>
+        </div>
+      ` : ''}
       ${biz.bloodDonor ? `
         <div class="contact-item">
           <i class="fa-solid fa-droplet"></i>
