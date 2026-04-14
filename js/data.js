@@ -1515,6 +1515,44 @@ window.LISTINGS = [
     tags: ["pizza-hut", "pizza", "fast-food", "italian", "restaurant", "pasta", "delivery", "takeaway", "family-dining", "chicken-wings"],
     lgbtqFriendly: true,
     addedDate: "2026-04-15"
+  },
+  {
+    id: "la-pinoz-pizza-barabanki",
+    name: "La Pinoz Pizza",
+    category: "Restaurants & Fast Food",
+    categorySlug: "restaurants",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 0,
+    coordinates: { lat: 26.9234278, lng: 81.1772439 },
+    reviews: [],
+    address: "W5FG+8RX, Faizabad - Lucknow Hwy, near Dewa Hospital, Awas Vikas Colony, Barabanki, Uttar Pradesh 225001",
+    mapLink: "https://maps.app.goo.gl/Uc9Uk7Y9SxUJiT1k9",
+    phone: "+91 89601 67000",
+    phoneName: "La Pinoz Pizza (Outlet)",
+    phoneSecondary: "01762 509231",
+    phoneSecondaryName: "La Pinoz Pizza (Company)",
+    email: "",
+    website: "https://lapinozpizza.in/order/avas-vikas-colony-barabanki",
+    onlineOrder: "https://www.swiggy.com/city/bharabanki/la-pinoz-pizza-awas-vikash-colony-faizabad-road-rest854177",
+    zomato: "https://www.zomato.com/barabanki/la-pinoz-pizza-barabanki-locality/order",
+    whatsapp: "+91 89601 67000",
+    whatsappName: "La Pinoz Pizza",
+    disableAppointment: true,
+    hours: {
+      mon: { open: "09:00", close: "00:00" },
+      tue: { open: "09:00", close: "00:00" },
+      wed: { open: "09:00", close: "00:00" },
+      thu: { open: "09:00", close: "00:00" },
+      fri: { open: "09:00", close: "00:00" },
+      sat: { open: "09:00", close: "00:00" },
+      sun: { open: "09:00", close: "00:00" }
+    },
+    description: "La Pinoz Pizza brings delicious pizzas and Italian cuisine to Barabanki on Faizabad-Lucknow Highway near Dewa Hospital. We specialize in gourmet pizzas with unique toppings, fresh ingredients, and authentic Italian flavors. Our menu features signature pizzas, pasta, garlic bread, sides, and desserts. Choose from thin crust, thick crust, or stuffed crust options. Popular favorites include Mexican Fiesta, Chicken Tikka, Paneer Makhani Pizza, and more. Enjoy dine-in, takeaway, or home delivery through Swiggy and Zomato. Fresh dough made daily, quality cheese, and flavorful sauces in every bite. Perfect for families, parties, and pizza lovers. Order online or visit us at Awas Vikas Colony. Open daily from 9 AM to midnight.",
+    tags: ["la-pinoz", "pizza", "fast-food", "italian", "restaurant", "pasta", "delivery", "takeaway", "family-dining", "gourmet-pizza"],
+    addedDate: "2026-04-15"
   }
 ];
 
