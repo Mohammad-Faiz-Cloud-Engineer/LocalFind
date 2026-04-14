@@ -115,7 +115,12 @@
           </div>
         </div>
         <div class="agent-header-actions">
-          <button class="btn-view-contact">VIEW CONTACT</button>
+          <div class="agent-phone-display" id="agent-phone-display-header" style="display: none; margin-bottom: var(--space-sm); padding: var(--space-sm); background: rgba(255, 138, 0, 0.1); border-radius: var(--radius-md); text-align: center;">
+            <a href="tel:${sanitizeHTML(agent.phone)}" style="color: var(--accent-primary); font-size: 18px; font-weight: 700; text-decoration: none;">
+              <i class="fa-solid fa-phone"></i> ${sanitizeHTML(agent.phone)}
+            </a>
+          </div>
+          <button class="btn-view-contact" id="btn-view-contact-header" data-phone="${sanitizeHTML(agent.phone)}">VIEW CONTACT</button>
           <div class="rera-status">
             ${agent.reraStatus ? `
               <span class="rera-badge">RERA STATUS</span>
@@ -227,8 +232,13 @@
               </div>
             ` : ''}
           </div>
+          <div class="agent-phone-display" id="agent-phone-display-footer" style="display: none; margin: var(--space-md) 0; padding: var(--space-sm); background: rgba(255, 138, 0, 0.1); border-radius: var(--radius-md); text-align: center;">
+            <a href="tel:${sanitizeHTML(agent.phone)}" style="color: var(--accent-primary); font-size: 18px; font-weight: 700; text-decoration: none;">
+              <i class="fa-solid fa-phone"></i> ${sanitizeHTML(agent.phone)}
+            </a>
+          </div>
           <div class="btn-view-contact-section">
-            <button class="btn-view-contact">VIEW CONTACT</button>
+            <button class="btn-view-contact" id="btn-view-contact-footer" data-phone="${sanitizeHTML(agent.phone)}">VIEW CONTACT</button>
           </div>
         </div>
       </div>
@@ -362,6 +372,33 @@
     document.querySelectorAll('.property-image, .project-image img').forEach(img => {
       img.addEventListener('error', function() {
         this.src = 'property/assets/placeholder.svg';
+      });
+    });
+
+    // VIEW CONTACT button functionality
+    const viewContactButtons = document.querySelectorAll('.btn-view-contact');
+    viewContactButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const phone = btn.getAttribute('data-phone');
+        
+        // Find the corresponding phone display element
+        let phoneDisplay;
+        if (btn.id === 'btn-view-contact-header') {
+          phoneDisplay = document.getElementById('agent-phone-display-header');
+        } else if (btn.id === 'btn-view-contact-footer') {
+          phoneDisplay = document.getElementById('agent-phone-display-footer');
+        }
+        
+        if (phoneDisplay) {
+          // Show phone number
+          phoneDisplay.style.display = 'block';
+          // Hide the button
+          btn.style.display = 'none';
+        } else if (phone) {
+          // Fallback: open phone dialer
+          window.location.href = `tel:${phone}`;
+        }
       });
     });
   });
