@@ -373,6 +373,15 @@
   box-shadow: 0 4px 12px rgba(255, 138, 0, 0.4);
 }
 
+.view-contact-btn:hover {
+  background: var(--accent-primary);
+  color: #0A0E17;
+}
+
+.agent-phone-display a:hover {
+  text-decoration: underline;
+}
+
 /* Description with voice */
 .description-header {
   display: flex;
