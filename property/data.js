@@ -8,67 +8,88 @@
 window.PROPERTY_DATA = {
   // Array of real estate agents/brokers
   agents: [
-    // Example agent structure (remove this comment and add real data):
-    // {
-    //   id: "agent-1",                    // Unique ID (alphanumeric and hyphens only)
-    //   name: "Agent Name",               // Agent/Company name
-    //   company: "Company Name",          // Company name
-    //   phone: "+91 XXXXX XXXXX",        // Contact phone
-    //   email: "contact@example.com",    // Contact email
-    //   website: "https://example.com",  // Website URL
-    //   location: "City, State",         // Office location
-    //   propertiesForSale: 0,            // Number of properties for sale
-    //   propertiesForRent: 0,            // Number of properties for rent
-    //   rating: 4.5,                     // Agent rating (optional)
-    //   reviewCount: 10,                 // Number of reviews (optional)
-    //   verified: true,                  // Verification status (optional)
-    //   reraStatus: false,               // RERA registration (optional)
-    //   ownerName: "Owner Name",         // Owner name (optional)
-    //   experience: "5+ Years",          // Experience (optional)
-    //   teamSize: "10 People",           // Team size (optional)
-    //   description: "About the agent...", // Agent description (optional)
-    //   areasOfOperation: [],            // Array of areas (optional)
-    //   propertyDeals: [],               // Array of property types (optional)
-    //   services: []                     // Array of services (optional)
-    // }
+    {
+      id: "agent-prince-dwivedi",
+      name: "Prince Dwivedi",
+      company: "Prince Dwivedi Real Estate",
+      phone: "+91 97959 93631",
+      email: "contact@princedwivedi.com",
+      location: "Rasauli, Barabanki",
+      propertiesForSale: 1,
+      propertiesForRent: 0,
+      rating: 4.5,
+      reviewCount: 0,
+      verified: true,
+      reraStatus: false,
+      description: "Experienced real estate professional specializing in residential properties in Barabanki region."
+    }
   ],
   
   // Array of property listings
   properties: [
-    // Example property structure (remove this comment and add real data):
-    // {
-    //   id: "property-1",                           // Unique ID (alphanumeric and hyphens only)
-    //   title: "Property Title",                    // Property title
-    //   type: "Residential Plots",                  // Property type
-    //   price: "₹ 50 Lac",                         // Price with currency
-    //   size: "1500 Sq.ft.",                       // Area with unit
-    //   location: "Location, City",                 // Property location
-    //   project: "Project Name",                    // Project name
-    //   society: "Society Name",                    // Society name
-    //   agentId: "agent-1",                        // Reference to agent ID (optional)
-    //   images: [                                   // Array of image paths (optional)
-    //     "property/assets/property-1/image1.jpg",
-    //     "property/assets/property-1/image2.jpg"
-    //   ],
-    //   description: "Full property description...", // Detailed description
-    //   amenities: [                                // Array of amenities (optional)
-    //     "Swimming Pool",
-    //     "Gym",
-    //     "Parking"
-    //   ],
-    //   projectDetails: {                           // Project information (optional)
-    //     name: "Project Name",
-    //     description: "Project description...",
-    //     reraApproved: true,
-    //     facilities: ["Power Backup", "Lift"]
-    //   },
-    //   unitConfigurations: [                       // Unit types (optional)
-    //     {
-    //       type: "3 BHK Apartment",
-    //       area: "1500 Sq.ft.",
-    //       price: "₹ 85 Lac"
-    //     }
-    //   ]
-    // }
+    {
+      id: "property-1",
+      title: "3 BHK Independent House for Sale in Rasauli",
+      type: "Independent House",
+      price: "₹ 65 Lac",
+      size: "1500 Sq.ft.",
+      location: "Rasauli, Barabanki",
+      project: "PI Group",
+      society: "Sandauli",
+      agentId: "agent-prince-dwivedi",
+      images: [
+        "property/assets/#1/1_1.jpg",
+        "property/assets/#1/1_2.jpg",
+        "property/assets/#1/1_3.jpg"
+      ],
+      description: "Independent House is available for sale. This is 3.0 BHK with Super Area 2200 Sq.ft. Independent House is located at Sandauli, Barabanki at a price of Rs. 65 Lac.\n\nJila panchayat approval\nAll bank Finance",
+      amenities: [
+        "Car Parking",
+        "24 x 7 Security",
+        "Maintenance Staff"
+      ],
+      landmarks: [
+        "Airport",
+        "School",
+        "Shopping Mall",
+        "Bank",
+        "Bus Stop"
+      ],
+      features: [
+        "Reputed Builder",
+        "Vastu compliant",
+        "Spacious",
+        "Gated Society",
+        "Tasteful Interiors",
+        "Prime Location",
+        "Luxury lifestyle",
+        "Well Maintained",
+        "Plenty of Sunlight",
+        "Width of facing Road",
+        "Corner Property"
+      ],
+      propertyDetails: {
+        bedrooms: "3 BHK",
+        bathrooms: "3 Baths",
+        builtUpArea: "1500 Sq.ft.",
+        carpetArea: "1100 Sq.ft.",
+        superArea: "2200 Sq.ft.",
+        ownership: "Builder",
+        saleType: "New",
+        propertyType: "House",
+        floor: "Ground",
+        totalFloors: "2",
+        bookingAmount: "2 Lac",
+        status: "Under Construction"
+      },
+      projectDetails: {
+        name: "PI Group",
+        description: "PI Group is a reputed builder in Gomti Nagar, Lucknow. The project offers Vastu compliant homes with modern amenities.",
+        reraApproved: false,
+        builderPhone: "+91-97959xxxxx",
+        builderLocation: "Gomti Nagar, Lucknow",
+        facilities: ["Jila Panchayat Approval", "All Bank Finance"]
+      }
+    }
   ]
 };
