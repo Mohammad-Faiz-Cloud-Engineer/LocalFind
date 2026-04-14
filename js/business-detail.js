@@ -832,6 +832,12 @@
           <a href="${validateAndSanitizeURL(biz.zomato) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Order on Zomato</a>
         </div>
       ` : ''}
+      ${biz.magicpin ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <a href="${validateAndSanitizeURL(biz.magicpin) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Order on Magicpin</a>
+        </div>
+      ` : ''}
       ${biz.instagram ? `
         <div class="contact-item">
           <i class="fa-brands fa-instagram"></i>
