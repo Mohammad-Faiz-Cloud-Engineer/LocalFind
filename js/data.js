@@ -1553,6 +1553,40 @@ window.LISTINGS = [
     description: "La Pinoz Pizza brings delicious pizzas and Italian cuisine to Barabanki on Faizabad-Lucknow Highway near Dewa Hospital. We specialize in gourmet pizzas with unique toppings, fresh ingredients, and authentic Italian flavors. Our menu features signature pizzas, pasta, garlic bread, sides, and desserts. Choose from thin crust, thick crust, or stuffed crust options. Popular favorites include Mexican Fiesta, Chicken Tikka, Paneer Makhani Pizza, and more. Enjoy dine-in, takeaway, or home delivery through Swiggy and Zomato. Fresh dough made daily, quality cheese, and flavorful sauces in every bite. Perfect for families, parties, and pizza lovers. Order online or visit us at Awas Vikas Colony. Open daily from 9 AM to midnight.",
     tags: ["la-pinoz", "pizza", "fast-food", "italian", "restaurant", "pasta", "delivery", "takeaway", "family-dining", "gourmet-pizza"],
     addedDate: "2026-04-15"
+  },
+  {
+    id: "dominos-pizza-barabanki",
+    name: "Domino's Pizza",
+    category: "Restaurants & Fast Food",
+    categorySlug: "restaurants",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 0,
+    coordinates: { lat: 26.9238689, lng: 81.1779151 },
+    reviews: [],
+    address: "UPPER GROUND FLOOR KHASRA NO. 507 & 508 (KHASRA NO. 506, 507 & 508 AS PER SANCTIONED BUILDING PLAN) OBRI, BARABANKI, UTTAR PRADESH, BARABANKI, Uttar Pradesh - 225001",
+    mapLink: "https://maps.app.goo.gl/rSuqx4Y278aPjWyu7",
+    phone: "1800 208 1234",
+    phoneName: "Domino's Pizza (Company)",
+    email: "",
+    website: "https://www.dominos.co.in/store-locations/barabanki/obri-barabanki-uttar-pradesh",
+    menu: "https://www.dominos.co.in/store-locations/barabanki/obri-barabanki-uttar-pradesh/menu",
+    orderOnline: "https://m.dominos.co.in/menu?src=local_gmb",
+    disableAppointment: true,
+    hours: {
+      mon: { open: "11:00", close: "23:00" },
+      tue: { open: "11:00", close: "23:00" },
+      wed: { open: "11:00", close: "23:00" },
+      thu: { open: "11:00", close: "23:00" },
+      fri: { open: "11:00", close: "23:00" },
+      sat: { open: "11:00", close: "23:00" },
+      sun: { open: "11:00", close: "23:00" }
+    },
+    description: "Domino's Pizza is India's leading pizza delivery chain, now serving Barabanki at Obaree on Lucknow-Faizabad Road. We're famous for our 30-minute delivery guarantee and hot, fresh pizzas made with quality ingredients. Our menu features a wide variety of pizzas including Margherita, Farmhouse, Peppy Paneer, Mexican Green Wave, Chicken Dominator, and more. Choose from hand-tossed, thin crust, fresh pan, or cheese burst options. We also serve pasta, garlic bread, chicken wings, desserts, and beverages. Order online for home delivery or dine-in at our restaurant. Open daily from 11 AM to 11 PM. Book a table, browse our menu, or order online through our website. Perfect for families, parties, and pizza lovers. Experience the taste of authentic Domino's Pizza in Barabanki.",
+    tags: ["dominos", "pizza", "fast-food", "italian", "restaurant", "delivery", "takeaway", "family-dining", "cheese-burst"],
+    addedDate: "2026-04-15"
   }
 ];
 
