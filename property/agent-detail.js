@@ -24,6 +24,12 @@
     return url;
   }
 
+  function sanitizePhoneNumber(phone) {
+    if (!phone) return '';
+    // Only allow digits, +, -, (, ), and spaces
+    return phone.replace(/[^0-9+\-() ]/g, '');
+  }
+
   function validateAgentId(id) {
     // Only allow alphanumeric characters and hyphens
     return /^[a-zA-Z0-9-]+$/.test(id) ? id : null;
@@ -391,7 +397,8 @@
           btn.style.display = 'none';
         } else if (phone) {
           // Fallback: open phone dialer
-          window.location.href = `tel:${phone}`;
+          const sanitizedPhone = sanitizePhoneNumber(phone);
+          window.location.href = 'tel:' + sanitizedPhone;
         }
       });
     });
