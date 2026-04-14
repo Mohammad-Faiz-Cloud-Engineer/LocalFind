@@ -9,19 +9,39 @@ window.PROPERTY_DATA = {
   // Array of real estate agents/brokers
   agents: [
     {
-      id: "agent-prince-dwivedi",
-      name: "Prince Dwivedi",
-      company: "Prince Dwivedi Real Estate",
+      id: "agent-pi-group",
+      name: "PI group",
+      company: "PI group",
       phone: "+91-9795993631",
-      email: "contact@princedwivedi.com",
-      location: "Rasauli, Barabanki",
+      email: "contact@pigroup.com",
+      website: "https://www.pigroup.com",
+      location: "Gomti Nagar, Lucknow",
       propertiesForSale: 1,
       propertiesForRent: 0,
-      rating: 4.5,
-      reviewCount: 0,
+      rating: 4.8,
+      reviewCount: 25,
       verified: true,
       reraStatus: false,
-      description: "Experienced real estate professional specializing in residential properties in Barabanki region."
+      ownerName: "Prince Dwivedi",
+      experience: "10+ Years of Experience",
+      teamSize: "Professional team of experts",
+      description: "Located in Gomti Nagar, Lucknow, PI group has established a standing for supreme quality construction, achieving project excellence and delivering customer satisfaction. At PI group, we take pride in creating and delivering landmark projects since our inception like residential plots, apartments, duplex houses, independent houses, commercial complexes, shops. Our long-standing commitment to delivering innovative designs and craftsmanship, in-depth knowledge, great experience in construction, and extraordinary customer service has earned us the respect and trust of our customers year after year. We provide the highest levels of quality, integrity, and safety to our customers. For more details about our company and services, contact us on the provided numbers.",
+      areasOfOperation: [
+        "Lucknow",
+        "Gomti Nagar",
+        "Barabanki",
+        "Rasauli"
+      ],
+      propertyDeals: [
+        "Flats / Apartments",
+        "Independent House",
+        "Builder Floor",
+        "Residential Land / Plots"
+      ],
+      services: [
+        "Builders",
+        "Real Estate Agents"
+      ]
     }
   ],
   
@@ -36,7 +56,7 @@ window.PROPERTY_DATA = {
       location: "Rasauli, Barabanki",
       project: "PI Group",
       society: "Sandauli",
-      agentId: "agent-prince-dwivedi",
+      agentId: "agent-pi-group",
       images: [
         "property/assets/property-1/1_1.jpg",
         "property/assets/property-1/1_2.jpg",
