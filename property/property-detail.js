@@ -315,9 +315,18 @@
                       <span class="agent-stat-label">For Rent</span>
                     </div>
                   </div>
-                  <button class="contact-agent-btn">
+                  <div class="agent-phone-display" id="agent-phone-display" style="display: none; margin: var(--space-md) 0; padding: var(--space-sm); background: rgba(255, 138, 0, 0.1); border-radius: var(--radius-md); text-align: center;">
+                    <a href="tel:${sanitizeHTML(agent.phone)}" style="color: var(--accent-primary); font-size: 18px; font-weight: 700; text-decoration: none;">
+                      <i class="fa-solid fa-phone"></i> ${sanitizeHTML(agent.phone)}
+                    </a>
+                  </div>
+                  <button class="contact-agent-btn" id="contact-agent-btn" data-phone="${sanitizeHTML(agent.phone)}">
                     <i class="fa-solid fa-phone"></i>
                     Contact Agent
+                  </button>
+                  <button class="view-contact-btn" id="view-contact-btn" style="display: none; margin-top: var(--space-sm); width: 100%; padding: 12px; background: transparent; border: 2px solid var(--accent-primary); border-radius: var(--radius-lg); color: var(--accent-primary); font-weight: 700; cursor: pointer; transition: all var(--transition-fast);">
+                    <i class="fa-solid fa-eye"></i>
+                    View Contact
                   </button>
                 </div>
               </div>
@@ -364,22 +373,51 @@
     // Add click handler for agent card
     if (agent) {
       const agentCard = document.querySelector('.agent-card-clickable');
+      const contactBtn = document.getElementById('contact-agent-btn');
+      const viewContactBtn = document.getElementById('view-contact-btn');
+      const phoneDisplay = document.getElementById('agent-phone-display');
+      
       if (agentCard) {
         agentCard.style.cursor = 'pointer';
         agentCard.addEventListener('click', (e) => {
-          // Don't navigate if clicking the button
-          if (!e.target.closest('.contact-agent-btn')) {
+          // Don't navigate if clicking the buttons or phone link
+          if (!e.target.closest('.contact-agent-btn') && 
+              !e.target.closest('.view-contact-btn') && 
+              !e.target.closest('.agent-phone-display')) {
             window.location.href = `agent-detail.html?id=${encodeURIComponent(agent.id)}`;
           }
         });
+      }
 
-        const contactBtn = agentCard.querySelector('.contact-agent-btn');
-        if (contactBtn) {
-          contactBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            window.location.href = `agent-detail.html?id=${encodeURIComponent(agent.id)}`;
-          });
-        }
+      // Contact Agent button - opens phone dialer
+      if (contactBtn) {
+        contactBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const phone = contactBtn.getAttribute('data-phone');
+          if (phone) {
+            window.location.href = `tel:${phone}`;
+          }
+        });
+      }
+
+      // View Contact button - shows phone number
+      if (viewContactBtn) {
+        viewContactBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (phoneDisplay) {
+            phoneDisplay.style.display = 'block';
+            viewContactBtn.style.display = 'none';
+          }
+        });
+      }
+
+      // Show "View Contact" button after first interaction
+      if (contactBtn && viewContactBtn) {
+        contactBtn.addEventListener('click', () => {
+          setTimeout(() => {
+            viewContactBtn.style.display = 'block';
+          }, 100);
+        });
       }
     }
 
