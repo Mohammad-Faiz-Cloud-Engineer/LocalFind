@@ -99,8 +99,8 @@ window.isBusinessNew = function(business) {
     const addedDate = new Date(business.addedDate + 'T00:00:00Z');
     const today = new Date();
     
-    // Set today to start of day in UTC for consistent comparison
-    const todayUTC = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+    // Convert today to UTC midnight for consistent comparison
+    const todayUTC = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
     
     // Check if date is valid
     if (isNaN(addedDate.getTime())) {
@@ -1607,7 +1607,8 @@ function sanitizeHTML(str) {
  */
 window.renderCard = function (b) {
   const name = sanitizeHTML(b.name);
-  const desc = sanitizeHTML((b.description || '').slice(0, 120));
+  const sanitizedDesc = sanitizeHTML(b.description || '');
+  const desc = sanitizedDesc.slice(0, 120);
   const tags = Array.isArray(b.tags) ? b.tags.slice(0, 3).map(t => `<span class="tag">${sanitizeHTML(t)}</span>`).join('') : '';
   const verifiedBadge = b.verified ? '<span class="verified-badge" title="Verified Business"><i class="fa-solid fa-circle-check"></i></span>' : '';
 
