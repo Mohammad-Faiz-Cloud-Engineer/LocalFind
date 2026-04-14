@@ -820,6 +820,12 @@
           <a href="${validateAndSanitizeURL(biz.orderOnline) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Order Online</a>
         </div>
       ` : ''}
+      ${biz.menu ? `
+        <div class="contact-item">
+          <i class="fa-solid fa-book-open"></i>
+          <a href="${validateAndSanitizeURL(biz.menu) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">View Menu</a>
+        </div>
+      ` : ''}
       ${biz.bloodDonor ? `
         <div class="contact-item">
           <i class="fa-solid fa-droplet"></i>
