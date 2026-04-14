@@ -529,30 +529,311 @@
   }
 }
 
+@media (max-width: 640px) {
+  .breadcrumb {
+    padding: var(--space-md) 0;
+    font-size: 12px;
+  }
+
+  .gallery-main {
+    height: 220px;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .gallery-nav {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .gallery-nav-prev {
+    left: var(--space-sm);
+  }
+
+  .gallery-nav-next {
+    right: var(--space-sm);
+  }
+
+  .gallery-thumbnails {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 6px;
+  }
+
+  .gallery-thumbnail {
+    height: 60px;
+    border-radius: 6px;
+  }
+
+  .fullscreen-close {
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .property-content {
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .property-main {
+    gap: var(--space-md);
+  }
+
+  .property-sidebar {
+    gap: var(--space-md);
+  }
+
+  .property-section {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+  }
+
+  .property-section h3 {
+    font-size: 16px;
+    margin-bottom: var(--space-sm);
+    gap: 6px;
+  }
+
+  .property-section h3 i {
+    font-size: 14px;
+  }
+
+  .property-section p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .property-overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+  }
+
+  .overview-item {
+    padding: var(--space-sm);
+  }
+
+  .overview-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .overview-label {
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+
+  .overview-value {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .amenities-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .amenity-item {
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .amenity-item i {
+    font-size: 12px;
+    width: 16px;
+  }
+
+  .unit-table th,
+  .unit-table td {
+    padding: var(--space-sm);
+    font-size: 11px;
+  }
+
+  .unit-price {
+    font-size: 13px;
+  }
+
+  .unit-contact-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .agent-card-detail {
+    gap: var(--space-md);
+  }
+
+  .agent-logo {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+
+  .agent-info h4 {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .agent-location {
+    font-size: 11px;
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+
+  .agent-stats-row {
+    gap: var(--space-lg);
+    margin-bottom: var(--space-sm);
+    font-size: 11px;
+  }
+
+  .agent-stat-value {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+
+  .agent-stat-label {
+    font-size: 11px;
+  }
+
+  .contact-agent-btn {
+    padding: 10px;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .description-header {
+    margin-bottom: var(--space-sm);
+  }
+
+  .listen-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .text-preview {
+    max-height: 120px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .see-more-btn {
+    margin-top: 6px;
+    padding: 6px 12px;
+    font-size: 11px;
+    gap: 4px;
+  }
+}
+
 @media (max-width: 480px) {
   .gallery-main {
-    height: 250px;
+    height: 180px;
   }
-  
+
+  .gallery-nav {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .gallery-thumbnails {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 4px;
+  }
+
+  .gallery-thumbnail {
+    height: 50px;
+  }
+
+  .property-section {
+    padding: var(--space-sm);
+  }
+
+  .property-section h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .property-section p {
+    font-size: 12px;
+  }
+
   .property-overview-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
-  
+
+  .overview-item {
+    padding: 8px;
+  }
+
+  .overview-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .overview-label {
+    font-size: 9px;
+    margin-bottom: 3px;
+  }
+
+  .overview-value {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .amenity-item {
+    font-size: 11px;
+  }
+
+  .unit-table th,
+  .unit-table td {
+    padding: 8px;
+    font-size: 10px;
+  }
+
+  .unit-price {
+    font-size: 12px;
+  }
+
   .agent-logo {
-    width: 100px;
-    height: 100px;
-    font-size: 40px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
   }
-  
+
   .agent-info h4 {
+    font-size: 14px;
+  }
+
+  .agent-location {
+    font-size: 10px;
+  }
+
+  .agent-stats-row {
+    gap: var(--space-md);
+    font-size: 10px;
+  }
+
+  .agent-stat-value {
     font-size: 18px;
   }
-  
-  .agent-stats-row {
-    gap: var(--space-xl);
+
+  .agent-stat-label {
+    font-size: 10px;
   }
-  
-  .agent-stat-value {
-    font-size: 32px;
+
+  .contact-agent-btn {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .text-preview {
+    font-size: 12px;
   }
 }
