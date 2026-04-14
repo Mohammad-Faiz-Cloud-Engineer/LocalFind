@@ -119,59 +119,78 @@ function renderFooter(){
   const phone = escapeHTML(CONFIG.contactPhone);
   const email = escapeHTML(CONFIG.contactEmail);
   
-  footer.innerHTML = `
-  <footer role="contentinfo">
-    <div class="container footer-grid">
-      <div>
-        <div class="footer-logo">
-          <img src="assets/images/mainlogo.svg" alt="${siteName} Logo" width="40" height="40">
-          <div>
-            ${siteName}
-            <div class="tagline">${tagline}</div>
+  // Check if we're on the homepage
+  const isHomePage = window.location.pathname.endsWith('index.html') || 
+                     window.location.pathname.endsWith('/') ||
+                     window.location.pathname === '' ||
+                     window.location.pathname.split('/').pop() === '';
+  
+  // Render full footer only on homepage
+  if (isHomePage) {
+    footer.innerHTML = `
+    <footer role="contentinfo">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-logo">
+            <img src="assets/images/mainlogo.svg" alt="${siteName} Logo" width="40" height="40">
+            <div>
+              ${siteName}
+              <div class="tagline">${tagline}</div>
+            </div>
+          </div>
+          <div class="socials">
+            <a href="${escapeHTML(CONFIG.socialLinks.facebook)}" aria-label="Visit our Facebook page" rel="noopener noreferrer" target="_blank">
+              <i class="fa-brands fa-facebook" aria-hidden="true"></i>
+            </a>
+            <a href="${escapeHTML(CONFIG.socialLinks.instagram)}" aria-label="Visit our Instagram profile" rel="noopener noreferrer" target="_blank">
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="${escapeHTML(CONFIG.socialLinks.twitter)}" aria-label="Visit our Twitter profile" rel="noopener noreferrer" target="_blank">
+              <i class="fa-brands fa-twitter" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
-        <div class="socials">
-          <a href="${escapeHTML(CONFIG.socialLinks.facebook)}" aria-label="Visit our Facebook page" rel="noopener noreferrer" target="_blank">
-            <i class="fa-brands fa-facebook" aria-hidden="true"></i>
-          </a>
-          <a href="${escapeHTML(CONFIG.socialLinks.instagram)}" aria-label="Visit our Instagram profile" rel="noopener noreferrer" target="_blank">
-            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-          </a>
-          <a href="${escapeHTML(CONFIG.socialLinks.twitter)}" aria-label="Visit our Twitter profile" rel="noopener noreferrer" target="_blank">
-            <i class="fa-brands fa-twitter" aria-hidden="true"></i>
-          </a>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="directory.html">Directory</a></li>
+            <li><a href="categories.html">Categories</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Popular Categories</h4>
+          <ul>
+            <li><a href="directory.html?category=restaurants">Restaurants</a></li>
+            <li><a href="directory.html?category=grocery">Grocery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>${address}</p>
+          <p><a href="${escapeHTML(CONFIG.socialLinks.whatsapp)}" target="_blank" rel="noopener noreferrer">${phone} (WhatsApp Only)</a></p>
+          <p><a href="mailto:${email}">${email}</a></p>
         </div>
       </div>
-      <div>
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="directory.html">Directory</a></li>
-          <li><a href="categories.html">Categories</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-        </ul>
+      <div class="container footer-bottom">
+        &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.3.3'}</span>
+        <button id="back-to-top" class="btn" aria-label="Scroll back to top">Back to top</button>
       </div>
-      <div>
-        <h4>Popular Categories</h4>
-        <ul>
-          <li><a href="directory.html?category=restaurants">Restaurants</a></li>
-          <li><a href="directory.html?category=grocery">Grocery</a></li>
-        </ul>
+    </footer>
+    `;
+  } else {
+    // Render minimal footer for other pages
+    footer.innerHTML = `
+    <footer role="contentinfo" style="margin-top: var(--space-xl); padding: var(--space-lg) var(--space-md);">
+      <div class="container footer-bottom" style="padding: 0; margin: 0; border-top: none;">
+        &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.3.3'}</span>
+        <button id="back-to-top" class="btn" aria-label="Scroll back to top">Back to top</button>
       </div>
-      <div>
-        <h4>Contact</h4>
-        <p>${address}</p>
-        <p><a href="${escapeHTML(CONFIG.socialLinks.whatsapp)}" target="_blank" rel="noopener noreferrer">${phone} (WhatsApp Only)</a></p>
-        <p><a href="mailto:${email}">${email}</a></p>
-      </div>
-    </div>
-    <div class="container footer-bottom">
-      &copy; ${new Date().getFullYear()} ${siteName}. All rights reserved. <span style="color: var(--text-disabled); margin-left: 8px;">v${CONFIG.version || '4.3.3'}</span>
-      <button id="back-to-top" class="btn" aria-label="Scroll back to top">Back to top</button>
-    </div>
-  </footer>
-  `;
+    </footer>
+    `;
+  }
 }
 
 /**
