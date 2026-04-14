@@ -2,15 +2,15 @@
  * LocalFind - PWA Registration & Management
  * Handles service worker registration, install prompts, and updates
  * 
- * @version 4.3.4
- * @updated 2026-04-14
+ * @version 4.3.5
+ * @updated 2026-04-15
  */
 
 (function() {
   'use strict';
   
   // PWA Version
-  const PWA_VERSION = '4.3.4';
+  const PWA_VERSION = '4.3.5';
   
   let deferredPrompt;
   let swRegistration;
