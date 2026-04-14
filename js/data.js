@@ -1,8 +1,8 @@
 /**
  * Business Listings Data
  * 
- * @version 4.3.4
- * @updated 2026-04-14
+ * @version 4.3.5
+ * @updated 2026-04-15
  * 
  * CRITICAL PRIVACY NOTICE
  * ═══════════════════════════════════════════════════════════════════════════
@@ -1478,6 +1478,42 @@ window.LISTINGS = [
     description: "Sagar Institute of Technology (SITM) is a leading educational institution in Barabanki shaping world-class technocrats with strong moral values. Our leadership team upholds academic excellence, discipline, and innovation. We provide a strong learning environment where students grow into skilled, responsible professionals through discipline, dedication, and determination. With parental support, we help learners realize their potential and excel in a competitive world. The Sagar Educational Society empowers students to serve society with competence, compassion, and responsibility, opening doors to endless possibilities for a successful future.",
     tags: ["college", "education", "technology", "management", "engineering", "professional-education", "higher-education", "sitm", "sagar-institute", "technical-education", "degree-college"],
     addedDate: "2026-03-31"
+  },
+  {
+    id: "pizza-hut-barabanki",
+    name: "Pizza Hut",
+    category: "Restaurants & Fast Food",
+    categorySlug: "restaurants",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 5.0,
+    reviewCount: 0,
+    coordinates: { lat: 26.9230168, lng: 81.1764041 },
+    reviews: [],
+    address: "Lucknow Faizabad Road Civil Line, Awas Vikas Colony, Barabanki, Uttar Pradesh 225001",
+    mapLink: "https://maps.app.goo.gl/BRQoFcEgevrZvU5n8",
+    phone: "+91 89291 17011",
+    phoneName: "Pizza Hut",
+    email: "",
+    website: "https://restaurants.pizzahut.co.in/pizza-hut-ph-faizabad-road-barabanki-pizza-restaurant-awas-vikas-colony-barabanki-305355/Home",
+    onlineOrder: "https://www.swiggy.com/city/bharabanki/pizza-hut-obaree-rest804074",
+    zomato: "https://www.zomato.com/barabanki/pizza-hut-barabanki-locality/order",
+    magicpin: "https://magicpin.in/barabanki/restaurant/pizza-hut-awas-vikas-colony/store/501776",
+    whatsapp: "",
+    disableAppointment: true,
+    hours: {
+      mon: { open: "11:00", close: "23:00" },
+      tue: { open: "11:00", close: "23:00" },
+      wed: { open: "11:00", close: "23:00" },
+      thu: { open: "11:00", close: "23:00" },
+      fri: { open: "11:00", close: "23:00" },
+      sat: { open: "11:00", close: "23:00" },
+      sun: { open: "11:00", close: "23:00" }
+    },
+    description: "Pizza Hut brings world-famous pizzas to Barabanki on Lucknow Faizabad Road. We serve delicious hand-tossed pizzas, pan pizzas, thin crust pizzas, pasta, garlic bread, chicken wings, and desserts. Our menu features classic favorites like Margherita, Pepperoni, Veggie Supreme, Chicken Supreme, and specialty pizzas. Enjoy dine-in with comfortable seating, takeaway, or home delivery through Swiggy, Zomato, and Magicpin. Fresh ingredients, quality toppings, and signature Pizza Hut taste in every bite. Perfect for families, friends, parties, and pizza lovers. Order online or visit us at Awas Vikas Colony. Open daily from 11 AM to 11 PM.",
+    tags: ["pizza-hut", "pizza", "fast-food", "italian", "restaurant", "pasta", "delivery", "takeaway", "family-dining", "chicken-wings"],
+    addedDate: "2026-04-15"
   }
 ];
 
