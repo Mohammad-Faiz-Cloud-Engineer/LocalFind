@@ -13,9 +13,13 @@
 
   function sanitizeURL(url) {
     if (!url) return 'property/assets/placeholder.svg';
+    // Block dangerous protocols: javascript:, data:, vbscript:, file:, etc.
     const urlLower = url.toLowerCase().trim();
-    if (urlLower.startsWith('javascript:') || urlLower.startsWith('data:')) {
-      return 'property/assets/placeholder.svg';
+    const dangerousProtocols = ['javascript:', 'data:', 'vbscript:', 'file:', 'about:'];
+    for (const protocol of dangerousProtocols) {
+      if (urlLower.startsWith(protocol)) {
+        return 'property/assets/placeholder.svg';
+      }
     }
     return url;
   }
