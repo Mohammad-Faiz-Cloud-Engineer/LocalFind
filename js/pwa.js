@@ -15,6 +15,9 @@
   let deferredPrompt;
   let swRegistration;
   let updateCheckInterval;
+  let isRegistering = false;
+  let isUpdating = false;
+  let visibilityListenerAdded = false;
   
   /**
    * Register service worker
@@ -24,9 +27,18 @@
       return;
     }
     
+    if (isRegistering) {
+      return;
+    }
+    isRegistering = true;
+    
     try {
-      swRegistration = await navigator.serviceWorker.register('/LocalFind/sw.js', {
-        scope: '/LocalFind/',
+      const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+      const swPath = basePath ? `${basePath}/sw.js` : '/sw.js';
+      const swScope = basePath ? `${basePath}/` : '/';
+      
+      swRegistration = await navigator.serviceWorker.register(swPath, {
+        scope: swScope,
         updateViaCache: 'none' // Always fetch fresh service worker
       });
       
@@ -45,9 +57,16 @@
         });
       });
       
+      if (updateCheckInterval) {
+        clearInterval(updateCheckInterval);
+        updateCheckInterval = null;
+      }
+      
       // Check for updates more frequently (every 5 minutes)
       updateCheckInterval = setInterval(() => {
-        swRegistration.update();
+        if (swRegistration) {
+          swRegistration.update();
+        }
       }, 5 * 60 * 1000);
       
       // Cleanup interval on page unload
@@ -58,15 +77,19 @@
         }
       }, { once: true });
       
-      // Also check on page visibility change
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && swRegistration) {
-          swRegistration.update();
-        }
-      });
+      if (!visibilityListenerAdded) {
+        visibilityListenerAdded = true;
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden && swRegistration) {
+            swRegistration.update();
+          }
+        });
+      }
       
     } catch (error) {
       // Service worker registration failed - silent fail
+    } finally {
+      isRegistering = false;
     }
   }
   
@@ -90,8 +113,10 @@
     `;
     
     // Add styles
-    const style = document.createElement('style');
-    style.textContent = `
+    if (!document.getElementById('pwa-update-styles')) {
+      const style = document.createElement('style');
+      style.id = 'pwa-update-styles';
+      style.textContent = `
       .pwa-update-notification {
         position: fixed;
         bottom: 20px;
@@ -125,6 +150,11 @@
       }
       .pwa-update-btn:hover {
         transform: scale(1.05);
+      }
+      .pwa-update-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
       }
       .pwa-dismiss-btn {
         padding: 8px 16px;
@@ -164,15 +194,22 @@
           width: 100%;
         }
       }
-    `;
+      `;
+      
+      document.head.appendChild(style);
+    }
     
-    document.head.appendChild(style);
     document.body.appendChild(notification);
     
     // Add click handler for update button
     const updateBtn = document.getElementById('pwa-update-now-btn');
     if (updateBtn) {
       updateBtn.addEventListener('click', async () => {
+        if (isUpdating) {
+          return;
+        }
+        isUpdating = true;
+        
         // Disable button to prevent multiple clicks
         updateBtn.disabled = true;
         updateBtn.textContent = 'Updating...';
@@ -192,11 +229,13 @@
           if (swRegistration && swRegistration.waiting) {
             // Listen for controller change before sending message
             let controllerChanged = false;
-            navigator.serviceWorker.addEventListener('controllerchange', () => {
+            const controllerChangeHandler = () => {
               controllerChanged = true;
               // Force reload with cache bypass
-              window.location.reload();
-            });
+              window.location.reload(true);
+            };
+            
+            navigator.serviceWorker.addEventListener('controllerchange', controllerChangeHandler, { once: true });
             
             // Send skip waiting message
             swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
@@ -204,16 +243,17 @@
             // Fallback: if controller doesn't change in 2 seconds, force reload anyway
             setTimeout(() => {
               if (!controllerChanged) {
-                window.location.reload();
+                navigator.serviceWorker.removeEventListener('controllerchange', controllerChangeHandler);
+                window.location.reload(true);
               }
             }, 2000);
           } else {
             // No waiting worker, just reload with cache bypass
-            window.location.reload();
+            window.location.reload(true);
           }
         } catch (error) {
           // Fallback to force reload with cache bypass
-          window.location.reload();
+          window.location.reload(true);
         }
       });
     }
@@ -262,7 +302,7 @@
     installBtn.id = 'pwa-install-btn';
     installBtn.className = 'pwa-install-button';
     installBtn.innerHTML = `
-      <span></span>
+      <span>📱</span>
       <span>Install App</span>
     `;
     
@@ -284,10 +324,11 @@
       hideInstallButton();
     });
     
-    // Add styles
-    const style = document.createElement('style');
-    style.textContent = `
-      .pwa-install-button {
+    if (!document.getElementById('pwa-install-styles')) {
+      const style = document.createElement('style');
+      style.id = 'pwa-install-styles';
+      style.textContent = `
+        .pwa-install-button {
         position: fixed;
         bottom: 80px;
         right: 20px;
@@ -319,6 +360,16 @@
           box-shadow: 0 4px 24px rgba(255, 138, 0, 0.5);
         }
       }
+      @keyframes slideDown {
+        from {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(100px);
+          opacity: 0;
+        }
+      }
       @media (max-width: 640px) {
         .pwa-install-button {
           bottom: 20px;
@@ -327,9 +378,11 @@
           justify-content: center;
         }
       }
-    `;
+      `;
+      
+      document.head.appendChild(style);
+    }
     
-    document.head.appendChild(style);
     document.body.appendChild(installBtn);
   }
   
@@ -357,18 +410,17 @@
    * Add PWA-specific enhancements
    */
   function setupPWAEnhancements() {
+    if (document.body.hasAttribute('data-pwa-enhanced')) {
+      return;
+    }
+    document.body.setAttribute('data-pwa-enhanced', 'true');
+    
     if (isPWA()) {
       // Add PWA class to body for specific styling
       document.body.classList.add('pwa-mode');
       
       // Disable pull-to-refresh completely
       document.body.style.overscrollBehaviorY = 'contain';
-      
-      // Guard against multiple initialization
-      if (document.body.hasAttribute('data-pwa-enhanced')) {
-        return;
-      }
-      document.body.setAttribute('data-pwa-enhanced', 'true');
       
       // Prevent default touch behaviors
       let lastTouchY = 0;
@@ -436,7 +488,6 @@
     notification.className = `network-status network-status--${status}`;
     notification.textContent = status === 'online' ? '✓ Back Online' : '⚠ You\'re Offline';
     
-    // Only add styles once
     if (!document.getElementById('network-status-styles')) {
       const style = document.createElement('style');
       style.id = 'network-status-styles';
