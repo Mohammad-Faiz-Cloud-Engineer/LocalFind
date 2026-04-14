@@ -262,7 +262,7 @@ function initNavbar(){
   });
   
   // Close modals on escape key
-  document.addEventListener('keydown', (e) => {
+  const escapeHandler = (e) => {
     if (e.key === 'Escape') {
       if (mobileMenu.classList.contains('open')) {
         mobileMenu.classList.remove('open');
@@ -275,17 +275,27 @@ function initNavbar(){
         document.body.style.overflow = '';
       }
     }
-  });
+  };
   
-  // Navbar scroll effect
+  document.removeEventListener('keydown', escapeHandler);
+  document.addEventListener('keydown', escapeHandler);
+  
+  // Navbar scroll effect with throttling
+  let scrollTimeout;
   window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    
-    if (currentScroll > 40) {
-      navbar.classList.add('navbar--scrolled');
-    } else {
-      navbar.classList.remove('navbar--scrolled');
+    if (scrollTimeout) {
+      return;
     }
+    scrollTimeout = setTimeout(() => {
+      const currentScroll = window.scrollY;
+      
+      if (currentScroll > 40) {
+        navbar.classList.add('navbar--scrolled');
+      } else {
+        navbar.classList.remove('navbar--scrolled');
+      }
+      scrollTimeout = null;
+    }, 100);
   }, { passive: true });
   
   // Back to top button
