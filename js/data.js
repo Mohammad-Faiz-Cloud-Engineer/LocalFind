@@ -1014,7 +1014,7 @@ window.LISTINGS = [
     mapLink: "https://maps.app.goo.gl/qMYou36nxSVkr3wg7",
     phone: "+91 75184 00400",
     phoneName: "The Hazelnut Factory",
-    email: "",
+    email: "info@thehazelnutfactory.com",
     website: "https://thehazelnutfactory.com/",
     zomato: "https://www.zomato.com/barabanki/the-hazelnut-factory-barabanki-locality/order",
     whatsapp: "+91 75184 00400",
