@@ -10,7 +10,7 @@ CRITICAL - Update ALL of these files:
 
 ☐ 2. js/config.js - Add search keywords
    - Add business name and aliases to searchAliases
-   - Bump version number (e.g., 4.3.2 → 4.3.3)
+   - Bump version number (e.g., 4.3.5 → 4.3.6)
 
 ☐ 3. index.html - Update business counts (3 places!)
    - Hero stats: data-target="30" → data-target="31"
