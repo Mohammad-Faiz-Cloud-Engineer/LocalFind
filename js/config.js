@@ -5,15 +5,15 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 4.3.3
- * @updated 2026-03-31
+ * @version 4.3.4
+ * @updated 2026-04-14
  * 
  * IMPORTANT: Update these values before deploying to production
  */
 
 const CONFIG = {
   // Application Version
-  version: "4.3.3",
+  version: "4.3.4",
   
   // Site Information
   siteName: "LocalFind",
@@ -120,6 +120,9 @@ const CONFIG = {
 
     'fast-food': ['momos', 'spring-roll', 'fried-rice', 'burger', 'chowmein', 'finger-chips', 'aloo-patty', 'macaroni', 'shri-shyam-fast-foods', 'quick-bites', 'snacks', 'street-food'],
     'momos': ['momo', 'dumpling', 'steamed-momos', 'fried-momos', 'veg-momos', 'chicken-momos'],
+    'bakery': ['hazelnut-factory', 'the-hazelnut-factory', 'thf', 'bakery-shop', 'baked-goods', 'pastries', 'croissants', 'bread', 'baking'],
+    'desserts': ['hazelnut-factory', 'sweets', 'cakes', 'pastries', 'dessert-shop', 'sweet-shop', 'mithai', 'treats'],
+    'cafe': ['coffee-shop', 'hazelnut-factory', 'specialty-coffee', 'coffee', 'tea', 'beverages', 'european-cafe'],
     'laundry': ['dry clean', 'washing', 'ironing'],
     'petrol': ['fuel', 'gas station', 'pump'],
     'delivery': ['courier', 'logistics', 'transport']
