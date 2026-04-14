@@ -13,6 +13,16 @@
 
   let currentMode = 'properties'; // 'properties' or 'agents'
 
+  function sanitizeURL(url) {
+    if (!url) return 'property/assets/placeholder.svg';
+    // Block javascript: and data: protocols
+    const urlLower = url.toLowerCase().trim();
+    if (urlLower.startsWith('javascript:') || urlLower.startsWith('data:')) {
+      return 'property/assets/placeholder.svg';
+    }
+    return url;
+  }
+
   function renderProperties() {
     const propertyContent = document.getElementById('property-content');
     const properties = window.PROPERTY_DATA.properties || [];
@@ -26,12 +36,12 @@
       <div class="property-grid">
         ${properties.map(property => {
           const imageSrc = property.images && property.images.length > 0 
-            ? property.images[0] 
+            ? sanitizeURL(property.images[0])
             : 'property/assets/placeholder.svg';
           
           return `
-            <div class="property-card" onclick="window.location.href='property-detail.html?id=${property.id}'">
-              <img src="${imageSrc}" alt="${sanitizeHTML(property.title)}" class="property-card-image" onerror="this.src='property/assets/placeholder.svg'">
+            <div class="property-card" data-property-id="${sanitizeHTML(property.id)}">
+              <img src="${sanitizeHTML(imageSrc)}" alt="${sanitizeHTML(property.title)}" class="property-card-image">
               <div class="property-card-content">
                 <h3 class="property-card-title">${sanitizeHTML(property.title)}</h3>
                 <div class="property-card-price">${sanitizeHTML(property.price)}</div>
@@ -49,6 +59,23 @@
         }).join('')}
       </div>
     `;
+
+    // Add click handlers after rendering
+    document.querySelectorAll('.property-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const propertyId = card.getAttribute('data-property-id');
+        if (propertyId) {
+          window.location.href = `property-detail.html?id=${encodeURIComponent(propertyId)}`;
+        }
+      });
+    });
+
+    // Add error handlers for images
+    document.querySelectorAll('.property-card-image').forEach(img => {
+      img.addEventListener('error', function() {
+        this.src = 'property/assets/placeholder.svg';
+      });
+    });
   }
 
   function renderAgents() {
@@ -65,7 +92,7 @@
         ${agents.map(agent => {
           const initials = agent.name.split(' ').map(w => w[0]).join('').substring(0, 2);
           return `
-            <div class="agent-card" onclick="window.location.href='agent-detail.html?id=${agent.id}'">
+            <div class="agent-card" data-agent-id="${sanitizeHTML(agent.id)}">
               <div class="agent-avatar">${sanitizeHTML(initials)}</div>
               <h3 class="agent-name">${sanitizeHTML(agent.name)}</h3>
               <p class="agent-company">${sanitizeHTML(agent.company)}</p>
@@ -85,6 +112,16 @@
         }).join('')}
       </div>
     `;
+
+    // Add click handlers after rendering
+    document.querySelectorAll('.agent-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const agentId = card.getAttribute('data-agent-id');
+        if (agentId) {
+          window.location.href = `agent-detail.html?id=${encodeURIComponent(agentId)}`;
+        }
+      });
+    });
   }
 
   function toggleMode() {
