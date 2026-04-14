@@ -13,9 +13,9 @@ CRITICAL - Update ALL of these files:
    - Bump version number (e.g., 4.3.5 → 4.3.6)
 
 ☐ 3. index.html - Update business counts (3 places!)
-   - Hero stats: data-target="30" → data-target="31"
-   - Map overlay: "30 listings" → "31 listings"
-   - Stats grid: data-target="30" → data-target="31"
+   - Hero stats: data-target="37" → data-target="38"
+   - Map overlay: "37 listings" → "38 listings"
+   - Stats grid: data-target="37" → data-target="38"
 
 ☐ 4. categories.html - Update category count
    - Find your business category
