@@ -1,8 +1,8 @@
 /**
  * Business Listings Data
  * 
- * @version 4.3.3
- * @updated 2026-03-31
+ * @version 4.3.4
+ * @updated 2026-04-14
  * 
  * CRITICAL PRIVACY NOTICE
  * ═══════════════════════════════════════════════════════════════════════════
@@ -999,6 +999,42 @@ window.LISTINGS = [
     locatedInMall: "box-park-international"
   },
   {
+    id: "the-hazelnut-factory-box-park",
+    name: "The Hazelnut Factory",
+    category: "Restaurants & Food",
+    categorySlug: "restaurants",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 4.0,
+    reviewCount: 0,
+    coordinates: { lat: 26.9247718, lng: 81.2498400 },
+    reviews: [],
+    address: "Box Park International, NH 27, Ayodhya - Lucknow Rd, adjacent to Seth MR Jaipuria School, Barabanki, Sursanda, Uttar Pradesh 225203",
+    mapLink: "https://maps.app.goo.gl/qMYou36nxSVkr3wg7",
+    phone: "+91 75184 00400",
+    phoneName: "The Hazelnut Factory",
+    email: "",
+    website: "https://thehazelnutfactory.com/",
+    onlineOrder: "https://www.zomato.com/barabanki/the-hazelnut-factory-barabanki-locality/order",
+    whatsapp: "+91 75184 00400",
+    whatsappName: "The Hazelnut Factory",
+    disableAppointment: true,
+    hours: {
+      mon: { open: "08:30", close: "23:30" },
+      tue: { open: "08:30", close: "23:30" },
+      wed: { open: "08:30", close: "23:30" },
+      thu: { open: "08:30", close: "23:30" },
+      fri: { open: "08:30", close: "23:30" },
+      sat: { open: "08:30", close: "23:30" },
+      sun: { open: "08:30", close: "23:30" }
+    },
+    description: "The Hazelnut Factory is a one-stop food dreamland at Box Park International offering mouthwatering desserts, innovative sweets, specialty coffee, and a delectable food menu. Opened in 2019 in Lucknow, THF is loved by all age groups and has become the fastest growing F&B brand in Uttar Pradesh. Our state-of-the-art kitchen combines skilled artisans, modern machinery, and premium ingredients to craft exceptional baked goods, fusion mithai, namkeens, and savory items. From flaky croissants to luscious cakes, artisanal desserts to traditional sweets, we offer something for every craving. Experience our warm European interiors, spectacular packaging, and superior customer service. Order online via Zomato or visit us daily from 8:30 AM to 11:30 PM.",
+    tags: ["bakery", "desserts", "cafe", "sweets", "coffee", "pastries", "cakes", "mithai", "namkeen", "restaurant", "food", "delivery", "takeaway", "european-cafe"],
+    addedDate: "2026-04-14",
+    locatedInMall: "box-park-international"
+  },
+  {
     id: "box-park-international",
     name: "Box Park International",
     category: "Shopping Mall & Entertainment",
@@ -1028,7 +1064,7 @@ window.LISTINGS = [
     description: "Box Park International is a unique shopping and entertainment destination on NH 27 Ayodhya Highway, built entirely from repurposed shipping containers. Each container is painted in bright colors with creative designs. Inside you'll find places to eat (including KFC), shop, and hang out. The open-air design gives it a relaxed vibe perfect for families. Great for meals, shopping, or Instagram photos. Open 24/7. A popular highway landmark combining sustainable design and vibrant atmosphere!",
     tags: ["mall", "shopping", "entertainment", "food-court", "instagram", "container-mall", "sustainable", "family-destination", "highway-stop", "lifestyle"],
     addedDate: "2026-03-15",
-    tenants: ["kfc-barabanki"]
+    tenants: ["kfc-barabanki", "the-hazelnut-factory-box-park"]
   },
   {
     id: "pps-college-of-nursing",
