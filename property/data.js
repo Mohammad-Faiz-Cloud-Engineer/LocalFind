@@ -19,7 +19,7 @@ window.PROPERTY_DATA = {
       propertiesForSale: 1,
       propertiesForRent: 0,
       rating: 4.8,
-      reviewCount: 25,
+      reviewCount: 0,
       verified: true,
       reraStatus: false,
       ownerName: "Prince Dwivedi",
