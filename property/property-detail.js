@@ -11,6 +11,20 @@
     return temp.innerHTML;
   }
 
+  function sanitizeURL(url) {
+    if (!url) return 'property/assets/placeholder.svg';
+    const urlLower = url.toLowerCase().trim();
+    if (urlLower.startsWith('javascript:') || urlLower.startsWith('data:')) {
+      return 'property/assets/placeholder.svg';
+    }
+    return url;
+  }
+
+  function validatePropertyId(id) {
+    // Only allow alphanumeric characters and hyphens
+    return /^[a-zA-Z0-9-]+$/.test(id) ? id : null;
+  }
+
   function initAudioPlayer(button, audio) {
     if (!button || !audio) return;
 
@@ -96,7 +110,14 @@
       return;
     }
 
-    const property = window.PROPERTY_DATA.properties.find(p => p.id === propertyId);
+    // Validate property ID
+    const validatedId = validatePropertyId(propertyId);
+    if (!validatedId) {
+      content.innerHTML = '<div class="empty-state"><p>Invalid property ID</p></div>';
+      return;
+    }
+
+    const property = window.PROPERTY_DATA.properties.find(p => p.id === validatedId);
 
     if (!property) {
       content.innerHTML = '<div class="empty-state"><p>Property not found</p></div>';
@@ -116,7 +137,7 @@
 
     // Use placeholder if no images
     const images = property.images && property.images.length > 0 
-      ? property.images 
+      ? property.images.map(img => sanitizeURL(img))
       : ['property/assets/placeholder.svg'];
 
     // Render property detail
@@ -124,7 +145,7 @@
       <!-- Photo Gallery -->
       <div class="property-gallery">
         <div class="gallery-main">
-          <img id="gallery-main-image" src="${images[0]}" alt="${sanitizeHTML(property.title)}" class="gallery-main-image">
+          <img id="gallery-main-image" src="${sanitizeHTML(images[0])}" alt="${sanitizeHTML(property.title)}" class="gallery-main-image">
           ${images.length > 1 ? `
             <button class="gallery-nav gallery-nav-prev" id="gallery-prev">
               <i class="fa-solid fa-chevron-left"></i>
@@ -138,7 +159,7 @@
           <div class="gallery-thumbnails">
             ${images.map((img, i) => `
               <div class="gallery-thumbnail ${i === 0 ? 'active' : ''}">
-                <img src="${img}" alt="Thumbnail ${i + 1}">
+                <img src="${sanitizeHTML(img)}" alt="Thumbnail ${i + 1}">
               </div>
             `).join('')}
           </div>
@@ -148,7 +169,7 @@
       <!-- Fullscreen Modal -->
       <div class="fullscreen-modal" id="fullscreen-modal">
         <div class="fullscreen-content">
-          <img id="fullscreen-image" src="${images[0]}" alt="${sanitizeHTML(property.title)}" class="fullscreen-image">
+          <img id="fullscreen-image" src="${sanitizeHTML(images[0])}" alt="${sanitizeHTML(property.title)}" class="fullscreen-image">
           <button class="fullscreen-close" id="fullscreen-close">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -195,7 +216,7 @@
               </button>
             </div>
             <audio id="desc-audio" preload="none" style="display: none;">
-              <source src="property/voices/${encodeURIComponent(property.id)}/description.mp3" type="audio/mpeg">
+              <source src="property/voices/${sanitizeHTML(validatedId)}/description.mp3" type="audio/mpeg">
             </audio>
             <div class="text-preview" id="desc-preview">
               <p>${sanitizeHTML(property.description)}</p>
@@ -270,7 +291,7 @@
 
           <!-- Agent Card -->
           ${agent ? `
-            <div class="property-section" style="cursor: pointer;" onclick="window.location.href='agent-detail.html?id=${agent.id}'">
+            <div class="property-section agent-card-clickable" data-agent-id="${sanitizeHTML(agent.id)}">
               <h3><i class="fa-solid fa-user-tie"></i> Agent Details</h3>
               <div class="agent-card-detail">
                 <div class="agent-logo">${sanitizeHTML(agent.name.split(' ').map(w => w[0]).join('').substring(0, 2))}</div>
@@ -290,7 +311,7 @@
                       <span class="agent-stat-label">For Rent</span>
                     </div>
                   </div>
-                  <button class="contact-agent-btn" onclick="event.stopPropagation(); window.location.href='agent-detail.html?id=${agent.id}'">
+                  <button class="contact-agent-btn">
                     <i class="fa-solid fa-phone"></i>
                     Contact Agent
                   </button>
@@ -334,6 +355,28 @@
           document.body.style.overflow = '';
         }
       });
+    }
+
+    // Add click handler for agent card
+    if (agent) {
+      const agentCard = document.querySelector('.agent-card-clickable');
+      if (agentCard) {
+        agentCard.style.cursor = 'pointer';
+        agentCard.addEventListener('click', (e) => {
+          // Don't navigate if clicking the button
+          if (!e.target.closest('.contact-agent-btn')) {
+            window.location.href = `agent-detail.html?id=${encodeURIComponent(agent.id)}`;
+          }
+        });
+
+        const contactBtn = agentCard.querySelector('.contact-agent-btn');
+        if (contactBtn) {
+          contactBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.location.href = `agent-detail.html?id=${encodeURIComponent(agent.id)}`;
+          });
+        }
+      }
     }
 
     // Initialize audio player
