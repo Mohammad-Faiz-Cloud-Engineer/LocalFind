@@ -10,6 +10,40 @@
   color: var(--text-primary);
 }
 
+/* Page Header Actions */
+.page-header-actions {
+  margin-bottom: var(--space-xl);
+}
+
+.btn-back-to-properties {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 12px 24px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
+  color: #0A0E17;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(255, 138, 0, 0.3);
+}
+
+.btn-back-to-properties:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 138, 0, 0.4);
+  filter: brightness(1.1);
+}
+
+.btn-back-to-properties i {
+  font-size: 18px;
+}
+
 /* Agent Header */
 .agent-header {
   background: rgba(30, 39, 54, 0.4);

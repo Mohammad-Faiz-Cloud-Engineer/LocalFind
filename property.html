@@ -51,25 +51,22 @@
   <header id="site-header"></header>
   
   <main class="container">
-    <nav class="breadcrumb">Home › <span id="property-breadcrumb">Property</span></nav>
+    <nav class="breadcrumb">Home › <span id="property-breadcrumb">Properties</span></nav>
     
-    <section class="property-mode-selector">
-      <h2>What are you looking for?</h2>
-      <div class="mode-cards">
-        <button class="mode-card" id="find-agent-btn">
+    <div class="property-header">
+      <div class="property-header-left">
+        <h1 id="property-page-title">Available Properties</h1>
+        <p id="property-page-subtitle">Explore properties in your area</p>
+      </div>
+      <div class="property-header-right">
+        <button class="btn-toggle-mode" id="toggle-mode-btn">
           <i class="fa-solid fa-user-tie"></i>
-          <h3>Find Agent/Broker</h3>
-          <p>Connect with verified property agents and brokers</p>
-        </button>
-        <button class="mode-card" id="browse-properties-btn">
-          <i class="fa-solid fa-building"></i>
-          <h3>Browse Properties</h3>
-          <p>Explore available properties directly</p>
+          <span>Find Agents</span>
         </button>
       </div>
-    </section>
+    </div>
 
-    <section id="property-content" class="hidden"></section>
+    <section id="property-content"></section>
   </main>
 
   <footer id="site-footer"></footer>

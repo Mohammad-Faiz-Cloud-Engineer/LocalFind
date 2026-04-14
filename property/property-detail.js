@@ -273,7 +273,7 @@
             <div class="property-section" style="cursor: pointer;" onclick="window.location.href='agent-detail.html?id=${agent.id}'">
               <h3><i class="fa-solid fa-user-tie"></i> Agent Details</h3>
               <div class="agent-card-detail">
-                <div class="agent-logo"></div>
+                <div class="agent-logo">${sanitizeHTML(agent.name.split(' ').map(w => w[0]).join('').substring(0, 2))}</div>
                 <div class="agent-info">
                   <h4>${sanitizeHTML(agent.name)}</h4>
                   <div class="agent-location">
