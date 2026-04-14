@@ -12,7 +12,7 @@ window.PROPERTY_DATA = {
       id: "agent-prince-dwivedi",
       name: "Prince Dwivedi",
       company: "Prince Dwivedi Real Estate",
-      phone: "+91 97959 93631",
+      phone: "+91-9795993631",
       email: "contact@princedwivedi.com",
       location: "Rasauli, Barabanki",
       propertiesForSale: 1,
