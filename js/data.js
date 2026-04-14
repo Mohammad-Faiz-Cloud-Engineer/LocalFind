@@ -1008,7 +1008,7 @@ window.LISTINGS = [
     status: "open",
     rating: 4.0,
     reviewCount: 0,
-    coordinates: { lat: 26.9247718, lng: 81.2498400 },
+    coordinates: { lat: 26.9245383, lng: 81.2490502 },
     reviews: [],
     address: "Box Park International, NH 27, Ayodhya - Lucknow Rd, adjacent to Seth MR Jaipuria School, Barabanki, Sursanda, Uttar Pradesh 225203",
     mapLink: "https://maps.app.goo.gl/qMYou36nxSVkr3wg7",
