@@ -1939,7 +1939,7 @@
     // Get current business status
     const businessStatus = window.getBusinessStatus ? window.getBusinessStatus(biz) : null;
     const statusBadge = businessStatus ? `
-      <div class="business-status-banner ${businessStatus.cssClass}" style="margin-bottom: 16px; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 8px; font-weight: 600;">
+      <div class="business-status-banner ${businessStatus.cssClass}" data-business-id="${biz.id}" style="margin-bottom: 16px; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 8px; font-weight: 600;">
         <i class="fa-solid ${businessStatus.isOpen ? 'fa-circle-check' : 'fa-circle-xmark'}"></i>
         <span>${businessStatus.message}</span>
       </div>
