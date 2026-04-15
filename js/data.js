@@ -1714,7 +1714,8 @@ window.getBusinessStatus = function(business) {
       isOpen: false, 
       message: 'Closed today', 
       cssClass: 'status-closed',
-      nextChange: null
+      nextChange: null,
+      minutesUntilClose: null
     };
   }
 
@@ -1727,14 +1728,41 @@ window.getBusinessStatus = function(business) {
   const closeMinutes = closeHour * 60 + closeMin;
 
   if (currentMinutes >= openMinutes && currentMinutes < closeMinutes) {
-    // Currently open
+    // Currently open - check if closing soon (within 3 hours = 180 minutes)
+    const minutesUntilClose = closeMinutes - currentMinutes;
     const closeTime12 = window.convertTo12Hour(todayHours.close);
-    return { 
-      isOpen: true, 
-      message: `Open now • Closes at ${closeTime12}`, 
-      cssClass: 'status-open',
-      nextChange: closeTime12
-    };
+    
+    if (minutesUntilClose <= 180) {
+      // Closing within 3 hours - show countdown
+      const hours = Math.floor(minutesUntilClose / 60);
+      const minutes = minutesUntilClose % 60;
+      
+      let countdownMsg;
+      if (hours > 0) {
+        countdownMsg = `Closing in ${hours}h ${minutes}m`;
+      } else {
+        countdownMsg = `Closing in ${minutes}m`;
+      }
+      
+      return { 
+        isOpen: true, 
+        message: countdownMsg,
+        cssClass: 'status-closing-soon',
+        nextChange: closeTime12,
+        minutesUntilClose: minutesUntilClose,
+        showCountdown: true
+      };
+    } else {
+      // Open with normal message
+      return { 
+        isOpen: true, 
+        message: `Open now • Closes at ${closeTime12}`, 
+        cssClass: 'status-open',
+        nextChange: closeTime12,
+        minutesUntilClose: minutesUntilClose,
+        showCountdown: false
+      };
+    }
   } else if (currentMinutes < openMinutes) {
     // Not yet open today
     const openTime12 = window.convertTo12Hour(todayHours.open);
@@ -1742,7 +1770,8 @@ window.getBusinessStatus = function(business) {
       isOpen: false, 
       message: `Closed • Opens at ${openTime12}`, 
       cssClass: 'status-closed',
-      nextChange: openTime12
+      nextChange: openTime12,
+      minutesUntilClose: null
     };
   } else {
     // Closed for the day
@@ -1750,7 +1779,8 @@ window.getBusinessStatus = function(business) {
       isOpen: false, 
       message: 'Closed now', 
       cssClass: 'status-closed',
-      nextChange: null
+      nextChange: null,
+      minutesUntilClose: null
     };
   }
 };
@@ -1768,7 +1798,7 @@ window.renderCard = function (b) {
   
   // Get business status
   const status = window.getBusinessStatus(b);
-  const statusBadge = status.isOpen !== null ? `<span class="business-status ${status.cssClass}">${status.isOpen ? 'Open' : 'Closed'}</span>` : '';
+  const statusBadge = status.isOpen !== null ? `<span class="business-status ${status.cssClass}" data-business-id="${b.id}">${status.isOpen ? (status.showCountdown ? status.message : 'Open') : 'Closed'}</span>` : '';
 
   return `
   <a href="business-detail.html?id=${encodeURIComponent(b.id)}" class="card-link" aria-label="View details for ${name}">
@@ -1787,3 +1817,62 @@ window.renderCard = function (b) {
   </a>
   `;
 };
+
+/**
+ * Update all business status badges in real-time
+ */
+window.updateBusinessStatuses = function() {
+  if (!window.LISTINGS) return;
+  
+  document.querySelectorAll('.business-status[data-business-id]').forEach(badge => {
+    const businessId = badge.getAttribute('data-business-id');
+    const business = window.LISTINGS.find(b => b.id === businessId);
+    
+    if (business) {
+      const status = window.getBusinessStatus(business);
+      if (status.isOpen !== null) {
+        // Update badge text
+        badge.textContent = status.isOpen ? (status.showCountdown ? status.message : 'Open') : 'Closed';
+        
+        // Update badge class
+        badge.className = `business-status ${status.cssClass}`;
+        badge.setAttribute('data-business-id', businessId);
+      }
+    }
+  });
+  
+  // Update detail page banner if present
+  const detailBanner = document.querySelector('.business-status-banner[data-business-id]');
+  if (detailBanner) {
+    const businessId = detailBanner.getAttribute('data-business-id');
+    const business = window.LISTINGS.find(b => b.id === businessId);
+    
+    if (business) {
+      const status = window.getBusinessStatus(business);
+      if (status.isOpen !== null) {
+        const icon = status.isOpen ? 'fa-circle-check' : 'fa-circle-xmark';
+        detailBanner.innerHTML = `
+          <i class="fa-solid ${icon}"></i>
+          <span>${status.message}</span>
+        `;
+        detailBanner.className = `business-status-banner ${status.cssClass}`;
+        detailBanner.setAttribute('data-business-id', businessId);
+      }
+    }
+  }
+};
+
+// Initialize real-time status updates (every minute)
+if (typeof window !== 'undefined') {
+  // Update immediately on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(window.updateBusinessStatuses, 100);
+    });
+  } else {
+    setTimeout(window.updateBusinessStatuses, 100);
+  }
+  
+  // Update every minute
+  setInterval(window.updateBusinessStatuses, 60000);
+}
