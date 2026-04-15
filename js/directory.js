@@ -59,7 +59,9 @@
       'women': Object.freeze({ property: 'womenOwned', value: true, label: 'Women Owned' }),
       'featured': Object.freeze({ property: 'featured', value: true, label: 'Featured' }),
       'verified': Object.freeze({ property: 'verified', value: true, label: 'Verified' }),
-      'new': Object.freeze({ property: 'isNew', value: true, label: 'New Businesses' })
+      'new': Object.freeze({ property: 'isNew', value: true, label: 'New Businesses' }),
+      'open': Object.freeze({ property: 'isOpen', value: true, label: 'Open Now' }),
+      'closed': Object.freeze({ property: 'isOpen', value: false, label: 'Closed Now' })
     });
     
     const command = commandMap[commandPart];
@@ -316,6 +318,14 @@
           if (specialCommand.property === 'isNew') {
             return window.isBusinessNew && window.isBusinessNew(b);
           }
+          if (specialCommand.property === 'isOpen') {
+            // Check real-time open/closed status
+            if (window.getBusinessStatus) {
+              const status = window.getBusinessStatus(b);
+              return status.isOpen === specialCommand.value;
+            }
+            return false;
+          }
           return b[specialCommand.property] === specialCommand.value;
         });
         
@@ -530,6 +540,14 @@
               let filtered = window.LISTINGS.filter(b => {
                 if (specialCommand.property === 'isNew') {
                   return window.isBusinessNew && window.isBusinessNew(b);
+                }
+                if (specialCommand.property === 'isOpen') {
+                  // Check real-time open/closed status
+                  if (window.getBusinessStatus) {
+                    const status = window.getBusinessStatus(b);
+                    return status.isOpen === specialCommand.value;
+                  }
+                  return false;
                 }
                 return b[specialCommand.property] === specialCommand.value;
               });
