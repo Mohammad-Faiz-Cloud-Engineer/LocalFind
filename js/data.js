@@ -1789,8 +1789,8 @@ window.getBusinessStatus = function(business) {
     const minutesUntilOpen = openMinutes - currentMinutes;
     const openTime12 = window.convertTo12Hour(todayHours.open);
     
-    if (minutesUntilOpen <= 60) {
-      // Opening within 1 hour - show countdown
+    if (minutesUntilOpen <= 120) {
+      // Opening within 2 hours - show countdown
       const hours = Math.floor(minutesUntilOpen / 60);
       const minutes = minutesUntilOpen % 60;
       
@@ -1810,7 +1810,7 @@ window.getBusinessStatus = function(business) {
         showCountdown: true
       };
     } else {
-      // More than 1 hour until opening
+      // More than 2 hours until opening
       return { 
         isOpen: false, 
         message: `Closed • Opens at ${openTime12}`, 
@@ -1825,8 +1825,8 @@ window.getBusinessStatus = function(business) {
     const minutesUntilOpen = open2Minutes - currentMinutes;
     const open2Time12 = window.convertTo12Hour(todayHours.open2);
     
-    if (minutesUntilOpen <= 60) {
-      // Opening within 1 hour - show countdown
+    if (minutesUntilOpen <= 120) {
+      // Opening within 2 hours - show countdown
       const hours = Math.floor(minutesUntilOpen / 60);
       const minutes = minutesUntilOpen % 60;
       
@@ -1846,7 +1846,7 @@ window.getBusinessStatus = function(business) {
         showCountdown: true
       };
     } else {
-      // More than 1 hour until second shift opens
+      // More than 2 hours until second shift opens
       return { 
         isOpen: false, 
         message: `Closed • Opens at ${open2Time12}`, 
