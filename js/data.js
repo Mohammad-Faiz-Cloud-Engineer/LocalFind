@@ -1615,7 +1615,7 @@ window.LISTINGS = [
     ],
     address: "Khasara No 521, 519, 520/2 And 520/1, Upper Ground Floor And First Floor, Tandon Complex, Nawabgar, Civil Line, Lucknow-Ayodhya Highway, Opposite Swastik Petrol Pump, Awas Vikas Colony, Barabanki, Uttar Pradesh - 225001",
     mapLink: "https://maps.app.goo.gl/h1BVWJJSJ81eWXVF6",
-    phone: "18001236868",
+    phone: "1800 123 6868",
     phoneName: "Spencers Customer Care",
     phoneSecondary: "+91 76040 64680",
     phoneSecondaryName: "Spencers Barabanki",
