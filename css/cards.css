@@ -164,6 +164,9 @@
   letter-spacing: 0.8px;
   box-shadow: 0 2px 8px rgba(255, 138, 0, 0.3);
   z-index: 1;
+  /* Hide the text but keep the element for styling effects */
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* Recent Grid */
@@ -233,6 +236,9 @@
     right: 10px;
     padding: 3px 10px;
     font-size: 9px;
+    /* Keep hidden on mobile too */
+    opacity: 0;
+    visibility: hidden;
   }
 
   .verified-badge {
