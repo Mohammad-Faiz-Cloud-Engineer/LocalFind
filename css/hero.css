@@ -82,6 +82,12 @@
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Make search input wider since location field is removed */
+.search-bar input[name="search"] {
+  flex: 2;
+  min-width: 300px;
+}
+
 /* Custom Select Dropdown Styling */
 .search-bar select {
   appearance: none;
