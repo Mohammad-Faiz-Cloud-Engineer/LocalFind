@@ -31,10 +31,10 @@
 }
 
 .card {
-  background: linear-gradient(135deg, rgba(40, 50, 70, 0.6) 0%, rgba(30, 39, 54, 0.5) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(30, 39, 54, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-xl);
   padding: var(--space-md);
   display: flex;
@@ -43,35 +43,17 @@
   transition: all calc(var(--transition-base) * 1.5) cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 
-              0 1px 3px rgba(255, 255, 255, 0.05) inset;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   height: 100%;
   min-height: 200px;
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.1) 50%, 
-    transparent 100%);
-  pointer-events: none;
-}
-
 .card-link:hover .card,
 .card-link:focus .card {
   transform: translateY(-6px) scale(1.02);
-  border-color: rgba(255, 138, 0, 0.3);
-  background: linear-gradient(135deg, rgba(50, 60, 80, 0.7) 0%, rgba(40, 50, 70, 0.6) 100%);
-  box-shadow: 0 16px 40px rgba(255, 138, 0, 0.15), 
-              0 8px 16px rgba(0, 0, 0, 0.3),
-              0 2px 4px rgba(255, 255, 255, 0.08) inset;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), inset 0 2px 0px rgba(255, 255, 255, 0.1);
 }
 
 .card-link:active .card {
@@ -142,55 +124,30 @@
 }
 
 .tag {
-  background: linear-gradient(135deg, rgba(255, 138, 0, 0.15) 0%, rgba(255, 138, 0, 0.08) 100%);
-  color: #ffa940;
+  background: rgba(255, 138, 0, 0.1);
+  color: var(--accent-primary);
   padding: 5px 10px;
   border-radius: var(--radius-full);
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  border: 1px solid rgba(255, 138, 0, 0.25);
+  border: 1px solid rgba(255, 138, 0, 0.2);
   transition: all var(--transition-fast);
-  box-shadow: 0 2px 4px rgba(255, 138, 0, 0.1);
 }
 
 .tag:hover {
-  background: linear-gradient(135deg, rgba(255, 138, 0, 0.25) 0%, rgba(255, 138, 0, 0.15) 100%);
-  border-color: rgba(255, 138, 0, 0.4);
-  color: var(--accent-primary);
-  box-shadow: 0 4px 8px rgba(255, 138, 0, 0.2);
-  transform: translateY(-1px);
+  background: rgba(255, 138, 0, 0.15);
+  border-color: var(--accent-primary);
 }
 
 /* Featured Card */
 .featured {
   position: relative;
   background: linear-gradient(135deg,
-      rgba(255, 138, 0, 0.12) 0%,
-      rgba(229, 46, 113, 0.08) 50%,
-      rgba(40, 50, 70, 0.6) 100%);
-  border: 1px solid rgba(255, 138, 0, 0.3);
-  box-shadow: 0 4px 24px rgba(255, 138, 0, 0.15), 
-              0 1px 3px rgba(255, 138, 0, 0.1) inset;
-}
-
-.featured::before {
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 138, 0, 0.2) 50%, 
-    transparent 100%);
-}
-
-.card-link:hover .featured {
-  border-color: rgba(255, 138, 0, 0.5);
-  background: linear-gradient(135deg,
-      rgba(255, 138, 0, 0.15) 0%,
-      rgba(229, 46, 113, 0.1) 50%,
-      rgba(50, 60, 80, 0.7) 100%);
-  box-shadow: 0 16px 48px rgba(255, 138, 0, 0.25), 
-              0 8px 16px rgba(0, 0, 0, 0.3),
-              0 2px 4px rgba(255, 138, 0, 0.15) inset;
+      rgba(255, 138, 0, 0.08) 0%,
+      rgba(229, 46, 113, 0.04) 100%);
+  border: 1px solid rgba(255, 138, 0, 0.2);
 }
 
 .featured::after {
@@ -370,27 +327,13 @@
 /* Verified card styling */
 .card.verified {
   position: relative;
-  border-color: rgba(75, 123, 236, 0.35);
+  border-color: rgba(75, 123, 236, 0.3);
   background: linear-gradient(135deg,
-      rgba(75, 123, 236, 0.08) 0%,
-      rgba(40, 50, 70, 0.6) 100%);
-  box-shadow: 0 4px 20px rgba(75, 123, 236, 0.12), 
-              0 1px 3px rgba(75, 123, 236, 0.08) inset;
-}
-
-.card.verified::before {
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(75, 123, 236, 0.15) 50%, 
-    transparent 100%);
+      var(--bg-card) 0%,
+      rgba(75, 123, 236, 0.03) 100%);
 }
 
 .card.verified:hover {
   border-color: rgba(75, 123, 236, 0.5);
-  background: linear-gradient(135deg,
-      rgba(75, 123, 236, 0.12) 0%,
-      rgba(50, 60, 80, 0.7) 100%);
-  box-shadow: 0 16px 40px rgba(75, 123, 236, 0.2),
-              0 8px 16px rgba(0, 0, 0, 0.3),
-              0 2px 4px rgba(75, 123, 236, 0.12) inset;
+  box-shadow: 0 8px 32px rgba(75, 123, 236, 0.15);
 }
