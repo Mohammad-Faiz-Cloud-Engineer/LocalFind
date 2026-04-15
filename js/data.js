@@ -1798,7 +1798,8 @@ window.renderCard = function (b) {
   
   // Get business status
   const status = window.getBusinessStatus(b);
-  const statusBadge = status.isOpen !== null ? `<span class="business-status ${status.cssClass}" data-business-id="${b.id}">${status.isOpen ? (status.showCountdown ? status.message : 'Open') : 'Closed'}</span>` : '';
+  const sanitizedId = sanitizeHTML(b.id);
+  const statusBadge = status.isOpen !== null ? `<span class="business-status ${status.cssClass}" data-business-id="${sanitizedId}">${status.isOpen ? (status.showCountdown ? status.message : 'Open') : 'Closed'}</span>` : '';
 
   return `
   <a href="business-detail.html?id=${encodeURIComponent(b.id)}" class="card-link" aria-label="View details for ${name}">
@@ -1824,20 +1825,30 @@ window.renderCard = function (b) {
 window.updateBusinessStatuses = function() {
   if (!window.LISTINGS) return;
   
-  document.querySelectorAll('.business-status[data-business-id]').forEach(badge => {
+  // Check if any status badges exist before processing
+  const badges = document.querySelectorAll('.business-status[data-business-id]');
+  if (badges.length === 0) {
+    // Check for detail page banner
+    const detailBanner = document.querySelector('.business-status-banner[data-business-id]');
+    if (!detailBanner) return; // No status elements on page, exit early
+  }
+  
+  // Update card badges
+  badges.forEach(badge => {
     const businessId = badge.getAttribute('data-business-id');
-    const business = window.LISTINGS.find(b => b.id === businessId);
+    if (!businessId) return;
     
-    if (business) {
-      const status = window.getBusinessStatus(business);
-      if (status.isOpen !== null) {
-        // Update badge text
-        badge.textContent = status.isOpen ? (status.showCountdown ? status.message : 'Open') : 'Closed';
-        
-        // Update badge class
-        badge.className = `business-status ${status.cssClass}`;
-        badge.setAttribute('data-business-id', businessId);
-      }
+    const business = window.LISTINGS.find(b => b.id === businessId);
+    if (!business) return;
+    
+    const status = window.getBusinessStatus(business);
+    if (status.isOpen !== null) {
+      // Update badge text
+      badge.textContent = status.isOpen ? (status.showCountdown ? status.message : 'Open') : 'Closed';
+      
+      // Update badge class
+      badge.className = `business-status ${status.cssClass}`;
+      badge.setAttribute('data-business-id', businessId);
     }
   });
   
@@ -1845,19 +1856,20 @@ window.updateBusinessStatuses = function() {
   const detailBanner = document.querySelector('.business-status-banner[data-business-id]');
   if (detailBanner) {
     const businessId = detailBanner.getAttribute('data-business-id');
-    const business = window.LISTINGS.find(b => b.id === businessId);
+    if (!businessId) return;
     
-    if (business) {
-      const status = window.getBusinessStatus(business);
-      if (status.isOpen !== null) {
-        const icon = status.isOpen ? 'fa-circle-check' : 'fa-circle-xmark';
-        detailBanner.innerHTML = `
+    const business = window.LISTINGS.find(b => b.id === businessId);
+    if (!business) return;
+    
+    const status = window.getBusinessStatus(business);
+    if (status.isOpen !== null) {
+      const icon = status.isOpen ? 'fa-circle-check' : 'fa-circle-xmark';
+      detailBanner.innerHTML = `
           <i class="fa-solid ${icon}"></i>
           <span>${status.message}</span>
         `;
-        detailBanner.className = `business-status-banner ${status.cssClass}`;
-        detailBanner.setAttribute('data-business-id', businessId);
-      }
+      detailBanner.className = `business-status-banner ${status.cssClass}`;
+      detailBanner.setAttribute('data-business-id', businessId);
     }
   }
 };
