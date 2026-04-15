@@ -1727,10 +1727,31 @@ window.getBusinessStatus = function(business) {
   const openMinutes = openHour * 60 + openMin;
   const closeMinutes = closeHour * 60 + closeMin;
 
-  if (currentMinutes >= openMinutes && currentMinutes < closeMinutes) {
-    // Currently open - check if closing soon (within 3 hours = 180 minutes)
-    const minutesUntilClose = closeMinutes - currentMinutes;
-    const closeTime12 = window.convertTo12Hour(todayHours.close);
+  // Check if business has split shift (open2 and close2)
+  let open2Minutes = null;
+  let close2Minutes = null;
+  let hasSecondShift = false;
+  
+  if (todayHours.open2 && todayHours.close2) {
+    hasSecondShift = true;
+    const [open2Hour, open2Min] = todayHours.open2.split(':').map(Number);
+    const [close2Hour, close2Min] = todayHours.close2.split(':').map(Number);
+    open2Minutes = open2Hour * 60 + open2Min;
+    close2Minutes = close2Hour * 60 + close2Min;
+  }
+
+  // Check first shift
+  const inFirstShift = currentMinutes >= openMinutes && currentMinutes < closeMinutes;
+  
+  // Check second shift (if exists)
+  const inSecondShift = hasSecondShift && currentMinutes >= open2Minutes && currentMinutes < close2Minutes;
+
+  if (inFirstShift || inSecondShift) {
+    // Currently open - determine which shift and closing time
+    const activeCloseMinutes = inFirstShift ? closeMinutes : close2Minutes;
+    const activeCloseTime = inFirstShift ? todayHours.close : todayHours.close2;
+    const minutesUntilClose = activeCloseMinutes - currentMinutes;
+    const closeTime12 = window.convertTo12Hour(activeCloseTime);
     
     if (minutesUntilClose <= 180) {
       // Closing within 3 hours - show countdown
@@ -1764,7 +1785,7 @@ window.getBusinessStatus = function(business) {
       };
     }
   } else if (currentMinutes < openMinutes) {
-    // Not yet open today
+    // Before first shift opens
     const openTime12 = window.convertTo12Hour(todayHours.open);
     return { 
       isOpen: false, 
@@ -1773,8 +1794,18 @@ window.getBusinessStatus = function(business) {
       nextChange: openTime12,
       minutesUntilClose: null
     };
+  } else if (hasSecondShift && currentMinutes >= closeMinutes && currentMinutes < open2Minutes) {
+    // Between shifts (closed during break)
+    const open2Time12 = window.convertTo12Hour(todayHours.open2);
+    return { 
+      isOpen: false, 
+      message: `Closed • Opens at ${open2Time12}`, 
+      cssClass: 'status-closed',
+      nextChange: open2Time12,
+      minutesUntilClose: null
+    };
   } else {
-    // Closed for the day
+    // After all shifts closed for the day
     return { 
       isOpen: false, 
       message: 'Closed now', 
