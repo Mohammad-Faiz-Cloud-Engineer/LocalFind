@@ -1654,6 +1654,108 @@ function sanitizeHTML(str) {
 }
 
 /**
+ * Get current Indian Standard Time (IST)
+ * @returns {Object} Current IST date and time info
+ */
+window.getISTTime = function() {
+  // Get current time in IST (UTC+5:30)
+  const now = new Date();
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const istTime = new Date(utc + (3600000 * 5.5)); // IST is UTC+5:30
+  
+  return {
+    date: istTime,
+    hours: istTime.getHours(),
+    minutes: istTime.getMinutes(),
+    day: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][istTime.getDay()]
+  };
+};
+
+/**
+ * Convert 24-hour time to 12-hour AM/PM format
+ * @param {string} time24 - Time in HH:MM format
+ * @returns {string} Time in 12-hour format with AM/PM
+ */
+window.convertTo12Hour = function(time24) {
+  if (!time24 || typeof time24 !== 'string' || !time24.includes(':')) {
+    return time24;
+  }
+  
+  const [hours, minutes] = time24.split(':').map(Number);
+  
+  if (isNaN(hours) || isNaN(minutes) || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+    return time24;
+  }
+  
+  const period = hours >= 12 ? 'PM' : 'AM';
+  const hour12 = hours % 12 || 12;
+  return `${hour12}:${minutes.toString().padStart(2, '0')} ${period}`;
+};
+
+/**
+ * Check if business is currently open
+ * @param {Object} business - Business object with hours
+ * @returns {Object} Status object with isOpen, message, and nextChange
+ */
+window.getBusinessStatus = function(business) {
+  if (!business || !business.hours) {
+    return { isOpen: null, message: 'Hours not available', cssClass: 'status-unknown' };
+  }
+
+  const ist = window.getISTTime();
+  const todayHours = business.hours[ist.day];
+  
+  // Check if closed today (00:00 - 00:00 means closed, or explicit "closed")
+  if (!todayHours || 
+      todayHours.open === 'closed' || 
+      todayHours.close === 'closed' ||
+      (todayHours.open === '00:00' && todayHours.close === '00:00')) {
+    return { 
+      isOpen: false, 
+      message: 'Closed today', 
+      cssClass: 'status-closed',
+      nextChange: null
+    };
+  }
+
+  // Parse hours (format: "HH:MM")
+  const [openHour, openMin] = todayHours.open.split(':').map(Number);
+  const [closeHour, closeMin] = todayHours.close.split(':').map(Number);
+  
+  const currentMinutes = ist.hours * 60 + ist.minutes;
+  const openMinutes = openHour * 60 + openMin;
+  const closeMinutes = closeHour * 60 + closeMin;
+
+  if (currentMinutes >= openMinutes && currentMinutes < closeMinutes) {
+    // Currently open
+    const closeTime12 = window.convertTo12Hour(todayHours.close);
+    return { 
+      isOpen: true, 
+      message: `Open now • Closes at ${closeTime12}`, 
+      cssClass: 'status-open',
+      nextChange: closeTime12
+    };
+  } else if (currentMinutes < openMinutes) {
+    // Not yet open today
+    const openTime12 = window.convertTo12Hour(todayHours.open);
+    return { 
+      isOpen: false, 
+      message: `Closed • Opens at ${openTime12}`, 
+      cssClass: 'status-closed',
+      nextChange: openTime12
+    };
+  } else {
+    // Closed for the day
+    return { 
+      isOpen: false, 
+      message: 'Closed now', 
+      cssClass: 'status-closed',
+      nextChange: null
+    };
+  }
+};
+
+/**
  * Render business card component
  * @param {Object} b - Business object
  * @returns {string} HTML string for business card
@@ -1663,6 +1765,10 @@ window.renderCard = function (b) {
   const desc = sanitizeHTML((b.description || '').slice(0, 120));
   const tags = Array.isArray(b.tags) ? b.tags.slice(0, 3).map(t => `<span class="tag">${sanitizeHTML(t)}</span>`).join('') : '';
   const verifiedBadge = b.verified ? '<span class="verified-badge" title="Verified Business"><i class="fa-solid fa-circle-check"></i></span>' : '';
+  
+  // Get business status
+  const status = window.getBusinessStatus(b);
+  const statusBadge = status.isOpen !== null ? `<span class="business-status ${status.cssClass}">${status.isOpen ? 'Open' : 'Closed'}</span>` : '';
 
   return `
   <a href="business-detail.html?id=${encodeURIComponent(b.id)}" class="card-link" aria-label="View details for ${name}">
@@ -1671,6 +1777,7 @@ window.renderCard = function (b) {
         <div class="title">
           <span class="business-name">${name}</span>
           ${verifiedBadge}
+          ${statusBadge}
         </div>
         <div class="small" aria-label="Rating ${b.rating} out of 5 stars">${b.rating} ★ (${b.reviewCount})</div>
       </div>
