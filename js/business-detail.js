@@ -1935,11 +1935,21 @@
     }
 
     const is24x7 = isOpen24x7();
+    
+    // Get current business status
+    const businessStatus = window.getBusinessStatus ? window.getBusinessStatus(biz) : null;
+    const statusBadge = businessStatus ? `
+      <div class="business-status-banner ${businessStatus.cssClass}" style="margin-bottom: 16px; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 8px; font-weight: 600;">
+        <i class="fa-solid ${businessStatus.isOpen ? 'fa-circle-check' : 'fa-circle-xmark'}"></i>
+        <span>${businessStatus.message}</span>
+      </div>
+    ` : '';
+    
     const hoursHeader = is24x7
       ? '<h4 class="section-header">Opening Hours (24/7)</h4>'
       : '<h4 class="section-header">Opening Hours</h4>';
 
-    const hoursHtml = hoursHeader +
+    const hoursHtml = statusBadge + hoursHeader +
       Object.keys(days).map(day => {
         const hours = (biz.hours && biz.hours[day]) ? biz.hours[day] : { open: '00:00', close: '00:00' };
         const isClosed = hours.open === '00:00' && hours.close === '00:00';
