@@ -1544,13 +1544,13 @@ window.LISTINGS = [
     whatsappName: "La Pinoz Pizza",
     disableAppointment: true,
     hours: {
-      mon: { open: "09:00", close: "00:00" },
-      tue: { open: "09:00", close: "00:00" },
-      wed: { open: "09:00", close: "00:00" },
-      thu: { open: "09:00", close: "00:00" },
-      fri: { open: "09:00", close: "00:00" },
-      sat: { open: "09:00", close: "00:00" },
-      sun: { open: "09:00", close: "00:00" }
+      mon: { open: "09:00", close: "23:59" },
+      tue: { open: "09:00", close: "23:59" },
+      wed: { open: "09:00", close: "23:59" },
+      thu: { open: "09:00", close: "23:59" },
+      fri: { open: "09:00", close: "23:59" },
+      sat: { open: "09:00", close: "23:59" },
+      sun: { open: "09:00", close: "23:59" }
     },
     description: "La Pinoz Pizza brings delicious pizzas and Italian cuisine to Barabanki on Faizabad-Lucknow Highway near Dewa Hospital. We specialize in gourmet pizzas with unique toppings, fresh ingredients, and authentic Italian flavors. Our menu features signature pizzas, pasta, garlic bread, sides, and desserts. Choose from thin crust, thick crust, or stuffed crust options. Popular favorites include Mexican Fiesta, Chicken Tikka, Paneer Makhani Pizza, and more. Enjoy dine-in, takeaway, or home delivery through Swiggy and Zomato. Fresh dough made daily, quality cheese, and flavorful sauces in every bite. Perfect for families, parties, and pizza lovers. Order online or visit us at Awas Vikas Colony. Open daily from 9 AM to midnight.",
     tags: ["la-pinoz", "pizza", "fast-food", "italian", "restaurant", "pasta", "delivery", "takeaway", "family-dining", "gourmet-pizza"],
@@ -1786,24 +1786,76 @@ window.getBusinessStatus = function(business) {
     }
   } else if (currentMinutes < openMinutes) {
     // Before first shift opens
+    const minutesUntilOpen = openMinutes - currentMinutes;
     const openTime12 = window.convertTo12Hour(todayHours.open);
-    return { 
-      isOpen: false, 
-      message: `Closed • Opens at ${openTime12}`, 
-      cssClass: 'status-closed',
-      nextChange: openTime12,
-      minutesUntilClose: null
-    };
+    
+    if (minutesUntilOpen <= 60) {
+      // Opening within 1 hour - show countdown
+      const hours = Math.floor(minutesUntilOpen / 60);
+      const minutes = minutesUntilOpen % 60;
+      
+      let countdownMsg;
+      if (hours > 0) {
+        countdownMsg = `Opening in ${hours}h ${minutes}m`;
+      } else {
+        countdownMsg = `Opening in ${minutes}m`;
+      }
+      
+      return { 
+        isOpen: false, 
+        message: countdownMsg,
+        cssClass: 'status-opening-soon',
+        nextChange: openTime12,
+        minutesUntilOpen: minutesUntilOpen,
+        showCountdown: true
+      };
+    } else {
+      // More than 1 hour until opening
+      return { 
+        isOpen: false, 
+        message: `Closed • Opens at ${openTime12}`, 
+        cssClass: 'status-closed',
+        nextChange: openTime12,
+        minutesUntilOpen: minutesUntilOpen,
+        showCountdown: false
+      };
+    }
   } else if (hasSecondShift && currentMinutes >= closeMinutes && currentMinutes < open2Minutes) {
     // Between shifts (closed during break)
+    const minutesUntilOpen = open2Minutes - currentMinutes;
     const open2Time12 = window.convertTo12Hour(todayHours.open2);
-    return { 
-      isOpen: false, 
-      message: `Closed • Opens at ${open2Time12}`, 
-      cssClass: 'status-closed',
-      nextChange: open2Time12,
-      minutesUntilClose: null
-    };
+    
+    if (minutesUntilOpen <= 60) {
+      // Opening within 1 hour - show countdown
+      const hours = Math.floor(minutesUntilOpen / 60);
+      const minutes = minutesUntilOpen % 60;
+      
+      let countdownMsg;
+      if (hours > 0) {
+        countdownMsg = `Opening in ${hours}h ${minutes}m`;
+      } else {
+        countdownMsg = `Opening in ${minutes}m`;
+      }
+      
+      return { 
+        isOpen: false, 
+        message: countdownMsg,
+        cssClass: 'status-opening-soon',
+        nextChange: open2Time12,
+        minutesUntilOpen: minutesUntilOpen,
+        showCountdown: true
+      };
+    } else {
+      // More than 1 hour until second shift opens
+      return { 
+        isOpen: false, 
+        message: `Closed • Opens at ${open2Time12}`, 
+        cssClass: 'status-closed',
+        nextChange: open2Time12,
+        minutesUntilOpen: minutesUntilOpen,
+        showCountdown: false
+      };
+    }
   } else {
     // After all shifts closed for the day
     return { 
@@ -1830,7 +1882,7 @@ window.renderCard = function (b) {
   // Get business status
   const status = window.getBusinessStatus(b);
   const sanitizedId = sanitizeHTML(b.id);
-  const statusBadge = status.isOpen !== null ? `<span class="business-status ${status.cssClass}" data-business-id="${sanitizedId}">${status.isOpen ? (status.showCountdown ? status.message : 'Open') : 'Closed'}</span>` : '';
+  const statusBadge = status.isOpen !== null ? `<span class="business-status ${status.cssClass}" data-business-id="${sanitizedId}">${status.isOpen ? (status.showCountdown ? status.message : 'Open') : (status.showCountdown ? status.message : 'Closed')}</span>` : '';
 
   return `
   <a href="business-detail.html?id=${encodeURIComponent(b.id)}" class="card-link" aria-label="View details for ${name}">
@@ -1875,7 +1927,7 @@ window.updateBusinessStatuses = function() {
     const status = window.getBusinessStatus(business);
     if (status.isOpen !== null) {
       // Update badge text
-      badge.textContent = status.isOpen ? (status.showCountdown ? status.message : 'Open') : 'Closed';
+      badge.textContent = status.isOpen ? (status.showCountdown ? status.message : 'Open') : (status.showCountdown ? status.message : 'Closed');
       
       // Update badge class
       badge.className = `business-status ${status.cssClass}`;
