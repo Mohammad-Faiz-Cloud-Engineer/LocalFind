@@ -858,32 +858,42 @@ textarea {
 /* Status badge on business cards */
 .business-status {
   display: inline-block;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 10px;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   margin-left: 8px;
   vertical-align: middle;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .business-status.status-open {
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.25);
+  color: #4ade80;
+  border: 1.5px solid rgba(34, 197, 94, 0.5);
+}
+
+.business-status.status-closing-soon {
+  background: rgba(251, 146, 60, 0.25);
+  color: #fbbf24;
+  border: 1.5px solid rgba(251, 146, 60, 0.6);
+  animation: pulse 2s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(251, 146, 60, 0.5);
 }
 
 .business-status.status-closed {
-  background: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.25);
+  color: #f87171;
+  border: 1.5px solid rgba(239, 68, 68, 0.5);
 }
 
 .business-status.status-unknown {
-  background: rgba(156, 163, 175, 0.15);
-  color: #9ca3af;
-  border: 1px solid rgba(156, 163, 175, 0.3);
+  background: rgba(156, 163, 175, 0.25);
+  color: #d1d5db;
+  border: 1.5px solid rgba(156, 163, 175, 0.5);
 }
 
 /* Status banner on business detail page */
@@ -895,6 +905,13 @@ textarea {
   background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%);
   color: #22c55e;
   border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.business-status-banner.status-closing-soon {
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.15) 0%, rgba(251, 146, 60, 0.05) 100%);
+  color: #fb923c;
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .business-status-banner.status-closed {
@@ -924,12 +941,22 @@ textarea {
   }
 }
 
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .business-status {
-    font-size: 10px;
-    padding: 3px 8px;
+    font-size: 9px;
+    padding: 5px 10px;
     margin-left: 6px;
+    letter-spacing: 0.6px;
   }
   
   .business-status-banner {
@@ -939,5 +966,14 @@ textarea {
   
   .business-status-banner i {
     font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .business-status {
+    font-size: 8px;
+    padding: 4px 8px;
+    margin-left: 4px;
+    letter-spacing: 0.5px;
   }
 }
