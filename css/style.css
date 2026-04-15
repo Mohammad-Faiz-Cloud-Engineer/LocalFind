@@ -850,3 +850,94 @@ textarea {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================
+   BUSINESS STATUS BADGES
+   ============================================ */
+
+/* Status badge on business cards */
+.business-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.business-status.status-open {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.business-status.status-closed {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.business-status.status-unknown {
+  background: rgba(156, 163, 175, 0.15);
+  color: #9ca3af;
+  border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+/* Status banner on business detail page */
+.business-status-banner {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.business-status-banner.status-open {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.business-status-banner.status-closed {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.business-status-banner.status-unknown {
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.15) 0%, rgba(156, 163, 175, 0.05) 100%);
+  color: #9ca3af;
+  border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+.business-status-banner i {
+  font-size: 18px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .business-status {
+    font-size: 10px;
+    padding: 3px 8px;
+    margin-left: 6px;
+  }
+  
+  .business-status-banner {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+  
+  .business-status-banner i {
+    font-size: 16px;
+  }
+}
