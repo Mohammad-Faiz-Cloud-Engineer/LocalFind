@@ -450,40 +450,10 @@
 
   <footer id="site-footer"></footer>
 
-  <script defer src="js/config.js"></script>
-  <script defer src="js/main.js"></script>
-  <script defer src="js/pwa.js"></script>
-  <script defer src="js/donation.js"></script>
-  <script>
-    // Generate UPI QR Code
-    document.addEventListener('DOMContentLoaded', () => {
-      const qrContainer = document.getElementById('donation-qr-code');
-      
-      if (qrContainer && typeof QRCode !== 'undefined') {
-        // Clear any existing content
-        qrContainer.innerHTML = '';
-        
-        // UPI payment URL format
-        const upiId = 'faiz2k9@fam';
-        const payeeName = 'Mohammad Faiz';
-        const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}&cu=INR`;
-        
-        // Generate QR code
-        try {
-          new QRCode(qrContainer, {
-            text: upiUrl,
-            width: 240,
-            height: 240,
-            colorDark: '#000000',
-            colorLight: '#ffffff',
-            correctLevel: QRCode.CorrectLevel.H
-          });
-        } catch (error) {
-          qrContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 14px;">QR code unavailable</p>';
-        }
-      }
-    });
-  </script>
-</body>
-
-</html>
+	  <script defer src="js/config.js"></script>
+	  <script defer src="js/main.js"></script>
+	  <script defer src="js/pwa.js"></script>
+	  <script defer src="js/donation.js"></script>
+	</body>
+	
+	</html>
