@@ -11,10 +11,16 @@
   
   // PWA Version
   const PWA_VERSION = '4.3.5';
+  const UPDATE_NOTIFICATION_STYLE_ID = 'pwa-update-notification-styles';
+  const INSTALL_BUTTON_STYLE_ID = 'pwa-install-button-styles';
   
   let deferredPrompt;
   let swRegistration;
   let updateCheckInterval;
+
+  function getAppBasePath() {
+    return new URL('./', window.location.href).pathname;
+  }
   
   /**
    * Register service worker
@@ -25,8 +31,11 @@
     }
     
     try {
-      swRegistration = await navigator.serviceWorker.register('/LocalFind/sw.js', {
-        scope: '/LocalFind/',
+      const basePath = getAppBasePath();
+      const serviceWorkerURL = `${basePath}sw.js`;
+
+      swRegistration = await navigator.serviceWorker.register(serviceWorkerURL, {
+        scope: basePath,
         updateViaCache: 'none' // Always fetch fresh service worker
       });
       
@@ -66,7 +75,11 @@
       });
       
     } catch (error) {
-      // Service worker registration failed - silent fail
+      if (updateCheckInterval) {
+        clearInterval(updateCheckInterval);
+        updateCheckInterval = null;
+      }
+      swRegistration = null;
     }
   }
   
@@ -85,92 +98,102 @@
       <div class="pwa-update-content">
         <span>New version available!</span>
         <button class="pwa-update-btn" id="pwa-update-now-btn">Update Now</button>
-        <button class="pwa-dismiss-btn" onclick="this.parentElement.parentElement.remove()">Later</button>
+        <button class="pwa-dismiss-btn" id="pwa-update-dismiss-btn">Later</button>
       </div>
     `;
     
     // Add styles
-    const style = document.createElement('style');
-    style.textContent = `
-      .pwa-update-notification {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10000;
-        background: var(--bg-card);
-        border: 1px solid var(--accent-primary);
-        border-radius: 12px;
-        padding: 16px 24px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        animation: slideUp 0.3s ease-out;
-      }
-      .pwa-update-content {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        color: var(--text-primary);
-        font-size: 14px;
-        font-weight: 600;
-      }
-      .pwa-update-btn {
-        padding: 8px 16px;
-        background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
-        color: #0A0E17;
-        border: none;
-        border-radius: 8px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: transform 0.2s;
-      }
-      .pwa-update-btn:hover {
-        transform: scale(1.05);
-      }
-      .pwa-dismiss-btn {
-        padding: 8px 16px;
-        background: transparent;
-        color: var(--text-muted);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-      .pwa-dismiss-btn:hover {
-        background: rgba(255, 255, 255, 0.05);
-        color: var(--text-primary);
-      }
-      @keyframes slideUp {
-        from {
-          transform: translateX(-50%) translateY(100px);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(-50%) translateY(0);
-          opacity: 1;
-        }
-      }
-      @media (max-width: 640px) {
+    if (!document.getElementById(UPDATE_NOTIFICATION_STYLE_ID)) {
+      const style = document.createElement('style');
+      style.id = UPDATE_NOTIFICATION_STYLE_ID;
+      style.textContent = `
         .pwa-update-notification {
-          left: 16px;
-          right: 16px;
-          transform: none;
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 10000;
+          background: var(--bg-card);
+          border: 1px solid var(--accent-primary);
+          border-radius: 12px;
+          padding: 16px 24px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          animation: slideUp 0.3s ease-out;
         }
         .pwa-update-content {
-          flex-direction: column;
-          gap: 12px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          color: var(--text-primary);
+          font-size: 14px;
+          font-weight: 600;
         }
-        .pwa-update-btn, .pwa-dismiss-btn {
-          width: 100%;
+        .pwa-update-btn {
+          padding: 8px 16px;
+          background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
+          color: #0A0E17;
+          border: none;
+          border-radius: 8px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: transform 0.2s;
         }
-      }
-    `;
-    
-    document.head.appendChild(style);
+        .pwa-update-btn:hover {
+          transform: scale(1.05);
+        }
+        .pwa-dismiss-btn {
+          padding: 8px 16px;
+          background: transparent;
+          color: var(--text-muted);
+          border: 1px solid var(--border-color);
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        .pwa-dismiss-btn:hover {
+          background: rgba(255, 255, 255, 0.05);
+          color: var(--text-primary);
+        }
+        @keyframes slideUp {
+          from {
+            transform: translateX(-50%) translateY(100px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+          }
+        }
+        @media (max-width: 640px) {
+          .pwa-update-notification {
+            left: 16px;
+            right: 16px;
+            transform: none;
+          }
+          .pwa-update-content {
+            flex-direction: column;
+            gap: 12px;
+          }
+          .pwa-update-btn, .pwa-dismiss-btn {
+            width: 100%;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
     document.body.appendChild(notification);
     
     // Add click handler for update button
     const updateBtn = document.getElementById('pwa-update-now-btn');
+    const dismissBtn = document.getElementById('pwa-update-dismiss-btn');
+
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', () => {
+        notification.remove();
+      });
+    }
+
     if (updateBtn) {
       updateBtn.addEventListener('click', async () => {
         // Disable button to prevent multiple clicks
@@ -285,51 +308,53 @@
     });
     
     // Add styles
-    const style = document.createElement('style');
-    style.textContent = `
-      .pwa-install-button {
-        position: fixed;
-        bottom: 80px;
-        right: 20px;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 20px;
-        background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
-        color: #0A0E17;
-        border: none;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 14px;
-        cursor: pointer;
-        box-shadow: 0 4px 16px rgba(255, 138, 0, 0.3);
-        transition: all 0.3s;
-        animation: pulse 2s infinite;
-      }
-      .pwa-install-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 24px rgba(255, 138, 0, 0.4);
-      }
-      @keyframes pulse {
-        0%, 100% {
-          box-shadow: 0 4px 16px rgba(255, 138, 0, 0.3);
-        }
-        50% {
-          box-shadow: 0 4px 24px rgba(255, 138, 0, 0.5);
-        }
-      }
-      @media (max-width: 640px) {
+    if (!document.getElementById(INSTALL_BUTTON_STYLE_ID)) {
+      const style = document.createElement('style');
+      style.id = INSTALL_BUTTON_STYLE_ID;
+      style.textContent = `
         .pwa-install-button {
-          bottom: 20px;
+          position: fixed;
+          bottom: 80px;
           right: 20px;
-          left: 20px;
-          justify-content: center;
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 20px;
+          background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
+          color: #0A0E17;
+          border: none;
+          border-radius: 50px;
+          font-weight: 700;
+          font-size: 14px;
+          cursor: pointer;
+          box-shadow: 0 4px 16px rgba(255, 138, 0, 0.3);
+          transition: all 0.3s;
+          animation: pulse 2s infinite;
         }
-      }
-    `;
-    
-    document.head.appendChild(style);
+        .pwa-install-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 24px rgba(255, 138, 0, 0.4);
+        }
+        @keyframes pulse {
+          0%, 100% {
+            box-shadow: 0 4px 16px rgba(255, 138, 0, 0.3);
+          }
+          50% {
+            box-shadow: 0 4px 24px rgba(255, 138, 0, 0.5);
+          }
+        }
+        @media (max-width: 640px) {
+          .pwa-install-button {
+            bottom: 20px;
+            right: 20px;
+            left: 20px;
+            justify-content: center;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
     document.body.appendChild(installBtn);
   }
   
