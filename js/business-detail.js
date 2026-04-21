@@ -35,32 +35,41 @@
   }
 
   /**
+   * Parse a URL and allow only safe web protocols.
+   * @private
+   * @param {string} url - URL to validate
+   * @returns {URL|null} Parsed URL or null if invalid
+   */
+  function parseSafeURL(url) {
+    if (!url || typeof url !== 'string') return null;
+
+    const trimmedURL = url.trim();
+    const dangerousProtocols = /^(javascript|data|vbscript|file|about):/i;
+    if (!trimmedURL || dangerousProtocols.test(trimmedURL)) {
+      return null;
+    }
+
+    try {
+      const parsedURL = new URL(trimmedURL, window.location.href);
+      if (!['http:', 'https:'].includes(parsedURL.protocol)) {
+        return null;
+      }
+
+      return parsedURL;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  /**
    * Validates and sanitizes a URL to prevent XSS attacks
    * @private
    * @param {string} url - URL to validate
    * @returns {string|null} Sanitized URL or null if invalid
    */
   function validateAndSanitizeURL(url) {
-    if (!url || typeof url !== 'string') return null;
-    
-    // Remove any whitespace
-    url = url.trim();
-    
-    // Check for javascript: protocol and other dangerous protocols
-    const dangerousProtocols = /^(javascript|data|vbscript|file|about):/i;
-    if (dangerousProtocols.test(url)) {
-      return null;
-    }
-    
-    // For relative URLs, ensure they don't contain suspicious patterns
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      // Block URLs with suspicious patterns
-      if (url.includes('javascript:') || url.includes('data:')) {
-        return null;
-      }
-    }
-    
-    return url;
+    const parsedURL = parseSafeURL(url);
+    return parsedURL ? sanitizeHTML(parsedURL.href) : null;
   }
 
   /**
@@ -70,40 +79,46 @@
    * @returns {boolean} True if internal, false if external
    */
   function isInternalURL(url) {
-    if (!url) return false;
-    
-    // External URLs start with http:// or https://
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      return false;
-    }
-    
-    // Relative paths are internal
-    return true;
+    const parsedURL = parseSafeURL(url);
+    return Boolean(parsedURL && parsedURL.origin === window.location.origin);
   }
 
   /**
-   * Creates an HTML anchor tag with appropriate attributes
+   * Builds a sanitized anchor element as HTML.
    * @private
    * @param {string} url - The URL for the href attribute
-   * @param {boolean} isInternal - Whether the link is internal
-   * @returns {string} Opening anchor tag HTML
+   * @param {string} label - The visible link label
+   * @returns {string} Safe anchor HTML
    */
-  function createAnchorTag(url, isInternal) {
+  function buildSafeAnchorHTML(url, label) {
     const sanitizedURL = validateAndSanitizeURL(url);
     if (!sanitizedURL) {
-      // Return a span instead of a link for invalid URLs
-      return '<span class="invalid-link" style="color: var(--text-secondary);">';
+      return sanitizeHTML(label || url || '');
     }
-    
-    const baseAttributes = `href="${sanitizedURL}" class="content-link"`;
-    
-    if (isInternal) {
-      // Internal link - opens in same tab
-      return `<a ${baseAttributes}>`;
-    } else {
-      // External link - opens in new tab with security attributes
-      return `<a ${baseAttributes} target="_blank" rel="noopener noreferrer">`;
+
+    const safeLabel = sanitizeHTML(label || url);
+    const externalAttributes = isInternalURL(url) ? '' : ' target="_blank" rel="noopener noreferrer"';
+    return `<a href="${sanitizedURL}" class="content-link"${externalAttributes}>${safeLabel}</a>`;
+  }
+
+  /**
+   * Open a validated URL in a new tab without leaking window access.
+   * @private
+   * @param {string} url - URL to open
+   * @returns {boolean} True when a valid URL was available
+   */
+  function openExternalURL(url) {
+    const parsedURL = parseSafeURL(url);
+    if (!parsedURL) {
+      return false;
     }
+
+    const popup = window.open(parsedURL.href, '_blank', 'noopener,noreferrer');
+    if (!popup) {
+      window.location.href = parsedURL.href;
+    }
+
+    return true;
   }
 
   /**
@@ -115,26 +130,22 @@
    */
   function processExistingLinks(text) {
     try {
-      // Replace single quotes with double quotes in href attributes
-      // Support both <a href='...'> and <a href="...">
-      let processed = text.replace(/<a\s+href=['"]([^'"]+)['"]>/gi, (match, url) => {
-        const isInternal = isInternalURL(url);
-        return createAnchorTag(url, isInternal);
-      });
-      
-      // Split by anchor tags to sanitize only non-link content
-      const parts = processed.split(/(<a[^>]*>.*?<\/a>)/gi);
-      
-      processed = parts.map((part) => {
-        // Preserve anchor tags and their content
-        if (part.match(/^<a[^>]*>.*?<\/a>$/i)) {
-          return part;
+      const container = document.createElement('div');
+      container.innerHTML = text;
+
+      function convertNodeToSafeHTML(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return sanitizeHTML(node.textContent || '');
         }
-        // Sanitize non-link text to prevent XSS
-        return sanitizeHTML(part);
-      }).join('');
-      
-      return processed;
+
+        if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toLowerCase() === 'a') {
+          return buildSafeAnchorHTML(node.getAttribute('href'), node.textContent || node.getAttribute('href') || '');
+        }
+
+        return Array.from(node.childNodes).map(convertNodeToSafeHTML).join('');
+      }
+
+      return Array.from(container.childNodes).map(convertNodeToSafeHTML).join('');
     } catch (error) {
       // Fallback to full sanitization on error
       return sanitizeHTML(text);
@@ -148,17 +159,22 @@
    * @returns {string} Text with URLs converted to links
    */
   function linkifyPlainURLs(text) {
-    // Match http:// and https:// URLs
     const urlPattern = /(https?:\/\/[^\s<]+)/g;
-    
-    return text.replace(urlPattern, (url) => {
-      const sanitizedURL = validateAndSanitizeURL(url);
-      if (!sanitizedURL) {
-        return url; // Return original if validation fails
-      }
-      
-      return `<a href="${sanitizedURL}" class="content-link" target="_blank" rel="noopener noreferrer">${url}</a>`;
-    });
+    let lastIndex = 0;
+    let result = '';
+    let match;
+
+    while ((match = urlPattern.exec(text)) !== null) {
+      const [url] = match;
+      const offset = match.index;
+
+      result += sanitizeHTML(text.slice(lastIndex, offset));
+      result += buildSafeAnchorHTML(url, url);
+      lastIndex = offset + url.length;
+    }
+
+    result += sanitizeHTML(text.slice(lastIndex));
+    return result;
   }
 
   /**
@@ -194,13 +210,12 @@
     
     try {
       // Check if text contains existing HTML anchor tags
-      if (text.includes('<a href=')) {
+      if (/<a\b[^>]*>/i.test(text)) {
         return processExistingLinks(text);
       }
       
-      // No HTML links - sanitize and convert plain URLs to links
-      const sanitized = sanitizeHTML(text);
-      return linkifyPlainURLs(sanitized);
+      // No HTML links - sanitize text segments and convert plain URLs to links
+      return linkifyPlainURLs(text);
       
     } catch (error) {
       // Fallback to sanitized text on error
@@ -255,8 +270,9 @@
     
     // Render description with collapse/expand and listen feature
     if (descEl) {
-      const descText = sanitizeHTML(biz.description);
-      const needsPreview = descText.length > 300;
+      const descriptionText = typeof biz.description === 'string' ? biz.description : '';
+      const descText = sanitizeHTML(descriptionText);
+      const needsPreview = descriptionText.length > UI_CONSTANTS.DESCRIPTION_PREVIEW_LENGTH;
       
       // Check if audio file exists for this business
       // Use raw business name (not sanitized) for file path construction
@@ -619,19 +635,25 @@
       }
     }
     
-    if (biz.reviews && biz.reviews.length > 0 && reviewsList) {
-      reviewsList.innerHTML = biz.reviews.map((review, index) => {
-        const isAdmin = review.role && review.role.includes('LocalFind');
-        const reviewStars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
-        const reviewDate = new Date(review.date).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        });
+	    if (biz.reviews && biz.reviews.length > 0 && reviewsList) {
+	      reviewsList.innerHTML = biz.reviews.map((review, index) => {
+	        const isAdmin = typeof review.role === 'string' && review.role.includes('LocalFind');
+	        const numericReviewRating = Number(review.rating) || 0;
+	        const roundedReviewRating = Math.max(0, Math.min(5, Math.round(numericReviewRating)));
+	        const reviewStars = '★'.repeat(roundedReviewRating) + '☆'.repeat(5 - roundedReviewRating);
+	        const parsedReviewDate = new Date(review.date);
+	        const reviewDate = Number.isNaN(parsedReviewDate.getTime())
+	          ? 'Date unavailable'
+	          : parsedReviewDate.toLocaleDateString('en-US', {
+	            year: 'numeric',
+	            month: 'short',
+	            day: 'numeric'
+	          });
+	        const reviewText = typeof review.text === 'string' ? review.text : '';
 
-        // Sanitize and linkify review text
-        const reviewTextSafe = linkifyText(review.text);
-        const needsPreview = review.text.length > UI_CONSTANTS.REVIEW_PREVIEW_LENGTH;
+	        // Sanitize and linkify review text
+	        const reviewTextSafe = linkifyText(reviewText);
+	        const needsPreview = reviewText.length > UI_CONSTANTS.REVIEW_PREVIEW_LENGTH;
         const reviewId = `review-${sanitizeHTML(index.toString())}`;
         
         // Check if audio file exists for admin review
@@ -698,8 +720,8 @@
           }
         }
         
-        // See more/less functionality
-        if (review.text.length > 200) {
+	        // See more/less functionality
+	        if ((typeof review.text === 'string' ? review.text.length : 0) > UI_CONSTANTS.REVIEW_PREVIEW_LENGTH) {
           const seeMoreBtn = document.getElementById(`review-see-more-${reviewId}`);
           const reviewPreview = document.getElementById(`review-preview-${reviewId}`);
           
@@ -1778,12 +1800,12 @@
           }
         });
 
-        // Open WhatsApp
-        setTimeout(() => {
-          window.open(whatsappUrl, '_blank');
-          
-          // Close modal after short delay
-          setTimeout(() => {
+	        // Open WhatsApp
+	        setTimeout(() => {
+	          openExternalURL(whatsappUrl);
+	          
+	          // Close modal after short delay
+	          setTimeout(() => {
             closeAppointmentSheet();
           }, UI_CONSTANTS.MODAL_CLOSE_DELAY);
         }, UI_CONSTANTS.WHATSAPP_OPEN_DELAY);
@@ -2003,9 +2025,9 @@
           url: window.location.href
         };
 
-        try {
-          // Check if Web Share API is supported
-          if (navigator.share) {
+	        try {
+	          // Check if Web Share API is supported
+	          if (navigator.share) {
             await navigator.share(shareData);
           } else {
             // Fallback: Copy to clipboard
@@ -2033,11 +2055,18 @@
               shareBtn.innerHTML = originalHTML;
               shareBtn.style.background = '';
             }, 2000);
-          } catch (clipboardError) {
-            // Silent fail - user will see no feedback
-          }
-        }
-      });
+	          } catch (clipboardError) {
+	            const originalHTML = shareBtn.innerHTML;
+	            shareBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i><span>Share unavailable</span>';
+	            shareBtn.style.background = 'var(--accent-danger)';
+	
+	            setTimeout(() => {
+	              shareBtn.innerHTML = originalHTML;
+	              shareBtn.style.background = '';
+	            }, 2000);
+	          }
+	        }
+	      });
     }
 
     // Initialize map
@@ -2115,12 +2144,12 @@
     }, 100);
 
 
-    // Add click handler to open full map
-    mapContainer.style.cursor = 'pointer';
-    mapContainer.addEventListener('click', () => {
-      window.open(business.mapLink, '_blank');
-    });
-  }
+	    // Add click handler to open full map
+	    mapContainer.style.cursor = 'pointer';
+	    mapContainer.addEventListener('click', () => {
+	      openExternalURL(business.mapLink);
+	    });
+	  }
 
   /**
    * Get coordinates for a business by ID
