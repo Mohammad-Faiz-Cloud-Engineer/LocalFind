@@ -160,13 +160,13 @@ function renderFooter(){
             <li><a href="privacy-policy.html">Privacy Policy</a></li>
           </ul>
         </div>
-        <div>
-          <h4>Popular Categories</h4>
-          <ul>
-            <li><a href="directory.html?category=restaurants">Restaurants</a></li>
-            <li><a href="directory.html?category=grocery">Grocery</a></li>
-          </ul>
-        </div>
+	        <div>
+	          <h4>Popular Categories</h4>
+	          <ul>
+	            <li><a href="directory.html?category=restaurants">Restaurants</a></li>
+	            <li><a href="directory.html?search=grocery">Grocery</a></li>
+	          </ul>
+	        </div>
         <div>
           <h4>Contact</h4>
           <p>${address}</p>
