@@ -226,38 +226,16 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="error-code">404</h1>
-    <h2 class="error-message">Page Not Found</h2>
+	  <div class="container">
+	    <h1 class="error-code">404</h1>
+	    <h2 class="error-message">Page Not Found</h2>
     <p class="error-description">
       The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
     </p>
     <div class="button-group">
-      <a href="./index.html" class="btn btn-primary">Go to Homepage</a>
-      <a href="./directory.html" class="btn btn-secondary">Browse Directory</a>
-    </div>
-  </div>
-  <script>
-    // Validate navigation links exist to prevent cascading 404s
-    document.querySelectorAll('a[href]').forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        var href = this.getAttribute('href');
-        if (href && href.startsWith('./') && !href.includes('#')) {
-          e.preventDefault();
-          fetch(href, { method: 'HEAD' })
-            .then(function(response) {
-              if (response.ok) {
-                window.location.href = href;
-              } else {
-                alert('The page "' + href + '" is not available. Please contact support.');
-              }
-            })
-            .catch(function() {
-              alert('Unable to navigate. Please check your connection or contact support.');
-            });
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+	      <a href="./index.html" class="btn btn-primary">Go to Homepage</a>
+	      <a href="./directory.html" class="btn btn-secondary">Browse Directory</a>
+	    </div>
+	  </div>
+	</body>
+	</html>
