@@ -171,41 +171,44 @@
       </a>
     </div>
   </main>
-	  <footer id="site-footer"></footer>
-	  <script defer src="js/config.js"></script>
-	  <script defer src="js/data.js"></script>
-	  <script defer src="js/main.js"></script>
-	  <script defer src="js/pwa.js"></script>
-	  <script>
-	    document.addEventListener('DOMContentLoaded', () => {
-	      if (!window.LISTINGS || !Array.isArray(window.LISTINGS)) {
-	        return;
-	      }
-
-	      const categoryCounts = {};
-	      window.LISTINGS.forEach(listing => {
-	        if (listing && listing.categorySlug) {
-	          const cat = listing.categorySlug;
-	          categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
-	        }
-	      });
-
-	      document.querySelectorAll('.cat-card').forEach(card => {
-	        const href = card.getAttribute('href');
-	        if (href) {
-	          const match = href.match(/category=([^&]+)/);
-	          if (match) {
-	            const category = match[1];
-	            const count = categoryCounts[category] || 0;
-	            const countEl = card.querySelector('p');
-	            if (countEl) {
-	              countEl.textContent = `${count} listing${count !== 1 ? 's' : ''}`;
-	            }
-	          }
-	        }
-	      });
-	    });
-	  </script>
-	</body>
+  <footer id="site-footer"></footer>
+  <script defer src="js/config.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/pwa.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!window.LISTINGS || !Array.isArray(window.LISTINGS)) {
+        return;
+      }
+      
+      try {
+        const categoryCounts = {};
+        window.LISTINGS.forEach(listing => {
+          if (listing && listing.category) {
+            const cat = listing.category;
+            categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+          }
+        });
+        
+        document.querySelectorAll('.cat-card').forEach(card => {
+          const href = card.getAttribute('href');
+          if (href) {
+            const match = href.match(/category=([^&]+)/);
+            if (match) {
+              const category = match[1];
+              const count = categoryCounts[category] || 0;
+              const countEl = card.querySelector('p');
+              if (countEl) {
+                countEl.textContent = `${count} listing${count !== 1 ? 's' : ''}`;
+              }
+            }
+          }
+        });
+      } catch (error) {
+        // Silent fail - keep default counts
+      }
+    });
+  </script>
+</body>
 
 </html>

@@ -4,13 +4,13 @@
   "version": "4.3.5",
   "version_name": "4.3.5",
   "description": "Find local shops, restaurants, services & more in Rasauli, Barabanki, Uttar Pradesh",
-  "start_url": "./?source=pwa&v=4.3.5",
+  "start_url": "/LocalFind/?source=pwa&v=4.3.5",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "background_color": "#0A0E17",
   "theme_color": "#FF9F43",
   "orientation": "natural",
-  "scope": "./",
+  "scope": "/LocalFind/",
   "lang": "en-US",
   "dir": "ltr",
   "categories": ["business", "lifestyle", "shopping", "navigation"],
@@ -29,7 +29,7 @@
       "name": "Browse Directory",
       "short_name": "Directory",
       "description": "View all business listings",
-      "url": "./directory.html",
+      "url": "/LocalFind/directory.html",
       "icons": [
         {
           "src": "assets/images/mainlogo.svg",
@@ -41,7 +41,7 @@
       "name": "Categories",
       "short_name": "Categories",
       "description": "Browse by category",
-      "url": "./categories.html",
+      "url": "/LocalFind/categories.html",
       "icons": [
         {
           "src": "assets/images/mainlogo.svg",
@@ -53,7 +53,7 @@
       "name": "Support LocalFind",
       "short_name": "Donate",
       "description": "Support us via donation",
-      "url": "./donation.html",
+      "url": "/LocalFind/donation.html",
       "icons": [
         {
           "src": "assets/images/mainlogo.svg",
@@ -63,7 +63,7 @@
     }
   ],
   "share_target": {
-    "action": "./directory.html",
+    "action": "/LocalFind/directory.html",
     "method": "GET",
     "enctype": "application/x-www-form-urlencoded",
     "params": {
@@ -75,7 +75,7 @@
   "protocol_handlers": [
     {
       "protocol": "web+localfind",
-      "url": "./?business=%s"
+      "url": "/LocalFind/?business=%s"
     }
   ],
   "related_applications": [],
