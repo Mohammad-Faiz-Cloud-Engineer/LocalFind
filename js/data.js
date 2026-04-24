@@ -90,6 +90,7 @@ window.isBusinessNew = function(business) {
   
   // Validate date format (YYYY-MM-DD)
   if (typeof business.addedDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(business.addedDate)) {
+    console.warn('Invalid addedDate format for business:', business.id || business.name);
     return business.isNew === true;
   }
   
@@ -103,6 +104,7 @@ window.isBusinessNew = function(business) {
     
     // Check if date is valid
     if (isNaN(addedDate.getTime())) {
+      console.warn('Invalid addedDate value for business:', business.id || business.name);
       return business.isNew === true;
     }
     
@@ -113,6 +115,7 @@ window.isBusinessNew = function(business) {
     // Business is new if added within last 7 days (0-7 days inclusive)
     return diffDays >= 0 && diffDays <= 7;
   } catch (error) {
+    console.error('Error checking if business is new:', error);
     return business.isNew === true;
   }
 };
