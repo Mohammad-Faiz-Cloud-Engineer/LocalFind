@@ -50,6 +50,7 @@ function renderHeader(){
         <a href="directory.html">Directory</a>
         <a href="categories.html">Categories</a>
         <a href="map.html">Map</a>
+        <a href="research-papers.html">Research</a>
         <a href="about.html">About</a>
         <a href="privacy-policy.html">Privacy</a>
         <a href="donation.html" class="donate-link">Donate</a>
@@ -67,6 +68,7 @@ function renderHeader(){
       <a href="directory.html">Directory</a>
       <a href="categories.html">Categories</a>
       <a href="map.html">Map</a>
+      <a href="research-papers.html">Research</a>
       <a href="about.html">About</a>
       <a href="privacy-policy.html">Privacy Policy</a>
       <a href="donation.html" class="donate-link">Donate</a>
@@ -156,6 +158,7 @@ function renderFooter(){
             <li><a href="index.html">Home</a></li>
             <li><a href="directory.html">Directory</a></li>
             <li><a href="categories.html">Categories</a></li>
+            <li><a href="research-papers.html">Research</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="privacy-policy.html">Privacy Policy</a></li>
           </ul>
