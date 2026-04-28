@@ -225,13 +225,10 @@
       return `<a href="${url}" target="_blank" rel="noopener noreferrer">${text}</a>`;
     });
 
-    // Lists
+    // Lists - wrap consecutive <li> items in <ul>
     html = html.replace(/^\- (.*$)/gim, '<li>$1</li>');
     html = html.replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
-    
-    // Use unique marker that won't appear in content
-    const LIST_MARKER = '\x00LIST_BLOCK\x00';
-    html = html.replace(/(<li>.*<\/li>\n?)+/g, `<ul>${LIST_MARKER}</ul>`);
+    html = html.replace(/(<li>.*?<\/li>(?:<br>)?)+/g, '<ul>$&</ul>');
 
     // Blockquotes
     html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
