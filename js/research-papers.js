@@ -35,6 +35,9 @@
     }
   ];
 
+  const FETCH_TIMEOUT_MS = 15000;
+  const SAFE_URL_PROTOCOLS = ['http:', 'https:', 'mailto:'];
+
   /**
    * Safely escape HTML to prevent XSS
    */
@@ -47,6 +50,33 @@
   }
 
   /**
+   * Validate URL is safe (no javascript: protocol)
+   */
+  function isSafeURL(url) {
+    if (!url || typeof url !== 'string') return false;
+    const trimmed = url.trim().toLowerCase();
+    
+    // Block javascript: and data: protocols
+    if (trimmed.startsWith('javascript:') || trimmed.startsWith('data:')) {
+      return false;
+    }
+    
+    // Allow relative URLs
+    if (trimmed.startsWith('/') || trimmed.startsWith('./') || trimmed.startsWith('../')) {
+      return true;
+    }
+    
+    // Check absolute URLs have safe protocol
+    try {
+      const urlObj = new URL(url, window.location.href);
+      return SAFE_URL_PROTOCOLS.includes(urlObj.protocol);
+    } catch {
+      // If URL parsing fails, treat as relative path
+      return !trimmed.includes(':');
+    }
+  }
+
+  /**
    * Render a paper card
    */
   function renderPaperCard(paper) {
@@ -55,8 +85,11 @@
       .map(kw => `<span class="paper-keyword">${escapeHTML(kw)}</span>`)
       .join('');
 
+    // Validate file path
+    const safeFilePath = isSafeURL(paper.file) ? escapeHTML(paper.file) : '#';
+
     return `
-      <div class="paper-card" data-paper-id="${escapeHTML(paper.id)}" onclick="window.viewPaper('${escapeHTML(paper.id)}')">
+      <div class="paper-card" data-paper-id="${escapeHTML(paper.id)}">
         <div class="paper-icon">
           <i class="fa-solid ${escapeHTML(paper.icon)}"></i>
         </div>
@@ -80,7 +113,7 @@
             <i class="fa-solid fa-book-open"></i>
             Read Paper
           </button>
-          <a href="${escapeHTML(paper.file)}" download class="paper-btn" onclick="event.stopPropagation()">
+          <a href="${safeFilePath}" download class="paper-btn paper-download">
             <i class="fa-solid fa-download"></i>
             Download
           </a>
@@ -104,6 +137,28 @@
     }
 
     grid.innerHTML = PAPERS.map(paper => renderPaperCard(paper)).join('');
+    
+    // Setup event delegation for card clicks
+    grid.addEventListener('click', handleGridClick);
+  }
+
+  /**
+   * Handle clicks on paper grid using event delegation
+   */
+  function handleGridClick(event) {
+    // Find the paper card that was clicked
+    const card = event.target.closest('.paper-card');
+    if (!card) return;
+
+    // Don't trigger if clicking download link
+    if (event.target.closest('.paper-download')) {
+      return;
+    }
+
+    const paperId = card.dataset.paperId;
+    if (paperId) {
+      viewPaper(paperId);
+    }
   }
 
   /**
@@ -162,13 +217,21 @@
     // Italic
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    // Links - with URL validation
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function(match, text, url) {
+      if (!isSafeURL(url)) {
+        return text; // Strip unsafe links, keep text only
+      }
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+    });
 
     // Lists
     html = html.replace(/^\- (.*$)/gim, '<li>$1</li>');
     html = html.replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
-    html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+    
+    // Use unique marker that won't appear in content
+    const LIST_MARKER = '\x00LIST_BLOCK\x00';
+    html = html.replace(/(<li>.*<\/li>\n?)+/g, `<ul>${LIST_MARKER}</ul>`);
 
     // Blockquotes
     html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
@@ -197,6 +260,23 @@
   }
 
   /**
+   * Fetch with timeout
+   */
+  async function fetchWithTimeout(url, timeout = FETCH_TIMEOUT_MS) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+    
+    try {
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      return response;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      throw error;
+    }
+  }
+
+  /**
    * Load and display paper content in modal
    */
   async function viewPaper(paperId) {
@@ -217,8 +297,13 @@
     document.body.style.overflow = 'hidden';
 
     try {
-      // Fetch markdown file
-      const response = await fetch(paper.file);
+      // Validate file path before fetching
+      if (!isSafeURL(paper.file)) {
+        throw new Error('Invalid file path');
+      }
+
+      // Fetch markdown file with timeout
+      const response = await fetchWithTimeout(paper.file);
       if (!response.ok) throw new Error('Failed to load paper');
       
       const markdown = await response.text();
@@ -226,13 +311,13 @@
       
       modalBody.innerHTML = html;
     } catch (error) {
-      console.error('Error loading paper:', error);
+      const safeFilePath = isSafeURL(paper.file) ? escapeHTML(paper.file) : '#';
       modalBody.innerHTML = `
         <div style="text-align: center; padding: 40px;">
           <i class="fa-solid fa-exclamation-triangle" style="font-size: 48px; color: var(--accent-danger);"></i>
           <h3 style="margin-top: 20px; color: var(--text-primary);">Failed to Load Paper</h3>
           <p style="color: var(--text-muted);">The paper content could not be loaded. Please try downloading the file instead.</p>
-          <a href="${escapeHTML(paper.file)}" download class="btn btn-cta" style="margin-top: 20px; display: inline-flex;">
+          <a href="${safeFilePath}" download class="btn btn-cta" style="margin-top: 20px; display: inline-flex;">
             <i class="fa-solid fa-download"></i>
             Download Paper
           </a>
@@ -287,7 +372,7 @@
       }
     });
 
-    // Expose viewPaper function globally
+    // Expose viewPaper function globally (for backward compatibility)
     window.viewPaper = viewPaper;
   }
 
