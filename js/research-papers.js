@@ -206,12 +206,12 @@
       return tableHTML;
     });
 
-    // Headers
+    // Headers (must be before bold/italic to avoid conflicts)
     html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
     html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
     html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
 
-    // Bold
+    // Bold (must be before italic)
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
     // Italic
@@ -225,20 +225,25 @@
       return `<a href="${url}" target="_blank" rel="noopener noreferrer">${text}</a>`;
     });
 
-    // Lists - wrap consecutive <li> items in <ul>
-    html = html.replace(/^\- (.*$)/gim, '<li>$1</li>');
-    html = html.replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
-    html = html.replace(/(<li>.*?<\/li>(?:<br>)?)+/g, '<ul>$&</ul>');
-
-    // Blockquotes
+    // Blockquotes (must be before lists)
     html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
 
-    // Paragraphs
+    // Lists - convert to <li> first
+    html = html.replace(/^\- (.*$)/gim, '<li>$1</li>');
+    html = html.replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
+
+    // Paragraphs - split on double newlines
     html = html.replace(/\n\n/g, '</p><p>');
     html = '<p>' + html + '</p>';
 
-    // Clean up empty paragraphs
+    // Wrap consecutive list items in <ul> tags
+    html = html.replace(/(<li>.*?<\/li>(?:<br>)?)+/gs, function(match) {
+      return '<ul>' + match + '</ul>';
+    });
+
+    // Clean up empty paragraphs and unwrap block elements from <p> tags
     html = html.replace(/<p><\/p>/g, '');
+    html = html.replace(/<p>\s*<\/p>/g, '');
     html = html.replace(/<p>(<h[1-6]>)/g, '$1');
     html = html.replace(/(<\/h[1-6]>)<\/p>/g, '$1');
     html = html.replace(/<p>(<div class="table-wrapper">)/g, '$1');
@@ -249,9 +254,17 @@
     html = html.replace(/(<\/blockquote>)<\/p>/g, '$1');
     html = html.replace(/<p>(<hr>)/g, '$1');
     html = html.replace(/(<hr>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<li>)/g, '<ul><li>');
+    html = html.replace(/(<\/li>)<\/p>/g, '</li></ul>');
 
-    // Line breaks
+    // Line breaks - convert remaining single newlines to <br>
     html = html.replace(/\n/g, '<br>');
+
+    // Clean up any stray <br> tags inside block elements
+    html = html.replace(/(<h[1-6]>.*?)<br>(.*?<\/h[1-6]>)/g, '$1$2');
+    html = html.replace(/(<\/h[1-6]>)<br>/g, '$1');
+    html = html.replace(/<hr><br>/g, '<hr>');
+    html = html.replace(/<br>(<\/?(ul|li|blockquote|table|div)>)/g, '$1');
 
     return html;
   }
