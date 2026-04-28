@@ -41,8 +41,8 @@
     if (!url || typeof url !== 'string') return false;
     const trimmed = url.trim().toLowerCase();
     
-    // Block javascript: and data: protocols
-    if (trimmed.startsWith('javascript:') || trimmed.startsWith('data:')) {
+    // Block javascript:, data:, and vbscript: protocols
+    if (trimmed.startsWith('javascript:') || trimmed.startsWith('data:') || trimmed.startsWith('vbscript:')) {
       return false;
     }
     
