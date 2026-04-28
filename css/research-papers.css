@@ -254,13 +254,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32px 48px;
+  padding: 20px 32px;
   border-bottom: 1px solid var(--border-color);
   background: var(--bg-elevated);
 }
 
 .paper-modal-header h2 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
@@ -269,8 +269,8 @@
 }
 
 .paper-modal-close {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -290,7 +290,7 @@
 }
 
 .paper-modal-close i {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .paper-modal-body {
