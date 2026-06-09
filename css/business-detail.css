@@ -6,29 +6,6 @@ body.modal-open {
   padding-right: 0 !important;
 }
 
-/* Custom scrollbar styling for the page */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 138, 0, 0.3) rgba(255, 255, 255, 0.05);
-}
-
-html::-webkit-scrollbar {
-  width: 8px;
-}
-
-html::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
-}
-
-html::-webkit-scrollbar-thumb {
-  background: rgba(255, 138, 0, 0.3);
-  border-radius: 4px;
-}
-
-html::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 138, 0, 0.5);
-}
-
 .breadcrumb {
   padding: var(--space-lg) 0;
   color: var(--text-muted);
@@ -174,7 +151,7 @@ html::-webkit-scrollbar-thumb:hover {
   background: var(--accent-primary);
   color: #0A0E17;
   border-color: var(--accent-primary);
-  animation: pulse 1.5s ease-in-out infinite;
+  animation: pulseShadow 1.5s ease-in-out infinite;
 }
 
 .listen-btn:disabled {
@@ -182,7 +159,7 @@ html::-webkit-scrollbar-thumb:hover {
   cursor: not-allowed;
 }
 
-@keyframes pulse {
+@keyframes pulseShadow {
   0%, 100% {
     box-shadow: 0 0 0 0 rgba(255, 138, 0, 0.4);
   }
@@ -239,7 +216,7 @@ html::-webkit-scrollbar-thumb:hover {
   left: 0;
   right: 0;
   height: 60px;
-  background: linear-gradient(to bottom, transparent, rgba(30, 39, 54, 0.95));
+  background: linear-gradient(to bottom, transparent, rgba(var(--bg-card-rgb), 0.95));
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
@@ -587,11 +564,11 @@ html::-webkit-scrollbar-thumb:hover {
   color: var(--accent-info);
   font-size: 32px;
   vertical-align: middle;
-  animation: verifiedPulse 2s ease-in-out infinite;
+  animation: verifiedPulseDetail 2s ease-in-out infinite;
   filter: drop-shadow(0 0 12px rgba(75, 123, 236, 0.5));
 }
 
-@keyframes verifiedPulse {
+@keyframes verifiedPulseDetail {
 
   0%,
   100% {
@@ -1473,14 +1450,14 @@ html::-webkit-scrollbar-thumb:hover {
 
 .appointment-step {
   display: none;
-  animation: fadeIn 0.3s ease;
+  animation: fadeInStep 0.3s ease;
 }
 
 .appointment-step.active {
   display: block;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInStep {
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -2715,7 +2692,7 @@ html::-webkit-scrollbar-thumb:hover {
   color: var(--accent-info);
   font-size: 16px;
   line-height: 1;
-  animation: verifiedPulse 2s ease-in-out infinite;
+  animation: verifiedPulseDetail 2s ease-in-out infinite;
   filter: drop-shadow(0 0 8px rgba(75, 123, 236, 0.5));
 }
 

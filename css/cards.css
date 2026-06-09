@@ -150,32 +150,6 @@
   border: 1px solid rgba(255, 138, 0, 0.2);
 }
 
-.featured::after {
-  content: 'FEATURED';
-  position: absolute;
-  top: var(--space-md);
-  right: var(--space-md);
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
-  color: #0A0E17;
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.8px;
-  box-shadow: 0 2px 8px rgba(255, 138, 0, 0.3);
-  z-index: 1;
-  /* Hide the text but keep the element for styling effects */
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* Recent Grid */
-.recent-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-lg);
-}
-
 /* Responsive */
 @media (max-width: 1024px) {
   .card-grid {
@@ -185,8 +159,7 @@
 
 @media (max-width: 640px) {
 
-  .card-grid,
-  .recent-grid {
+  .card-grid {
     grid-template-columns: 1fr;
     gap: 10px;
   }
@@ -229,16 +202,6 @@
     padding: 4px 8px;
     font-size: 10px;
     letter-spacing: 0.3px;
-  }
-
-  .featured::after {
-    top: 10px;
-    right: 10px;
-    padding: 3px 10px;
-    font-size: 9px;
-    /* Keep hidden on mobile too */
-    opacity: 0;
-    visibility: hidden;
   }
 
   .verified-badge {

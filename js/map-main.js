@@ -22,9 +22,9 @@
    * @returns {string} Sanitized string
    */
   function sanitizeHTML(str) {
-    if (!str) return '';
+    if (str == null) return '';
     const temp = document.createElement('div');
-    temp.textContent = str;
+    temp.textContent = String(str);
     return temp.innerHTML;
   }
 
