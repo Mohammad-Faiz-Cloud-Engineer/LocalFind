@@ -2,7 +2,7 @@
  * Animations and Intersection Observer
  * Handles scroll-triggered animations and hero canvas particles
  * 
- * @version 4.3.5
+ * @version 4.3.6
  * @updated 2026-04-15
  */
 (function() {

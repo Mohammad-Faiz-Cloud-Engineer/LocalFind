@@ -2,7 +2,7 @@
  * Business Detail Page - Rendering Logic
  * Handles business detail page display with proper styling and security
  * 
- * @version 4.3.5
+ * @version 4.3.6
  * @updated 2026-04-15
  */
 (function () {

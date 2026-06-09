@@ -2,7 +2,7 @@
  * Directory Page - Filter, Sort, Search, Pagination
  * Handles business listing display and user interactions
  * 
- * @version 4.3.5
+ * @version 4.3.6
  * @updated 2026-04-15
  */
 (function () {
@@ -10,7 +10,7 @@
 
   const ITEMS_PER_PAGE = 6;
   let offset = 0;
-  let currentListings = [...window.LISTINGS];
+  let currentListings = window.LISTINGS ? [...window.LISTINGS] : [];
 
   /**
    * Check for special search commands (e.g., /lgbtq+, /women-owned)

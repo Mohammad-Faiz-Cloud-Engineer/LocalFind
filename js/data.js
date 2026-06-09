@@ -1,7 +1,7 @@
 /**
  * Business Listings Data
  * 
- * @version 4.3.5
+ * @version 4.3.6
  * @updated 2026-04-15
  * 
  * CRITICAL PRIVACY NOTICE
