@@ -1640,6 +1640,37 @@ window.LISTINGS = [
     description: "Jiffy By Spencers is a retail grocery store and shopping mall located on Lucknow-Ayodhya Highway in Awas Vikas Colony, Barabanki. Part of the Spencers retail chain, we offer groceries, household items, personal care products, and daily essentials. Conveniently located opposite Swastik Petrol Pump on the main highway with roadside access. Open daily from 10 AM to 10 PM. For customer service, call our toll-free number 18001236868 or contact the store directly.",
     tags: ["grocery", "retail", "shopping", "supermarket", "spencers", "jiffy", "household", "daily-essentials", "convenience-store", "mall", "shopping-mall"],
     addedDate: "2026-04-15"
+  },
+  {
+    id: "seven-eleven-mart",
+    name: "Seven Eleven Mart",
+    category: "Food & Beverages",
+    categorySlug: "food-beverages",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 4.0,
+    reviewCount: 0,
+    coordinates: { lat: 26.9177053, lng: 81.1968426 },
+    reviews: [],
+    address: "W59W+3PP, Gayas Nagar, Ganga Vihar Colny, Lakhpedabagh, Barel, Uttar Pradesh 225001",
+    mapLink: "https://maps.app.goo.gl/4vqmGeh5LMXwQPYo9",
+    phone: "",
+    email: "",
+    website: "",
+    whatsapp: "",
+    hours: {
+      mon: { open: "09:00", close: "21:30" },
+      tue: { open: "09:00", close: "21:30" },
+      wed: { open: "09:00", close: "21:30" },
+      thu: { open: "09:00", close: "21:30" },
+      fri: { open: "09:00", close: "21:30" },
+      sat: { open: "09:00", close: "21:30" },
+      sun: { open: "09:00", close: "21:30" }
+    },
+    description: "Seven Eleven Mart is your neighborhood convenience store in Gayas Nagar, Bareilly, offering a wide range of daily essentials, packaged groceries, cold drinks, snacks, personal care items, and household products. We serve the local community with fresh stock, competitive pricing, and friendly service. Whether you need quick grocery refills, beverages, school supplies, or everyday necessities, we've got you covered. Conveniently located in Ganga Vihar Colony with easy roadside access. Open daily from 9 AM to 9:30 PM.",
+    tags: ["convenience-store", "grocery", "snacks", "beverages", "household-items", "daily-essentials", "general-store", "kirana"],
+    addedDate: "2026-06-09"
   }
 ];
 

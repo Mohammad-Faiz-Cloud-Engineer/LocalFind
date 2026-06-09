@@ -5,7 +5,7 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 4.3.5
+ * @version 4.3.6
  * @updated 2026-04-15
  * 
  * IMPORTANT: Update these values before deploying to production
@@ -13,7 +13,7 @@
 
 const CONFIG = {
   // Application Version
-  version: "4.3.5",
+  version: "4.3.6",
   
   // Site Information
   siteName: "LocalFind",
@@ -131,7 +131,8 @@ const CONFIG = {
     'petrol': ['fuel', 'gas station', 'pump'],
     'delivery': ['courier', 'logistics', 'transport'],
     'jiffy': ['jiffy-by-spencers', 'spencers', 'grocery', 'supermarket', 'retail', 'shopping', 'mall'],
-    'spencers': ['jiffy-by-spencers', 'jiffy', 'grocery-store', 'supermarket', 'retail-chain', 'shopping', 'mall']
+    'spencers': ['jiffy-by-spencers', 'jiffy', 'grocery-store', 'supermarket', 'retail-chain', 'shopping', 'mall'],
+    'seven-eleven': ['7-eleven', 'seven-eleven-mart', 'convenience-store', 'grocery', 'general-store', 'kirana', 'daily-essentials', 'snacks', 'beverages']
   }
 };
 
