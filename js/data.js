@@ -1671,6 +1671,51 @@ window.LISTINGS = [
     description: "Seven Eleven Mart is your neighborhood convenience store in Gayas Nagar, Bareilly, offering a wide range of daily essentials, packaged groceries, cold drinks, snacks, personal care items, and household products. We serve the local community with fresh stock, competitive pricing, and friendly service. Whether you need quick grocery refills, beverages, school supplies, or everyday necessities, we've got you covered. Conveniently located in Ganga Vihar Colony with easy roadside access. Open daily from 9 AM to 9:30 PM.",
     tags: ["convenience-store", "grocery", "snacks", "beverages", "household-items", "daily-essentials", "general-store", "kirana"],
     addedDate: "2026-06-09"
+  },
+  {
+    id: "vineet-jan-seva-kendra",
+    name: "Vineet Jan Seva Kendra",
+    category: "Government Services & CSC",
+    categorySlug: "government-services",
+    featured: true,
+    verified: true,
+    status: "open",
+    rating: 3.0,
+    reviewCount: 1,
+    coordinates: { lat: 26.9225042, lng: 81.259864 },
+    reviews: [
+      {
+        id: "review-1",
+        author: "Admin",
+        role: "LocalFind Team",
+        rating: 3.0,
+        date: "2026-06-12",
+        text: "Vineet Jan Seva Kendra provides basic CSC services but staff professionalism is inconsistent — only some staff members are cooperative. Service charges are notably higher compared to other centers in Rasauli. For reliable and fairly-priced services, we recommend <a href='business-detail.html?id=raheem-common-service-center'>Raheem CSC</a>. Consider Vineet Jan Seva Kendra only as a last resort when other centers are unavailable.",
+        verified: true
+      }
+    ],
+    address: "Rasauli Road, Near OverBridge Pull, Rasauli, Uttar Pradesh",
+    mapLink: "https://maps.app.goo.gl/uRJtyndhy9BmV5jUA",
+    phone: "+91 7985868864",
+    phoneName: "Vishal Kumar",
+    email: "",
+    website: "",
+    whatsapp: "+91 7985868864",
+    whatsappName: "Vishal Kumar",
+    hours: {
+      mon: { open: "09:00", close: "20:00" },
+      tue: { open: "09:00", close: "20:00" },
+      wed: { open: "09:00", close: "20:00" },
+      thu: { open: "09:00", close: "20:00" },
+      fri: { open: "09:00", close: "20:00" },
+      sat: { open: "09:00", close: "20:00" },
+      sun: { open: "09:00", close: "20:00" }
+    },
+    description: "Vineet Jan Seva Kendra is a Common Service Center located on Rasauli Road near OverBridge Pull, providing government and digital services to the local community. Services include Aadhaar card enrollment and updates, PAN card applications, income and caste certificates, domicile and birth/death certificates, document printing and photocopying, and online form submissions. The center also facilitates bill payments, mobile recharges, banking services, and digital transactions. Open daily from 9 AM to 8 PM.",
+    tags: ["csc", "common-service-center", "aadhaar", "pan-card", "government-services", "certificates", "digital-services", "bill-payment"],
+    upiId: "merchantqr.iprgs5yn@digikhata",
+    upiName: "Vineet Jan Seva Kendra",
+    addedDate: "2026-06-12"
   }
 ];
 

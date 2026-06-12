@@ -5,15 +5,15 @@
  * @author Mohammad Faiz
  * @repository https://github.com/Mohammad-Faiz-Cloud-Engineer/LocalFind
  * @license MIT
- * @version 4.3.6
- * @updated 2026-04-15
+ * @version 4.3.7
+ * @updated 2026-06-12
  * 
  * IMPORTANT: Update these values before deploying to production
  */
 
 const CONFIG = {
   // Application Version
-  version: "4.3.6",
+  version: "4.3.7",
   
   // Site Information
   siteName: "LocalFind",
@@ -81,7 +81,7 @@ const CONFIG = {
   
   // Search Aliases - Map shorthand terms to full terms
   searchAliases: {
-    'csc': ['common service center', 'common service centre', 'csc center', 'raheem csc', 'golden csc'],
+    'csc': ['common service center', 'common service centre', 'csc center', 'raheem csc', 'golden csc', 'vineet csc'],
     'atm': ['automated teller machine', 'cash machine'],
     'govt': ['government', 'gov'],
     'govt services': ['government services', 'government service'],
@@ -132,7 +132,8 @@ const CONFIG = {
     'delivery': ['courier', 'logistics', 'transport'],
     'jiffy': ['jiffy-by-spencers', 'spencers', 'grocery', 'supermarket', 'retail', 'shopping', 'mall'],
     'spencers': ['jiffy-by-spencers', 'jiffy', 'grocery-store', 'supermarket', 'retail-chain', 'shopping', 'mall'],
-    'seven-eleven': ['7-eleven', 'seven-eleven-mart', 'convenience-store', 'grocery', 'general-store', 'kirana', 'daily-essentials', 'snacks', 'beverages']
+    'seven-eleven': ['7-eleven', 'seven-eleven-mart', 'convenience-store', 'grocery', 'general-store', 'kirana', 'daily-essentials', 'snacks', 'beverages'],
+    'vineet-jan-seva-kendra': ['vineet', 'jan seva kendra', 'csc', 'common service center', 'vineet csc']
   }
 };
 
