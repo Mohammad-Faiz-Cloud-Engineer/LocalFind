@@ -125,14 +125,6 @@
       map._zoomAnimated = true;
     });
 
-    let moveTimeout;
-    map.on('move', () => {
-      if (moveTimeout) clearTimeout(moveTimeout);
-      moveTimeout = setTimeout(() => {
-        // Map movement complete
-      }, 100);
-    });
-
     map.on('zoomend', () => {
       setTimeout(() => {
         map.invalidateSize({ pan: false });

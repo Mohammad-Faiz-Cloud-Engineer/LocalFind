@@ -100,7 +100,7 @@
       <a class="cat-card" href="directory.html?category=restaurants" aria-label="Browse Restaurants & Fast Food category">
         <div class="icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></div>
         <h3>Restaurants & Fast Food</h3>
-        <p>4 listings</p>
+        <p>8 listings</p>
       </a>
       <a class="cat-card" href="directory.html?category=government-services"
         aria-label="Browse Government Services & CSC category">
@@ -121,7 +121,7 @@
       <a class="cat-card" href="directory.html?category=shopping-mall" aria-label="Browse Shopping Mall category">
         <div class="icon"><i class="fa-solid fa-store" aria-hidden="true"></i></div>
         <h3>Shopping Mall</h3>
-        <p>2 listings</p>
+        <p>3 listings</p>
       </a>
       <a class="cat-card" href="directory.html?category=hardware"
         aria-label="Browse Hardware & Building Materials category">
@@ -185,9 +185,9 @@
       try {
         const categoryCounts = {};
         window.LISTINGS.forEach(listing => {
-          if (listing && listing.category) {
-            const cat = listing.category;
-            categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+          if (listing && listing.categorySlug) {
+            const slug = listing.categorySlug;
+            categoryCounts[slug] = (categoryCounts[slug] || 0) + 1;
           }
         });
         

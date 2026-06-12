@@ -164,7 +164,7 @@ function renderFooter(){
           <h4>Popular Categories</h4>
           <ul>
             <li><a href="directory.html?category=restaurants">Restaurants</a></li>
-            <li><a href="directory.html?category=grocery">Grocery</a></li>
+            <li><a href="directory.html?category=healthcare">Healthcare</a></li>
           </ul>
         </div>
         <div>
