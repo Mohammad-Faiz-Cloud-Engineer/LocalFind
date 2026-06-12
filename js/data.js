@@ -1690,7 +1690,7 @@ window.LISTINGS = [
         role: "LocalFind Team",
         rating: 3.0,
         date: "2026-06-12",
-        text: "Vineet Jan Seva Kendra provides basic CSC services but staff professionalism is inconsistent — only some staff members are cooperative. Service charges are notably higher compared to other centers in Rasauli. For reliable and fairly-priced services, we recommend <a href='business-detail.html?id=raheem-common-service-center'>Raheem CSC</a>. Consider Vineet Jan Seva Kendra only as a last resort when other centers are unavailable.",
+        text: "Vineet Jan Seva Kendra provides basic CSC services but staff professionalism is inconsistent; only some staff members are cooperative. Service charges are notably higher compared to other centers in Rasauli. For reliable and fairly-priced services, we recommend <a href='business-detail.html?id=raheem-common-service-center'>Raheem CSC</a>. Consider Vineet Jan Seva Kendra only as a last resort when other centers are unavailable.",
         verified: true
       }
     ],
