@@ -1713,8 +1713,8 @@ window.LISTINGS = [
     },
     description: "Vineet Jan Seva Kendra is a Common Service Center located on Rasauli Road near OverBridge Pull, providing government and digital services to the local community. Services include Aadhaar card enrollment and updates, PAN card applications, income and caste certificates, domicile and birth/death certificates, document printing and photocopying, and online form submissions. The center also facilitates bill payments, mobile recharges, banking services, and digital transactions. Open daily from 9 AM to 8 PM.",
     tags: ["csc", "common-service-center", "aadhaar", "pan-card", "government-services", "certificates", "digital-services", "bill-payment"],
-    upiId: "merchantqr.iprgs5yn@digikhata",
     upiName: "Vineet Jan Seva Kendra",
+    upiIds: ["merchantqr.iprgs5yn@digikhata", "merchantqr.isu6t0qb@digikhata", "750888640147@boi"],
     addedDate: "2026-06-12"
   }
 ];

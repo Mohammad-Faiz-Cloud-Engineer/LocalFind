@@ -892,7 +892,7 @@
           <a href="${validateAndSanitizeURL(biz.districtIn) || '#'}" target="_blank" rel="noopener noreferrer" style="color: #FFFFFF; font-weight: 600;">Book Movie Tickets (District)</a>
         </div>
       ` : ''}
-      ${biz.upiId ? `
+      ${(biz.upiId || (Array.isArray(biz.upiIds) && biz.upiIds.length)) ? `
         <div class="contact-item upi-payment-trigger" id="upi-pay-btn" role="button" tabindex="0" aria-label="Pay online via UPI">
           <i class="fa-solid fa-indian-rupee-sign"></i>
           <span>Pay Online (UPI)</span>
@@ -948,7 +948,7 @@
     }
 
     // UPI Payment Bottom Sheet
-    if (biz.upiId) {
+    if (biz.upiId || (Array.isArray(biz.upiIds) && biz.upiIds.length)) {
       const upiPayBtn = document.getElementById('upi-pay-btn');
       if (upiPayBtn) {
         upiPayBtn.addEventListener('click', () => openUPISheet(biz));
@@ -977,13 +977,21 @@
      * Open UPI payment bottom sheet
      * @param {Object} business - Business data with upiId and upiName
      */
-    function openUPISheet(business) {
+    function openUPISheet(business, preselectedUpi) {
       // Prevent duplicate modals
       if (document.getElementById('upi-payment-sheet')) return;
 
-      const safeUpiId = sanitizeHTML(business.upiId);
+      const upiList = Array.isArray(business.upiIds) && business.upiIds.length > 1 ? business.upiIds : null;
+
+      // If multi-UPI and no preselection, show the picker first
+      if (upiList && !preselectedUpi) {
+        return showUPIPicker(business, upiList);
+      }
+
+      const upiId = preselectedUpi || business.upiId || (Array.isArray(business.upiIds) ? business.upiIds[0] : '') || '';
+      const safeUpiId = sanitizeHTML(upiId);
       const safeUpiName = sanitizeHTML(business.upiName || business.name);
-      const upiDeepLink = `upi://pay?pa=${encodeURIComponent(business.upiId)}&pn=${encodeURIComponent(business.upiName || business.name)}&cu=INR`;
+      const upiDeepLink = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(business.upiName || business.name)}&cu=INR`;
 
       // Build the overlay + bottom sheet
       const overlay = document.createElement('div');
@@ -999,6 +1007,7 @@
           <button class="upi-sheet-close" id="upi-close-btn" aria-label="Close payment sheet">
             <i class="fa-solid fa-xmark"></i>
           </button>
+          ${upiList ? '<button class="upi-back-btn" id="upi-back-btn" aria-label="Back to UPI selection"><i class="fa-solid fa-arrow-left"></i></button>' : ''}
           <div class="upi-sheet-header">
             <div class="upi-sheet-icon">
               <i class="fa-solid fa-indian-rupee-sign"></i>
@@ -1036,7 +1045,6 @@
       const qrTarget = document.getElementById('upi-qr-target');
       if (qrTarget) {
         if (typeof QRCode !== 'undefined') {
-          // Render QR into a hidden off-screen container
           const offscreen = document.createElement('div');
           offscreen.style.cssText = 'position:absolute;left:-9999px;top:-9999px;';
           document.body.appendChild(offscreen);
@@ -1050,14 +1058,12 @@
             correctLevel: QRCode.CorrectLevel.H
           });
 
-          // Extract data URL from the generated canvas and inject clean img
           setTimeout(() => {
             const canvas = offscreen.querySelector('canvas');
             if (canvas) {
               const dataUrl = canvas.toDataURL('image/png');
               qrTarget.innerHTML = `<img src="${sanitizeHTML(dataUrl)}" alt="UPI QR Code" class="upi-qr-img" />`;
             } else {
-              // Library might have used img fallback
               const img = offscreen.querySelector('img');
               if (img && img.src) {
                 qrTarget.innerHTML = `<img src="${sanitizeHTML(img.src)}" alt="UPI QR Code" class="upi-qr-img" />`;
@@ -1068,7 +1074,6 @@
             offscreen.remove();
           }, 50);
         } else {
-          // QRCode library not loaded - show fallback message
           qrTarget.innerHTML = `
             <div class="upi-qr-fallback" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center;">
               <i class="fa-solid fa-qrcode" style="font-size: 48px; color: var(--text-muted); margin-bottom: 16px;"></i>
@@ -1105,11 +1110,23 @@
       }
       document.addEventListener('keydown', handleEscape);
 
+      // Back button (multi-UPI only)
+      if (upiList) {
+        const backBtn = document.getElementById('upi-back-btn');
+        if (backBtn) {
+          backBtn.addEventListener('click', () => {
+            closeUPISheet();
+            // Small delay to let close animation finish
+            setTimeout(() => showUPIPicker(business, upiList), 350);
+          });
+        }
+      }
+
       // Copy UPI ID
       const copyBtn = document.getElementById('upi-copy-btn');
       copyBtn.addEventListener('click', async () => {
         try {
-          await navigator.clipboard.writeText(business.upiId);
+          await navigator.clipboard.writeText(upiId);
           copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
           copyBtn.style.color = 'var(--accent-success)';
           setTimeout(() => {
@@ -1119,7 +1136,7 @@
         } catch (err) {
           // Fallback for older browsers
           const textArea = document.createElement('textarea');
-          textArea.value = business.upiId;
+          textArea.value = upiId;
           textArea.style.cssText = 'position:fixed;left:-9999px;';
           document.body.appendChild(textArea);
           textArea.select();
@@ -1139,7 +1156,7 @@
       if (payAppBtn) {
         payAppBtn.addEventListener('click', () => {
           // Validate and sanitize UPI parameters
-          const validatedUpiId = validateUPIId(business.upiId);
+          const validatedUpiId = validateUPIId(upiId);
           if (!validatedUpiId) {
             return;
           }
@@ -1242,7 +1259,7 @@
 
           // Track successful attempt (optional analytics hook)
           if (typeof window.trackUPIPayment === 'function') {
-            window.trackUPIPayment(business.id, business.upiId);
+            window.trackUPIPayment(business.id, upiId);
           }
 
         } catch (error) {
@@ -1264,6 +1281,103 @@
       /**
        * Close and destroy the UPI sheet with exit animation
        */
+      function closeUPISheet() {
+        const currentOverlay = document.getElementById('upi-payment-overlay');
+        if (!currentOverlay) return;
+        currentOverlay.classList.remove('active');
+        currentOverlay.classList.add('closing');
+        document.removeEventListener('keydown', handleEscape);
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          currentOverlay.remove();
+        }, 350);
+      }
+    }
+
+    /**
+     * Show multi-UPI picker (selection list before payment)
+     * @param {Object} business - Business data
+     * @param {string[]} upiList - Array of UPI IDs
+     */
+    function showUPIPicker(business, upiList) {
+      if (document.getElementById('upi-payment-overlay')) return;
+
+      const safeUpiName = sanitizeHTML(business.upiName || business.name);
+
+      const itemsHtml = upiList.map((upi, idx) => {
+        const displayName = idx === 0 ? safeUpiName : `${safeUpiName} ${idx + 1}`;
+        return `
+          <button class="upi-select-item" data-upi="${sanitizeHTML(upi)}" data-index="${idx}">
+            <span class="upi-select-icon"><i class="fa-solid fa-building-columns"></i></span>
+            <span class="upi-select-info">
+              <span class="upi-select-label">${sanitizeHTML(displayName)}</span>
+              <span class="upi-select-id">${sanitizeHTML(upi)}</span>
+            </span>
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        `;
+      }).join('');
+
+      const overlay = document.createElement('div');
+      overlay.id = 'upi-payment-overlay';
+      overlay.className = 'upi-overlay';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', 'Select UPI');
+
+      overlay.innerHTML = `
+        <div class="upi-sheet" id="upi-payment-sheet">
+          <div class="upi-sheet-handle" aria-hidden="true"></div>
+          <button class="upi-sheet-close" id="upi-close-btn" aria-label="Close payment sheet">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="upi-sheet-header">
+            <div class="upi-sheet-icon">
+              <i class="fa-solid fa-indian-rupee-sign"></i>
+            </div>
+            <h3>Pay ${safeUpiName}</h3>
+            <p>Select a payment method</p>
+          </div>
+          <div class="upi-select-list">
+            ${itemsHtml}
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+
+      document.body.classList.add('modal-open');
+      document.body.style.overflow = 'hidden';
+
+      requestAnimationFrame(() => {
+        overlay.classList.add('active');
+      });
+
+      // Close button
+      const closeBtn = overlay.querySelector('#upi-close-btn');
+      closeBtn.addEventListener('click', closeUPISheet);
+
+      // Backdrop click
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeUPISheet();
+      });
+
+      // Escape key
+      function handleEscape(e) {
+        if (e.key === 'Escape') closeUPISheet();
+      }
+      document.addEventListener('keydown', handleEscape);
+
+      // Selection clicks
+      overlay.querySelectorAll('.upi-select-item').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const selectedUpi = btn.dataset.upi;
+          closeUPISheet();
+          setTimeout(() => openUPISheet(business, selectedUpi), 350);
+        });
+      });
+
       function closeUPISheet() {
         const currentOverlay = document.getElementById('upi-payment-overlay');
         if (!currentOverlay) return;
