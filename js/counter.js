@@ -2,7 +2,7 @@
  * Counter Animation
  * Animated count-up triggered by intersection observer
  * 
- * @version 4.3.6
+ * @version 4.3.7
  * @updated 2026-04-15
  */
 (function() {

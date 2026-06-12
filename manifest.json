@@ -4,7 +4,7 @@
   "version": "4.3.7",
   "version_name": "4.3.7",
   "description": "Find local shops, restaurants, services & more in Rasauli, Barabanki, Uttar Pradesh",
-  "start_url": "/LocalFind/?source=pwa&v=4.3.6",
+  "start_url": "/LocalFind/?source=pwa&v=4.3.7",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "background_color": "#0A0E17",

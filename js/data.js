@@ -1,7 +1,7 @@
 /**
  * Business Listings Data
  * 
- * @version 4.3.6
+ * @version 4.3.7
  * @updated 2026-04-15
  * 
  * CRITICAL PRIVACY NOTICE
@@ -679,7 +679,7 @@ window.LISTINGS = [
   {
     id: "satyam-footwear",
     name: "Satyam Footwear",
-    category: "Fashion & Footwear",
+    category: "Fashion & Apparel",
     categorySlug: "fashion",
     featured: false,
     verified: false,
@@ -1594,7 +1594,7 @@ window.LISTINGS = [
   {
     id: "jiffy-by-spencers-barabanki",
     name: "Jiffy By Spencers",
-    category: "Shopping & Retail",
+    category: "Shopping Mall & Entertainment",
     categorySlug: "shopping-mall",
     featured: true,
     verified: true,
