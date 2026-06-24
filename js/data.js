@@ -2011,6 +2011,27 @@ window.updateBusinessStatuses = function() {
     }
   });
   
+  // Update tenant card status badges (mall tenant section)
+  const tenantBadges = document.querySelectorAll('.tenant-card-status[data-business-id]');
+  tenantBadges.forEach(badge => {
+    const businessId = badge.getAttribute('data-business-id');
+    if (!businessId) return;
+    
+    const business = window.LISTINGS.find(b => b.id === businessId);
+    if (!business) return;
+    
+    const status = window.getBusinessStatus(business);
+    if (status) {
+      const icon = badge.querySelector('i');
+      if (icon) {
+        icon.remove();
+      }
+      badge.innerHTML = `<i class="fa-solid fa-circle"></i> ${status.message}`;
+      badge.className = `tenant-card-status ${status.cssClass}`;
+      badge.setAttribute('data-business-id', businessId);
+    }
+  });
+  
   // Update detail page banner if present
   const detailBanner = document.querySelector('.business-status-banner[data-business-id]');
   if (detailBanner) {

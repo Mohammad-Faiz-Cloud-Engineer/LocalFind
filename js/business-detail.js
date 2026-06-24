@@ -440,6 +440,9 @@
                   const tenantStars = '★'.repeat(Math.floor(tenant.rating)) + '☆'.repeat(5 - Math.floor(tenant.rating));
                   const tenantDescription = tenant.description || '';
                   const tenantDesc = tenantDescription.length > 120 ? tenantDescription.substring(0, 120) + '...' : tenantDescription;
+                  const tenantBizStatus = window.getBusinessStatus ? window.getBusinessStatus(tenant) : null;
+                  const tenantStatusClass = tenantBizStatus ? tenantBizStatus.cssClass : (tenant.status === 'open' ? 'status-open' : 'status-closed');
+                  const tenantStatusText = tenantBizStatus ? tenantBizStatus.message : (tenant.status === 'open' ? 'Open' : 'Closed');
                   
                   return `
                     <a href="business-detail.html?id=${encodeURIComponent(tenant.id)}" class="tenant-card">
@@ -460,9 +463,9 @@
                           <span class="rating-value">${tenant.rating}</span>
                           <span class="rating-count">(${tenant.reviewCount})</span>
                         </div>
-                        <div class="tenant-card-status ${tenant.status === 'open' ? 'status-open' : 'status-closed'}">
+                        <div class="tenant-card-status ${tenantStatusClass}" data-business-id="${sanitizeHTML(tenant.id)}">
                           <i class="fa-solid fa-circle"></i>
-                          ${tenant.status === 'open' ? 'Open' : 'Closed'}
+                          ${tenantStatusText}
                         </div>
                       </div>
                       ${tenant.featured ? '<div class="tenant-featured-badge">FEATURED</div>' : ''}
