@@ -6,7 +6,7 @@ LocalFind is a local business directory PWA built with vanilla JavaScript (HTML5
 
 - **Live**: [LocalFind](https://mohammad-faiz-cloud-engineer.github.io/LocalFind/)
 - **Author**: Mohammad Faiz
-- **License**: MIT
+- **License**: BSD 2-Clause
 
 ## Tech Stack
 
@@ -212,9 +212,9 @@ After adding a business, verify:
 
 ## Current Version
 
-- **Version**: 4.3.7
-- **Cache Version**: `localfind-v4.3.7`
-- **Build Number**: `20260612a`
+- **Version**: 4.3.9
+- **Cache Version**: `localfind-v4.3.9`
+- **Build Number**: `20260924b`
 
 ## Project Structure
 

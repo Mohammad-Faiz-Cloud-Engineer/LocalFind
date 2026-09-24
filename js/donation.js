@@ -2,7 +2,7 @@
  * LocalFind - Donation Page Logic
  * Production-grade UPI payment integration with security and optimization
  * 
- * @version 4.3.7
+ * @version 4.3.9
  * @updated 2026-04-15
  * @author Mohammad Faiz
  */
@@ -138,7 +138,7 @@
     }, `
       <i class="fa-solid fa-qrcode" style="font-size: 48px; color: var(--text-muted); margin-bottom: 16px;"></i>
       <p style="color: var(--text-muted); font-size: 14px; margin: 0;">QR code unavailable</p>
-      <p style="color: var(--text-muted); font-size: 12px; margin-top: 8px;">Please scan the QR code with your UPI app</p>
+      <p style="color: var(--text-muted); font-size: 12px; margin-top: 8px;">Use the UPI ID shown above instead</p>
     `);
     target.innerHTML = '';
     target.appendChild(fallback);

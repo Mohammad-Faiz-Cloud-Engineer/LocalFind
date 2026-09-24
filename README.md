@@ -23,15 +23,12 @@ LocalFind helps people discover local businesses in their area. The platform fea
 - Category-based business organization
 - Responsive design for all devices
 - Interactive maps integration
-- Business submission forms
 - **UPI Donation System** with QR code generation
 - **Premium Glassmorphism UI** & Dark theme interface
-- **Production-grade, highly optimized JavaScript**
 - SEO optimized
-- Accessibility compliant (WCAG 2.1 AA)
+- Accessible semantic markup and ARIA labels
 - **Full PWA Support** (installable, offline-ready)
 - Service worker with intelligent caching
-- Push notifications ready
 - Native app-like experience
 
 ## Technology
@@ -75,8 +72,6 @@ LocalFind is a Progressive Web App! To enable full PWA features:
 2. Serve with HTTPS (required for service workers)
 
 3. Users can install the app on their devices
-
-See [PWA_SETUP_GUIDE.md](PWA_SETUP_GUIDE.md) for detailed instructions.
 
 ## Project Structure
 
@@ -148,7 +143,7 @@ For GitHub Pages:
 
 ## License
 
-MIT License - see LICENSE file for details
+BSD 2-Clause License - see LICENSE file for details
 
 ## Author
 

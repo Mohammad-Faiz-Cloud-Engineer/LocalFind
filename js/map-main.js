@@ -3,7 +3,7 @@
  * Production-grade map implementation with security and performance optimizations
  * 
  * @author Mohammad Faiz
- * @version 4.3.7
+ * @version 4.3.9
  * @updated 2026-04-15
  */
 
@@ -34,6 +34,12 @@
   function initMap() {
     const loading = document.getElementById('loading');
     const mapStatus = document.getElementById('map-status');
+
+    if (typeof L === 'undefined') {
+      if (loading) loading.classList.add('hidden');
+      if (mapStatus) mapStatus.textContent = 'Map unavailable offline';
+      return;
+    }
 
     const defaultCenter = [26.9135, 81.2328];
 
@@ -106,7 +112,6 @@
     loading.classList.add('hidden');
 
     optimizeMapPerformance();
-    requestUserLocation();
     setupControls();
     setupSearch();
   }
@@ -517,6 +522,9 @@
     }
     
     const queryLower = query.toLowerCase().trim();
+    if (!queryLower) {
+      return [];
+    }
     const searchTerms = [queryLower];
 
     if (window.CONFIG && window.CONFIG.searchAliases && typeof window.CONFIG.searchAliases === 'object') {
@@ -551,7 +559,7 @@
     }
     
     const textLower = text.toLowerCase();
-    return searchTerms.some(term => textLower.includes(term));
+    return searchTerms.some(term => typeof term === 'string' && term.trim() && textLower.includes(term.toLowerCase().trim()));
   }
 
   /**

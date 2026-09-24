@@ -1,37 +1,11 @@
 /**
  * Business Listings Data
  * 
- * @version 4.3.7
+ * @version 4.3.9
  * @updated 2026-04-15
  * 
- * CRITICAL PRIVACY NOTICE
- * ═══════════════════════════════════════════════════════════════════════════
- * This file contains REAL PERSONAL DATA of business owners including:
- * - Phone numbers
- * - Email addresses
- * - Physical addresses
- * - WhatsApp numbers
- * - UPI payment IDs
- * 
- * LEGAL REQUIREMENTS:
- * 1. Obtain explicit written consent from ALL business owners before deployment
- * 2. Comply with data protection laws (GDPR, CCPA, local regulations)
- * 3. Provide opt-out mechanism for businesses to remove their data
- * 4. Implement proper data security measures
- * 
- * RECOMMENDATIONS FOR PRODUCTION:
- * - Move this data to a secure backend with authentication
- * - Use environment variables for sensitive configuration
- * - Implement API endpoints with proper access controls
- * - Add data encryption for sensitive fields
- * - Regular security audits and compliance checks
- * 
- * FOR DEMO/TESTING:
- * - Replace all real data with anonymized placeholder data
- * - Use fake phone numbers (e.g., +91 XXXXXXXXXX)
- * - Use example.com email addresses
- * - Use generic business names
- * ═══════════════════════════════════════════════════════════════════════════
+ * Publish contact and payment details only with the business owner's permission,
+ * and honor correction or removal requests before updating this file.
  * 
  * PRODUCTION NOTE: Replace this empty array with real business data
  * 
@@ -99,11 +73,12 @@ window.isBusinessNew = function(business) {
     const addedDate = new Date(business.addedDate + 'T00:00:00Z');
     const today = new Date();
     
-    // Set today to start of day in UTC for consistent comparison
-    const todayUTC = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+    // Compare calendar days in the directory's timezone, not the visitor's timezone.
+    const ist = window.getISTTime ? window.getISTTime() : null;
+    const todayUTC = ist ? ist.date : new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
     
     // Check if date is valid
-    if (isNaN(addedDate.getTime())) {
+    if (isNaN(addedDate.getTime()) || addedDate.toISOString().slice(0, 10) !== business.addedDate) {
       console.warn('Invalid addedDate value for business:', business.id || business.name);
       return business.isNew === true;
     }
@@ -1733,17 +1708,29 @@ function sanitizeHTML(str) {
  * Get current Indian Standard Time (IST)
  * @returns {Object} Current IST date and time info
  */
+const IST_TIME_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Asia/Kolkata',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  weekday: 'short',
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23'
+});
+
 window.getISTTime = function() {
-  // Get current time in IST (UTC+5:30)
-  const now = new Date();
-  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-  const istTime = new Date(utc + (3600000 * 5.5)); // IST is UTC+5:30
-  
+  const parts = Object.fromEntries(
+    IST_TIME_FORMATTER.formatToParts(new Date())
+      .filter(part => part.type !== 'literal')
+      .map(part => [part.type, part.value])
+  );
+
   return {
-    date: istTime,
-    hours: istTime.getHours(),
-    minutes: istTime.getMinutes(),
-    day: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][istTime.getDay()]
+    date: new Date(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day))),
+    hours: Number(parts.hour),
+    minutes: Number(parts.minute),
+    day: parts.weekday.toLowerCase()
   };
 };
 
@@ -1795,25 +1782,30 @@ window.getBusinessStatus = function(business) {
     };
   }
 
-  // Parse hours (format: "HH:MM")
-  const [openHour, openMin] = todayHours.open.split(':').map(Number);
-  const [closeHour, closeMin] = todayHours.close.split(':').map(Number);
-  
+  const toMinutes = (time) => {
+    const match = typeof time === 'string' && /^(?:[01]\d|2[0-3]):[0-5]\d$/.exec(time);
+    return match ? Number(time.slice(0, 2)) * 60 + Number(time.slice(3)) : null;
+  };
   const currentMinutes = ist.hours * 60 + ist.minutes;
-  const openMinutes = openHour * 60 + openMin;
-  const closeMinutes = closeHour * 60 + closeMin;
+  const openMinutes = toMinutes(todayHours.open);
+  const closeMinutes = toMinutes(todayHours.close);
+
+  if (openMinutes === null || closeMinutes === null) {
+    return { isOpen: null, message: 'Hours not available', cssClass: 'status-unknown' };
+  }
 
   // Check if business has split shift (open2 and close2)
   let open2Minutes = null;
   let close2Minutes = null;
   let hasSecondShift = false;
   
-  if (todayHours.open2 && todayHours.close2) {
+  if (todayHours.open2 || todayHours.close2) {
+    open2Minutes = toMinutes(todayHours.open2);
+    close2Minutes = toMinutes(todayHours.close2);
+    if (open2Minutes === null || close2Minutes === null) {
+      return { isOpen: null, message: 'Hours not available', cssClass: 'status-unknown' };
+    }
     hasSecondShift = true;
-    const [open2Hour, open2Min] = todayHours.open2.split(':').map(Number);
-    const [close2Hour, close2Min] = todayHours.close2.split(':').map(Number);
-    open2Minutes = open2Hour * 60 + open2Min;
-    close2Minutes = close2Hour * 60 + close2Min;
   }
 
   // Check first shift

@@ -2,15 +2,15 @@
  * LocalFind - PWA Registration & Management
  * Handles service worker registration, install prompts, and updates
  * 
- * @version 4.3.7
- * @updated 2026-06-12
+ * @version 4.3.9
+ * @updated 2026-09-24
  */
 
 (function() {
   'use strict';
   
   // PWA Version
-  const PWA_VERSION = '4.3.7';
+  const PWA_VERSION = '4.3.9';
   
   let deferredPrompt;
   let swRegistration;
@@ -25,8 +25,7 @@
     }
     
     try {
-      swRegistration = await navigator.serviceWorker.register('/LocalFind/sw.js', {
-        scope: '/LocalFind/',
+      swRegistration = await navigator.serviceWorker.register('sw.js', {
         updateViaCache: 'none' // Always fetch fresh service worker
       });
       
@@ -178,17 +177,7 @@
         updateBtn.textContent = 'Updating...';
         
         try {
-          // Step 1: Clear all caches first
-          if ('caches' in window) {
-            const cacheNames = await caches.keys();
-            await Promise.all(
-              cacheNames.map(cacheName => {
-                return caches.delete(cacheName);
-              })
-            );
-          }
-          
-          // Step 2: Tell the waiting service worker to skip waiting and activate
+          // Tell the waiting service worker to activate; it removes only its old versioned caches.
           if (swRegistration && swRegistration.waiting) {
             // Listen for controller change before sending message
             let controllerChanged = false;

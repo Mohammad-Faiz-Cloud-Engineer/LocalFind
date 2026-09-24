@@ -2,7 +2,7 @@
  * Business Detail Page - Rendering Logic
  * Handles business detail page display with proper styling and security
  * 
- * @version 4.3.7
+ * @version 4.3.9
  * @updated 2026-04-15
  */
 (function () {
@@ -42,25 +42,16 @@
    */
   function validateAndSanitizeURL(url) {
     if (!url || typeof url !== 'string') return null;
-    
-    // Remove any whitespace
-    url = url.trim();
-    
-    // Check for javascript: protocol and other dangerous protocols
-    const dangerousProtocols = /^(javascript|data|vbscript|file|about):/i;
-    if (dangerousProtocols.test(url)) {
-      return null;
-    }
-    
-    // For relative URLs, ensure they don't contain suspicious patterns
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      // Block URLs with suspicious patterns
-      if (url.includes('javascript:') || url.includes('data:')) {
+
+    try {
+      const parsed = new URL(url.trim(), window.location.origin);
+      if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
         return null;
       }
+      return sanitizeHTML(url.trim());
+    } catch (error) {
+      return null;
     }
-    
-    return url;
   }
 
   /**
@@ -71,14 +62,12 @@
    */
   function isInternalURL(url) {
     if (!url) return false;
-    
-    // External URLs start with http:// or https://
-    if (url.startsWith('http://') || url.startsWith('https://')) {
+
+    try {
+      return new URL(url, window.location.origin).origin === window.location.origin;
+    } catch (error) {
       return false;
     }
-    
-    // Relative paths are internal
-    return true;
   }
 
   /**
@@ -122,15 +111,14 @@
         return createAnchorTag(url, isInternal);
       });
       
-      // Split by anchor tags to sanitize only non-link content
+      // Preserve only the safe anchor created above; escape its original contents.
       const parts = processed.split(/(<a[^>]*>.*?<\/a>)/gi);
       
       processed = parts.map((part) => {
-        // Preserve anchor tags and their content
-        if (part.match(/^<a[^>]*>.*?<\/a>$/i)) {
-          return part;
+        const anchor = part.match(/^(<a[^>]*>)([\s\S]*)(<\/a>)$/i);
+        if (anchor) {
+          return `${anchor[1]}${sanitizeHTML(anchor[2])}${anchor[3]}`;
         }
-        // Sanitize non-link text to prevent XSS
         return sanitizeHTML(part);
       }).join('');
       
@@ -144,21 +132,26 @@
   /**
    * Converts plain URLs in text to clickable links
    * @private
-   * @param {string} text - Sanitized text containing plain URLs
+   * @param {string} text - Text containing plain URLs
    * @returns {string} Text with URLs converted to links
    */
   function linkifyPlainURLs(text) {
     // Match http:// and https:// URLs
     const urlPattern = /(https?:\/\/[^\s<]+)/g;
     
-    return text.replace(urlPattern, (url) => {
+    return text.split(urlPattern).map((part, index) => {
+      if (index % 2 === 0) {
+        return sanitizeHTML(part);
+      }
+
+      const url = part;
       const sanitizedURL = validateAndSanitizeURL(url);
       if (!sanitizedURL) {
-        return url; // Return original if validation fails
+        return sanitizeHTML(url);
       }
-      
-      return `<a href="${sanitizedURL}" class="content-link" target="_blank" rel="noopener noreferrer">${url}</a>`;
-    });
+
+      return `<a href="${sanitizedURL}" class="content-link" target="_blank" rel="noopener noreferrer">${sanitizeHTML(url)}</a>`;
+    }).join('');
   }
 
   /**
@@ -198,9 +191,7 @@
         return processExistingLinks(text);
       }
       
-      // No HTML links - sanitize and convert plain URLs to links
-      const sanitized = sanitizeHTML(text);
-      return linkifyPlainURLs(sanitized);
+      return linkifyPlainURLs(text);
       
     } catch (error) {
       // Fallback to sanitized text on error
@@ -2168,6 +2159,11 @@
   function initBusinessMap(business) {
     const mapContainer = document.getElementById('biz-map');
     if (!mapContainer) return;
+
+    if (typeof L === 'undefined') {
+      mapContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-muted);">Map unavailable offline</div>';
+      return;
+    }
 
     // Get coordinates for this business
     const coords = getBusinessCoordinates(business.id);
