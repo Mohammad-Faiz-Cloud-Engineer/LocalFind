@@ -8,7 +8,7 @@
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "background_color": "#0A0E17",
-  "theme_color": "#FF9F43",
+  "theme_color": "#FF8A00",
   "orientation": "natural",
   "scope": "./",
   "lang": "en-US",
@@ -67,15 +67,13 @@
     "method": "GET",
     "enctype": "application/x-www-form-urlencoded",
     "params": {
-      "title": "name",
-      "text": "description",
-      "url": "website"
+      "text": "search"
     }
   },
   "protocol_handlers": [
     {
       "protocol": "web+localfind",
-      "url": "./?business=%s"
+      "url": "./directory.html?search=%s"
     }
   ],
   "related_applications": [],

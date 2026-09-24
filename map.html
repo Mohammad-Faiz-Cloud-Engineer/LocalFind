@@ -27,6 +27,7 @@
   <title>Map View - LocalFind</title>
   <meta name="description" content="Interactive map showing all businesses in Rasauli, Barabanki, Uttar Pradesh">
   <link rel="canonical" href="https://mohammad-faiz-cloud-engineer.github.io/LocalFind/map.html">
+  <meta property="og:image" content="https://mohammad-faiz-cloud-engineer.github.io/LocalFind/assets/images/og-image.svg">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/images/mainlogo.svg">
@@ -140,7 +141,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-lg);
       font-size: 15px;
-      font-family: var(--font-body);
+      font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif);
       background: rgba(30, 39, 54, 0.8);
       backdrop-filter: blur(10px);
       color: var(--text-primary);
@@ -572,7 +573,7 @@
 
     .leaflet-popup-content {
       margin: 16px;
-      font-family: var(--font-body);
+      font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif);
     }
 
     .leaflet-popup-tip {
@@ -793,6 +794,7 @@
     </div>
   </noscript>
   <main>
+    <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Interactive Business Map — LocalFind</h1>
     <div id="map-container">
       <div class="loading-overlay" id="loading">
         <div class="spinner"></div>

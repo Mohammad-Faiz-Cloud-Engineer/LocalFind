@@ -441,6 +441,10 @@
       return;
     }
 
+    const searchInput = document.getElementById('filter-search');
+    const initialSearch = new URLSearchParams(window.location.search).get('search')?.trim();
+    if (initialSearch && searchInput) searchInput.value = initialSearch;
+
     applyQueryParams();
     offset = 0;
 
@@ -457,7 +461,6 @@
     const searchTipsBtn = document.getElementById('search-tips-btn');
     const searchTipsTooltip = document.getElementById('search-tips-tooltip');
     const searchTipsClose = document.getElementById('search-tips-close');
-    const searchInput = document.getElementById('filter-search');
 
     if (searchTipsBtn && searchTipsTooltip && searchTipsClose) {
       // Toggle tooltip
@@ -509,12 +512,16 @@
         timeout = setTimeout(() => {
           const query = e.target.value.trim();
           if (!query) {
-            currentListings = [...window.LISTINGS];
-            applyQueryParams();
+            currentListings = getBaseListings();
+            setFilterLabel(null);
           } else {
             currentListings = filterListings(query);
           }
           offset = 0;
+          const url = new URL(window.location.href);
+          if (query) url.searchParams.set('search', query);
+          else url.searchParams.delete('search');
+          history.replaceState({}, '', url);
           render();
         }, 300);
       });

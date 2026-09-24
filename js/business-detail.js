@@ -892,7 +892,7 @@
           <span>Pay Online (UPI)</span>
         </div>
       ` : ''}
-      ${(biz.phone || biz.phoneSecondary || biz.phoneThird || biz.whatsapp || biz.whatsappSecondary || biz.whatsappThird || biz.whatsappFourth) && !biz.disableAppointment ? `
+      ${(biz.phone || biz.phoneSecondary || biz.phoneThird || biz.phoneFourth || biz.whatsapp || biz.whatsappSecondary || biz.whatsappThird || biz.whatsappFourth) && !biz.disableAppointment ? `
         <div class="contact-item appointment-trigger" id="appointment-btn" role="button" tabindex="0" aria-label="Book an appointment">
           <i class="fa-solid fa-calendar-check"></i>
           <span>Book Appointment</span>
@@ -902,7 +902,8 @@
         <a href="${validateAndSanitizeURL(biz.mapLink) || '#'}" target="_blank" rel="noopener noreferrer" class="btn" style="width:100%;">View on Map</a>
       </div>
     `;
-    document.getElementById('biz-contact').innerHTML = contactHtml;
+    const contactCard = document.getElementById('biz-contact');
+    if (contactCard) contactCard.innerHTML = contactHtml;
 
     // Render Mall Location in Sidebar (if business is inside a mall)
     if (biz.locatedInMall) {
@@ -932,11 +933,11 @@
         `;
         
         // Insert after contact card
-        const contactCard = document.getElementById('biz-contact');
-        if (contactCard && contactCard.parentNode) {
+        const contactCardEl = document.getElementById('biz-contact');
+        if (contactCardEl && contactCardEl.parentNode) {
           const mallCard = document.createElement('div');
           mallCard.innerHTML = mallLocationHtml;
-          contactCard.parentNode.insertBefore(mallCard.firstElementChild, contactCard.nextSibling);
+          contactCardEl.parentNode.insertBefore(mallCard.firstElementChild, contactCardEl.nextSibling);
         }
       }
     }
@@ -2085,20 +2086,24 @@
           </div>
         `;
       }).join('');
-    document.getElementById('biz-hours').innerHTML = hoursHtml;
+    const hoursCard = document.getElementById('biz-hours');
+    if (hoursCard) hoursCard.innerHTML = hoursHtml;
 
     // Render tags
     const tagsHtml = '<h4 class="section-header">Services</h4>' +
       (Array.isArray(biz.tags) ? biz.tags.map(tag => `<span class="tag">${sanitizeHTML(tag)}</span>`).join('') : '<p class="empty-state">No services listed.</p>');
-    document.getElementById('biz-tags').innerHTML = tagsHtml;
+    const tagsCard = document.getElementById('biz-tags');
+    if (tagsCard) tagsCard.innerHTML = tagsHtml;
 
     // Render related listings
     const relatedList = document.getElementById('related-list');
-    const related = window.LISTINGS.filter(b => b.categorySlug === biz.categorySlug && b.id !== biz.id).slice(0, 3);
-    if (related.length > 0) {
-      relatedList.innerHTML = related.map(b => window.renderCard(b)).join('');
-    } else {
-      relatedList.innerHTML = '<div class="empty-state"><p>No related listings available.</p></div>';
+    if (relatedList) {
+      const related = window.LISTINGS.filter(b => b.categorySlug === biz.categorySlug && b.id !== biz.id).slice(0, 3);
+      if (related.length > 0) {
+        relatedList.innerHTML = related.map(b => window.renderCard(b)).join('');
+      } else {
+        relatedList.innerHTML = '<div class="empty-state"><p>No related listings available.</p></div>';
+      }
     }
 
     // Share functionality
