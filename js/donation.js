@@ -67,7 +67,7 @@
     const qrTarget = getElement('donation-qr-code');
     if (!qrTarget) return;
 
-    const upiString = `upi://pay?pa=${DONATION_CONFIG.upiId}&pn=${DONATION_CONFIG.upiName}&cu=${DONATION_CONFIG.currency}`;
+    const upiString = `upi://pay?pa=${DONATION_CONFIG.upiId}&pn=${encodeURIComponent(DONATION_CONFIG.upiName)}&cu=${DONATION_CONFIG.currency}`;
 
     // Check if QRCode library is loaded
     if (typeof QRCode === 'undefined') {

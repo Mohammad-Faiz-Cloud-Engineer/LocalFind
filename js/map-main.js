@@ -662,7 +662,10 @@
       }
     });
 
+    let searchTimeout;
     searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
       const query = e.target.value.trim();
 
       if (query) {
@@ -786,6 +789,7 @@
         });
         map.fitBounds(bounds, { padding: [50, 50] });
       }
+      }, 300);
     });
 
     clearBtn.addEventListener('click', () => {

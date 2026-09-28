@@ -310,7 +310,7 @@
 
     return window.LISTINGS.filter(b =>
       (!category || b.categorySlug === category) &&
-      (!location || b.address?.toLowerCase().includes(location))
+      (!location || (b.address || '').toLowerCase().includes(location))
     );
   }
 
@@ -339,7 +339,7 @@
           return window.isBusinessNew && window.isBusinessNew(business);
         }
         if (specialCommand.property === 'isOpen') {
-          return window.getBusinessStatus?.(business).isOpen === specialCommand.value;
+          return window.getBusinessStatus?.(business)?.isOpen === specialCommand.value;
         }
         return business[specialCommand.property] === specialCommand.value;
       });

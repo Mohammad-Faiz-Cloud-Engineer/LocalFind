@@ -1292,7 +1292,7 @@ body.modal-open {
 .appointment-overlay {
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  z-index: var(--z-modal-backdrop);
   background: rgba(0, 0, 0, 0);
   display: flex;
   align-items: flex-end;
@@ -2014,7 +2014,7 @@ body.modal-open {
 .upi-overlay {
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  z-index: var(--z-modal-backdrop);
   background: rgba(0, 0, 0, 0);
   display: flex;
   align-items: flex-end;

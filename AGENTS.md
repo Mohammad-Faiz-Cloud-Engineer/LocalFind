@@ -49,12 +49,16 @@ LocalFind is a local business directory PWA built with vanilla JavaScript (HTML5
 - Semicolons required
 - Meaningful variable names
 - Business data uses `coordinates: { lat: X, lng: Y }` format
+- **Type Safety**: Always coerce external data to strings before string operations (e.g., `String(biz.whatsapp).replace(...)`) to prevent `TypeError` crashes.
+- **Safe Access**: Always use optional chaining (`?.`) or fallback values when filtering or accessing potentially undefined data properties.
 
 ### CSS
 
 - Mobile-first responsive design
 - Use CSS custom properties (variables)
 - Meaningful class names
+- **Z-Index System**: Strictly adhere to CSS variables for z-indexes (e.g., `var(--z-modal-backdrop)`). Never hardcode arbitrary values like `10000`.
+- **Specificity**: Avoid using `!important` to prevent specificity wars. Keep utility classes decoupled from component logic.
 
 ### HTML
 
@@ -77,6 +81,10 @@ LocalFind is a local business directory PWA built with vanilla JavaScript (HTML5
    - `addedDate` is required (format: `"YYYY-MM-DD"`) — used by `isBusinessNew()` to show "New" badge (7-day window)
    - Real-time open/closed status is calculated from `hours` using IST (UTC+5:30), not from the `status` field
    - If inside a mall: add `locatedInMall: "mall-id"` AND update the mall's `tenants` array
+   - **Phone Formatting**: Ensure numbers use standard spacing: `+91 XXXXX XXXXX`.
+   - **Exact Keys**: Strictly use the exact keys from the template (e.g., use `onlineOrder` only, never duplicate as `orderOnline`).
+   - **Mandatory Fields**: Do not completely omit basic keys (like `phone`); include them as empty strings `""` if data is unavailable.
+   - **Review Consistency**: If `rating` is > 0, the `reviews` array MUST contain at least one valid review object. Do not leave "phantom" ratings with 0 reviews.
 
 2. **`js/config.js`** - Add search keywords to `searchAliases` and bump `version`
    - **IMPORTANT**: CONFIG is frozen with `Object.freeze()` at runtime — you MUST edit the source file, not runtime objects

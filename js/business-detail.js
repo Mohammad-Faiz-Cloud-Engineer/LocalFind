@@ -622,7 +622,7 @@
     if (biz.reviews && biz.reviews.length > 0 && reviewsList) {
       reviewsList.innerHTML = biz.reviews.map((review, index) => {
         const isAdmin = review.role && review.role.includes('LocalFind');
-        const reviewStars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+        const reviewStars = '★'.repeat(Math.floor(review.rating)) + '☆'.repeat(Math.ceil(5 - review.rating));
         const reviewDate = new Date(review.date).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'short',
@@ -780,7 +780,7 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsapp.replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://wa.me/${String(biz.whatsapp).replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsapp)}${biz.whatsappName ? ` (${sanitizeHTML(biz.whatsappName)})` : ''}</span>
           </div>
         </div>
@@ -789,7 +789,7 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsappSecondary.replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://wa.me/${String(biz.whatsappSecondary).replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsappSecondary)}${biz.whatsappSecondaryName ? ` (${sanitizeHTML(biz.whatsappSecondaryName)})` : ''}</span>
           </div>
         </div>
@@ -798,7 +798,7 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsappThird.replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://wa.me/${String(biz.whatsappThird).replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsappThird)}${biz.whatsappThirdName ? ` (${sanitizeHTML(biz.whatsappThirdName)})` : ''}</span>
           </div>
         </div>
@@ -807,7 +807,7 @@
         <div class="contact-item">
           <i class="fa-brands fa-whatsapp"></i>
           <div>
-            <a href="https://wa.me/${biz.whatsappFourth.replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://wa.me/${String(biz.whatsappFourth).replace(/[^0-9]/g, '')}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 2px;">${sanitizeHTML(biz.whatsappFourth)}${biz.whatsappFourthName ? ` (${sanitizeHTML(biz.whatsappFourthName)})` : ''}</span>
           </div>
         </div>
@@ -815,7 +815,7 @@
       ${biz.website ? `
         <div class="contact-item">
           <i class="fa-solid fa-globe"></i>
-          <a href="${validateAndSanitizeURL(biz.website) || '#'}" target="_blank" rel="noopener noreferrer">${biz.website.includes('jsdl.in') || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
+          <a href="${validateAndSanitizeURL(biz.website) || '#'}" target="_blank" rel="noopener noreferrer">${(typeof biz.website === 'string' && biz.website.includes('jsdl.in')) || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
         </div>
       ` : ''}
       ${biz.orderOnline ? `
@@ -996,7 +996,7 @@
       const upiId = preselectedUpi || business.upiId || (Array.isArray(business.upiIds) ? business.upiIds[0] : '') || '';
       const safeUpiId = sanitizeHTML(upiId);
       const safeUpiName = sanitizeHTML(business.upiName || business.name);
-      const upiDeepLink = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(business.upiName || business.name)}&cu=INR`;
+      const upiDeepLink = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${sanitizeForUPI(business.upiName || business.name)}&cu=INR`;
 
       // Build the overlay + bottom sheet
       const overlay = document.createElement('div');
@@ -1878,7 +1878,7 @@
       function sendAppointmentToWhatsApp(biz, time, contact) {
         const formattedTime = formatTime12Hour(time);
         const message = generateAppointmentMessage(biz, formattedTime);
-        const phoneNumber = contact.number.replace(/[^0-9]/g, '');
+        const phoneNumber = String(contact.number).replace(/[^0-9]/g, '');
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         
         // Show loading state
@@ -2246,7 +2246,8 @@
     // Add click handler to open full map
     mapContainer.style.cursor = 'pointer';
     mapContainer.addEventListener('click', () => {
-      window.open(business.mapLink, '_blank');
+      const mapUrl = window.validateAndSanitizeURL ? window.validateAndSanitizeURL(business.mapLink) : business.mapLink;
+    window.open(mapUrl || business.mapLink, '_blank');
     });
   }
 

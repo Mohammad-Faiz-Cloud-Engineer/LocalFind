@@ -280,13 +280,19 @@ function initNavbar(){
   });
   
   // Navbar scroll effect
+  let scrollTicking = false;
   window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    
-    if (currentScroll > 40) {
-      navbar.classList.add('navbar--scrolled');
-    } else {
-      navbar.classList.remove('navbar--scrolled');
+    if (!scrollTicking) {
+      window.requestAnimationFrame(() => {
+        const currentScroll = window.scrollY;
+        if (currentScroll > 40) {
+          navbar.classList.add('navbar--scrolled');
+        } else {
+          navbar.classList.remove('navbar--scrolled');
+        }
+        scrollTicking = false;
+      });
+      scrollTicking = true;
     }
   }, { passive: true });
   
