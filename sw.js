@@ -57,6 +57,8 @@ const STATIC_ASSETS = [
   `${EFFECTIVE_BASE_PATH}/js/map-main.js`,
   `${EFFECTIVE_BASE_PATH}/js/pwa.js`,
   `${EFFECTIVE_BASE_PATH}/assets/images/mainlogo.svg`,
+  `${EFFECTIVE_BASE_PATH}/assets/images/icon-192x192.png`,
+  `${EFFECTIVE_BASE_PATH}/assets/images/icon-512x512.png`,
   `${EFFECTIVE_BASE_PATH}/assets/images/og-image.svg`,
   `${EFFECTIVE_BASE_PATH}/privacy-policy.html`,
   `${EFFECTIVE_BASE_PATH}/manifest.json`
@@ -83,7 +85,7 @@ self.addEventListener('activate', (event) => {
       .then((cacheNames) => {
         return Promise.all(
           cacheNames
-            .filter((cacheName) => !currentCaches.includes(cacheName))
+            .filter((cacheName) => cacheName.startsWith('localfind-') && !currentCaches.includes(cacheName))
             .map((cacheName) => caches.delete(cacheName))
         );
       })

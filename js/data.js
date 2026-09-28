@@ -1630,7 +1630,6 @@ window.LISTINGS = [
     reviews: [],
     address: "W59W+3PP, Gayas Nagar, Ganga Vihar Colny, Lakhpedabagh, Barel, Uttar Pradesh 225001",
     mapLink: "https://maps.app.goo.gl/4vqmGeh5LMXwQPYo9",
-    phone: "",
     email: "",
     website: "",
     whatsapp: "",

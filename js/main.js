@@ -10,6 +10,8 @@
  * 
  * Configuration is loaded from config.js
  */
+// Fallback if config.js fails to load
+window.CONFIG = window.CONFIG || { siteName: 'LocalFind', version: '4.3.9' };
 
 /**
  * Render site header with navigation

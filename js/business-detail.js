@@ -252,7 +252,7 @@
       // Check if audio file exists for this business
       // Use raw business name (not sanitized) for file path construction
       // Replace forward slashes with hyphens for file system compatibility
-      const folderName = biz.name.replace(/\//g, '-');
+      const folderName = (biz.name || '').replace(/\//g, '-');
       const audioPath = `Voices/${encodeURIComponent(folderName)}/`;
       const descriptionAudio = `${audioPath}${encodeURIComponent('Business Description.mp3')}`;
       
@@ -315,7 +315,11 @@
       const descAudio = document.getElementById('desc-audio');
       
       if (descListenBtn && descAudio) {
-        initAudioPlayer(descListenBtn, descAudio, 'description');
+        if (typeof initAudioPlayer === 'function') {
+          initAudioPlayer(descListenBtn, descAudio, 'description');
+        } else {
+          descListenBtn.style.display = 'none';
+        }
       }
       
       // Add see more/less functionality
@@ -350,7 +354,7 @@
     }
 
     // Generate avatar from business name (first letter of each word, max 2 letters)
-    const avatarText = biz.name
+    const avatarText = (biz.name || '')
       .split(' ')
       .filter(word => word.length > 0)
       .slice(0, 2)
@@ -378,7 +382,8 @@
     if (badgesEl) badgesEl.innerHTML = badgesHtml.join('');
 
     // Render rating
-    const stars = '★'.repeat(Math.floor(biz.rating)) + '☆'.repeat(5 - Math.floor(biz.rating));
+    const ratingNum = biz.rating || 0;
+    const stars = '★'.repeat(Math.floor(ratingNum)) + '☆'.repeat(5 - Math.floor(ratingNum));
     const ratingEl = document.getElementById('biz-rating');
     if (ratingEl) {
       ratingEl.innerHTML = `
@@ -427,8 +432,9 @@
               </div>
               <div class="tenants-grid" id="tenants-grid">
                 ${tenantBusinesses.map(tenant => {
-                  const tenantAvatar = tenant.name.split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('');
-                  const tenantStars = '★'.repeat(Math.floor(tenant.rating)) + '☆'.repeat(5 - Math.floor(tenant.rating));
+                  const tenantAvatar = (tenant.name || '').split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+                  const tenantRatingNum = tenant.rating || 0;
+                  const tenantStars = '★'.repeat(Math.floor(tenantRatingNum)) + '☆'.repeat(5 - Math.floor(tenantRatingNum));
                   const tenantDescription = tenant.description || '';
                   const tenantDesc = tenantDescription.length > 120 ? tenantDescription.substring(0, 120) + '...' : tenantDescription;
                   const tenantBizStatus = window.getBusinessStatus ? window.getBusinessStatus(tenant) : null;
@@ -631,7 +637,7 @@
         // Check if audio file exists for admin review
         // Use raw business name (not sanitized) for file path construction
         // Replace forward slashes with hyphens for file system compatibility
-        const folderName = biz.name.replace(/\//g, '-');
+        const folderName = (biz.name || '').replace(/\//g, '-');
         const audioPath = `Voices/${encodeURIComponent(folderName)}/`;
         const reviewAudio = isAdmin ? `${audioPath}${encodeURIComponent('Admin Review.mp3')}` : '';
 
@@ -688,7 +694,11 @@
           const reviewAudio = document.getElementById(`review-audio-${reviewId}`);
           
           if (reviewListenBtn && reviewAudio) {
-            initAudioPlayer(reviewListenBtn, reviewAudio, `review-${index}`);
+            if (typeof initAudioPlayer === 'function') {
+              initAudioPlayer(reviewListenBtn, reviewAudio, `review-${index}`);
+            } else {
+              reviewListenBtn.style.display = 'none';
+            }
           }
         }
         
@@ -917,13 +927,13 @@
             </h4>
             <a href="business-detail.html?id=${encodeURIComponent(mall.id)}" class="mall-location-link">
               <div class="mall-location-content">
-                <div class="mall-avatar">${mall.name.split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('')}</div>
+                <div class="mall-avatar">${(mall.name || '').split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('')}</div>
                 <div class="mall-info">
                   <div class="mall-name">${sanitizeHTML(mall.name)}</div>
                   <div class="mall-category">${sanitizeHTML(mall.category)}</div>
                   <div class="mall-rating">
-                    <span class="rating-stars">${'★'.repeat(Math.floor(mall.rating))}</span>
-                    <span class="rating-value">${mall.rating}</span>
+                    <span class="rating-stars">${'★'.repeat(Math.floor(mall.rating || 0))}</span>
+                    <span class="rating-value">${mall.rating || 0}</span>
                   </div>
                 </div>
                 <i class="fa-solid fa-chevron-right"></i>

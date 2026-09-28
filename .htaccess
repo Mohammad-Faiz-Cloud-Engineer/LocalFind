@@ -21,7 +21,8 @@
   Header always set X-Frame-Options "SAMEORIGIN"
   
   # XSS Protection
-  Header always set X-XSS-Protection "1; mode=block"
+  # XSS Protection (Deprecated, set to 0)
+  Header always set X-XSS-Protection "0"
   
   # Prevent MIME type sniffing
   Header always set X-Content-Type-Options "nosniff"
@@ -30,7 +31,7 @@
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   
   # Content Security Policy
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https://www.openstreetmap.org; object-src 'none'; base-uri 'self'; form-action 'self' https:;"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https:; frame-src 'self' https://www.openstreetmap.org; object-src 'none'; base-uri 'self'; form-action 'self' https:;"
   
   # Permissions Policy
   Header always set Permissions-Policy "geolocation=(self), microphone=(), camera=()"
@@ -41,7 +42,7 @@
 
 # Compression
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
 </IfModule>
 
 # Browser Caching with Cache-Control

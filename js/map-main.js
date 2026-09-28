@@ -277,10 +277,11 @@
         map.setView(userLocation, 15);
 
         // Show accuracy warning if low
+        const listingsCount = window.LISTINGS ? window.LISTINGS.length : 0;
         if (accuracy > 100) {
-          mapStatus.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: #f39c12;"></i> Location found (low accuracy: ±${Math.round(accuracy)}m) • ${window.LISTINGS.length} businesses`;
+          mapStatus.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: #f39c12;"></i> Location found (low accuracy: ±${Math.round(accuracy)}m) • ${listingsCount} businesses`;
         } else {
-          mapStatus.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #4ECDC4;"></i> Location found (±${Math.round(accuracy)}m) • ${window.LISTINGS.length} businesses`;
+          mapStatus.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #4ECDC4;"></i> Location found (±${Math.round(accuracy)}m) • ${listingsCount} businesses`;
         }
       },
       (error) => {
@@ -305,8 +306,8 @@
           default:
             errorMsg = 'Unable to retrieve location';
         }
-
-        mapStatus.innerHTML = `${errorIcon} ${errorMsg} • ${window.LISTINGS.length} businesses`;
+        const listingsCount = window.LISTINGS ? window.LISTINGS.length : 0;
+        mapStatus.innerHTML = `${errorIcon} ${errorMsg} • ${listingsCount} businesses`;
       },
       {
         enableHighAccuracy: true,
@@ -358,10 +359,12 @@
 
         map.setView(userLocation, 14);
 
-        mapStatus.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: #f39c12;"></i> Approximate location (±${Math.round(accuracy)}m) • ${window.LISTINGS.length} businesses`;
+        const listingsCount = window.LISTINGS ? window.LISTINGS.length : 0;
+        mapStatus.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: #f39c12;"></i> Approximate location (±${Math.round(accuracy)}m) • ${listingsCount} businesses`;
       },
       (error) => {
-        mapStatus.innerHTML = `<i class="fa-solid fa-circle-xmark" style="color: #e74c3c;"></i> Unable to get location • ${window.LISTINGS.length} businesses`;
+        const listingsCount = window.LISTINGS ? window.LISTINGS.length : 0;
+        mapStatus.innerHTML = `<i class="fa-solid fa-circle-xmark" style="color: #e74c3c;"></i> Unable to get location • ${listingsCount} businesses`;
       },
       {
         enableHighAccuracy: false,
@@ -650,6 +653,15 @@
       e.stopPropagation();
     }, { passive: true });
 
+    searchResults.addEventListener('click', (e) => {
+      const item = e.target.closest('.search-result-item');
+      if (item) {
+        const businessId = item.getAttribute('data-business-id');
+        navigateToBusinessOnMap(businessId);
+        searchResults.classList.remove('visible');
+      }
+    });
+
     searchInput.addEventListener('input', (e) => {
       const query = e.target.value.trim();
 
@@ -674,7 +686,7 @@
       const searchTerms = expandSearchQuery(query);
 
       const matchingBusinesses = [];
-      window.LISTINGS.forEach((business, index) => {
+      (window.LISTINGS || []).forEach((business, index) => {
         // Expand search logic to match relevance
         const matches = matchesSearchTerms(business.name, searchTerms) ||
           matchesSearchTerms(business.description, searchTerms) ||
@@ -749,14 +761,6 @@
           </div>
         `).join('');
         searchResults.classList.add('visible');
-
-        searchResults.querySelectorAll('.search-result-item').forEach(item => {
-          item.addEventListener('click', () => {
-            const businessId = item.getAttribute('data-business-id');
-            navigateToBusinessOnMap(businessId);
-            searchResults.classList.remove('visible');
-          });
-        });
       } else {
         searchResults.innerHTML = '<div class="no-results">No businesses found near you</div>';
         searchResults.classList.add('visible');

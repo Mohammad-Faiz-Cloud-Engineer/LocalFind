@@ -133,7 +133,10 @@ const CONFIG = {
     'jiffy': ['jiffy-by-spencers', 'spencers', 'grocery', 'supermarket', 'retail', 'shopping', 'mall'],
     'spencers': ['jiffy-by-spencers', 'jiffy', 'grocery-store', 'supermarket', 'retail-chain', 'shopping', 'mall'],
     'seven-eleven': ['7-eleven', 'seven-eleven-mart', 'convenience-store', 'grocery', 'general-store', 'kirana', 'daily-essentials', 'snacks', 'beverages'],
-    'vineet-jan-seva-kendra': ['vineet', 'jan seva kendra', 'csc', 'common service center', 'vineet csc']
+    'vineet-jan-seva-kendra': ['vineet', 'jan seva kendra', 'csc', 'common service center', 'vineet csc'],
+    'hala-motors': ['hala', 'motors', 'repair', 'auto', 'mechanic', 'garage', 'vehicle', 'bike', 'car'],
+    'om-dhaba': ['om', 'dhaba', 'restaurant', 'food', 'indian', 'meals', 'lunch', 'dinner'],
+    'rajju-pankaj-sweets': ['rajju', 'pankaj', 'sweets', 'sweet', 'mithai', 'desserts', 'rajju sweets']
   }
 };
 

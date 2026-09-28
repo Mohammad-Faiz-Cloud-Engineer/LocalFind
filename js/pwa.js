@@ -185,7 +185,7 @@
               controllerChanged = true;
               // Force reload with cache bypass
               window.location.reload();
-            });
+            }, { once: true });
             
             // Send skip waiting message
             swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
@@ -263,11 +263,15 @@
       // Show install prompt
       deferredPrompt.prompt();
       
-      // Wait for user response
-      const { outcome } = await deferredPrompt.userChoice;
-      
-      // Clear deferred prompt
-      deferredPrompt = null;
+      try {
+        // Wait for user response
+        const { outcome } = await deferredPrompt.userChoice;
+      } catch (e) {
+        console.error('PWA install prompt error:', e);
+      } finally {
+        // Clear deferred prompt
+        deferredPrompt = null;
+      }
       
       // Always hide button after prompt is resolved to prevent broken state
       hideInstallButton();

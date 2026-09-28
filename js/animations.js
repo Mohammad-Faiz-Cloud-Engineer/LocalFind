@@ -48,10 +48,6 @@
     let width, height;
     const dots = [];
     
-    resizeHandler = resize;
-    resize();
-    window.addEventListener('resize', resizeHandler);
-    
     // Cleanup on page unload
     window.addEventListener('beforeunload', () => {
       if (resizeHandler) {
@@ -69,6 +65,15 @@
       height = canvas.height = canvas.offsetHeight;
       initDots();
     }
+
+    let resizeTimeout;
+    resizeHandler = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resize, 100);
+    };
+    
+    resize();
+    window.addEventListener('resize', resizeHandler);
     
     function initDots() {
       dots.length = 0;
