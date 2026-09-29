@@ -102,7 +102,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
 
   // Skip cross-origin requests (CDN fonts, icons, etc.)
-  if (url.origin !== location.origin) {
+  if (url.origin !== location.origin && !url.hostname.includes("fonts.googleapis.com") && !url.hostname.includes("fonts.gstatic.com") && !url.hostname.includes("cdnjs.cloudflare.com")) {
     return;
   }
 

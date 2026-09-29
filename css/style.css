@@ -115,6 +115,7 @@ textarea::-moz-selection {
   --font-display: 'Syne', 'Inter', sans-serif;
 
   /* Z-index System */
+  --z-local: 10;
   --z-dropdown: 1000;
   --z-sticky: 1020;
   --z-fixed: 1030;
@@ -555,7 +556,7 @@ section h2::after {
    ============================================ */
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 .scroll-down {
@@ -609,7 +610,7 @@ section h2::after {
 
 /* Hide install button when in PWA mode */
 .pwa-mode .pwa-install-button {
-  display: none !important;
+  display: none;
 }
 
 /* Smooth scrolling for PWA */

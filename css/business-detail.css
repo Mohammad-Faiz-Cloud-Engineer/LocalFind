@@ -2,8 +2,8 @@
 
 /* Hide body scrollbar when modal is open */
 body.modal-open {
-  overflow: hidden !important;
-  padding-right: 0 !important;
+  overflow: hidden;
+  padding-right: 0;
 }
 
 .breadcrumb {
@@ -1015,7 +1015,7 @@ body.modal-open {
   transition: all var(--transition-fast);
   box-shadow: 0 2px 8px rgba(255, 138, 0, 0.3);
   font-family: var(--font-sans);
-  z-index: 10;
+  z-index: var(--z-local);
 }
 
 .btn-share:hover {
@@ -1400,7 +1400,7 @@ body.modal-open {
   align-items: center;
   justify-content: center;
   transition: all var(--transition-fast);
-  z-index: 10;
+  z-index: var(--z-local);
 }
 
 .appointment-sheet-close:hover {

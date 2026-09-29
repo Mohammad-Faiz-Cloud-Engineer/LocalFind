@@ -815,7 +815,7 @@
       ${biz.website ? `
         <div class="contact-item">
           <i class="fa-solid fa-globe"></i>
-          <a href="${validateAndSanitizeURL(biz.website) || '#'}" target="_blank" rel="noopener noreferrer">${(typeof biz.website === 'string' && biz.website.includes('jsdl.in')) || biz.website.includes('justdial') ? 'JustDial' : 'Website'}</a>
+          <a href="${validateAndSanitizeURL(biz.website) || '#'}" target="_blank" rel="noopener noreferrer">${(typeof biz.website === 'string' && (biz.website.includes('jsdl.in') || biz.website.includes('justdial'))) ? 'JustDial' : 'Website'}</a>
         </div>
       ` : ''}
       ${biz.orderOnline ? `

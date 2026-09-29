@@ -74,7 +74,7 @@ const CONFIG = {
     minNameLength: 2,
     maxNameLength: 100,
     minDescriptionLength: 10,
-    maxDescriptionLength: 500,
+    maxDescriptionLength: 850,
     phonePattern: /^[\d\s\+\-\(\)]+$/,
     emailPattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   },
@@ -144,6 +144,7 @@ const CONFIG = {
 Object.freeze(CONFIG);
 Object.freeze(CONFIG.socialLinks);
 Object.freeze(CONFIG.api);
+Object.freeze(CONFIG.api.endpoints);
 Object.freeze(CONFIG.features);
 Object.freeze(CONFIG.pagination);
 Object.freeze(CONFIG.validation);

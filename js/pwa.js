@@ -96,7 +96,7 @@
         bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
-        z-index: 10000;
+        z-index: var(--z-modal);
         background: var(--bg-card);
         border: 1px solid var(--accent-primary);
         border-radius: 12px;
@@ -284,7 +284,7 @@
         position: fixed;
         bottom: 80px;
         right: 20px;
-        z-index: 9999;
+        z-index: var(--z-tooltip);
         display: flex;
         align-items: center;
         gap: 8px;
@@ -439,7 +439,7 @@
           top: 80px;
           left: 50%;
           transform: translateX(-50%);
-          z-index: 10000;
+          z-index: var(--z-modal);
           padding: 12px 24px;
           border-radius: 50px;
           font-weight: 600;
