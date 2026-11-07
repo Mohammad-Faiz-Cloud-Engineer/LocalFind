@@ -11,7 +11,20 @@
  * Configuration is loaded from config.js
  */
 // Fallback if config.js fails to load
-window.CONFIG = window.CONFIG || { siteName: 'LocalFind', version: '4.3.9' };
+window.CONFIG = window.CONFIG || {
+  siteName: 'LocalFind',
+  version: '4.3.9',
+  tagline: 'Discover Everything Around You',
+  contactAddress: 'Rasauli, Barabanki, Uttar Pradesh 225001',
+  contactPhone: '+91 8004037031',
+  contactEmail: 'contact@localfind.in',
+  socialLinks: {
+    facebook: 'https://facebook.com',
+    instagram: 'https://instagram.com',
+    twitter: 'https://twitter.com',
+    whatsapp: 'https://wa.me/918004037031'
+  }
+};
 
 /**
  * Safely escape HTML characters
@@ -137,13 +150,13 @@ function renderFooter(){
             </div>
           </div>
           <div class="socials">
-            <a href="${escapeHTML(CONFIG.socialLinks.facebook)}" aria-label="Visit our Facebook page" rel="noopener noreferrer" target="_blank">
+            <a href="${escapeHTML(CONFIG.socialLinks?.facebook || "#")}" aria-label="Visit our Facebook page" rel="noopener noreferrer" target="_blank">
               <i class="fa-brands fa-facebook" aria-hidden="true"></i>
             </a>
-            <a href="${escapeHTML(CONFIG.socialLinks.instagram)}" aria-label="Visit our Instagram profile" rel="noopener noreferrer" target="_blank">
+            <a href="${escapeHTML(CONFIG.socialLinks?.instagram || "#")}" aria-label="Visit our Instagram profile" rel="noopener noreferrer" target="_blank">
               <i class="fa-brands fa-instagram" aria-hidden="true"></i>
             </a>
-            <a href="${escapeHTML(CONFIG.socialLinks.twitter)}" aria-label="Visit our Twitter profile" rel="noopener noreferrer" target="_blank">
+            <a href="${escapeHTML(CONFIG.socialLinks?.twitter || "#")}" aria-label="Visit our Twitter profile" rel="noopener noreferrer" target="_blank">
               <i class="fa-brands fa-twitter" aria-hidden="true"></i>
             </a>
           </div>
@@ -168,7 +181,7 @@ function renderFooter(){
         <div>
           <h4>Contact</h4>
           <p>${address}</p>
-          <p><a href="${escapeHTML(CONFIG.socialLinks.whatsapp)}" target="_blank" rel="noopener noreferrer">${phone} (WhatsApp Only)</a></p>
+          <p><a href="${escapeHTML(CONFIG.socialLinks?.whatsapp || "#")}" target="_blank" rel="noopener noreferrer">${phone} (WhatsApp Only)</a></p>
           <p><a href="mailto:${email}">${email}</a></p>
         </div>
       </div>

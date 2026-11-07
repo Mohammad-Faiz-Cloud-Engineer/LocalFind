@@ -113,6 +113,7 @@ textarea::-moz-selection {
   /* Typography */
   --font-sans: 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
   --font-display: 'Syne', 'Inter', sans-serif;
+  --font-mono: 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
 
   /* Z-index System */
   --z-local: 10;
