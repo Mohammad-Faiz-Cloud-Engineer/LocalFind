@@ -41,7 +41,11 @@
       return;
     }
 
-    const defaultCenter = [26.9135, 81.2328];
+    const defaultCenter = [
+      (window.CONFIG && typeof window.CONFIG.mapLat === 'number') ? window.CONFIG.mapLat : 26.9135,
+      (window.CONFIG && typeof window.CONFIG.mapLng === 'number') ? window.CONFIG.mapLng : 81.2328
+    ];
+    const defaultZoom = (window.CONFIG && typeof window.CONFIG.mapZoom === 'number') ? window.CONFIG.mapZoom : 14;
 
     map = L.map('map', {
       zoomControl: false,
@@ -68,7 +72,7 @@
       wheelPxPerZoomLevel: 60,
       preferCanvas: false,
       renderer: L.svg({ padding: 0.5 })
-    }).setView(defaultCenter, 14);
+    }).setView(defaultCenter, defaultZoom);
 
     // Cleanup on page unload
     window.addEventListener('beforeunload', () => {

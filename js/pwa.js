@@ -251,7 +251,7 @@
     installBtn.id = 'pwa-install-btn';
     installBtn.className = 'pwa-install-button';
     installBtn.innerHTML = `
-      <span></span>
+      <i class="fa-solid fa-download" aria-hidden="true"></i>
       <span>Install App</span>
     `;
     

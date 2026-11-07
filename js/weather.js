@@ -40,7 +40,8 @@
       const res = await fetch(WEATHER_API);
       if (!res.ok) throw new Error('Weather API failed');
       const data = await res.json();
-      const current = data.current_weather;
+      const current = data?.current_weather;
+      if (!current || typeof current.temperature !== 'number') throw new Error('Invalid weather data');
       const temp = Math.round(current.temperature);
       if (isNaN(temp)) throw new Error('Invalid temperature data');
       const code = current.weathercode;

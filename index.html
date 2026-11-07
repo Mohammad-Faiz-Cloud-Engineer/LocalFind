@@ -107,7 +107,7 @@
     <section class="hero" id="hero">
       <canvas id="hero-canvas" aria-hidden="true"></canvas>
       <div class="hero-inner">
-        <div class="hero-text" data-animate>
+        <div class="hero-text">
           <div id="weather-widget" class="weather-badge">Loading local weather...</div>
           <h1 class="hero-title">Discover Everything Around You</h1>
           <p class="hero-sub">Find local shops, restaurants, services & more<br>all in one place</p>
@@ -133,16 +133,17 @@
             <option value="food-beverages">Food & Beverages</option>
             <option value="electrical-services">Electrical Services</option>
             <option value="shopping-mall">Shopping Mall</option>
+            <option value="retail-grocery">Retail & Grocery</option>
           </select>
           <button type="submit" class="btn btn-cta">Search</button>
         </form>
 
         <div class="hero-stats">
-          <div class="stat" data-animate data-animate-delay="100"><strong class="count"
+          <div class="stat"><strong class="count"
               data-target="40">0</strong><span>Listings</span></div>
-          <div class="stat" data-animate data-animate-delay="200"><strong class="count"
+          <div class="stat"><strong class="count"
               data-target="16">0</strong><span>Categories</span></div>
-          <div class="stat" data-animate data-animate-delay="300"><strong class="count"
+          <div class="stat"><strong class="count"
               data-target="0">0</strong><span>Visitors</span></div>
         </div>
 
@@ -218,6 +219,10 @@
             <i class="fa-solid fa-shop" aria-hidden="true"></i>
             <span>Shopping Mall</span>
           </a>
+          <a class="category-card" href="directory.html?category=retail-grocery" aria-label="Browse Retail & Grocery">
+            <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+            <span>Retail & Grocery</span>
+          </a>
         </div>
       </div>
     </section>
@@ -251,19 +256,19 @@
     <!-- STATS COUNTER -->
     <section class="stats-section">
       <div class="container stats-grid" id="stats">
-        <div class="stat-card" data-animate>
+        <div class="stat-card">
           <div class="num" data-target="40">0</div>
           <div class="label">Businesses</div>
         </div>
-        <div class="stat-card" data-animate>
+        <div class="stat-card">
           <div class="num" data-target="16">0</div>
           <div class="label">Categories</div>
         </div>
-        <div class="stat-card" data-animate>
+        <div class="stat-card">
           <div class="num" data-target="18">0</div>
           <div class="label">Reviews</div>
         </div>
-        <div class="stat-card" data-animate>
+        <div class="stat-card">
           <div class="num" data-target="0">0</div>
           <div class="label">Visitors</div>
         </div>

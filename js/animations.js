@@ -10,25 +10,8 @@
   
   let resizeHandler = null;
   
-  // Intersection Observer for scroll animations
-  function onVisible(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const delay = el.dataset.animateDelay || 0;
-        setTimeout(() => el.classList.add('is-visible'), delay);
-        observer.unobserve(el);
-      }
-    });
-  }
-  
-  const observer = new IntersectionObserver(onVisible, { threshold: 0.12 });
-  
   document.addEventListener('DOMContentLoaded', () => {
-    // Observe all elements with data-animate attribute
-    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
-    
-    // Initialize hero particles
+    // Initialize hero particles on canvas if present
     initParticles();
   });
 

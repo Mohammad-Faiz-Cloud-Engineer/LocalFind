@@ -2246,8 +2246,8 @@
     // Add click handler to open full map
     mapContainer.style.cursor = 'pointer';
     mapContainer.addEventListener('click', () => {
-      const mapUrl = window.validateAndSanitizeURL ? window.validateAndSanitizeURL(business.mapLink) : business.mapLink;
-    window.open(mapUrl || business.mapLink, '_blank');
+      const mapUrl = validateAndSanitizeURL(business.mapLink);
+    window.open(mapUrl || business.mapLink, '_blank', 'noopener,noreferrer');
     });
   }
 

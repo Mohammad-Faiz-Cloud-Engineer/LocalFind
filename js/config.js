@@ -32,8 +32,6 @@ const CONFIG = {
   contactWhatsApp: "+91 8004037031",
   contactAddress: "Rasauli, Barabanki, Uttar Pradesh 225001",
   
-  // Business Information
-  foundedYear: 2026,
   
   // Social Media Links
   socialLinks: {
@@ -43,40 +41,9 @@ const CONFIG = {
     whatsapp: "https://wa.me/918004037031"
   },
   
-  // API Configuration (for production backend integration)
-  api: {
-    baseURL: '/api',
-    timeout: 10000,
-    endpoints: {
-      listings: '/listings',
-      business: '/business',
-      contact: '/contact/submit',
-      reviews: '/reviews'
-    }
-  },
-  
-  // Feature Flags
-  features: {
-    enableReviews: true,
-    enableMaps: true,
-    enableSearch: true,
-    enableAnalytics: false
-  },
-  
   // Pagination
   pagination: {
-    itemsPerPage: 6,
-    maxPages: 50
-  },
-  
-  // Validation Rules
-  validation: {
-    minNameLength: 2,
-    maxNameLength: 100,
-    minDescriptionLength: 10,
-    maxDescriptionLength: 850,
-    phonePattern: /^[\d\s\+\-\(\)]+$/,
-    emailPattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    itemsPerPage: 6
   },
   
   // Search Aliases - Map shorthand terms to full terms
@@ -143,11 +110,7 @@ const CONFIG = {
 // Freeze config to prevent modifications
 Object.freeze(CONFIG);
 Object.freeze(CONFIG.socialLinks);
-Object.freeze(CONFIG.api);
-Object.freeze(CONFIG.api.endpoints);
-Object.freeze(CONFIG.features);
 Object.freeze(CONFIG.pagination);
-Object.freeze(CONFIG.validation);
 Object.freeze(CONFIG.searchAliases);
 Object.keys(CONFIG.searchAliases).forEach(key => {
   Object.freeze(CONFIG.searchAliases[key]);

@@ -12,7 +12,7 @@
  */
 
 const CACHE_VERSION = 'localfind-v4.3.9';
-const BUILD_NUMBER = '20260924b'; // YYYYMMDD format
+const BUILD_NUMBER = '20261107'; // YYYYMMDD format
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
@@ -54,6 +54,7 @@ const STATIC_ASSETS = [
   `${EFFECTIVE_BASE_PATH}/js/business-detail.js`,
   `${EFFECTIVE_BASE_PATH}/js/donation.js`,
   `${EFFECTIVE_BASE_PATH}/js/animations.js`,
+  `${EFFECTIVE_BASE_PATH}/js/weather.js`,
   `${EFFECTIVE_BASE_PATH}/js/map-main.js`,
   `${EFFECTIVE_BASE_PATH}/js/pwa.js`,
   `${EFFECTIVE_BASE_PATH}/assets/images/mainlogo.svg`,

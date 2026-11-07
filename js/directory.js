@@ -8,7 +8,7 @@
 (function () {
   'use strict';
 
-  const ITEMS_PER_PAGE = 6;
+  const ITEMS_PER_PAGE = (window.CONFIG && window.CONFIG.pagination && typeof window.CONFIG.pagination.itemsPerPage === 'number') ? window.CONFIG.pagination.itemsPerPage : 6;
   let offset = 0;
   let currentListings = window.LISTINGS ? [...window.LISTINGS] : [];
 

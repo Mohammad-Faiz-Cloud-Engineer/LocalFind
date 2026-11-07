@@ -30,6 +30,7 @@ LocalFind is a local business directory PWA built with vanilla JavaScript (HTML5
 | `js/donation.js` | UPI donation system |
 | `js/counter.js` | Animated counter for stats |
 | `js/animations.js` | Scroll/entry animations |
+| `js/weather.js` | Real-time weather widget |
 | `index.html` | Homepage |
 | `directory.html` | Business listings page |
 | `categories.html` | Category browser |
@@ -222,7 +223,7 @@ After adding a business, verify:
 
 - **Version**: 4.3.9
 - **Cache Version**: `localfind-v4.3.9`
-- **Build Number**: `20260924b`
+- **Build Number**: `20261107`
 
 ## Project Structure
 
@@ -268,14 +269,10 @@ LocalFind/
 │   ├── counter.js
 │   └── animations.js
 ├── assets/
-│   ├── icons/
-│   │   ├── mainlogo.svg
-│   │   ├── dine.svg
-│   │   └── shop.svg
 │   └── images/
 │       ├── mainlogo.svg
-│       ├── logo.svg
-│       ├── og-image.jpg
+│       ├── icon-192x192.png
+│       ├── icon-512x512.png
 │       └── og-image.svg
 └── Voices/           (40 business voice recording folders)
 ```

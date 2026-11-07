@@ -14,10 +14,6 @@
 window.CONFIG = window.CONFIG || { siteName: 'LocalFind', version: '4.3.9' };
 
 /**
- * Render site header with navigation
- */
-
-/**
  * Safely escape HTML characters
  */
 function escapeHTML(str) {
@@ -335,7 +331,8 @@ function initScrollReveal() {
 
   const staggerContainers = [
     '.category-grid',
-    '.cards-grid',
+    '.category-grid-large',
+    '.card-grid',
     '.stats-grid',
     '.stats-grid-about',
     '.values-grid'
